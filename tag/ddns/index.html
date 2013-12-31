@@ -1,0 +1,315 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie9below ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie9below ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie9below ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<head>
+    <title>DDNS - Jeeker</title>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?99541" />
+    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <!-- <link rel='canonical' href="" /> -->
+    <meta name="robots" content="index,follow" />
+    <!-- <meta name="keywords" content="" /> -->
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="gradient"></div><!-- #gradient -->
+    <div id="header">
+        <div id="menu">
+            <ul>
+                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+            </ul>
+        </div>
+    </div><!-- ＃header -->
+
+<div id="main">
+    <div id="tools-box">
+        <ul>
+            <li id="tool-search">
+                <form action="http://google.com/search" method="get">
+                    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+                    <input type="hidden" name="q" value="site:jeeker.net" />
+                </form>
+            </li>
+        </ul>
+    </div><!-- #tools-box -->
+
+<div id="container">
+    <div id="content" role="main">
+
+
+
+<div id="post-81780" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/synology-nas-external-ip-change-notify/" title="Synology群晖NAS外部IP更新通知" rel="bookmark">Synology群晖NAS外部IP更新通知</a></h1>
+        <p class="entry-date" title="2013-03-04 15:23:00">
+            <span class="day">04</span>
+            <span class="month">Mar</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　在我的群晖DS211j上使用DDNS服务时经常出现长时间无法正常更新IP的现象<sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup>，这对于需要经常从外部访问的我来说是个很大的问题，于是写了段Python<sup class="footnote-ref" id="fnref-2"><a href="#fn-2">2</a></sup>脚本在NAS上监控外部IP地址的变化，如果发现改变将发送新的IP地址到指定的邮箱。<sup class="footnote-ref" id="fnref-3"><a href="#fn-3">3</a></sup></p>
+
+<h3 id="1">1. 脚本</h3>
+
+<pre><code>#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#! 强制默认编码为utf-8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+# 配置
+# SMTP服务器 用户 密码
+smtp_server = 'SMTP SERVER'
+smtp_port   = 25
+smtp_usr    = 'SMTP USERNAME'
+smtp_pwd    = 'SMTP PASSWORD'
+
+# 发送接受邮箱地址
+#! 发送邮箱需是smtp_usr有权操作的邮箱
+from_addr   = 'FROM EMAIL ADDRESS'
+to_addr     = 'TO EMAIL ADDRESS'
+
+# 获取外网IP的网址 可以是
+# http://ifconfig.me/ip
+# http://ip.3322.net
+# http://members.3322.org/dyndns/getip
+ip_check_server = 'http://ip.3322.net'
+
+# 记录文件路径
+log_file    = '/tmp/ipcheck.log'
+
+# 邮件主题 
+# 内容为新的IP
+mail_subject = 'IP check message'
+
+import os, urllib2, smtplib
+from datetime import datetime
+
+class CheckIP(object):
+    def __init__(self):
+        self.logs = []
+        self.openLog()
+
+    def __del__(self):
+        self.saveLog()
+
+    def openLog(self):
+        if not os.path.isfile(log_file):
+            open(log_file, 'w').close()
+        with open(log_file, 'r') as f:
+            self.logs = f.readlines()
+        if not self.logs or len(self.logs) &lt; 2:
+            self.logs = ['\n', '----\n']
+        # 确保第二行永远是分隔符
+        self.logs[1] = '----\n'
+
+    def saveLog(self):
+        with open(log_file, 'w') as f:
+            f.writelines(self.logs)
+
+    def getOldIP(self):
+        return self.logs[0].strip()
+
+    def setNewIP(self, new_ip):
+        if new_ip:
+            self.logs[0] = '{}\n'.format(new_ip)
+
+    def sendMail(self, msg):
+        if not msg:
+            return
+        data = {'from_addr' : from_addr,
+                'to_addr'   : to_addr,
+                'subject'   : mail_subject,
+                'msg'       : msg }
+        msg = 'From: {from_addr}\r\nTo: {to_addr}\r\nSubject: {subject}\r\n\r\n{msg}'.format(**data)
+        try:
+            smtp = smtplib.SMTP()
+            # smtp.set_debuglevel(1)
+            smtp.connect(smtp_server, smtp_port)
+            smtp.login(smtp_usr, smtp_pwd)
+            smtp.sendmail(from_addr, to_addr, msg)   
+            smtp.quit()
+        except Exception, e:
+            return False, 'send mail fail. {}'.format(e)
+        return True, None
+
+    def log(self, msg, need_mail = False):
+        if not msg:
+            return
+        print(msg)
+        log_msg = '{}\t{}\n'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), msg)
+        # 检查最近的记录，如果相同仅更新时间
+        try:
+            last_log = self.logs[2].split('\t')[1].strip()
+            if last_log == msg:
+                self.logs[2] = log_msg
+            else:
+                self.logs.insert(2, log_msg)
+        except Exception, e:
+            self.logs.insert(2, log_msg)
+
+        if need_mail:
+            self.sendMail(msg)
+
+    def checkIP(self):
+        old_ip = self.getOldIP()
+        try:
+            url = urllib2.Request(ip_check_server)
+            res = urllib2.urlopen(url)
+            new_ip = res.read().strip('\r\n ')
+        except Exception, e:
+            self.log('get ip fail. {}'.format(e), True)
+            return
+        if old_ip == new_ip:
+            return self.log('IP unchanged.')
+        res, msg = self.sendMail('IP Changed. {}'.format(new_ip))
+        if not res:
+            return self.log(msg)
+        self.setNewIP(new_ip)
+        self.log('IP changed. {}'.format(new_ip))
+
+    def cleanLog(self):
+        self.logs[2:] = []
+
+    def run(self):
+        if len(sys.argv) == 1:
+            return self.checkIP()
+        if '--clean' in sys.argv:
+            return self.cleanLog()
+        print('argument error.')
+
+if __name__ == '__main__':
+    ip = CheckIP()
+    ip.run()
+</code></pre>
+
+<p>[btn url="https://gist.github.com/JinnLynn/5080616" title="Source on gist" style="large" icon="github"]</p>
+
+<ul>
+<li>将上述代码另存为文本，并按脚本中的注释正确设置SMTP服务器、账户、密码、发送及接收邮箱地址</li>
+<li>将文件上传至NAS，如<code>/root/ipcheck.py</code></li>
+<li>使用<em>root</em>账户登陆NAS将该文件权限设置为可执行<code>chmod 744 /root/ipcheck.py</code></li>
+<li>执行<code>/root/ipcheck.py</code>测试，正常情况下你设置的接收邮箱将会收到一个包含NAS当前IP地址的邮件，如果没有请检查前面的操作是否正确。</li>
+</ul>
+
+<h3 id="2">2. 设定定时任务</h3>
+
+<p>　　用<em>root</em>账户执行<code>vi /etc/crontab</code><sup class="footnote-ref" id="fnref-4"><a href="#fn-4">4</a></sup>，在打开的文件末尾添加如下内容：</p>
+
+<pre><code>*/10        *        *        *        *        root        /root/ipcheck.py
+</code></pre>
+
+<p>　　其中<code>*/10</code>意为每10分钟检查一次外部IP。</p>
+
+<p>　　最后执行命令重启cron</p>
+
+<pre><code>/usr/syno/etc.defaults/rc.d/S04crond.sh stop &amp;&amp; sleep 1 &amp;&amp; /usr/syno/etc.defaults/rc.d/S04crond.sh start
+</code></pre>
+
+<p>　　至此，NAS将每隔一段时间检查外部IP，一旦发现地址变化就会发送邮件通知。</p>
+
+<h3 id="3">3. 其它</h3>
+
+<ul>
+<li><code>/tmp/ipcheck.txt</code>为默认保存当前ip地址信息及日志的文件，每次检查ip地址时都跟此文件内容比较，如果不同则发送通知邮件</li>
+</ul>
+
+<p><strong>REF</strong>:</p>
+
+<p>　　<a href="http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/">向StartSSL申请个人域名SSL证书</a></p>
+
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn-1">
+<p>貌似这是群晖DDNS服务的通病，在DSM4.2已经允许设置多个DDNS服务，不过为以防万一，自行监控IP变化也不失为一个好的预防手段。&nbsp;<a href="#fnref-1" class="footnoteBackLink" title="Jump back to footnote 1 in the text.">&#8617;</a></p>
+</li>
+
+<li id="fn-2">
+<p>群晖NAS DSM上默认不自带Python，需要从套件中心中安装。&nbsp;<a href="#fnref-2" class="footnoteBackLink" title="Jump back to footnote 2 in the text.">&#8617;</a></p>
+</li>
+
+<li id="fn-3">
+<p>不仅仅只适用于群晖NAS，只要安装了Python的*nix系统均可正常使用。&nbsp;<a href="#fnref-3" class="footnoteBackLink" title="Jump back to footnote 3 in the text.">&#8617;</a></p>
+</li>
+
+<li id="fn-4">
+<p>简单的vi操作: i进入编辑模式 esc 退出当前模式 : 进入命令行输入模式 w 保存内容 q 退出。&nbsp;<a href="#fnref-4" class="footnoteBackLink" title="Jump back to footnote 4 in the text.">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+</li>
+            <li class="entry-human-time-diff"> on Mar 04, 2013</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/synology-nas-external-ip-change-notify/#comments" title="Comment on Synology群晖NAS外部IP更新通知">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-81780 -->
+
+
+    <div id="pagenavi">
+        <span class="pages">Page 1 of 1</span>
+    </div><!-- #pagenavi -->
+   
+    </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="sidebar">
+</div><!-- #sidebar -->
+
+</div><!-- #main -->
+
+<div id="footer">
+    <div id="footer-left">
+        2012 Powered By <a href="http://jeeker.net/projects/gude/" title="a simple python static website generator">Gude</a>. Code licensed under <a href="http://opensource.org/licenses/MIT">MIT License</a>,
+        articles licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </div><!-- #footer-left -->
+    <div id="footer-right">
+    </div><!-- #footer-right -->
+</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<!-- print javascript -->
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?42566"></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?58572'></script>
+<![endif]-->
+
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="/assets/additional.js"></script>
+
+<!-- google analytics track code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31118267-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>

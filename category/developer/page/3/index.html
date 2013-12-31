@@ -1,0 +1,365 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie9below ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie9below ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie9below ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<head>
+    <title>Developer - Jeeker</title>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?99541" />
+    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <!-- <link rel='canonical' href="" /> -->
+    <meta name="robots" content="index,follow" />
+    <!-- <meta name="keywords" content="" /> -->
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="gradient"></div><!-- #gradient -->
+    <div id="header">
+        <div id="menu">
+            <ul>
+                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+            </ul>
+        </div>
+    </div><!-- ＃header -->
+
+<div id="main">
+    <div id="tools-box">
+        <ul>
+            <li id="tool-search">
+                <form action="http://google.com/search" method="get">
+                    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+                    <input type="hidden" name="q" value="site:jeeker.net" />
+                </form>
+            </li>
+        </ul>
+    </div><!-- #tools-box -->
+
+<div id="container">
+    <div id="content" role="main">
+
+
+
+<div id="post-11545" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/fetch-lyric-for-itunes/" title="让iTunes的歌曲自动获取歌词" rel="bookmark">让iTunes的歌曲自动获取歌词</a></h1>
+        <p class="entry-date" title="2012-05-04 14:05:45">
+            <span class="day">04</span>
+            <span class="month">May</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p><i><img src="http://static.afvisual.com/uploads/2012-05-04-fetch-lyric-for-itunes/screenshot.jpg" alt="Fetch Lyric for iTunes" /></i></p>
+
+<p>　　在<a href="http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/">4321.la</a>看到使用AppleScript自动获取iTunes曲目歌词的脚本，相当不错，自己做了些修改，添加了当歌词已存在时忽略获取，可以通过Growl通知获取的结果等功能。代码如下：</p>
+
+<pre><code>-- FetchLyric
+-- DESCRIPTION: 让iTunes内当前被选中的曲目自动下载并保存歌词，若歌词已存在将被忽略，支持Growl通知
+-- AUTHOR: JinnLynn http:://jeeker.net
+-- LAST UPDATED: 2012-05-04
+-- INTRO PAGE: http://jeeker.net/fetch-lyric-for-itunes/
+-- REF: Martian http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/
+property scriptName : "FetchLyric"
+property baseURL : "http://lyrics.sinaapp.com/"
+property isGrowlRunning : false
+property statusDesc : {"歌词已存在，无需再获取。", "歌词获取成功。", "歌词获取失败。", "未选择歌曲。"}
+property STATUS_LYRIC_EXIST : 1
+property STATUS_LYRIC_SUCCESS : 2
+property STATUS_LYRIC_FAIL : 3
+property STATUS_LYRIC_UNSELECTED : 4
+
+tell application "System Events"
+    set isGrowlRunning to (count of (every process whose bundle identifier is "com.Growl.GrowlHelperApp")) &gt; 0
+end tell
+
+script growl
+    on growlNotify(artist, title, status)
+        if isGrowlRunning = false then return
+        tell application id "com.Growl.GrowlHelperApp"
+            if title = "" then set title to "unknown"
+            set the_title to title
+            if artist is not equal to "" then set the_title to artist &amp; " - " &amp; the_title
+            set the_desc to item status of statusDesc
+            set the allNotificationsList to {scriptName}
+            set the enabledNotificationsList to {scriptName}
+            register as application ¬
+                scriptName all notifications allNotificationsList ¬
+                default notifications enabledNotificationsList ¬
+                icon of application "iTunes"
+            notify with name ¬
+                scriptName title ¬
+                the_title description ¬
+                the_desc application name scriptName
+            -- 尝试使用歌曲封面作为Growl图标出错
+        end tell
+    end growlNotify
+end script
+
+tell application "iTunes"
+    if selection is {} then
+        tell growl to growlNotify("", "", STATUS_LYRIC_UNSELECTED)
+        return
+    end if
+    set k to count (item of selection)
+    set i to 1
+    repeat
+        set theTrack to (item i of selection)
+        set this_artist to (get artist of theTrack)
+        set this_title to (get name of theTrack)
+        set this_lyric to (get lyrics of theTrack)
+        -- set this_artwork to data of artwork 1 of theTrack
+
+        set fetch_status to STATUS_LYRIC_FAIL
+
+        if length of this_lyric &lt; 1 then
+            -- 只有当歌曲中未存在歌词时才尝试获取歌词
+            set requestData to "title=" &amp; this_title &amp; "&amp;artist=" &amp; this_artist
+            set songLyrics to do shell script "curl -d '" &amp; requestData &amp; "' " &amp; baseURL
+            if length of songLyrics &gt; 1 then
+                -- 歌词成功获取
+                set lyrics of theTrack to songLyrics
+                set fetch_status to STATUS_LYRIC_SUCCESS
+            end if
+        else
+            set fetch_status to STATUS_LYRIC_EXIST
+        end if
+
+        tell growl to growlNotify(this_artist, this_title, fetch_status)
+
+        set i to i + 1
+        if i &gt; k then exit repeat
+    end repeat
+    -- 如果Growl未运行则显示对话框
+    if isGrowlRunning = false then
+        display dialog return &amp; "歌词获取结束！" buttons {"确定"} default button 1 with icon 1 giving up after 5 with title scriptName
+    end if
+end tell
+</code></pre>
+
+<p>　　<strong>USAGE:</strong> 在AppleScript Editor中新建包含上述脚本的文件，保存在 <strong>~/Library/iTunes/Scripts</strong> 目录下，这时在iTunes菜单栏中就会出现AppleScript的下拉菜单，选中需要的歌曲执行其中的命令即可。或者也可以使用Automator将上述脚本生成系统服务，具体本文不做详述，自行Google。</p>
+
+<p>　　实际上实现功能需要服务端的支持，上述脚本中使用了Martian搭建在SAE上的服务端，如果你想搭建自己的服务端可以在Martian的<a href="http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/">文章</a>中找到代码，或下载下面的文件，里面也包含了一个在服务端运行的PHP文件。</p>
+
+<p>[btn url="https://github.com/JinnLynn/MacOSX-Kits/tree/master/FetchLyric,https://github.com/downloads/JinnLynn/MacOSX-Kits/fetchlyric20120508.zip" title="Project on GitHub,Download" style="large" icon="github,download-alt" wrapper="center,single"]</p>
+
+<p>　　<strong>BTW:</strong> 尝试过使用歌曲封面做为Growl的图标没有成功，总提示无法生成数据，不知道什么原因。</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on May 04, 2012</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/fetch-lyric-for-itunes/#comments" title="Comment on 让iTunes的歌曲自动获取歌词">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-11545 -->
+<div id="post-18959" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/disable-mac-osx-lion-resume/" title="禁用Mac OS X Lion的Resume功能" rel="bookmark">禁用Mac OS X Lion的Resume功能</a></h1>
+        <p class="entry-date" title="2011-09-08 02:09:19">
+            <span class="day">08</span>
+            <span class="month">Sep</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　Mac OS X Lion新增加的Resume功能在给使用者带来便利的同时也引发了隐私上的问题，没人希望尴尬的内容因此被呈现在他人眼前，可惜对于Resume，Lion并没有提供比较完善的配置功能，很多时候需要手动进行设置。</p>
+
+<h5 id="1-resume">1. 关闭所有应用的Resume功能</h5>
+
+<p>　　System Preferences - General - Restore windows when quitting and re-opening apps 取消选中该选项。</p>
+
+<p><i><img src="http://static.afvisual.com/uploads/2011-09-08-disable-mac-osx-lion-resume/screenshot.jpg" alt="Resume" /></i></p>
+
+<h5 id="2-resume">2. 临时禁用某个应用的Resume功能</h5>
+
+<p>　　使用快捷键<strong>⌥⌘Q</strong>退出某个应用，下次再次打开时就不会恢复窗口，除非该应用关闭时正在编辑的文件尚未保存。</p>
+
+<p>　　如果某个应用已经被退出，则可以在Finder前往~/Library/Saved Application State/文件夹，找到不想再次打开时恢复窗口的应用目录，如com.apple.Safari.savedState，将其删除即可（注：比较特别的是Preview在这个目录下只是一个链接，需要进入其目录后删除其下的所有文件）。</p>
+
+<h5 id="3-resume">3. 永久关闭特定应用的Resume功能</h5>
+
+<p>　　以Safari为例，打开终端，输入以下命令：</p>
+
+<pre><code>defaults write com.apple.Safari NSQuitAlwaysKeepsWindows -int 0
+</code></pre>
+
+<p>　　要开启Resume功能，删除该键值即可：</p>
+
+<pre><code>defaults delete com.apple.Safari NSQuitAlwaysKeepsWindows
+</code></pre>
+
+<p>　　也可以使用Pref Setter、PlistEdit Pro等plist工具对应用的配置文件添加或删除NSQuitAlwaysKeepsWindows键值。</p>
+
+<p><strong>BTW:</strong> 不是使用Mac OS X Lion的API而是自己控制窗口恢复的应用使用上述方法无效，如Chrome 15.0.865.0 dev</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Sep 08, 2011</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/disable-mac-osx-lion-resume/#comments" title="Comment on 禁用Mac OS X Lion的Resume功能">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-18959 -->
+<div id="post-99803" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/jkit-disable-autosave/" title="JKit: 部分禁用日志编辑自动保存" rel="bookmark">JKit: 部分禁用日志编辑自动保存</a></h1>
+        <p class="entry-date" title="2009-03-24 21:03:23">
+            <span class="day">24</span>
+            <span class="month">Mar</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　在Wordpress中，日志版本管理（Post Revisions）和编辑日志时的自动保存都会在数据库中产生新的数据（编辑已发布的内容时），很显然这些数据的用处只是一时的，但却给今后数据库查询增加了无谓的额外开销。</p>
+
+<p>　　对于日志版本管理，我们在wp-config.php中添加一句<code>define('WP_POST_REVISIONS', false);</code> 即可以轻松的完全禁用此功能，但自动保存就没有这么简单，官方没有提供开关功能，现在网上找到的方法似乎都是通过屏蔽javascript脚本，这种方法虽然可行，但在某些浏览器下可能报错，同时换个角度来看，某些时候自动保存还是有些用处的，完全禁用似乎也不太可取。</p>
+
+<p>　　下面的代码实现了仅在编辑草稿、发表新日志或页面时启用自动保存，在重新编辑已发表的内容时则不会进行自动保存的操作，避免在数据库中产生无用的数据，方法则是在浏览器提交申请，服务器进行自动保存之前对日志的状态进行判断，如果是草稿或未找到日志ID（即新日志）则进行保存操作，否则直接退出。</p>
+
+<p><a href="http://jeeker.net/article/jkit-disable-autosave/#more-99803" class="more-link">Read more...</a></p>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Mar 24, 2009</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/jkit-disable-autosave/#comments" title="Comment on JKit: 部分禁用日志编辑自动保存">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-99803 -->
+<div id="post-49398" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/jkit-auto-link-at-reply/" title="JKit: 自动在评论@用户名中添加页面跳转链接" rel="bookmark">JKit: 自动在评论@用户名中添加页面跳转链接</a></h1>
+        <p class="entry-date" title="2009-03-13 21:03:18">
+            <span class="day">13</span>
+            <span class="month">Mar</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　<strong>2009-04-02 ver0.2 Update:</strong> 支持"@用户名 "、"@用户名,"、"@用户名:"等多种形式；添加跳转链接为绝对路径，不再有分页跳转链接失效问题；链接添加类似“reply-回复的评论ID”的ID，便于使用JS实现一些特效。</p>
+
+<p>　　在回复评论时我个人习惯使用如Twitter“@用户名 回复内容”的形式，不过由于不像Twitter能给用户名添加链接，如果评论较多的话读者并不能很轻易找到该用户的评论，手动添加又显得麻烦，当原评论被删除时还有链接失效的问题。</p>
+
+<p>　　其实在Wordpress的插件库里你可以找到一个名为<a href="http://wordpress.org/extend/plugins/at-reply/">@reply</a>的插件解决上述问题，它能自动给用户名添加链接，不过仔细看@reply的源代码你会发现每当它找到一个需要添加链接的用户名时就要进行一次数据库查询操作，相当浪费资源，同时它只对在评论起始处使用“@用户名”时才有效，多次或在评论内容中穿插使用都是无效的。此外@reply还有一个很大的BUG，当一个用户对一篇日志发布多次评论，你也多次使用“@用户名 ”的形式对该用户进行回复时，自动添加的链接指向的都是该用户最后发表的评论，这当然是不合理的。</p>
+
+<p>　　于是我自己写了一个类似功能的函数，它不进行任何的数据库查询，无论“@用户名 ”在评论中什么位置使用多少次都是有效的，链接总是指向在该回复发表日期之前该用户发表的最近一篇评论。具体效果见<a href="http://jeeker.net/the-opening-ceremony-of-beijing-2008-from-nbc/#comments">这里</a>，你可以拷贝后面的源代码或使用<a href="http://jeeker.net/projects/jkit-builder/">JKit Builder</a>生成带此功能的插件。</p>
+
+<p><a href="http://jeeker.net/article/jkit-auto-link-at-reply/#more-49398" class="more-link">Read more...</a></p>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Mar 13, 2009</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/jkit-auto-link-at-reply/#comments" title="Comment on JKit: 自动在评论@用户名中添加页面跳转链接">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-49398 -->
+<div id="post-14367" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/jkit-optimize-database-automatically/" title="JKit: 定期自动优化数据库" rel="bookmark">JKit: 定期自动优化数据库</a></h1>
+        <p class="entry-date" title="2008-12-25 22:12:47">
+            <span class="day">25</span>
+            <span class="month">Dec</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　在MySQL中对表的数据进行删除操作时，实际上并没有真正的删除这些记录，而是被保存在链接清单中，这些多余数据不但占用数据库的存储空间，对效率也有一定的影响，Wordpress中wp<em>comments、wp</em>options等表尤为容易产生这些多余的数据，因为它们往往比别的表进行更多的删除或更新操作。</p>
+
+<p>　　使用SQL中的<a href="http://dev.mysql.com/doc/refman/5.1/zh/sql-syntax.html#optimize-table">OPTIMIZE TABLE</a>语句就可以对数据表进行整理,修复碎片,并且重新排序索引，提升性能，你可以通过phpMyAdmin或Wordpress插件<a href="http://wordpress.designpraxis.at/plugins/optimize-db/">Optimize DB</a>实现上述语句的功能，不过它们都需要手动进行，并不方便。</p>
+
+<p>　　实际上只要通过下列十几行简单的PHP语句就可以在Wordpress中实现定期整理数据库的目的，需要注意的是数据库在使用OPTIMIZE TABLE进行优化时会被锁定，因此不益过于频繁的进行此项操作，下面默认是半个月整理一次，应该是比较合适的。</p>
+
+<p><a href="http://jeeker.net/article/jkit-optimize-database-automatically/#more-14367" class="more-link">Read more...</a></p>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Dec 25, 2008</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/jkit-optimize-database-automatically/#comments" title="Comment on JKit: 定期自动优化数据库">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-14367 -->
+
+
+    <div id="pagenavi">
+        <span class="pages">Page 3 of 4</span>
+        <a href="http://jeeker.net/category/developer/page/4/" class="nav-older">Older</a>
+        <a href="http://jeeker.net/category/developer/page/2/" class="nav-newer">Newer</a>
+    </div><!-- #pagenavi -->
+   
+    </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="sidebar">
+</div><!-- #sidebar -->
+
+</div><!-- #main -->
+
+<div id="footer">
+    <div id="footer-left">
+        2012 Powered By <a href="http://jeeker.net/projects/gude/" title="a simple python static website generator">Gude</a>. Code licensed under <a href="http://opensource.org/licenses/MIT">MIT License</a>,
+        articles licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </div><!-- #footer-left -->
+    <div id="footer-right">
+    </div><!-- #footer-right -->
+</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<!-- print javascript -->
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?42566"></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?58572'></script>
+<![endif]-->
+
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="/assets/additional.js"></script>
+
+<!-- google analytics track code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31118267-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>

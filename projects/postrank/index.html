@@ -1,0 +1,210 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie9below ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie9below ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie9below ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<head>
+    <title>PostRank - Jeeker</title>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?99541" />
+    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <!-- <link rel='canonical' href="" /> -->
+    <meta name="robots" content="index,follow" />
+    <!-- <meta name="keywords" content="" /> -->
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="gradient"></div><!-- #gradient -->
+    <div id="header">
+        <div id="menu">
+            <ul>
+                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+            </ul>
+        </div>
+    </div><!-- ＃header -->
+
+<div id="main">
+    <div id="tools-box">
+        <ul>
+            <li id="tool-search">
+                <form action="http://google.com/search" method="get">
+                    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+                    <input type="hidden" name="q" value="site:jeeker.net" />
+                </form>
+            </li>
+        </ul>
+    </div><!-- #tools-box -->
+
+<div id="container">
+    <div id="content" role="main">
+
+
+
+<div id="post-88765" class="post post-single post-page post-publish">
+    <div class="entry-head">
+        <h1>PostRank</h1>
+        <p class="entry-date" title="2008-12-19 20:12:45">
+            <span class="day">19</span>
+            <span class="month">Dec</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　一直以来我都是使用Popularity Contest来记录日志的浏览数和获取某篇日志在博客中的排名，但其在数据库中建立了两个表用于存储数据以及对某些在我看来是无用数据的统计让我在使用中对它有些许的不满意，于是就有了这个PostRank。</p>
+
+<p>　　类似的，PostRank提供了浏览计数、统计日志排名等功能，不同的是，PostRank不对Feed、分类、首页、存档等的浏览进行统计，因为个人觉得这些数据并不能表明读者对某篇日志的重视程度。</p>
+
+<ul>
+<li>记录日志被浏览次数</li>
+<li>通过日志浏览数、评论、通告、PING计算单个日志在所有文章中的排名</li>
+<li>可指定上述的相应权值</li>
+<li>输出最受欢迎日志、浏览数最高日志</li>
+<li>支持Widget</li>
+<li>定期自动重新统计</li>
+<li>可选是否忽略搜索机器人的浏览</li>
+<li>数据存储于postmate表中</li>
+<li>后台详细自定义报告</li>
+</ul>
+
+<p>[btn url="https://github.com/JinnLynn/postrank,http://wordpress.org/extend/plugins/postrank/" title="Project on GitHub,WP Plugins" icon="github,inbox" style="large"]</p>
+
+<h3 id="screenshot">Screenshot</h3>
+
+<p><i><img src="http://static.afvisual.com/uploads/projects/2008-12-19-postrank/screenshot.jpg" alt="PostRank Screenshot" /></i></p>
+
+<p><span id="more-88765"></span></p>
+
+<h3 id="usage">Usage</h3>
+
+<h5 id="install">Install</h5>
+
+<p>解压，上传文件夹至wp-content\plugins目录下，激活时PostRank将对所有已发布的日志进行积分统计，你也可以随时在后台点击"ReStat"进行重新统计。</p>
+
+<h5 id="function">Function</h5>
+
+<p><code>JPR_TheRank()</code> <br />
+在Wordpress日志输出循环中直接显示日志排名值，无参数 <br />
+如<code>&lt;?php JPR_TheRank(); ?&gt;</code></p>
+
+<p><code>JPR_MostPopular($args = '')</code> <br />
+显示最受欢迎日志，<strong>可通过Widget实现本函数功能。</strong>参数为字符串，支持的变量为： <br />
+mode 类型 可选post、page或空值，默认为空，即输出中包含post和page <br />
+limit 数量 输出数量 默认为10 <br />
+before 输出时每项前面的HTML代码 默认 &lt;li> <br />
+after 输出时每项后面的HTML代码 默认 &lt;/li> <br />
+如<code>&lt;?php JPR_MostPopular('mode=post&amp;limit=5'); ?&gt;</code>，意即输出最受欢迎的5篇post</p>
+
+<p><code>JPR_GetViews($post_id)</code> <br />
+获取日志浏览数，参数为日志ID <br />
+如<code>&lt;?php echo JPR_GetViews(100); ?&gt;</code>，意即输出ID为100的日志的被浏览次数。</p>
+
+<p><code>JPR_TheViews($args = '')</code> <br />
+在Wordpress日志输出循环中直接显示日志浏览数，参数为字符串，支持的变量为： <br />
+zero 当浏览数为0时输出字符 默认 No Views <br />
+one 当浏览数为1时输出字符 默认 1 View <br />
+more 当浏览数大于1时输出字符 默认 % Views （%将被具体浏览数替换） <br />
+post_id 日志ID 默认为WP循环中当前日志ID，如不在循环则为0 <br />
+如<code>&lt;?php JPR_TheViews(); ?&gt;</code></p>
+
+<p><code>JPR_MostViewed($args = '')</code> <br />
+显示浏览数最多的日志，<strong>可通过Widget实现本函数功能。</strong> <br />
+参数为一字符串，支持的变量为： <br />
+mode 类型 可选post、page或空值，默认为空，即输出中包含post和page <br />
+limit 数量 输出数量 默认为10 <br />
+before 输出时每项前面的HTML代码 默认 &lt;li> <br />
+after 输出时每项后面的HTML代码 默认 &lt;/li> <br />
+如<code>&lt;?php JPR_MostViewed('mode=post&amp;limit=5'); ?&gt;</code>，意即输出被浏览次数最多的5篇post</p>
+
+<h3 id="changelog">Changelog</h3>
+
+<ul>
+<li>2008-12-19 ver 0.1.1
+<ul>
+<li>[+] 定期自动重新统计</li>
+</ul></li>
+<li>2008-12-18 ver 0.1
+<ul>
+<li>First Release.</li>
+</ul></li>
+</ul>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/projects/" title="View all posts in Projects" rel="category tag">Projects</a>
+</li>
+            <li class="entry-human-time-diff"> on Dec 19, 2008</li>
+            <li class="entry-comments">with <a href="http://jeeker.net/projects/postrank/#comments">comments</a></li>
+        </ul>  
+    </div><!-- .entry-meta -->
+</div><!-- #post-88765 -->
+<div id="comments">
+<!-- Duoshuo Comment BEGIN -->
+    <div class="ds-thread" data-title="PostRank"></div>
+    <script type="text/javascript">
+        var duoshuoQuery = {short_name:"jeeker"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';
+            ds.async = true;
+            ds.src = 'http://static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+<!-- Duoshuo Comment END -->
+</div><!-- #comments -->   
+    </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="sidebar">
+</div><!-- #sidebar -->
+
+</div><!-- #main -->
+
+<div id="footer">
+    <div id="footer-left">
+        2012 Powered By <a href="http://jeeker.net/projects/gude/" title="a simple python static website generator">Gude</a>. Code licensed under <a href="http://opensource.org/licenses/MIT">MIT License</a>,
+        articles licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </div><!-- #footer-left -->
+    <div id="footer-right">
+    </div><!-- #footer-right -->
+</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<!-- print javascript -->
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?42566"></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?58572'></script>
+<![endif]-->
+
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="/assets/additional.js"></script>
+
+<!-- google analytics track code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31118267-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>

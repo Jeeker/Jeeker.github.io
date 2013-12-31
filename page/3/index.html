@@ -1,0 +1,459 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie9below ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie9below ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie9below ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<head>
+    <title>Jeeker</title>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?99541" />
+    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <!-- <link rel='canonical' href="" /> -->
+    <meta name="robots" content="index,follow" />
+    <!-- <meta name="keywords" content="" /> -->
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="gradient"></div><!-- #gradient -->
+    <div id="header">
+        <div id="menu">
+            <ul>
+                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+            </ul>
+        </div>
+    </div><!-- ＃header -->
+
+<div id="main">
+    <div id="tools-box">
+        <ul>
+            <li id="tool-search">
+                <form action="http://google.com/search" method="get">
+                    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+                    <input type="hidden" name="q" value="site:jeeker.net" />
+                </form>
+            </li>
+        </ul>
+    </div><!-- #tools-box -->
+
+<div id="container">
+    <div id="content" role="main">
+
+
+<div id="post-45453" class="post post-list post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/export-wordpress-to-sina-blog/" title="导出Wordpress日志到新浪博客" rel="bookmark">导出Wordpress日志到新浪博客</a></h1>
+        <p class="entry-date" title="2013-01-13 10:50:53">
+            <span class="day">13</span>
+            <span class="month">Jan</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　服务器即将到期，不想再续租，<a href="http://jeeker.net/projects/gude/">自己的博客已经转成静态的了</a>，放到<a href="http://pages.github.com/">GitHub Pages</a>上当然是最好的选择， 服务器上另一个<a href="http://wendy.jeeker.net/">朋友的博客</a>打算入住新浪博客， 于是就涉及到怎么迁移数据的问题了， 好在新浪博客还算比较开放，支持<a href="http://xmlrpc.scripting.com/metaWeblogApi.html">MetaWeblog XML-RPC API</a>，写了一段简单的脚本，搬家成功。</p>
+
+<p>　　不过新浪博客的API貌似不支持<code>dateCreated</code>，因此导入后所有日志的发布时间都变成当前时间了，另外脚本也没有对日志分类进行处理，好在日志不多，手动调整也不是那么麻烦。</p>
+
+<pre><code>&lt;?php
+/**
+ * 导出Wordpress日志到新浪博客
+ * Created by JinnLynn 2013.01.11 http://jeeker.net/
+ */
+require('./wp-blog-header.php');
+require('wp-includes/class-IXR.php');
+
+define('SINA_XMLRPC', 'http://upload.move.blog.sina.com.cn/blog_rebuild/blog/xmlrpc.php');
+
+if ($_GET['action'] != 1) {
+?&gt;
+&lt;br /&gt;
+&lt;form action="?action=1" method="post"&gt;
+    新浪账户: &lt;input type="text" name="usr" value="" /&gt;&lt;br /&gt;
+    新浪密码: &lt;input type="password" name="pwd" value="" /&gt;&lt;br /&gt;
+    &lt;input type="submit" value="导出" /&gt;&lt;br /&gt;
+&lt;/form&gt;&lt;br /&gt;
+导出前请确认已开通了新浪博客，并设置了正确的账户密码。
+&lt;?php
+    return;
+}
+
+$usr = trim($_POST['usr']);
+$pwd = trim($_POST['pwd']);
+if (empty($usr) || empty($pwd)) {
+    echo '&lt;br /&gt;&lt;span style="color:red;"&gt;用户名或密码错误。&lt;/span&gt;&lt;a href="javascript:history.back()"&gt;back&lt;/a&gt;.';
+    return;
+}
+
+// 登陆测试
+$params = array(0, $usr, $pwd);
+$sina_xmlrpc = new IXR_Client(SINA_XMLRPC);
+$sina_xmlrpc-&gt;query('metaWeblog.getCategories', $params);
+$res = $sina_xmlrpc-&gt;getResponse();
+unset($sina_xmlrpc);
+if (isset($res['faultCode'])) {
+    echo '&lt;br /&gt;&lt;span style="color:red;"&gt;用户名或密码错误。&lt;/span&gt;&lt;a href="javascript:history.back()"&gt;back&lt;/a&gt;.';
+    return;
+}
+
+$query = new WP_Query();
+$query-&gt;query( array( 'post_type'       =&gt; array('post', 'page'), // 导出类型
+                      'order'           =&gt; 'ASC',
+                      'posts_per_page'  =&gt; 10000 )
+              );
+while ($query-&gt;have_posts()) {
+    global $post;
+
+    $query-&gt;the_post();
+
+    $layout = $post-&gt;post_type;
+    $title = get_the_title();
+    $date = get_post_time('Y-m-d H:m:s');
+    $author = get_the_author();
+    $content = $post-&gt;post_content;
+    $content = apply_filters('the_content', $content);
+    $content = str_replace(']]&gt;', ']]&amp;gt;', $content);
+
+    $content .= '&lt;p id="original-post-date" style="color:#ccc"&gt;&lt;br /&gt;-----&lt;br /&gt;原文发表于：'. $date . '&lt;/p&gt;';
+
+    $sina_post = array( 'title'       =&gt; $title,
+                        'dateCreated' =&gt; get_post_time('Y-m-d\TH:m:s\Z', true), //!? 没有作用
+                        'description' =&gt; $content);
+
+    $params = array(0, $usr, $pwd, $sina_post, true);
+
+    $sina_xmlrpc = new IXR_Client(SINA_XMLRPC);
+    $sina_xmlrpc-&gt;query('metaWeblog.newPost', $params);
+    $res = $sina_xmlrpc-&gt;getResponse();
+
+    unset($sina_xmlrpc);
+
+    if (isset($res['faultCode'])) {
+        $res = '&lt;span style="color:red;"&gt;导出失败&lt;/span&gt;';
+    }
+
+    echo $title . '&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; ' . $res . '&lt;br /&gt;&lt;br /&gt;';
+}
+?&gt;
+</code></pre>
+
+<p>[btn url="https://gist.github.com/4518491" title="Source on gist" style="large" icon="github"]</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Jan 13, 2013</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/export-wordpress-to-sina-blog/#comments" title="Comment on 导出Wordpress日志到新浪博客">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-45453 -->
+<div id="post-81391" class="post post-list post-page post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/projects/gude/" title="Gude" rel="bookmark">Gude</a></h1>
+        <p class="entry-date" title="2013-01-10 09:29:51">
+            <span class="day">10</span>
+            <span class="month">Jan</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　厌倦了<a href="http://wordpress.org/">Wordpress</a>越来越庞杂却无用的功能，想让网站回归单纯，<a href="http://octopress.org/">Octopress</a>本是个不错的选择，但在OS X下总有这样那样的问题，自己对Ruby也不了解，于是就在Python下折腾出了这个Gude。</p>
+
+<p>　　如下图，在Gude下网站日常管理的几个简单命令。</p>
+
+<p><i><img src="http://static.afvisual.com/uploads/projects/2013-01-10-gude/workflow.png" alt="Gude" /></i></p>
+
+<ul>
+<li>基于Python2.7</li>
+<li>使用GIT进行管理和发布</li>
+<li>使用Markdown或HTML撰写文章</li>
+<li>支持分类、标签</li>
+<li>支持文章模板、站点皮肤</li>
+<li>评论系统Disgus，统计系统Google Analytucs</li>
+<li>支持发布到Github或任意的FTP服务器<sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup></li>
+<li>简单的插件支持</li>
+</ul>
+
+<p>[btn url="https://github.com/JinnLynn/gude" title="Project on GitHub" style="large" icon="github"]</p>
+
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn-1">
+<p>FTP发布需<a href="https://github.com/resmo/git-ftp">GIT-FTP</a>支持&nbsp;<a href="#fnref-1" class="footnoteBackLink" title="Jump back to footnote 1 in the text.">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+<p><a href="http://jeeker.net/projects/gude/#more-81391" class="more-link">Read more...</a></p>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/projects/" title="View all posts in Projects" rel="category tag">Projects</a>
+</li>
+            <li class="entry-human-time-diff"> on Jan 10, 2013</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/projects/gude/#comments" title="Comment on Gude">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-81391 -->
+<div id="post-67562" class="post post-list post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/google-search-url-uncover/" title="一个超简单的在Google中直接访问目标网址的脚本" rel="bookmark">一个超简单的在Google中直接访问目标网址的脚本</a></h1>
+        <p class="entry-date" title="2012-11-22 14:59:22">
+            <span class="day">22</span>
+            <span class="month">Nov</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　前段时间因开某会，悲催的Google一如以往的无法正常使用，常常搜索结果页面顺利出现了，点击链接却无法打开或打开很慢，产生这种现象的原因是Google通过跳转后才把目标网址返回给你，于是领导一个不高兴就又被墙了。</p>
+
+<p>　　下面的这段很简单的代码就是让你避免使用Google跳转，直接访问目标网址。</p>
+
+<pre><code>(function(){
+    function getRealUrl(l) {
+        if (l.indexOf('/url?') &lt; 0)
+            return null;
+        var a = document.createElement('a'); 
+        a.href = l;
+        seg = a.search.replace(/^\?/,'').split('&amp;');
+        for (i = 0; i &lt; seg.length; i++) { 
+            if (!seg[i])
+                continue;
+            s = seg[i].split('='); 
+            if (s[0] == 'url')
+                return decodeURIComponent( s[1] );
+        } 
+        return null;
+    }
+
+    /**
+     * 直接在载入http:://www.google.com/url?.... 中重定向到真实的目标网址
+     * 问题：当目标网址无法访问时，地址栏中的地址信息并未改变到目标网址，可能产生误解
+     */
+    var real = getRealUrl(location.href);
+    if (real) {
+        window.location.href = real;
+        return;
+    };
+
+    document.addEventListener('click', function(e){
+        for(a = e.target; a; a = a.parentNode) {
+            if(a.localName != 'a') 
+                continue;
+            real = getRealUrl( a.getAttribute('href') );
+            if (real) {
+                a.setAttribute( 'href', real );
+                a.removeAttribute('onmousedown');
+            }
+            break;
+        }
+    }, false);
+})();
+</code></pre>
+
+<p>[btn url="https://gist.github.com/4507194" title="Source on gist" style="large" icon="github"]</p>
+
+<p>你可以通过三种方法使用：</p>
+
+<h5 id="1-chrome">1. 通过Chrome扩展</h5>
+
+<p>　　将url.js、manifest.json通过Chrome扩展开发工具打包成crx包。</p>
+
+<h5 id="2">2. 通过收藏栏链接</h5>
+
+<p>　　将下面的链接拖到浏览器收藏栏中，需要时点击即可，在Chrome、Firefox中可用，Safari中似乎直接访问的就是目标地址了</p>
+
+<p><span class="btn-center">
+    <a class="btn btn-large icon-bookmark-empty" href="javascript:(function(){function getRealUrl(l){if(l.indexOf("/url?')&lt;0)return null;var a=document.createElement('a');a.href=l;seg=a.search.replace(/^\?/,'').split('&amp;');for(i=0;i<seg.length;i++){if(!seg[i])continue;s=seg[i].split('=');if(s[0]=='url')return decodeURIComponent(s[1]);}return null;}var real=getRealUrl(location.href);if(real){window.location.href=real;return;};document.addEventListener('click',function(e){for(a=e.target;a;a=a.parentNode){if(a.localName!='a')continue;real=getRealUrl(a.getAttribute('href'));if(real){alert('d');a.setAttribute('href',real);a.removeAttribute('onmousedown');}break;}},false);})();">Google Search URL Uncover</a>
+</span></p>
+
+<h5 id="3-userscript">3. 通过用户脚本（UserScript）</h5>
+
+<p>　　未测试过，不过理论上应该可行。在脚本前添加如下内容</p>
+
+<pre><code>// ==UserScript==
+// @name           Google URL Uncover
+// @namespace      http://jeeker.net/article/google-search-url-uncover/
+// @description    Google 搜索结果链接去除google跳转，直接访问目标网址。
+// @include        http://*.google.*/*
+// @include        https://*.google.*/*
+// @version        0.1
+// @author         JinnLynn
+// @license        MIT license
+// ==/UserScript==
+</code></pre>
+
+<p><strong>PS:</strong> 代码在Chrome下测试通过，IE没戏。</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Nov 22, 2012</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/google-search-url-uncover/#comments" title="Comment on 一个超简单的在Google中直接访问目标网址的脚本">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-67562 -->
+<div id="post-54977" class="post post-list post-page post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/projects/miniature/" title="Miniature" rel="bookmark">Miniature</a></h1>
+        <p class="entry-date" title="2012-11-15 12:49:37">
+            <span class="day">15</span>
+            <span class="month">Nov</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　Miniature是一个<a href="http://wordpress.org/">Wordpress</a>插件，它会找出日志内所包含的所有图片并将其生成相应的缩略图，同时以类似画册的方式展示在站点的侧边栏。</p>
+
+<ul>
+<li>生成的缩略图尺寸、格式可定义</li>
+<li>允许对生成缩略图的原始图片进行尺寸限制</li>
+<li>定时生成</li>
+<li>丰富的自定义输出选项</li>
+</ul>
+
+<p>[btn url="https://github.com/JinnLynn/miniature,http://wordpress.org/extend/plugins/miniature/" title="Project on GitHub,WP Plugins" icon="github,inbox" style="large"]</p>
+
+<h3 id="screenshort">Screenshort</h3>
+
+<p><i><img src="http://static.afvisual.com/uploads/projects/2012-11-15-miniature/screenshot-general.jpg" alt="General" /></i></p>
+
+<p><a href="http://jeeker.net/projects/miniature/#more-54977" class="more-link">Read more...</a></p>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/projects/" title="View all posts in Projects" rel="category tag">Projects</a>
+</li>
+            <li class="entry-human-time-diff"> on Nov 15, 2012</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/projects/miniature/#comments" title="Comment on Miniature">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-54977 -->
+<div id="post-48411" class="post post-list post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/how-to-upgrade-git-on-mac-os/" title="HOW TO: 升级Mac OS X上的GIT" rel="bookmark">HOW TO: 升级Mac OS X上的GIT</a></h1>
+        <p class="entry-date" title="2012-06-06 10:06:51">
+            <span class="day">06</span>
+            <span class="month">Jun</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　在MacOSX下使用<a href="http://mxcl.github.com/homebrew/">Homebrew</a>或其它方式安装最新版本的GIT后，往往并不能使用，系统默认调用的依旧还是比较旧的版本，原因是已经通过XCode等方式安装过git，且它们的路径优先级较高。</p>
+
+<p>　　下面假设你已经通过<a href="http://mxcl.github.com/homebrew/">Homebrew</a>的<code>brew install git</code>成功安装了GIT，但系统默认使用的还是旧版本。</p>
+
+<h4 id="1-homebrew">1.  检查系统默认调用的是否是通过Homebrew安装的最新版本</h4>
+
+<p>　　Homebrew安装的GIT会被软链接到<code>/usr/local/bin</code>目录下，所以如果你使用<code>which git</code>看到的结果不是<code>/usr/local/bin/git</code>，那么你就需要通过后面的方法修改以便能够默认使用你所安装版本的GIT。</p>
+
+<h4 id="2">2. 移除系统自带的版本</h4>
+
+<p>　　如果<code>which git</code>返回的结果是<code>/usr/bin/git</code>，说明你可能通过XCode安装了其自带的GIT，其版本一般都比较低，需要移除。</p>
+
+<pre><code>cd /usr/bin
+sudo mkdir backup-git-apple
+sudo mv git* backup-git-apple
+</code></pre>
+
+<h4 id="3">3. 移除可能存在的其它版本</h4>
+
+<p>　　如果<code>which git</code>返回的结果是<code>/usr/local/git/bin/git</code>，则表示可能是你曾经使用<a href="http://code.google.com/p/git-osx-installer/">git-osx-installer</a>或其它方式安装过GIT，检查系统环境变量PATH可能还包含形如<code>/usr/local/git/bin</code>的路径。</p>
+
+<pre><code>sudo rm -rf /usr/local/git
+sudo rm /etc/paths.d/git
+sudo rm /etc/manpaths.d/git
+</code></pre>
+
+<p>　　最后，重启终端，再次检查<code>which git</code>及<code>git version</code>。</p>
+
+<p>　　BTW: 2、3的情况可能同时存在。</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Jun 06, 2012</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/how-to-upgrade-git-on-mac-os/#comments" title="Comment on HOW TO: 升级Mac OS X上的GIT">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-48411 -->
+
+
+    <div id="pagenavi">
+        <span class="pages">Page 3 of 7</span>
+        <a href="http://jeeker.net/page/4/" class="nav-older">Older</a>
+        <a href="http://jeeker.net/page/2/" class="nav-newer">Newer</a>
+    </div><!-- #pagenavi -->
+   
+    </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="sidebar">
+</div><!-- #sidebar -->
+
+</div><!-- #main -->
+
+<div id="footer">
+    <div id="footer-left">
+        2012 Powered By <a href="http://jeeker.net/projects/gude/" title="a simple python static website generator">Gude</a>. Code licensed under <a href="http://opensource.org/licenses/MIT">MIT License</a>,
+        articles licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </div><!-- #footer-left -->
+    <div id="footer-right">
+    </div><!-- #footer-right -->
+</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<!-- print javascript -->
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?42566"></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?58572'></script>
+<![endif]-->
+
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="/assets/additional.js"></script>
+
+<!-- google analytics track code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31118267-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>

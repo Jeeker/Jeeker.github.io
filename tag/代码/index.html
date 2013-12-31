@@ -1,0 +1,574 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie9below ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie9below ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie9below ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<head>
+    <title>代码 - Jeeker</title>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?99541" />
+    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <!-- <link rel='canonical' href="" /> -->
+    <meta name="robots" content="index,follow" />
+    <!-- <meta name="keywords" content="" /> -->
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="gradient"></div><!-- #gradient -->
+    <div id="header">
+        <div id="menu">
+            <ul>
+                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+            </ul>
+        </div>
+    </div><!-- ＃header -->
+
+<div id="main">
+    <div id="tools-box">
+        <ul>
+            <li id="tool-search">
+                <form action="http://google.com/search" method="get">
+                    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+                    <input type="hidden" name="q" value="site:jeeker.net" />
+                </form>
+            </li>
+        </ul>
+    </div><!-- #tools-box -->
+
+<div id="container">
+    <div id="content" role="main">
+
+
+
+<div id="post-45453" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/export-wordpress-to-sina-blog/" title="导出Wordpress日志到新浪博客" rel="bookmark">导出Wordpress日志到新浪博客</a></h1>
+        <p class="entry-date" title="2013-01-13 10:50:53">
+            <span class="day">13</span>
+            <span class="month">Jan</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　服务器即将到期，不想再续租，<a href="http://jeeker.net/projects/gude/">自己的博客已经转成静态的了</a>，放到<a href="http://pages.github.com/">GitHub Pages</a>上当然是最好的选择， 服务器上另一个<a href="http://wendy.jeeker.net/">朋友的博客</a>打算入住新浪博客， 于是就涉及到怎么迁移数据的问题了， 好在新浪博客还算比较开放，支持<a href="http://xmlrpc.scripting.com/metaWeblogApi.html">MetaWeblog XML-RPC API</a>，写了一段简单的脚本，搬家成功。</p>
+
+<p>　　不过新浪博客的API貌似不支持<code>dateCreated</code>，因此导入后所有日志的发布时间都变成当前时间了，另外脚本也没有对日志分类进行处理，好在日志不多，手动调整也不是那么麻烦。</p>
+
+<pre><code>&lt;?php
+/**
+ * 导出Wordpress日志到新浪博客
+ * Created by JinnLynn 2013.01.11 http://jeeker.net/
+ */
+require('./wp-blog-header.php');
+require('wp-includes/class-IXR.php');
+
+define('SINA_XMLRPC', 'http://upload.move.blog.sina.com.cn/blog_rebuild/blog/xmlrpc.php');
+
+if ($_GET['action'] != 1) {
+?&gt;
+&lt;br /&gt;
+&lt;form action="?action=1" method="post"&gt;
+    新浪账户: &lt;input type="text" name="usr" value="" /&gt;&lt;br /&gt;
+    新浪密码: &lt;input type="password" name="pwd" value="" /&gt;&lt;br /&gt;
+    &lt;input type="submit" value="导出" /&gt;&lt;br /&gt;
+&lt;/form&gt;&lt;br /&gt;
+导出前请确认已开通了新浪博客，并设置了正确的账户密码。
+&lt;?php
+    return;
+}
+
+$usr = trim($_POST['usr']);
+$pwd = trim($_POST['pwd']);
+if (empty($usr) || empty($pwd)) {
+    echo '&lt;br /&gt;&lt;span style="color:red;"&gt;用户名或密码错误。&lt;/span&gt;&lt;a href="javascript:history.back()"&gt;back&lt;/a&gt;.';
+    return;
+}
+
+// 登陆测试
+$params = array(0, $usr, $pwd);
+$sina_xmlrpc = new IXR_Client(SINA_XMLRPC);
+$sina_xmlrpc-&gt;query('metaWeblog.getCategories', $params);
+$res = $sina_xmlrpc-&gt;getResponse();
+unset($sina_xmlrpc);
+if (isset($res['faultCode'])) {
+    echo '&lt;br /&gt;&lt;span style="color:red;"&gt;用户名或密码错误。&lt;/span&gt;&lt;a href="javascript:history.back()"&gt;back&lt;/a&gt;.';
+    return;
+}
+
+$query = new WP_Query();
+$query-&gt;query( array( 'post_type'       =&gt; array('post', 'page'), // 导出类型
+                      'order'           =&gt; 'ASC',
+                      'posts_per_page'  =&gt; 10000 )
+              );
+while ($query-&gt;have_posts()) {
+    global $post;
+
+    $query-&gt;the_post();
+
+    $layout = $post-&gt;post_type;
+    $title = get_the_title();
+    $date = get_post_time('Y-m-d H:m:s');
+    $author = get_the_author();
+    $content = $post-&gt;post_content;
+    $content = apply_filters('the_content', $content);
+    $content = str_replace(']]&gt;', ']]&amp;gt;', $content);
+
+    $content .= '&lt;p id="original-post-date" style="color:#ccc"&gt;&lt;br /&gt;-----&lt;br /&gt;原文发表于：'. $date . '&lt;/p&gt;';
+
+    $sina_post = array( 'title'       =&gt; $title,
+                        'dateCreated' =&gt; get_post_time('Y-m-d\TH:m:s\Z', true), //!? 没有作用
+                        'description' =&gt; $content);
+
+    $params = array(0, $usr, $pwd, $sina_post, true);
+
+    $sina_xmlrpc = new IXR_Client(SINA_XMLRPC);
+    $sina_xmlrpc-&gt;query('metaWeblog.newPost', $params);
+    $res = $sina_xmlrpc-&gt;getResponse();
+
+    unset($sina_xmlrpc);
+
+    if (isset($res['faultCode'])) {
+        $res = '&lt;span style="color:red;"&gt;导出失败&lt;/span&gt;';
+    }
+
+    echo $title . '&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; ' . $res . '&lt;br /&gt;&lt;br /&gt;';
+}
+?&gt;
+</code></pre>
+
+<p>[btn url="https://gist.github.com/4518491" title="Source on gist" style="large" icon="github"]</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Jan 13, 2013</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/export-wordpress-to-sina-blog/#comments" title="Comment on 导出Wordpress日志到新浪博客">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-45453 -->
+<div id="post-67562" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/google-search-url-uncover/" title="一个超简单的在Google中直接访问目标网址的脚本" rel="bookmark">一个超简单的在Google中直接访问目标网址的脚本</a></h1>
+        <p class="entry-date" title="2012-11-22 14:59:22">
+            <span class="day">22</span>
+            <span class="month">Nov</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　前段时间因开某会，悲催的Google一如以往的无法正常使用，常常搜索结果页面顺利出现了，点击链接却无法打开或打开很慢，产生这种现象的原因是Google通过跳转后才把目标网址返回给你，于是领导一个不高兴就又被墙了。</p>
+
+<p>　　下面的这段很简单的代码就是让你避免使用Google跳转，直接访问目标网址。</p>
+
+<pre><code>(function(){
+    function getRealUrl(l) {
+        if (l.indexOf('/url?') &lt; 0)
+            return null;
+        var a = document.createElement('a'); 
+        a.href = l;
+        seg = a.search.replace(/^\?/,'').split('&amp;');
+        for (i = 0; i &lt; seg.length; i++) { 
+            if (!seg[i])
+                continue;
+            s = seg[i].split('='); 
+            if (s[0] == 'url')
+                return decodeURIComponent( s[1] );
+        } 
+        return null;
+    }
+
+    /**
+     * 直接在载入http:://www.google.com/url?.... 中重定向到真实的目标网址
+     * 问题：当目标网址无法访问时，地址栏中的地址信息并未改变到目标网址，可能产生误解
+     */
+    var real = getRealUrl(location.href);
+    if (real) {
+        window.location.href = real;
+        return;
+    };
+
+    document.addEventListener('click', function(e){
+        for(a = e.target; a; a = a.parentNode) {
+            if(a.localName != 'a') 
+                continue;
+            real = getRealUrl( a.getAttribute('href') );
+            if (real) {
+                a.setAttribute( 'href', real );
+                a.removeAttribute('onmousedown');
+            }
+            break;
+        }
+    }, false);
+})();
+</code></pre>
+
+<p>[btn url="https://gist.github.com/4507194" title="Source on gist" style="large" icon="github"]</p>
+
+<p>你可以通过三种方法使用：</p>
+
+<h5 id="1-chrome">1. 通过Chrome扩展</h5>
+
+<p>　　将url.js、manifest.json通过Chrome扩展开发工具打包成crx包。</p>
+
+<h5 id="2">2. 通过收藏栏链接</h5>
+
+<p>　　将下面的链接拖到浏览器收藏栏中，需要时点击即可，在Chrome、Firefox中可用，Safari中似乎直接访问的就是目标地址了</p>
+
+<p><span class="btn-center">
+    <a class="btn btn-large icon-bookmark-empty" href="javascript:(function(){function getRealUrl(l){if(l.indexOf("/url?')&lt;0)return null;var a=document.createElement('a');a.href=l;seg=a.search.replace(/^\?/,'').split('&amp;');for(i=0;i<seg.length;i++){if(!seg[i])continue;s=seg[i].split('=');if(s[0]=='url')return decodeURIComponent(s[1]);}return null;}var real=getRealUrl(location.href);if(real){window.location.href=real;return;};document.addEventListener('click',function(e){for(a=e.target;a;a=a.parentNode){if(a.localName!='a')continue;real=getRealUrl(a.getAttribute('href'));if(real){alert('d');a.setAttribute('href',real);a.removeAttribute('onmousedown');}break;}},false);})();">Google Search URL Uncover</a>
+</span></p>
+
+<h5 id="3-userscript">3. 通过用户脚本（UserScript）</h5>
+
+<p>　　未测试过，不过理论上应该可行。在脚本前添加如下内容</p>
+
+<pre><code>// ==UserScript==
+// @name           Google URL Uncover
+// @namespace      http://jeeker.net/article/google-search-url-uncover/
+// @description    Google 搜索结果链接去除google跳转，直接访问目标网址。
+// @include        http://*.google.*/*
+// @include        https://*.google.*/*
+// @version        0.1
+// @author         JinnLynn
+// @license        MIT license
+// ==/UserScript==
+</code></pre>
+
+<p><strong>PS:</strong> 代码在Chrome下测试通过，IE没戏。</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Nov 22, 2012</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/google-search-url-uncover/#comments" title="Comment on 一个超简单的在Google中直接访问目标网址的脚本">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-67562 -->
+<div id="post-73514" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/shell-script-unique-port/" title="终端脚本统一入口" rel="bookmark">终端脚本统一入口</a></h1>
+        <p class="entry-date" title="2012-05-16 21:05:14">
+            <span class="day">16</span>
+            <span class="month">May</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　相较Windows用户而言，Mac和*nix用户更喜欢用脚本处理一些日常的操作，脚本语言可以是Shell、Python、Ruby、Perl或甚至是Mac上的Applescript，一段时间下来可能累计了不少，但这时又会遇到想进行某项操作时却无法快速获取相应的脚本文件，失去了使用脚本原本该有的便捷与效率。</p>
+
+<p>　　其实我们可以建立一个简单的Shell文件做为这些脚本的入口，只要记住一些简单的命令就可以快速的执行相应的脚本，实现方法如下：</p>
+
+<h4 id="1">1. 建立统一入口脚本</h4>
+
+<pre><code>#!/bin/bash
+
+#检查环境变量
+if [ -z $KITS ]; then
+    . $(cd $(dirname $0); pwd)/build-env.sh
+fi
+
+#Applescrit接口文件
+OSASPORT=$KITSSHELL/osasport.applescript
+
+#使用说明
+function usage() {
+    more "${KITSSHELL}/misc/kits-usage.txt"
+}
+
+function sshkey() {
+    if [ -f $KITSSHELL/private.sh ]; then 
+        . $KITSSHELL/private.sh sshkey 
+    else
+        echo 'kits: sshkey is not a kits command.'
+    fi
+}
+
+case $1 in
+    'backup' )     #备份文件到NAS
+        $KITSSHELL/backup/backup.sh
+        ;;
+    'genpac' )     #通过GenPAC生成自动代理配置文件
+        $KITS/GenPAC/genpac.py
+        ;;
+    'mamp' )       #MAMP管理
+        $KITSSHELL/mamp.sh $2
+        ;;
+    'itunes' )     #部分itunes操作
+        osascript $OSASPORT itunes $2 $3
+        ;;
+    'sshkey' )     #SSH秘钥处理
+        sshkey
+        ;;
+    'usage' )      #使用说明
+        usage
+        ;;
+    '' )
+        usage
+        ;;
+    * )
+        echo "kits: '$1' is not a kits command. See 'kits usage'."
+        ;;
+esac
+</code></pre>
+
+<p>　　将上述内容保存为<code>kits.sh</code>或其它任意名称，需要注意的是上面脚本里的内容是我个人所使用的，只是作为例子，大部分是无法运行的，你需要根据自己的需要修改。</p>
+
+<h4 id="2">2. 添加系统环境变量</h4>
+
+<p>　　上面的脚本虽然已经实现了做为其它脚本入口的功能，但使用时还不够方便，需要将它系统环境变量中，更容易访问，可能有人已经注意到上面代码中出现的<code>build-env.sh</code>文件，它的目的就是建立一些环境变量。</p>
+
+<pre><code>#!/bin/bash
+
+# 建立Kits的运行环境
+# 在~/.bash_profile 添加 source PATH/TO/build-env.sh
+
+# 注意 这里不能用相对路径
+
+#Kits所在目录
+export KITS="${HOME}/Developer/Misc/MacOSX-Kits"
+
+export KITSSHELL="${KITS}/Shell"
+export PATH="${KITSSHELL}:${PATH}"
+
+#建立别名
+alias kits="kits.sh"
+</code></pre>
+
+<p>　　最后再在<code>~/.bash_profile</code>的末尾添加<code>. /PATH/TO/builde-env.sh</code>（或<code>source /PATH/TO/builde-env.sh</code>）让它在用户登陆终端时被执行。</p>
+
+<p>　　经过这样设置，在任意时候任意目录下只要在终端输入形如<code>kits usage</code>、<code>kit mamp start</code>等命令就可以快速执行相应的脚本了。</p>
+
+<p>　　<strong>BTW</strong>: 我日常使用的部分脚本都陆续放到GitHub上了，有兴趣可以看看。</p>
+
+<p>[btn url="https://github.com/JinnLynn/MacOSX-Kits" title="MacOSX Kits" style="large" icon="github" wrapper="center"]</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
+</li>
+            <li class="entry-human-time-diff"> on May 16, 2012</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/shell-script-unique-port/#comments" title="Comment on 终端脚本统一入口">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-73514 -->
+<div id="post-11545" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/fetch-lyric-for-itunes/" title="让iTunes的歌曲自动获取歌词" rel="bookmark">让iTunes的歌曲自动获取歌词</a></h1>
+        <p class="entry-date" title="2012-05-04 14:05:45">
+            <span class="day">04</span>
+            <span class="month">May</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p><i><img src="http://static.afvisual.com/uploads/2012-05-04-fetch-lyric-for-itunes/screenshot.jpg" alt="Fetch Lyric for iTunes" /></i></p>
+
+<p>　　在<a href="http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/">4321.la</a>看到使用AppleScript自动获取iTunes曲目歌词的脚本，相当不错，自己做了些修改，添加了当歌词已存在时忽略获取，可以通过Growl通知获取的结果等功能。代码如下：</p>
+
+<pre><code>-- FetchLyric
+-- DESCRIPTION: 让iTunes内当前被选中的曲目自动下载并保存歌词，若歌词已存在将被忽略，支持Growl通知
+-- AUTHOR: JinnLynn http:://jeeker.net
+-- LAST UPDATED: 2012-05-04
+-- INTRO PAGE: http://jeeker.net/fetch-lyric-for-itunes/
+-- REF: Martian http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/
+property scriptName : "FetchLyric"
+property baseURL : "http://lyrics.sinaapp.com/"
+property isGrowlRunning : false
+property statusDesc : {"歌词已存在，无需再获取。", "歌词获取成功。", "歌词获取失败。", "未选择歌曲。"}
+property STATUS_LYRIC_EXIST : 1
+property STATUS_LYRIC_SUCCESS : 2
+property STATUS_LYRIC_FAIL : 3
+property STATUS_LYRIC_UNSELECTED : 4
+
+tell application "System Events"
+    set isGrowlRunning to (count of (every process whose bundle identifier is "com.Growl.GrowlHelperApp")) &gt; 0
+end tell
+
+script growl
+    on growlNotify(artist, title, status)
+        if isGrowlRunning = false then return
+        tell application id "com.Growl.GrowlHelperApp"
+            if title = "" then set title to "unknown"
+            set the_title to title
+            if artist is not equal to "" then set the_title to artist &amp; " - " &amp; the_title
+            set the_desc to item status of statusDesc
+            set the allNotificationsList to {scriptName}
+            set the enabledNotificationsList to {scriptName}
+            register as application ¬
+                scriptName all notifications allNotificationsList ¬
+                default notifications enabledNotificationsList ¬
+                icon of application "iTunes"
+            notify with name ¬
+                scriptName title ¬
+                the_title description ¬
+                the_desc application name scriptName
+            -- 尝试使用歌曲封面作为Growl图标出错
+        end tell
+    end growlNotify
+end script
+
+tell application "iTunes"
+    if selection is {} then
+        tell growl to growlNotify("", "", STATUS_LYRIC_UNSELECTED)
+        return
+    end if
+    set k to count (item of selection)
+    set i to 1
+    repeat
+        set theTrack to (item i of selection)
+        set this_artist to (get artist of theTrack)
+        set this_title to (get name of theTrack)
+        set this_lyric to (get lyrics of theTrack)
+        -- set this_artwork to data of artwork 1 of theTrack
+
+        set fetch_status to STATUS_LYRIC_FAIL
+
+        if length of this_lyric &lt; 1 then
+            -- 只有当歌曲中未存在歌词时才尝试获取歌词
+            set requestData to "title=" &amp; this_title &amp; "&amp;artist=" &amp; this_artist
+            set songLyrics to do shell script "curl -d '" &amp; requestData &amp; "' " &amp; baseURL
+            if length of songLyrics &gt; 1 then
+                -- 歌词成功获取
+                set lyrics of theTrack to songLyrics
+                set fetch_status to STATUS_LYRIC_SUCCESS
+            end if
+        else
+            set fetch_status to STATUS_LYRIC_EXIST
+        end if
+
+        tell growl to growlNotify(this_artist, this_title, fetch_status)
+
+        set i to i + 1
+        if i &gt; k then exit repeat
+    end repeat
+    -- 如果Growl未运行则显示对话框
+    if isGrowlRunning = false then
+        display dialog return &amp; "歌词获取结束！" buttons {"确定"} default button 1 with icon 1 giving up after 5 with title scriptName
+    end if
+end tell
+</code></pre>
+
+<p>　　<strong>USAGE:</strong> 在AppleScript Editor中新建包含上述脚本的文件，保存在 <strong>~/Library/iTunes/Scripts</strong> 目录下，这时在iTunes菜单栏中就会出现AppleScript的下拉菜单，选中需要的歌曲执行其中的命令即可。或者也可以使用Automator将上述脚本生成系统服务，具体本文不做详述，自行Google。</p>
+
+<p>　　实际上实现功能需要服务端的支持，上述脚本中使用了Martian搭建在SAE上的服务端，如果你想搭建自己的服务端可以在Martian的<a href="http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/">文章</a>中找到代码，或下载下面的文件，里面也包含了一个在服务端运行的PHP文件。</p>
+
+<p>[btn url="https://github.com/JinnLynn/MacOSX-Kits/tree/master/FetchLyric,https://github.com/downloads/JinnLynn/MacOSX-Kits/fetchlyric20120508.zip" title="Project on GitHub,Download" style="large" icon="github,download-alt" wrapper="center,single"]</p>
+
+<p>　　<strong>BTW:</strong> 尝试过使用歌曲封面做为Growl的图标没有成功，总提示无法生成数据，不知道什么原因。</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on May 04, 2012</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/fetch-lyric-for-itunes/#comments" title="Comment on 让iTunes的歌曲自动获取歌词">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-11545 -->
+<div id="post-99803" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/jkit-disable-autosave/" title="JKit: 部分禁用日志编辑自动保存" rel="bookmark">JKit: 部分禁用日志编辑自动保存</a></h1>
+        <p class="entry-date" title="2009-03-24 21:03:23">
+            <span class="day">24</span>
+            <span class="month">Mar</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　在Wordpress中，日志版本管理（Post Revisions）和编辑日志时的自动保存都会在数据库中产生新的数据（编辑已发布的内容时），很显然这些数据的用处只是一时的，但却给今后数据库查询增加了无谓的额外开销。</p>
+
+<p>　　对于日志版本管理，我们在wp-config.php中添加一句<code>define('WP_POST_REVISIONS', false);</code> 即可以轻松的完全禁用此功能，但自动保存就没有这么简单，官方没有提供开关功能，现在网上找到的方法似乎都是通过屏蔽javascript脚本，这种方法虽然可行，但在某些浏览器下可能报错，同时换个角度来看，某些时候自动保存还是有些用处的，完全禁用似乎也不太可取。</p>
+
+<p>　　下面的代码实现了仅在编辑草稿、发表新日志或页面时启用自动保存，在重新编辑已发表的内容时则不会进行自动保存的操作，避免在数据库中产生无用的数据，方法则是在浏览器提交申请，服务器进行自动保存之前对日志的状态进行判断，如果是草稿或未找到日志ID（即新日志）则进行保存操作，否则直接退出。</p>
+
+<p><a href="http://jeeker.net/article/jkit-disable-autosave/#more-99803" class="more-link">Read more...</a></p>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Mar 24, 2009</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/jkit-disable-autosave/#comments" title="Comment on JKit: 部分禁用日志编辑自动保存">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-99803 -->
+
+
+    <div id="pagenavi">
+        <span class="pages">Page 1 of 2</span>
+        <a href="http://jeeker.net/tag/%E4%BB%A3%E7%A0%81/page/2/" class="nav-older">Older</a>
+    </div><!-- #pagenavi -->
+   
+    </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="sidebar">
+</div><!-- #sidebar -->
+
+</div><!-- #main -->
+
+<div id="footer">
+    <div id="footer-left">
+        2012 Powered By <a href="http://jeeker.net/projects/gude/" title="a simple python static website generator">Gude</a>. Code licensed under <a href="http://opensource.org/licenses/MIT">MIT License</a>,
+        articles licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </div><!-- #footer-left -->
+    <div id="footer-right">
+    </div><!-- #footer-right -->
+</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<!-- print javascript -->
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?42566"></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?58572'></script>
+<![endif]-->
+
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="/assets/additional.js"></script>
+
+<!-- google analytics track code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31118267-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>

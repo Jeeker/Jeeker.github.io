@@ -1,0 +1,178 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie9below ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie9below ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie9below ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<head>
+    <title>GenPAC - Jeeker</title>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?99541" />
+    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <!-- <link rel='canonical' href="" /> -->
+    <meta name="robots" content="index,follow" />
+    <!-- <meta name="keywords" content="" /> -->
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="gradient"></div><!-- #gradient -->
+    <div id="header">
+        <div id="menu">
+            <ul>
+                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+            </ul>
+        </div>
+    </div><!-- ＃header -->
+
+<div id="main">
+    <div id="tools-box">
+        <ul>
+            <li id="tool-search">
+                <form action="http://google.com/search" method="get">
+                    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+                    <input type="hidden" name="q" value="site:jeeker.net" />
+                </form>
+            </li>
+        </ul>
+    </div><!-- #tools-box -->
+
+<div id="container">
+    <div id="content" role="main">
+
+
+
+<div id="post-03143" class="post post-single post-page post-publish">
+    <div class="entry-head">
+        <h1>GenPAC</h1>
+        <p class="entry-date" title="2012-05-07 23:05:43">
+            <span class="day">07</span>
+            <span class="month">May</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　由于众所周知的原因，中国大陆地区访问国外资源总会遇到些不便，于是“翻墙”成了有意了解真实世界的内地网民所必须掌握的一项技能，本人也是如此，先前使用<a href="http://code.google.com/p/switchy/">Proxy Switchy!</a>，可惜在Mac OSX Lion后就无法正常使用，其开发者不知为何也停止了更新，此后找到的<a href="http://autoproxy2pac.appspot.com/">AutoProxy2PAC</a> 也有这样那样的问题，最恶心的是居然莫名其妙还使用base64编码，让有“窥探欲”的我实在无法忍受。</p>
+
+<p>　　于是本着自力更生、丰衣足食的精神，就有了这个代理自动配置生成工具 <strong>GenPAC</strong> (PAC Generator)。</p>
+
+<ul>
+<li>基于Python 2.7</li>
+<li>代理规则基于gfwlist</li>
+<li>支持用户自定义规则</li>
+<li>生成时允许配置使用代理，防止获取gfwlist时被墙</li>
+</ul>
+
+<p>[btn url="https://github.com/JinnLynn/GenPAC" title="Project on GitHub" style="large" icon="github"]</p>
+
+<h3 id="usage">USAGE</h3>
+
+<h5>配置</h5>
+
+<p>　　用任意文本编辑工具打开<code>config.txt</code>文件，根据文件内的注释配置相应的变量。</p>
+
+<h5 id="-2">自定义规则</h5>
+
+<p>　　<code>user-rules.txt</code>是用户自定义规则，语法与gfwlist相同，即AdBlock Plus过滤规则，详见文件内说明，或访问<a href="http://adblockplus.org/en/filters">这里</a>。</p>
+
+<h5 id="-3">生成</h5>
+
+<p>　　开发语言为Python，版本要求2.7。</p>
+
+<p>　　Mac OSX已自带Python，在终端执行<code>./genpac.py</code>即可。</p>
+
+<p>　　Windows需要安装Python，在其<a href="http://www.python.org/">官网</a>可以找到安装包（<strong>版本务必选择2.7.*</strong>），安装后在命令行执行<code>python genpac.py</code>即可。</p>
+
+<p>　　*nix与Mac OSX类似。</p>
+
+<h5 id="-4">使用</h5>
+
+<p>　　如何使用自动代理请自行Google，需要说明的是Mac OSX Lion下的Safari由于其沙盒机制的原因无法使用本地PAC文件，需要使用Web Sharing或将PAC文件放在服务器，然后通过http访问。</p>
+
+<p><span id="more-03143"></span></p>
+
+<h3 id="changelog">CHANGELOG</h3>
+
+<ul>
+<li>2012.05.07 First Release.</li>
+<li>2012.05.09 支持自定义规则</li>
+</ul>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/projects/" title="View all posts in Projects" rel="category tag">Projects</a>
+</li>
+            <li class="entry-human-time-diff"> on May 07, 2012</li>
+            <li class="entry-comments">with <a href="http://jeeker.net/projects/genpac/#comments">comments</a></li>
+        </ul>  
+    </div><!-- .entry-meta -->
+</div><!-- #post-03143 -->
+<div id="comments">
+<!-- Duoshuo Comment BEGIN -->
+    <div class="ds-thread" data-title="GenPAC"></div>
+    <script type="text/javascript">
+        var duoshuoQuery = {short_name:"jeeker"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';
+            ds.async = true;
+            ds.src = 'http://static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+<!-- Duoshuo Comment END -->
+</div><!-- #comments -->   
+    </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="sidebar">
+</div><!-- #sidebar -->
+
+</div><!-- #main -->
+
+<div id="footer">
+    <div id="footer-left">
+        2012 Powered By <a href="http://jeeker.net/projects/gude/" title="a simple python static website generator">Gude</a>. Code licensed under <a href="http://opensource.org/licenses/MIT">MIT License</a>,
+        articles licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </div><!-- #footer-left -->
+    <div id="footer-right">
+    </div><!-- #footer-right -->
+</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<!-- print javascript -->
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?42566"></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?58572'></script>
+<![endif]-->
+
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="/assets/additional.js"></script>
+
+<!-- google analytics track code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31118267-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+@font-face {
+    font-family: 'jlabout';
+    src: url('/assets/fonts/jlabout.eot');
+    src: url('/assets/fonts/jlabout.eot?#iefix') format('embedded-opentype'), 
+         url('/assets/fonts/jlabout.woff') format('woff'), 
+         url('/assets/fonts/jlabout.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+span[class^="about-icon-"], 
+span[class*=" about-icon-"] {
+    font-family: "jlabout";
+    font-weight: normal; 
+    font-style: normal;
+    -webkit-font-smoothing:  antialiased !important;
+    -moz-font-smoothing:  antialiased !important;
+    font-smoothing:  antialiased !important;
+    line-height:1em;
+    display: -moz-inline-stack;
+    display:inline-block;
+    zoom: 1;
+    *display: inline;
+}
+
+.about-icon-evernote:before {content: "\22";}
+.about-icon-lastfm:before {content: "\23";}
+.about-icon-prog-cplusplus:before {content: "\24";}
+.about-icon-prog-ccplusplus:before {content: "\25";}
+.about-icon-prog-objc:before {content: "\26";}
+.about-icon-prog-python:before {content: "\27";}
+.about-icon-rss:before {content: "\28";}
+.about-icon-sina:before {content: "\29";}
+.about-icon-brw-chrome:before {content: "\2b";}
+.about-icon-googledrive-02:before {content: "\2d";}
+.about-icon-dropbox:before {content: "\2e";}
+.about-icon-kub-search:before {content: "\2f";}
+.about-icon-chn-weibo:before {content: "\30";}
+.about-icon-github:before {content: "\33";}
+.about-icon-google:before {content: "\34";}
+.about-icon-apple:before {content: "\35";}
+.about-icon-github-2:before {content: "\37";}
+.about-icon-github-3:before {content: "\38";}
+.about-icon-github-4:before {content: "\39";}
+.about-icon-flickr:before {content: "\21";}
+.about-icon-facebook:before {content: "\2c";}
+.about-icon-twitter:before {content: "\31";}
+
+div#share-services {
+    position: relative;
+    float:right;
+    top: 5px;
+    right: 15px;
+}
+#share-services a,
+#share-services a:visited {
+    color: #aaa;
+    -webkit-transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
+    -ms-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out; 
+}
+#share-services a:hover {
+    color: #000;
+}
+#share-services {
+    font-size: 32px;
+}
+#share-services span {
+    padding-left: 10px;
+}
+#weibo_widget_card div[class^="arrow_"],
+#weibo_widget_card div[class*=" arrow_"] {
+    display: none;
+}
+#share-services span#github {
+    font-size: 0.85em;
+}
+.ie9below #share-services {
+    display: none;
+}

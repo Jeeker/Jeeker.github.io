@@ -1,0 +1,277 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie9below ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie9below ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie9below ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<head>
+    <title>Arduino - Jeeker</title>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?99541" />
+    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <!-- <link rel='canonical' href="" /> -->
+    <meta name="robots" content="index,follow" />
+    <!-- <meta name="keywords" content="" /> -->
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="gradient"></div><!-- #gradient -->
+    <div id="header">
+        <div id="menu">
+            <ul>
+                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+            </ul>
+        </div>
+    </div><!-- ＃header -->
+
+<div id="main">
+    <div id="tools-box">
+        <ul>
+            <li id="tool-search">
+                <form action="http://google.com/search" method="get">
+                    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+                    <input type="hidden" name="q" value="site:jeeker.net" />
+                </form>
+            </li>
+        </ul>
+    </div><!-- #tools-box -->
+
+<div id="container">
+    <div id="content" role="main">
+
+
+
+<div id="post-64180" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/" title="第一个Arduino实验: 新浪微博关注好友状态更新数量" rel="bookmark">第一个Arduino实验: 新浪微博关注好友状态更新数量</a></h1>
+        <p class="entry-date" title="2013-03-20 15:23:00">
+            <span class="day">20</span>
+            <span class="month">Mar</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　一直想玩一玩电子设备，一般的单片机需要浪费太多时间在电子基础知识的学习上，不适合我这类人。</p>
+
+<p>　　最后发现了<a href="http://arduino.cc/">Arduino</a>这个开源的硬件平台，社区活跃，对电子相关知识要求已是最低，于是订购了一个Arduino UNO的兼容版，上手挺容易，很快就折腾出了这个简单的小实验，功能是间隔三十秒获取新浪微博上好友状态更新数量并在数码管上显示。</p>
+
+<h4 id="1-arduino">1. Arduino实验板连接</h4>
+
+<p>　　实验板的连接不做详述，参考极客工坊的<a href="http://www.geek-workshop.com/thread-2038-1-1.html">这篇文章</a>，保证数码管引脚<code>E  D  C  DP B  A  F  G</code>分别对应Arduino数字输出2~9即可，Pin13做为电源输出。</p>
+
+<h4 id="2">2. 程序源代码</h4>
+
+<p>　　代码是Python2.7的，因此Arduino需预先写入<a href="http://firmata.org/">StandardFirmata</a>，而Python则需安装<a href="https://github.com/tino/pyFirmata">pyFirmata</a>模块。</p>
+
+<pre><code>#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#! 强制默认编码为utf-8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+import pyfirmata, urllib, json, time
+from datetime import datetime
+
+#! 微博的API调用需要OAuth2.0登陆授权
+#! 这里不做授权过程，需使用开发者账号测试 参考：http://t.cn/zYDjFan
+ACCESS_TOKEN = 'YOUR ACCESS TOKEN'
+
+# Arduino硬件接口
+ARDUINO_PORT        = 'YOUR ARDUINO PORT'
+
+POWER_PIN           = 13
+DOTPOINT_PIN        = 5
+
+NUMBERS = [
+    #E  D  C  DP B  A  F  G   // 数码管
+    #2  3  4  5  6  7  8  9   // 输出端口
+    [0, 0, 0, 1, 0, 0, 0, 1], # 0
+    [0, 1, 1, 1, 1, 1, 0, 1], # 1
+    [0, 0, 1, 1, 0, 0, 1, 0], # 2 
+    [1, 0, 0, 1, 0, 0, 1, 0], # 3
+    [1, 1, 0, 1, 0, 1, 0, 0], # 4
+    [1, 0, 0, 1, 1, 0, 0, 0], # 5
+    [0, 0, 0, 1, 1, 0, 0, 0], # 6
+    [1, 1, 0, 1, 0, 0, 1, 1], # 7
+    [0, 0, 0, 1, 0, 0, 0, 0], # 8
+    [1, 0, 0, 1, 0, 0, 0, 0], # 9
+    [1, 1, 1, 0, 1, 1, 1, 1], # dot point
+    [1, 1, 1, 1, 1, 1, 1, 0], # line
+    [1, 1, 1, 1, 1, 1, 1, 1]  # nothing
+]
+
+class WBftc(object):
+    def __init__(self):
+        self.arduino = None
+        self.lastStatusID = ''
+        self.initArduino()
+
+    def __del__(self):
+        if isinstance(self.arduino, pyfirmata.Arduino):
+            for i in xrange(2, 14):
+                self.arduino.digital[i].write(0)
+
+    def initArduino(self):
+        if isinstance(self.arduino, pyfirmata.Arduino):
+            return
+        try:
+            self.arduino = pyfirmata.Arduino(ARDUINO_PORT)
+            self.arduino.digital[13].write(1)
+        except Exception, e:
+            print('init arduino fail.')
+            sys.exit(1)
+
+    def outputArduino(self, num):
+        if not isinstance(self.arduino, pyfirmata.Arduino):
+            return
+        # 输出 0 - 9 的数字
+        show = num
+        # 小于0 错误
+        if num &lt; 0:
+            show = 12
+        # 大于 9 超出量程
+        elif num &gt; 9:
+            show = 11
+        for x in range(2, 10):
+            self.arduino.digital[x].write(NUMBERS[show][x - 2])
+
+    def flashDotPoint(self, interval = 1, count = 30):
+        show_dot = True
+        for x in range(count):
+            self.arduino.digital[DOTPOINT_PIN].write(0 if show_dot else 1)
+            show_dot = False if show_dot else True
+            time.sleep(interval)
+
+    def fetchWeiboStatusCount(self):
+        # -1 错误
+        url = 'https://api.weibo.com/2/statuses/friends_timeline/ids.json'
+        data = {
+            'access_token'  : ACCESS_TOKEN
+        }
+        if self.lastStatusID:
+            data.update({'since_id' : self.lastStatusID })
+        data = urllib.urlencode(data)
+        try:
+            requst = urllib.urlopen('{}?{}'.format(url, data))
+            res = json.load(requst)
+            if not res.has_key('statuses'):
+                return -1
+            statuses = res['statuses']
+            if len(statuses):
+                self.lastStatusID = statuses[0]
+            return len(statuses)
+        except Exception, e:
+            print('something error.')
+            return -1
+
+    def run(self):
+        while (True):
+            count = self.fetchWeiboStatusCount()
+            now = datetime.now().strftime('%H:%M:%S')
+            print('{}: {}'.format(now, count))
+            self.outputArduino(count)
+            self.flashDotPoint()
+
+if __name__ == '__main__':
+    try:
+        WBftc().run()
+    except KeyboardInterrupt:
+        print('\rexit.')
+    except Exception, e:
+        raise e
+</code></pre>
+
+<p>[btn url="https://gist.github.com/JinnLynn/5210753" title="Source on gist" style="large" icon="github"]</p>
+
+<p>　　需配置<code>ACCESS_TOKEN</code>和<code>ARDUINO_PORT</code>。</p>
+
+<p>　　<strong>NOTE</strong>: 访问微博API需要OAuth2.0授权，这里使用了开发者测试账户，详细请参考<a href="http://t.cn/zYDjFan">这篇文章</a>。</p>
+
+<h4 id="3">3. 显示结果</h4>
+
+<p>　　程序每隔30秒获取关注好友更新的微博数量并以以下方式显示：</p>
+
+<ul>
+<li>更新数量在0-9间，数码管正常显示</li>
+<li>更新数量大于9，数码管显示『-』</li>
+<li>出错，数码管不显示任何内容</li>
+<li>小数点闪动</li>
+</ul>
+
+<p>　　同时，电脑终端也会打印相应的更新数量信息，<code>CTRL+C</code>退出程序。</p>
+
+<p><center>
+    <iframe class="user-box" height="445" width="720" src="http://player.youku.com/embed/XNTI5NjQ0NDA4" frameborder="0" allowfullscreen></iframe>
+</center></p>
+
+<p><a href="http://jeeker.net/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/#more-64180" class="more-link">Read more...</a></p>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+</li>
+            <li class="entry-human-time-diff"> on Mar 20, 2013</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/#comments" title="Comment on 第一个Arduino实验: 新浪微博关注好友状态更新数量">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-64180 -->
+
+
+    <div id="pagenavi">
+        <span class="pages">Page 1 of 1</span>
+    </div><!-- #pagenavi -->
+   
+    </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="sidebar">
+</div><!-- #sidebar -->
+
+</div><!-- #main -->
+
+<div id="footer">
+    <div id="footer-left">
+        2012 Powered By <a href="http://jeeker.net/projects/gude/" title="a simple python static website generator">Gude</a>. Code licensed under <a href="http://opensource.org/licenses/MIT">MIT License</a>,
+        articles licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </div><!-- #footer-left -->
+    <div id="footer-right">
+    </div><!-- #footer-right -->
+</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<!-- print javascript -->
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?42566"></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?58572'></script>
+<![endif]-->
+
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="/assets/additional.js"></script>
+
+<!-- google analytics track code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31118267-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>

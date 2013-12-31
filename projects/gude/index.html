@@ -1,0 +1,468 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie9below ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie9below ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie9below ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<head>
+    <title>Gude - Jeeker</title>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?99541" />
+    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <!-- <link rel='canonical' href="" /> -->
+    <meta name="robots" content="index,follow" />
+    <!-- <meta name="keywords" content="" /> -->
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="gradient"></div><!-- #gradient -->
+    <div id="header">
+        <div id="menu">
+            <ul>
+                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+            </ul>
+        </div>
+    </div><!-- ＃header -->
+
+<div id="main">
+    <div id="tools-box">
+        <ul>
+            <li id="tool-search">
+                <form action="http://google.com/search" method="get">
+                    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+                    <input type="hidden" name="q" value="site:jeeker.net" />
+                </form>
+            </li>
+        </ul>
+    </div><!-- #tools-box -->
+
+<div id="container">
+    <div id="content" role="main">
+
+
+
+<div id="post-81391" class="post post-single post-page post-publish">
+    <div class="entry-head">
+        <h1>Gude</h1>
+        <p class="entry-date" title="2013-01-10 09:29:51">
+            <span class="day">10</span>
+            <span class="month">Jan</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　厌倦了<a href="http://wordpress.org/">Wordpress</a>越来越庞杂却无用的功能，想让网站回归单纯，<a href="http://octopress.org/">Octopress</a>本是个不错的选择，但在OS X下总有这样那样的问题，自己对Ruby也不了解，于是就在Python下折腾出了这个Gude。</p>
+
+<p>　　如下图，在Gude下网站日常管理的几个简单命令。</p>
+
+<p><i><img src="http://static.afvisual.com/uploads/projects/2013-01-10-gude/workflow.png" alt="Gude" /></i></p>
+
+<ul>
+<li>基于Python2.7</li>
+<li>使用GIT进行管理和发布</li>
+<li>使用Markdown或HTML撰写文章</li>
+<li>支持分类、标签</li>
+<li>支持文章模板、站点皮肤</li>
+<li>评论系统Disgus，统计系统Google Analytucs</li>
+<li>支持发布到Github或任意的FTP服务器<sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup></li>
+<li>简单的插件支持</li>
+</ul>
+
+<p>[btn url="https://github.com/JinnLynn/gude" title="Project on GitHub" style="large" icon="github"]</p>
+
+<p><span id="more-81391"></span></p>
+
+<h2>安装</h2>
+
+<h5 id="1">1. 准备</h5>
+
+<p>　　必须安装：</p>
+
+<ul>
+<li><a href="http://www.python.org/">Python</a> 2.7.3 Gude使用的开发语言</li>
+<li><a href="http://git-scm.com/">Git</a> 分布式版本管理 Gude用于站点的备份发布等</li>
+</ul>
+
+<p>　　另外最好对以下的语言有所了解：</p>
+
+<ul>
+<li><a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> 轻量级的标记语言，易读易写，Gude中用于书写文章内容</li>
+<li><a href="http://www.yaml.org/">YAML</a> 一种对人阅读友好的标记语言，可存储多种数据格式，Gude中用于配置文件</li>
+<li><a href="http://www.makotemplates.org/">mako</a> Gude使用的模板系统，如果希望自定义网站，就必须掌握它</li>
+</ul>
+
+<h5 id="2">2. 下载</h5>
+
+<ul>
+<li>从GitHub clone到本地 <small>推荐</small></li>
+<li>直接<a href="https://github.com/JinnLynn/gude/archive/master.zip">下载</a></li>
+</ul>
+
+<h5 id="3">3. 安装</h5>
+
+<p>　　<code>git clone git://github.com/JinnLynn/gude.git &amp;&amp; cd gude &amp;&amp; python setup.py install</code></p>
+
+<p>　　系统必须有pip，安装gude时也将安装一些依赖的第三方库。</p>
+
+<h2 id="-2">使用</h2>
+
+<h5 id="1-2">1. 概述</h5>
+
+<p>　　基本的命令格式：<code>gude [-h] [-v] {serve,add,publish,init,build,backup} ...</code></p>
+
+<p>　　各子命令作用：</p>
+
+<table>
+<tbody>
+<tr><td><strong>子命令</strong></td><td><strong>说明</strong></td></tr>
+<tr><td>init</td><td>在当前工作目录下初始化一个新的网站</td></tr>
+<tr><td>add</td><td>添加新的文章</td></tr>
+<tr><td>build</td><td>生成网站内容</td></tr>
+<tr><td>serve</td><td>在本地启动一个简单的网页服务器</td></tr>
+<tr><td>publish</td><td>发布网站到服务器，服务器的相关信息需在配置文件中配置</td></tr>
+<tr><td>backup</td><td>备份</td></tr>
+</tbody>
+</table>
+
+<h5 id="2-2">2. 初始化</h5>
+
+<p>　　命令：<code>gude init [-h] [-f]</code></p>
+
+<p>　　在任意目录下执行<code>gude init</code>可初始化一个新的站点，如果该目录下已存在文件则需要参数<code>-f</code>或<code>--force</code>强制清空目录并初始化。</p>
+
+<p>　　若初始化成功将会产生如下的目录结构：</p>
+
+<table>
+<tbody>
+<tr><td><strong>目录或文件</strong></td><td><strong>说明</strong></td></tr>
+<tr><td>content</td><td>存放原始文章文件</td></tr>
+<tr><td>deploy</td><td>存放生成的文件</td></tr>
+<tr><td>static</td><td>一些需要在生成站点时拷贝到deploy目录的文件</td></tr>
+<tr><td>theme</td><td>皮肤</td></tr>
+<tr><td>site.yaml</td><td>网站配置文件 该文件会被GIT跟踪</td></tr>
+<tr><td>privacy.yaml</td><td>私用配置文件 该文件不会被GIT跟踪 且优先级高于site.yaml</td></tr>
+<tr><td>README.md</td><td>github说明文件</td></tr>
+<tr><td>...</td><td>Git版本管理文件 .git .gitignore</td></tr>
+</tbody>
+</table>
+
+<h5 id="3-2">3. 配置</h5>
+
+<p>　　配置文件有两个：<strong>site.yaml</strong>、<strong>privacy.yaml</strong>，其中privacy.yaml的优先级高于site.yaml，且进行网站版本管理时不会被跟踪，主要用于存储一些私有的信息，如FTP服务器地址密码等。</p>
+
+<p>　　比较主要的键值参考如下：</p>
+
+<table>
+<tbody>
+<tr><td><strong>键名</strong></td><td><strong>默认值</strong></td><td><strong>说明</strong></td></tr>
+<tr><td>domain</td><td></td><td>域名</td></tr>
+<tr><td>subdirectory</td><td>/</td><td>子目录</td></tr>
+<tr><td>title</td><td></td><td>网站名称</td></tr>
+<tr><td>author</td><td></td><td>作者</td></tr>
+<tr><td>category</td><td>[Other]</td><td>文章分类</td></tr>
+<tr><td>num_per_page</td><td>5</td><td>每页显示的文章数</td></tr>
+<tr><td>num_in_feed</td><td>10</td><td>FEED显示的文章数</td></tr>
+<tr><td>num_in_archive</td><td>50</td><td>存档页显示的文章数</td></tr>
+<tr><td>theme</td><td>default</td><td>皮肤风格</td></tr>
+<tr><td>default_layout</td><td>post</td><td>默认文章模板</td></tr>
+<tr><td>header_menu</td><td></td><td>页面头部菜单</td></tr>
+<tr><td>comment_service</td><td>duoshuo</td><td>评论系统类型 可选值: duoshuo disgus</td></tr>
+<tr><td>comment_service</td><td></td><td>评论系统disqus或多说的shortname</td></tr>
+<tr><td>google_analytics_track_id</td><td></td><td>Google Analytucs跟踪ID</td></tr>
+<tr><td>feed_url</td><td></td><td>使用第三方FEED服务时的地址</td></tr>
+<tr><td>content_filter</td><td>[Shortcode, CenterElement]</td><td>文章内容处理插件 见<a href="#gude-content-filter">这里</a></td></tr>
+<tr><td>designated</td><td></td><td>指定生成的文件地址</td></tr>
+<tr><td>file_copy</td><td></td><td>拷贝文件到生成目录</td></tr>
+<tr><td>local_domain</td><td>http://localhost:8910</td><td>用于调试的本地模式地址</td></tr>
+<tr><td>local_subdirectory</td><td>/</td><td>用于调试的本地模式子目录</td></tr>
+<tr><td>publish_type</td><td></td><td>在privacy.yaml 发布模式 可选值 git、gitftp、rsync，其中git只能发布到<a href="https://github.com/">GitHub</a></td></tr>
+<tr><td>ftp_server</td><td></td><td>在privacy.yaml FTP服务器</td></tr>
+<tr><td>ftp_subdirectory</td><td></td><td>在privacy.yaml FTP服务器子目录</td></tr>
+<tr><td>ftp_usr</td><td></td><td>在privacy.yaml FTP用户名</td></tr>
+<tr><td>ftp_pwd</td><td></td><td>在privacy.yaml FTP密码</td></tr>
+<tr><td>github_project_page</td><td>no</td><td>在privacy.yaml 使用git发布时是否是github的项目页面</td></tr>
+<tr><td>git_remote</td><td></td><td>在privacy.yaml GIT远程路径</td></tr>
+<tr><td>rsync_server</td><td></td><td>rsync服务器地址</td></tr>
+<tr><td>rsync_subdirectory</td><td></td><td>rsync同步目录</td></tr>
+<tr><td>rsync_usr</td><td></td><td>rsync用户名</td></tr>
+<tr><td>rsync_sshkey</td><td></td><td>rsync用户密钥</td></tr>
+</tbody>
+</table>
+
+<h5 id="4">4. 写文章</h5>
+
+<h6 id="span-idarticle-filename-rule">文章命名规则 <span id="article-filename-rule" /></h6>
+
+<ul>
+<li>文章必须存放在<code>content</code>目录下，但也可以在<code>content</code>下另建文件夹存储 
+<ul>
+<li>直接在<code>content</code>目录下的，发布的文件将在article目录下，以类似<code>http://YOUR-DOMAIN.COM/article/...</code>的地址访问</li>
+<li>在<code>content</code>下其它文件夹的，发布文件将在其对应的目录下，以类似<code>http://YOUR-DOMAIN.COM/DIR—NAME/...</code>的地址访问</li>
+<li>自建文件夹不限嵌套层数，但顶层（即在<code>content</code>下）不允许如下命名：tag, tags, category, archive, article, assets, page</li>
+</ul></li>
+<li>文章必须以日期为前缀，形如<code>2013-01-01-FILENAME.md</code>，但生成的发布文件不会包括日期信息</li>
+<li>文章文件名后缀支持<code>md markdown html</code>，Gude将通过后缀名决定处理方式</li>
+<li>文章字符编码UTF-8</li>
+<li>默认情况下，Gude按照一定的规则生成文件，但你也可以指定生成文件路径，见<a href="#gude-designated">这里</a></li>
+</ul>
+
+<h6 id="-3">文章配置</h6>
+
+<p>　　文章配置使用YAML书写，位于文章开始位置并被<code>&lt;!-- --&gt;</code>所包围，可配置的信息如下：</p>
+
+<table>
+<tbody>
+<tr><td><strong>键名</strong></td><td><strong>默认值</strong></td><td><strong>说明</strong></td></tr>
+<tr><td>title</td><td></td><td>文章标题</td></tr>
+<tr><td>date</td><td>文章文件生成时间</td><td>形如2013-01-02 14:23:21</td></tr>
+<tr><td>catrgory</td><td>~</td><td>文章分类，必须使用站点配置<code>category</code>中存在的分类名，否则将被忽略</td></tr>
+<tr><td>tag</td><td>~</td><td>文章标签</td></tr>
+<tr><td>author</td><td>站点配置author的值</td><td>作者</td></tr>
+<tr><td>modify</td><td>文章文件的最后修改时间</td><td>修改时间</td></tr>
+<tr><td>layout</td><td>站点配置default_layout的值</td><td>文章模板布局</td></tr>
+<tr><td>unlisted</td><td>[]</td><td>不罗列的页面 序列类型数据 支持home sitemap archives feed</td></tr>
+<tr><td>status</td><td>public</td><td>文章状态 public sticky draft</td></tr>
+<tr><td>custom</td><td>~</td><td>自定义信息，映射类型的数据</td></tr>
+</tbody>
+</table>
+
+<h6 id="-4">命令行生成新文章</h6>
+
+<p>　　命令：<code>gude add [-h] [--html] [--layout LAYOUT] [--status STATUS] [-f FILENAME] [-t TITLE]</code></p>
+
+<table>
+<tbody>
+<tr><td><strong>参数</strong></td><td><strong>说明</strong></td></tr>
+<tr><td>-h</td><td>帮助</td></tr>
+<tr><td>-t</td><td>文章标题 不指定默认 Untitled</td></tr>
+<tr><td>-f</td><td>文件名称，不指定则是文章标题，支持设置目录， 规则见<a href="#article-filename-rule">这里</a>。</td></tr>
+<tr><td>--html</td><td>默认生成.md文件，指定该参数则生成.html文件</td></tr>
+<tr><td>--layout</td><td>不指定使用配置文件键值default_layout所设定</td></tr>
+<tr><td>--status</td><td>文章状态 可选public、sticky、draft 默认public</td></tr>
+</tbody>
+</table>
+
+<h6 id="-5">手动生成新文章</h6>
+
+<p>　　在<code>content</code>下自行手动创建符合<a href="#gude-article-filename-rule">命名规则</a>的文本文件。</p>
+
+<h5 id="5">5. 生成网站</h5>
+
+<p>　　命令：<code>gude build [-h] [-i] [-l] [-p]</code></p>
+
+<table>
+<tbody>
+<tr><td><strong>参数</strong></td><td><strong>说明</strong></td></tr>
+<tr><td>-h</td><td>帮助</td></tr>
+<tr><td>-l</td><td>生成本地文件，即站点地址使用 local_domain</td></tr>
+<tr><td>-i</td><td>输出详细信息</td></tr>
+<tr><td>-p</td><td>生成后启动服务器预览</td></tr>
+</tbody>
+</table>
+
+<p>　　<em>注意</em>，在生成网站前，Gude会把deploy目录下的所有文件删除，如果你有某些文件需要存在于最终发布的网址中，请参考<a href="#gude-file-copy">这里</a>操作。</p>
+
+<h5 id="6">6. 本地服务器查看</h5>
+
+<p>　　命令：<code>gude serve [-h] [-p PORT]</code></p>
+
+<table>
+<tbody>
+<tr><td><strong>参数</strong></td><td><strong>说明</strong></td></tr>
+<tr><td>-h</td><td>帮助</td></tr>
+<tr><td>-p</td><td>端口 默认 8910</td></tr>
+</tbody>
+</table>
+
+<p>　　启动一个本地服务器访问网站，建议使用<code>gude build -lp</code>生成一个本地版本用于查看效果。</p>
+
+<h5 id="7">7. 发布</h5>
+
+<p>　　命令：<code>gude publish [-h] [-b] [-f] [-c]</code></p>
+
+<table>
+<tbody>
+<tr><td><strong>参数</strong></td><td><strong>说明</strong></td></tr>
+<tr><td>-h</td><td>帮助</td></tr>
+<tr><td>-b</td><td>发布前重新生成网站</td></tr>
+<tr><td>-c</td><td>清理</td></tr>
+<tr><td>-f</td><td>强制，清空服务器上旧内容，如果发布失败可使用该参数，另：<em>第一次发布时必须加该参数</em></td></tr>
+</tbody>
+</table>
+
+<p>　　发布网站到预置的服务器。</p>
+
+<h5 id="8">8. 备份</h5>
+
+<p>　　命令：<code>gude backup [-h] [-f] [--remote] [-c]</code></p>
+
+<table>
+<tbody>
+<tr><td><strong>参数</strong></td><td><strong>说明</strong></td></tr>
+<tr><td>-h</td><td>帮助</td></tr>
+<tr><td>-c</td><td>清理</td></tr>
+<tr><td>-f</td><td>强制</td></tr>
+<tr><td>--remote</td><td>推送到远程，目前仅支持GitHub，参考<a href="#gude-git">这里</a>。</td></tr>
+</tbody>
+</table>
+
+<h2 id="-6">进阶</h2>
+
+<h5 id="1-3">1. 皮肤</h5>
+
+<p>　　Gude支持皮肤，使用的模板系统是<a href="http://www.makotemplates.org/">Mako</a>，皮肤名即其所在的文件夹名，Gude将自动搜索站点所在目录和Gude目录下的theme文件夹。</p>
+
+<p>　　若你想设计自己的皮肤请参考默认皮肤<code>default</code>。</p>
+
+<p><span id="gude-content-filter" /></p>
+
+<h5 id="2-3">2. 文章内容处理插件</h5>
+
+<p>　　Gude支持一些简单的对文章内容处理的插件，文件位于<code>plugin</code>。默认已有Shortcode、CenterElement，具体作用参考源代码。
+　　
+<span id="gude-designated" /></p>
+
+<h5 id="3-3">3. 指定生成的发布文件路径</h5>
+
+<p>　　正常情况下，Gudu按照一定的规则生成发布文件，但如果需要也可以自定义生成的发布文件路径，在<code>site.yaml</code>中配置参数<code>designated</code>即可。比如</p>
+
+<pre><code>designated:
+    - src:      2000-01-01-projects.md
+      dst:      projects/index.html
+    - src:      2000-01-01-about.html
+      dst:      about/index.html
+</code></pre>
+
+<p>　　其中src为文章路径（相对<code>content</code>目录），dst为生成的发布文件（相对<code>deploy</code>目录）。</p>
+
+<p><span id="gude-file-copy" /></p>
+
+<h5 id="4-2">4. 生成时拷贝文件到发布目录</h5>
+
+<p>　　在每次执行<code>gude build</code>生成站点时，Gude将删除<code>deploy</code>目录下的所有文件，因此如果你的网站需要一些额外的文件（如自己上传的文件）则在<code>site.yaml</code>中配置参数<code>file_copy</code>，如</p>
+
+<pre><code>file_copy:
+    - src:      static/htaccess
+      dst:      .htaccess
+    - src:      static/favicon.ico
+      dst:      assets/images/favicon.ico
+</code></pre>
+
+<p>　　其中src为源文件路径（相对<code>static</code>目录），dst为生成的发布文件（相对<code>deploy</code>目录）。</p>
+
+<p><span id="gude-git" /></p>
+
+<h5 id="5-git">5. GIT</h5>
+
+<p>　　Gude的站点目录下有两个git版本库，一个位于站点根目录下，另一个在<code>deploy</code>目录下，前者用于管理站点源文件，后者用于管理发布文件，当你使用Github作为你的网站空间并使用<code>gude backup --remote</code>将站点备份到github上时有需要注意：</p>
+
+<ul>
+<li>用github的个人page时，站点提交到source分支，deploy提交到master分支</li>
+<li>用github的项目page时，站点提交到master分支，deploy提交到gh-page分支</li>
+</ul>
+
+<h5 id="6-wordpress">6. 从Wordpress迁移</h5>
+
+<p>　　tools目录下有<code>wordpress-export.php</code>可导出Wordpress日志到Gude，将其拷贝到Wordpress目录后浏览器中访问该文件即可，一些设置见源文件。</p>
+
+<h2 id="-7">其它</h2>
+
+<ul>
+<li>Gude中使用的第三方库: <a href="https://github.com/lakshmivyas/commando">commando</a>、<a href="http://www.makotemplates.org/">mako</a>、<a href="http://pyyaml.org/">PyYAML</a>、<a href="http://pypi.python.org/pypi/feedgenerator">feedgenerator</a>、<a href="https://github.com/trentm/python-markdown2">python-markdown2</a></li>
+<li>感谢最好的版本管理系统<a href="http://git-scm.com/">Git</a>和代码托管服务<a href="https://github.com/">GitHub</a>，</li>
+<li>建议写一篇新文章的操作流程
+<ol>
+<li>添加新文章并撰写 <code>gude add</code></li>
+<li>生成本地版本并预览 <code>gude build -lp</code></li>
+<li>生成最终版本并发布 <code>gude publish -b</code></li>
+</ol></li>
+</ul>
+
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn-1">
+<p>FTP发布需<a href="https://github.com/resmo/git-ftp">GIT-FTP</a>支持&nbsp;<a href="#fnref-1" class="footnoteBackLink" title="Jump back to footnote 1 in the text.">&#8617;</a></p>
+</li>
+</ol>
+</div>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/projects/" title="View all posts in Projects" rel="category tag">Projects</a>
+</li>
+            <li class="entry-human-time-diff"> on Jan 10, 2013</li>
+            <li class="entry-comments">with <a href="http://jeeker.net/projects/gude/#comments">comments</a></li>
+        </ul>  
+    </div><!-- .entry-meta -->
+</div><!-- #post-81391 -->
+<div id="comments">
+<!-- Duoshuo Comment BEGIN -->
+    <div class="ds-thread" data-title="Gude"></div>
+    <script type="text/javascript">
+        var duoshuoQuery = {short_name:"jeeker"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';
+            ds.async = true;
+            ds.src = 'http://static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+<!-- Duoshuo Comment END -->
+</div><!-- #comments -->   
+    </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="sidebar">
+</div><!-- #sidebar -->
+
+</div><!-- #main -->
+
+<div id="footer">
+    <div id="footer-left">
+        2012 Powered By <a href="http://jeeker.net/projects/gude/" title="a simple python static website generator">Gude</a>. Code licensed under <a href="http://opensource.org/licenses/MIT">MIT License</a>,
+        articles licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </div><!-- #footer-left -->
+    <div id="footer-right">
+    </div><!-- #footer-right -->
+</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<!-- print javascript -->
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?42566"></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?58572'></script>
+<![endif]-->
+
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="/assets/additional.js"></script>
+
+<!-- google analytics track code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31118267-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>

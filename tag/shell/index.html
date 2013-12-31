@@ -1,0 +1,211 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie9below ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie9below ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie9below ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<head>
+    <title>Shell - Jeeker</title>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?99541" />
+    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <!-- <link rel='canonical' href="" /> -->
+    <meta name="robots" content="index,follow" />
+    <!-- <meta name="keywords" content="" /> -->
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="gradient"></div><!-- #gradient -->
+    <div id="header">
+        <div id="menu">
+            <ul>
+                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+            </ul>
+        </div>
+    </div><!-- ＃header -->
+
+<div id="main">
+    <div id="tools-box">
+        <ul>
+            <li id="tool-search">
+                <form action="http://google.com/search" method="get">
+                    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+                    <input type="hidden" name="q" value="site:jeeker.net" />
+                </form>
+            </li>
+        </ul>
+    </div><!-- #tools-box -->
+
+<div id="container">
+    <div id="content" role="main">
+
+
+
+<div id="post-73514" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/shell-script-unique-port/" title="终端脚本统一入口" rel="bookmark">终端脚本统一入口</a></h1>
+        <p class="entry-date" title="2012-05-16 21:05:14">
+            <span class="day">16</span>
+            <span class="month">May</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　相较Windows用户而言，Mac和*nix用户更喜欢用脚本处理一些日常的操作，脚本语言可以是Shell、Python、Ruby、Perl或甚至是Mac上的Applescript，一段时间下来可能累计了不少，但这时又会遇到想进行某项操作时却无法快速获取相应的脚本文件，失去了使用脚本原本该有的便捷与效率。</p>
+
+<p>　　其实我们可以建立一个简单的Shell文件做为这些脚本的入口，只要记住一些简单的命令就可以快速的执行相应的脚本，实现方法如下：</p>
+
+<h4 id="1">1. 建立统一入口脚本</h4>
+
+<pre><code>#!/bin/bash
+
+#检查环境变量
+if [ -z $KITS ]; then
+    . $(cd $(dirname $0); pwd)/build-env.sh
+fi
+
+#Applescrit接口文件
+OSASPORT=$KITSSHELL/osasport.applescript
+
+#使用说明
+function usage() {
+    more "${KITSSHELL}/misc/kits-usage.txt"
+}
+
+function sshkey() {
+    if [ -f $KITSSHELL/private.sh ]; then 
+        . $KITSSHELL/private.sh sshkey 
+    else
+        echo 'kits: sshkey is not a kits command.'
+    fi
+}
+
+case $1 in
+    'backup' )     #备份文件到NAS
+        $KITSSHELL/backup/backup.sh
+        ;;
+    'genpac' )     #通过GenPAC生成自动代理配置文件
+        $KITS/GenPAC/genpac.py
+        ;;
+    'mamp' )       #MAMP管理
+        $KITSSHELL/mamp.sh $2
+        ;;
+    'itunes' )     #部分itunes操作
+        osascript $OSASPORT itunes $2 $3
+        ;;
+    'sshkey' )     #SSH秘钥处理
+        sshkey
+        ;;
+    'usage' )      #使用说明
+        usage
+        ;;
+    '' )
+        usage
+        ;;
+    * )
+        echo "kits: '$1' is not a kits command. See 'kits usage'."
+        ;;
+esac
+</code></pre>
+
+<p>　　将上述内容保存为<code>kits.sh</code>或其它任意名称，需要注意的是上面脚本里的内容是我个人所使用的，只是作为例子，大部分是无法运行的，你需要根据自己的需要修改。</p>
+
+<h4 id="2">2. 添加系统环境变量</h4>
+
+<p>　　上面的脚本虽然已经实现了做为其它脚本入口的功能，但使用时还不够方便，需要将它系统环境变量中，更容易访问，可能有人已经注意到上面代码中出现的<code>build-env.sh</code>文件，它的目的就是建立一些环境变量。</p>
+
+<pre><code>#!/bin/bash
+
+# 建立Kits的运行环境
+# 在~/.bash_profile 添加 source PATH/TO/build-env.sh
+
+# 注意 这里不能用相对路径
+
+#Kits所在目录
+export KITS="${HOME}/Developer/Misc/MacOSX-Kits"
+
+export KITSSHELL="${KITS}/Shell"
+export PATH="${KITSSHELL}:${PATH}"
+
+#建立别名
+alias kits="kits.sh"
+</code></pre>
+
+<p>　　最后再在<code>~/.bash_profile</code>的末尾添加<code>. /PATH/TO/builde-env.sh</code>（或<code>source /PATH/TO/builde-env.sh</code>）让它在用户登陆终端时被执行。</p>
+
+<p>　　经过这样设置，在任意时候任意目录下只要在终端输入形如<code>kits usage</code>、<code>kit mamp start</code>等命令就可以快速执行相应的脚本了。</p>
+
+<p>　　<strong>BTW</strong>: 我日常使用的部分脚本都陆续放到GitHub上了，有兴趣可以看看。</p>
+
+<p>[btn url="https://github.com/JinnLynn/MacOSX-Kits" title="MacOSX Kits" style="large" icon="github" wrapper="center"]</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
+</li>
+            <li class="entry-human-time-diff"> on May 16, 2012</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/shell-script-unique-port/#comments" title="Comment on 终端脚本统一入口">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-73514 -->
+
+
+    <div id="pagenavi">
+        <span class="pages">Page 1 of 1</span>
+    </div><!-- #pagenavi -->
+   
+    </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="sidebar">
+</div><!-- #sidebar -->
+
+</div><!-- #main -->
+
+<div id="footer">
+    <div id="footer-left">
+        2012 Powered By <a href="http://jeeker.net/projects/gude/" title="a simple python static website generator">Gude</a>. Code licensed under <a href="http://opensource.org/licenses/MIT">MIT License</a>,
+        articles licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </div><!-- #footer-left -->
+    <div id="footer-right">
+    </div><!-- #footer-right -->
+</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<!-- print javascript -->
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?42566"></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?58572'></script>
+<![endif]-->
+
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="/assets/additional.js"></script>
+
+<!-- google analytics track code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31118267-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>

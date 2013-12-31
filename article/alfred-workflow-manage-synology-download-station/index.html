@@ -1,0 +1,215 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie9below ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie9below ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie9below ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<head>
+    <title>Alfred Workflow: 管理Synology Download Station - Jeeker</title>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?99541" />
+    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <!-- <link rel='canonical' href="" /> -->
+    <meta name="robots" content="index,follow" />
+    <!-- <meta name="keywords" content="" /> -->
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="gradient"></div><!-- #gradient -->
+    <div id="header">
+        <div id="menu">
+            <ul>
+                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+            </ul>
+        </div>
+    </div><!-- ＃header -->
+
+<div id="main">
+    <div id="tools-box">
+        <ul>
+            <li id="tool-search">
+                <form action="http://google.com/search" method="get">
+                    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+                    <input type="hidden" name="q" value="site:jeeker.net" />
+                </form>
+            </li>
+        </ul>
+    </div><!-- #tools-box -->
+
+<div id="container">
+    <div id="content" role="main">
+
+
+
+<div id="post-40669" class="post post-single post-post post-publish">
+    <div class="entry-head">
+        <h1>Alfred Workflow: 管理Synology Download Station</h1>
+        <p class="entry-date" title="2013-04-12 12:24:29">
+            <span class="day">12</span>
+            <span class="month">Apr</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　<a href="http://www.synology.com/dsm/home_home_applications_download_station.php?lang=chs">Download Station</a>是<a href="http://www.synology.com/dsm/index.php?lang=chs">Synology DSM</a>里我最喜欢的应用之一，我也曾写过一个<a href="http://jeeker.net/article/remote-control-synology-download-station/">在终端控制它的脚本</a>，Alfred的Workflow出现后我想到如果可能或许它是本地管理DS最方便的方式了，于是就有了这个，Download Station下载任务的创建、查看、暂停、恢复、删除等操作自然完全支持，也支持一些基本设置的管理如eMule、计划的启用与禁用等。</p>
+
+<p><i><img src="http://static.afvisual.com/uploads/2013-04-12-alfred-workflow-manage-synology-download-station/screenshot-main.png" alt="DS Main" /></i></p>
+
+<p>[btn url="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/download-station.alfredworkflow,https://github.com/JinnLynn/alfred-workflows/tree/master/src/download-station" title="Download,Source" style="large" icon="download-alt,github"]</p>
+
+<p><span id="more-40669"></span></p>
+
+<p><center>
+    <iframe class="user-box" height="490" width="720" src="http://player.youku.com/embed/XNTQxNDc0MTI0" frameborder="0" allowfullscreen></iframe>
+</center></p>
+
+<h5 id="ds">设置DS登陆信息</h5>
+
+<p>　　关键字：<code>ds setting auth</code></p>
+
+<p>　　登陆信息设置，格式顺序为<code>用户名 密码 NAS地址</code>，如<code>ds setting auth my_username my_password https://my_nas_url:5001/</code><sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup></p>
+
+<p><i><img src="http://static.afvisual.com/uploads/2013-04-12-alfred-workflow-manage-synology-download-station/screenshot-setting-auth.png" alt="DS Setting Auth" /></i></p>
+
+<h5 id="ds-2">配置DS</h5>
+
+<p>　　关键字：<code>ds setting</code></p>
+
+<p>　　清理，启用禁用eMule、下载计划，查看设置的下载上传速度限制。<sup class="footnote-ref" id="fnref-2"><a href="#fn-2">2</a></sup></p>
+
+<p><i><img src="http://static.afvisual.com/uploads/2013-04-12-alfred-workflow-manage-synology-download-station/screenshot-setting.png" alt="DS Setting" /></i></p>
+
+<h5 id="ds-3">查看DS状态</h5>
+
+<p>　　关键字：<code>ds status</code></p>
+
+<p>　　查看DS版本，进行中的任务统计，下载上传速度等基本信息。</p>
+
+<p><i><img src="http://static.afvisual.com/uploads/2013-04-12-alfred-workflow-manage-synology-download-station/screenshot-status.png" alt="DS Status" /></i></p>
+
+<h5>创建下载任务</h5>
+
+<p>　　关键字：<code>ds create</code></p>
+
+<p>　　创建任务，支持同时添加多个地址。<sup class="footnote-ref" id="fnref-3"><a href="#fn-3">3</a></sup></p>
+
+<p><i><img src="http://static.afvisual.com/uploads/2013-04-12-alfred-workflow-manage-synology-download-station/screenshot-create.png" alt="DS Create" /></i></p>
+
+<h5 id="-2">下载任务管理</h5>
+
+<p>　　关键字：<code>ds task</code></p>
+
+<p>　　查看所有任务详细信息，可对所有或特定任务进行暂停、恢复、删除等基本操作，或清理错误或已完成的任务，也可对下载任务进行过滤或排序。<sup class="footnote-ref" id="fnref-4"><a href="#fn-4">4</a></sup></p>
+
+<p><i><img src="http://static.afvisual.com/uploads/2013-04-12-alfred-workflow-manage-synology-download-station/screenshot-task.png" alt="DS Task" /></i></p>
+
+<p><i><img src="http://static.afvisual.com/uploads/2013-04-12-alfred-workflow-manage-synology-download-station/screenshot-task-detail.png" alt="DS Task Detail" /></i></p>
+
+<!--
+
+![DS Task Delete Confirm](http://i.imgur.com/MSToNo5.png)
+
+![DS All](http://i.imgur.com/hacfNNh.png)
+
+-->
+
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn-1">
+<p>NAS地址即在浏览器中访问DSM的地址&nbsp;<a href="#fnref-1" class="footnoteBackLink" title="Jump back to footnote 1 in the text.">&#8617;</a></p>
+</li>
+
+<li id="fn-2">
+<p>下载上传速度限制仅支持查看&nbsp;<a href="#fnref-2" class="footnoteBackLink" title="Jump back to footnote 2 in the text.">&#8617;</a></p>
+</li>
+
+<li id="fn-3">
+<p>使用<code>,</code>或换行符分割多个地址&nbsp;<a href="#fnref-3" class="footnoteBackLink" title="Jump back to footnote 3 in the text.">&#8617;</a></p>
+</li>
+
+<li id="fn-4">
+<p>过滤和排序其实可以同时使用，使用<code>,</code>分割，如<code>ds task filter-by-status-downloading,sort-by-progress</code>将显示正在下载的任务并按完成度排序。另外，默认情况下排序是倒序，但也可以添加参数asc使其顺序排列，如<code>ds task sort-by-progress asc</code>&nbsp;<a href="#fnref-4" class="footnoteBackLink" title="Jump back to footnote 4 in the text.">&#8617;</a></p>
+</li>
+</ol>
+</div>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Apr 12, 2013</li>
+            <li class="entry-comments">with <a href="http://jeeker.net/article/alfred-workflow-manage-synology-download-station/#comments">comments</a></li>
+        </ul>  
+    </div><!-- .entry-meta -->
+</div><!-- #post-40669 -->
+<div id="comments">
+<!-- Duoshuo Comment BEGIN -->
+    <div class="ds-thread" data-title="Alfred Workflow: 管理Synology Download Station"></div>
+    <script type="text/javascript">
+        var duoshuoQuery = {short_name:"jeeker"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';
+            ds.async = true;
+            ds.src = 'http://static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+<!-- Duoshuo Comment END -->
+</div><!-- #comments -->   
+    </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="sidebar">
+</div><!-- #sidebar -->
+
+</div><!-- #main -->
+
+<div id="footer">
+    <div id="footer-left">
+        2012 Powered By <a href="http://jeeker.net/projects/gude/" title="a simple python static website generator">Gude</a>. Code licensed under <a href="http://opensource.org/licenses/MIT">MIT License</a>,
+        articles licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </div><!-- #footer-left -->
+    <div id="footer-right">
+    </div><!-- #footer-right -->
+</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<!-- print javascript -->
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?42566"></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?58572'></script>
+<![endif]-->
+
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="/assets/additional.js"></script>
+
+<!-- google analytics track code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31118267-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie9below ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie9below ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie9below ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<head>
+    <title>Google - Jeeker</title>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?99541" />
+    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <!-- <link rel='canonical' href="" /> -->
+    <meta name="robots" content="index,follow" />
+    <!-- <meta name="keywords" content="" /> -->
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="gradient"></div><!-- #gradient -->
+    <div id="header">
+        <div id="menu">
+            <ul>
+                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+            </ul>
+        </div>
+    </div><!-- ＃header -->
+
+<div id="main">
+    <div id="tools-box">
+        <ul>
+            <li id="tool-search">
+                <form action="http://google.com/search" method="get">
+                    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+                    <input type="hidden" name="q" value="site:jeeker.net" />
+                </form>
+            </li>
+        </ul>
+    </div><!-- #tools-box -->
+
+<div id="container">
+    <div id="content" role="main">
+
+
+
+<div id="post-67562" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/google-search-url-uncover/" title="一个超简单的在Google中直接访问目标网址的脚本" rel="bookmark">一个超简单的在Google中直接访问目标网址的脚本</a></h1>
+        <p class="entry-date" title="2012-11-22 14:59:22">
+            <span class="day">22</span>
+            <span class="month">Nov</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　前段时间因开某会，悲催的Google一如以往的无法正常使用，常常搜索结果页面顺利出现了，点击链接却无法打开或打开很慢，产生这种现象的原因是Google通过跳转后才把目标网址返回给你，于是领导一个不高兴就又被墙了。</p>
+
+<p>　　下面的这段很简单的代码就是让你避免使用Google跳转，直接访问目标网址。</p>
+
+<pre><code>(function(){
+    function getRealUrl(l) {
+        if (l.indexOf('/url?') &lt; 0)
+            return null;
+        var a = document.createElement('a'); 
+        a.href = l;
+        seg = a.search.replace(/^\?/,'').split('&amp;');
+        for (i = 0; i &lt; seg.length; i++) { 
+            if (!seg[i])
+                continue;
+            s = seg[i].split('='); 
+            if (s[0] == 'url')
+                return decodeURIComponent( s[1] );
+        } 
+        return null;
+    }
+
+    /**
+     * 直接在载入http:://www.google.com/url?.... 中重定向到真实的目标网址
+     * 问题：当目标网址无法访问时，地址栏中的地址信息并未改变到目标网址，可能产生误解
+     */
+    var real = getRealUrl(location.href);
+    if (real) {
+        window.location.href = real;
+        return;
+    };
+
+    document.addEventListener('click', function(e){
+        for(a = e.target; a; a = a.parentNode) {
+            if(a.localName != 'a') 
+                continue;
+            real = getRealUrl( a.getAttribute('href') );
+            if (real) {
+                a.setAttribute( 'href', real );
+                a.removeAttribute('onmousedown');
+            }
+            break;
+        }
+    }, false);
+})();
+</code></pre>
+
+<p>[btn url="https://gist.github.com/4507194" title="Source on gist" style="large" icon="github"]</p>
+
+<p>你可以通过三种方法使用：</p>
+
+<h5 id="1-chrome">1. 通过Chrome扩展</h5>
+
+<p>　　将url.js、manifest.json通过Chrome扩展开发工具打包成crx包。</p>
+
+<h5 id="2">2. 通过收藏栏链接</h5>
+
+<p>　　将下面的链接拖到浏览器收藏栏中，需要时点击即可，在Chrome、Firefox中可用，Safari中似乎直接访问的就是目标地址了</p>
+
+<p><span class="btn-center">
+    <a class="btn btn-large icon-bookmark-empty" href="javascript:(function(){function getRealUrl(l){if(l.indexOf("/url?')&lt;0)return null;var a=document.createElement('a');a.href=l;seg=a.search.replace(/^\?/,'').split('&amp;');for(i=0;i<seg.length;i++){if(!seg[i])continue;s=seg[i].split('=');if(s[0]=='url')return decodeURIComponent(s[1]);}return null;}var real=getRealUrl(location.href);if(real){window.location.href=real;return;};document.addEventListener('click',function(e){for(a=e.target;a;a=a.parentNode){if(a.localName!='a')continue;real=getRealUrl(a.getAttribute('href'));if(real){alert('d');a.setAttribute('href',real);a.removeAttribute('onmousedown');}break;}},false);})();">Google Search URL Uncover</a>
+</span></p>
+
+<h5 id="3-userscript">3. 通过用户脚本（UserScript）</h5>
+
+<p>　　未测试过，不过理论上应该可行。在脚本前添加如下内容</p>
+
+<pre><code>// ==UserScript==
+// @name           Google URL Uncover
+// @namespace      http://jeeker.net/article/google-search-url-uncover/
+// @description    Google 搜索结果链接去除google跳转，直接访问目标网址。
+// @include        http://*.google.*/*
+// @include        https://*.google.*/*
+// @version        0.1
+// @author         JinnLynn
+// @license        MIT license
+// ==/UserScript==
+</code></pre>
+
+<p><strong>PS:</strong> 代码在Chrome下测试通过，IE没戏。</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Nov 22, 2012</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/google-search-url-uncover/#comments" title="Comment on 一个超简单的在Google中直接访问目标网址的脚本">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-67562 -->
+
+
+    <div id="pagenavi">
+        <span class="pages">Page 1 of 1</span>
+    </div><!-- #pagenavi -->
+   
+    </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="sidebar">
+</div><!-- #sidebar -->
+
+</div><!-- #main -->
+
+<div id="footer">
+    <div id="footer-left">
+        2012 Powered By <a href="http://jeeker.net/projects/gude/" title="a simple python static website generator">Gude</a>. Code licensed under <a href="http://opensource.org/licenses/MIT">MIT License</a>,
+        articles licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </div><!-- #footer-left -->
+    <div id="footer-right">
+    </div><!-- #footer-right -->
+</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<!-- print javascript -->
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?42566"></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?58572'></script>
+<![endif]-->
+
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="/assets/additional.js"></script>
+
+<!-- google analytics track code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31118267-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>

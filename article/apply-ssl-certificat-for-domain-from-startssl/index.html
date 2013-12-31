@@ -1,0 +1,222 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie9below ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie9below ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie9below ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<head>
+    <title>向StartSSL申请个人域名SSL证书 - Jeeker</title>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?99541" />
+    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <!-- <link rel='canonical' href="" /> -->
+    <meta name="robots" content="index,follow" />
+    <!-- <meta name="keywords" content="" /> -->
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="gradient"></div><!-- #gradient -->
+    <div id="header">
+        <div id="menu">
+            <ul>
+                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+            </ul>
+        </div>
+    </div><!-- ＃header -->
+
+<div id="main">
+    <div id="tools-box">
+        <ul>
+            <li id="tool-search">
+                <form action="http://google.com/search" method="get">
+                    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+                    <input type="hidden" name="q" value="site:jeeker.net" />
+                </form>
+            </li>
+        </ul>
+    </div><!-- #tools-box -->
+
+<div id="container">
+    <div id="content" role="main">
+
+
+
+<div id="post-73846" class="post post-single post-post post-publish">
+    <div class="entry-head">
+        <h1>向StartSSL申请个人域名SSL证书</h1>
+        <p class="entry-date" title="2013-01-21 21:10:46">
+            <span class="day">21</span>
+            <span class="month">Jan</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　为方便在外时访问，NAS使用了DDNS服务并绑定了jeeker.net的一个子域名，同时启用了<a href="http://zh.wikipedia.org/wiki/HTTPS">HTTPS</a>连接以增强安全性，于是由于证书问题，每次访问NAS总出现烦人的警告。</p>
+
+<p><i><img src="http://static.afvisual.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/warn-page.png" alt="Chrome SSL Warning" /></i></p>
+
+<p>　　解决这个问题的唯一方法当然就是安装一个有效的SSL证书，但向CA机构申请证书一年少者几十多者数千美元，很不划算，好在互联网上总不缺<a href="http://www.sslshopper.com/article-free-ssl-certificates-from-a-free-certificate-authority.html">免费午餐</a>，<a href="https://www.startssl.com/">StartSSL</a>就是很好的选择，下面就以它为例了解下SSL证书的申请和安装过程。</p>
+
+<p><span id="more-73846"></span></p>
+
+<h2>注册</h2>
+
+<p>　　StartSSL使用的是证书认证，而不是一般网站的用户名+密码的认证方式，因此注册和登陆方式也有所不同。</p>
+
+<p><i><img src="http://static.afvisual.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step1.png" alt="Sign Up" /></i></p>
+
+<ol>
+<li>进入<a href="https://www.startssl.com/?app=11&amp;action=regform">注册页面</a>填写表单，这些选项都必须填写，当然除了邮箱你都可以使用虚假的信息，但至少要看起来像真的，否则可能无法通过审核。</li>
+<li>当你收到了类似的邮件表明你已经注册成功了，访问链接准备生成代表你身份的证书。</li>
+<li>输入邮件内的验证码后就可以开始生成你的私人证书了，选项默认即可。</li>
+<li>安装证书到浏览器。</li>
+<li>完成，点击'<strong>Backup this Certificate</strong>'备份你的证书，证书是验证你身份唯一方法，如果丢失就只能重新注册账户了，此时证书已经安装到浏览器了，因此你也可以<a href="https://www.startssl.com/?app=25#4">从浏览器中备份证书</a>。</li>
+</ol>
+
+<h2 id="-2">验证域名</h2>
+
+<p>　　在创建证书之前需要先验证域名的所有权。</p>
+
+<p><i><img src="http://static.afvisual.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step2.png" alt="Validations Wizard" /></i></p>
+
+<ol>
+<li>进入<a href="https://www.startssl.com/?app=11&amp;action=regform">Control Panel</a>（可能需要点击<strong>Authenticate</strong>并使用上一步生成的证书才能看到图示的页面），选择<strong>Validations Wizard</strong>，类型选择<strong>Domain Name Validation</strong>。</li>
+<li>输入域名。</li>
+<li>选择一个有效的邮箱接收验证码，可以使用域名WHOIS中的邮箱或默认网站管理者邮箱（没有带域名的邮箱可选择使用<a href="http://ym.163.com/">网易免费企业邮</a>等服务）。</li>
+<li>收到邮件后，输入邮件中的验证码。</li>
+<li>域名所有者验证成功。</li>
+</ol>
+
+<h2 id="-3">生成证书</h2>
+
+<p><i><img src="http://static.afvisual.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step3.png" alt="Certificates Wizard" /></i></p>
+
+<ol>
+<li>选择<strong>Certificates Wizard</strong>进入SSL证书生成向导，证书目标选择<strong>Web Server SSL/TLS Certificate</strong></li>
+<li>输入10-32位密码生成秘钥。</li>
+<li>备份秘钥，将文本框内的内容保存成一个文本文件，如ssl.key。</li>
+<li>选择上一步验证了的域名。</li>
+<li>添加子域名。</li>
+<li>确认域名子域名信息，准备生成证书。</li>
+<li>备份生成的证书，将文本框内容保存成一个文本文件，如ssl.crt。在下面<strong>intermediate</strong>链接中下载中间证书<strong>sub.class1.server.ca.pem</strong>。</li>
+</ol>
+
+<h2 id="-4">解密秘钥</h2>
+
+<p>　　在使用证书证书之前还需要对生成的秘钥解密，可使用命令<code>openssl rsa -in ssl.key -out ssl_decrypted.key</code>，或者是StartSSL提供的工具: Tool Box - Decrypt Private Key，生成的内容另存为文件，如<strong>ssl_decrypted.key</strong>。</p>
+
+<p><i><img src="http://static.afvisual.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step4.png" alt="Decrypt Private Key" /></i></p>
+
+<h2 id="-5">导入证书</h2>
+
+<p>　　登陆Synology NAS DSM，进入<strong>控制面板 - DSM设置 - HTTP服务 - 导入证书</strong>，选择前面生成的文件：</p>
+
+<ul>
+<li>秘钥 ssl_decrypted.key 解密过的。</li>
+<li>证书 ssl.crt。</li>
+<li>中间证书 sub.class1.server.ca.pem，如果前面忘记下载还可以在<a href="https://www.startssl.com/?app=21">这里</a>找到。</li>
+</ul>
+
+<p>　　点击<strong>确定</strong>重启网页服务器。</p>
+
+<p><i><img src="http://static.afvisual.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step5.png" alt="Import Certificate" /></i></p>
+
+<p>　　至此SSL证书安装完成，此时访问NAS就不会再有烦人的警告了，地址栏边上淡绿色的小锁清楚的告诉你已经经过认证了，网站身份是合法有效并值得信赖的。</p>
+
+<p><i><img src="http://static.afvisual.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/success.png" alt="HTTPS" /></i></p>
+
+<p><strong>TIP:</strong></p>
+
+<ul>
+<li>StartSSL证书的有效期为一年，到期后重新申请即可。</li>
+<li>重复上面的操作可以为多个子域名申请证书。</li>
+<li>证书可以随时从<strong>Tool box - Retrieve Certificate</strong>要回，但秘钥只有在生成证书时才能获取，而证书和秘钥只有配对才有效，所以切记保管好你的秘钥。</li>
+<li>本文以Synology NAS(Apache)为例安装证书，当然也可以给其它主流的网站服务器安装，方法可见<a href="https://www.startssl.com/?app=20">官方教程</a>。</li>
+</ul>
+
+<p><strong>REF:</strong></p>
+
+<ul>
+<li><a href="http://jeeker.net/r-1">StartSSL SSL Certificate on Synology NAS using subdomain</a></li>
+<li><a href="http://jeeker.net/r-2">Startssl SSL 证书申请图解</a></li>
+</ul>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
+</li>
+            <li class="entry-human-time-diff"> on Jan 21, 2013</li>
+            <li class="entry-comments">with <a href="http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/#comments">comments</a></li>
+        </ul>  
+    </div><!-- .entry-meta -->
+</div><!-- #post-73846 -->
+<div id="comments">
+<!-- Duoshuo Comment BEGIN -->
+    <div class="ds-thread" data-title="向StartSSL申请个人域名SSL证书"></div>
+    <script type="text/javascript">
+        var duoshuoQuery = {short_name:"jeeker"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';
+            ds.async = true;
+            ds.src = 'http://static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+<!-- Duoshuo Comment END -->
+</div><!-- #comments -->   
+    </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="sidebar">
+</div><!-- #sidebar -->
+
+</div><!-- #main -->
+
+<div id="footer">
+    <div id="footer-left">
+        2012 Powered By <a href="http://jeeker.net/projects/gude/" title="a simple python static website generator">Gude</a>. Code licensed under <a href="http://opensource.org/licenses/MIT">MIT License</a>,
+        articles licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </div><!-- #footer-left -->
+    <div id="footer-right">
+    </div><!-- #footer-right -->
+</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<!-- print javascript -->
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?42566"></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?58572'></script>
+<![endif]-->
+
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="/assets/additional.js"></script>
+
+<!-- google analytics track code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31118267-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>

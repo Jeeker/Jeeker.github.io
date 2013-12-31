@@ -1,0 +1,169 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie9below ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie9below ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie9below ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<head>
+    <title>JKit: 部分禁用日志编辑自动保存 - Jeeker</title>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?99541" />
+    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <!-- <link rel='canonical' href="" /> -->
+    <meta name="robots" content="index,follow" />
+    <!-- <meta name="keywords" content="" /> -->
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="gradient"></div><!-- #gradient -->
+    <div id="header">
+        <div id="menu">
+            <ul>
+                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+            </ul>
+        </div>
+    </div><!-- ＃header -->
+
+<div id="main">
+    <div id="tools-box">
+        <ul>
+            <li id="tool-search">
+                <form action="http://google.com/search" method="get">
+                    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+                    <input type="hidden" name="q" value="site:jeeker.net" />
+                </form>
+            </li>
+        </ul>
+    </div><!-- #tools-box -->
+
+<div id="container">
+    <div id="content" role="main">
+
+
+
+<div id="post-99803" class="post post-single post-post post-publish">
+    <div class="entry-head">
+        <h1>JKit: 部分禁用日志编辑自动保存</h1>
+        <p class="entry-date" title="2009-03-24 21:03:23">
+            <span class="day">24</span>
+            <span class="month">Mar</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　在Wordpress中，日志版本管理（Post Revisions）和编辑日志时的自动保存都会在数据库中产生新的数据（编辑已发布的内容时），很显然这些数据的用处只是一时的，但却给今后数据库查询增加了无谓的额外开销。</p>
+
+<p>　　对于日志版本管理，我们在wp-config.php中添加一句<code>define('WP_POST_REVISIONS', false);</code> 即可以轻松的完全禁用此功能，但自动保存就没有这么简单，官方没有提供开关功能，现在网上找到的方法似乎都是通过屏蔽javascript脚本，这种方法虽然可行，但在某些浏览器下可能报错，同时换个角度来看，某些时候自动保存还是有些用处的，完全禁用似乎也不太可取。</p>
+
+<p>　　下面的代码实现了仅在编辑草稿、发表新日志或页面时启用自动保存，在重新编辑已发表的内容时则不会进行自动保存的操作，避免在数据库中产生无用的数据，方法则是在浏览器提交申请，服务器进行自动保存之前对日志的状态进行判断，如果是草稿或未找到日志ID（即新日志）则进行保存操作，否则直接退出。</p>
+
+<p><span id="more-99803"></span></p>
+
+<pre><code>/**
+ * 仅在编辑草稿、发表新日志或页面时启用自动保存。
+ * 防止编辑已发表日志页面自动保存时在数据库中产生新的数据
+ * 
+ * @version 0.1
+ * @author JinnLynn
+ */
+function JKit_RemoveAutosave() {
+    if (!defined('DOING_AJAX') || $_POST['action'] != 'autosave')
+        return;
+    $post_id = isset($_POST['post_ID']) ? (int) $_POST['post_ID'] : 0;
+    if (!$post_id)
+        return;
+    $post = get_post($post_id);
+    if ($post-&gt;post_status == 'draft')
+        return;
+    $message = __('Autosave is disabled.&amp;nbsp;&amp;nbsp;');
+    $res = new WP_Ajax_Response(array( 'what' =&gt; 'autosave',
+                                       'id'   =&gt; $post-&gt;ID,
+                                       'data' =&gt; $message )
+                               );
+    $res-&gt;send();
+    exit();
+}
+add_action('init', 'JKit_RemoveAutosave');
+</code></pre>
+
+<p><strong>NOTE:</strong> 同样的，你可以使用<a href="http://jeeker:8888/jkit-builder/">JKit Builder</a>生成带此功能的插件。</p>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Mar 24, 2009</li>
+            <li class="entry-comments">with <a href="http://jeeker.net/article/jkit-disable-autosave/#comments">comments</a></li>
+        </ul>  
+    </div><!-- .entry-meta -->
+</div><!-- #post-99803 -->
+<div id="comments">
+<!-- Duoshuo Comment BEGIN -->
+    <div class="ds-thread" data-title="JKit: 部分禁用日志编辑自动保存"></div>
+    <script type="text/javascript">
+        var duoshuoQuery = {short_name:"jeeker"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';
+            ds.async = true;
+            ds.src = 'http://static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+<!-- Duoshuo Comment END -->
+</div><!-- #comments -->   
+    </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="sidebar">
+</div><!-- #sidebar -->
+
+</div><!-- #main -->
+
+<div id="footer">
+    <div id="footer-left">
+        2012 Powered By <a href="http://jeeker.net/projects/gude/" title="a simple python static website generator">Gude</a>. Code licensed under <a href="http://opensource.org/licenses/MIT">MIT License</a>,
+        articles licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </div><!-- #footer-left -->
+    <div id="footer-right">
+    </div><!-- #footer-right -->
+</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<!-- print javascript -->
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?42566"></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?58572'></script>
+<![endif]-->
+
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="/assets/additional.js"></script>
+
+<!-- google analytics track code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31118267-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} !^jeeker(.*)$ [NC]
+RewriteRule ^(.*)$ http://jeeker.net/$1 [L,R=301]
+
+RewriteCond %{HTTP_REFERER} !^$ [NC]
+RewriteCond %{HTTP_REFERER} !jeeker [NC]
+RewriteCond %{HTTP_REFERER} !google.com [NC]
+RewriteCond %{HTTP_REFERER} !baidu.com [NC]
+RewriteCond %{HTTP_REFERER} ![0-9] [NC]
+RewriteRule .*\.(gif|jpg|png|css|js|swf|mp3)$ - [F,NS,L]
+
+# 禁止访问assets/pac.js 文件
+RewriteRule .*pac\.js$ - [F,NS,L]
+
+</IfModule>
