@@ -61,7 +61,7 @@
 <!-- content start -->
 <p>　　英文不咋地，还不要脸总爱浏览国外的网站，于是字典成了我最重要的工具之一，OS X的三指查词虽然很方便，可惜系统自带的Dictionary即使装了中文词典用着也总觉得不太爽，什么时态什么复数都直接被忽视，平时还是多用在线词典，有需求就要尝试去实现，研究了下<a href="http://www.alfredapp.com/">Alfred</a> V2无比强大的<a href="http://support.alfredapp.com/workflows">Workflow</a>，写了这个基于在线词典的中英互查工具。</p>
 
-<p><i><img src="screenshot.png" alt="Alfred 2 Chinese Dictionary" /></i></p>
+<p><i><img src="http://static.afvisual.com/uploads/2013-03-29-alfred-2-workflow-chinese-dictionary/screenshot.png" alt="Alfred 2 Chinese Dictionary" /></i></p>
 
 <p><span class="btn-group btn-center"><a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/chinese-dictionary.alfredworkflow" class="btn btn-large icon-download-alt">Download</a><a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/chinese-dictionary" class="btn btn-large icon-github">Source</a></span></p>
 
@@ -534,7 +534,7 @@ if __name__ == '__main__':
     </div><!-- .entry-header -->
     <div class="entry-content">
 <!-- content start -->
-<p>　　服务器即将到期，不想再续租，<a href="/projects/gude/">自己的博客已经转成静态的了</a>，放到<a href="http://pages.github.com/">GitHub Pages</a>上当然是最好的选择， 服务器上另一个<a href="http://wendy.jeeker.net/">朋友的博客</a>打算入住新浪博客， 于是就涉及到怎么迁移数据的问题了， 好在新浪博客还算比较开放，支持<a href="http://xmlrpc.scripting.com/metaWeblogApi.html">MetaWeblog XML-RPC API</a>，写了一段简单的脚本，搬家成功。</p>
+<p>　　服务器即将到期，不想再续租，<a href="http://jeeker.net/projects/gude/">自己的博客已经转成静态的了</a>，放到<a href="http://pages.github.com/">GitHub Pages</a>上当然是最好的选择， 服务器上另一个<a href="http://wendy.jeeker.net/">朋友的博客</a>打算入住新浪博客， 于是就涉及到怎么迁移数据的问题了， 好在新浪博客还算比较开放，支持<a href="http://xmlrpc.scripting.com/metaWeblogApi.html">MetaWeblog XML-RPC API</a>，写了一段简单的脚本，搬家成功。</p>
 
 <p>　　不过新浪博客的API貌似不支持<code>dateCreated</code>，因此导入后所有日志的发布时间都变成当前时间了，另外脚本也没有对日志分类进行处理，好在日志不多，手动调整也不是那么麻烦。</p>
 
@@ -704,7 +704,7 @@ while ($query-&gt;have_posts()) {
 <p>　　将下面的链接拖到浏览器收藏栏中，需要时点击即可，在Chrome、Firefox中可用，Safari中似乎直接访问的就是目标地址了</p>
 
 <p><span class="btn-center">
-    <a class="btn btn-large icon-bookmark-empty" href="javascript:(function(){function getRealUrl(l){if(l.indexOf('/url?')&lt;0)return null;var a=document.createElement('a');a.href=l;seg=a.search.replace(/^\?/,'').split('&amp;');for(i=0;i<seg.length;i++){if(!seg[i])continue;s=seg[i].split('=');if(s[0]=='url')return decodeURIComponent(s[1]);}return null;}var real=getRealUrl(location.href);if(real){window.location.href=real;return;};document.addEventListener('click',function(e){for(a=e.target;a;a=a.parentNode){if(a.localName!='a')continue;real=getRealUrl(a.getAttribute('href'));if(real){alert('d');a.setAttribute('href',real);a.removeAttribute('onmousedown');}break;}},false);})();">Google Search URL Uncover</a>
+    <a class="btn btn-large icon-bookmark-empty" href="javascript:(function(){function getRealUrl(l){if(l.indexOf("/url?')&lt;0)return null;var a=document.createElement('a');a.href=l;seg=a.search.replace(/^\?/,'').split('&amp;');for(i=0;i<seg.length;i++){if(!seg[i])continue;s=seg[i].split('=');if(s[0]=='url')return decodeURIComponent(s[1]);}return null;}var real=getRealUrl(location.href);if(real){window.location.href=real;return;};document.addEventListener('click',function(e){for(a=e.target;a;a=a.parentNode){if(a.localName!='a')continue;real=getRealUrl(a.getAttribute('href'));if(real){alert('d');a.setAttribute('href',real);a.removeAttribute('onmousedown');}break;}},false);})();">Google Search URL Uncover</a>
 </span></p>
 
 <h5 id="3-userscript">3. 通过用户脚本（UserScript）</h5>

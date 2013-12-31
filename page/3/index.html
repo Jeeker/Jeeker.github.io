@@ -58,7 +58,7 @@
     </div><!-- .entry-header -->
     <div class="entry-content">
 <!-- content start -->
-<p>　　服务器即将到期，不想再续租，<a href="/projects/gude/">自己的博客已经转成静态的了</a>，放到<a href="http://pages.github.com/">GitHub Pages</a>上当然是最好的选择， 服务器上另一个<a href="http://wendy.jeeker.net/">朋友的博客</a>打算入住新浪博客， 于是就涉及到怎么迁移数据的问题了， 好在新浪博客还算比较开放，支持<a href="http://xmlrpc.scripting.com/metaWeblogApi.html">MetaWeblog XML-RPC API</a>，写了一段简单的脚本，搬家成功。</p>
+<p>　　服务器即将到期，不想再续租，<a href="http://jeeker.net/projects/gude/">自己的博客已经转成静态的了</a>，放到<a href="http://pages.github.com/">GitHub Pages</a>上当然是最好的选择， 服务器上另一个<a href="http://wendy.jeeker.net/">朋友的博客</a>打算入住新浪博客， 于是就涉及到怎么迁移数据的问题了， 好在新浪博客还算比较开放，支持<a href="http://xmlrpc.scripting.com/metaWeblogApi.html">MetaWeblog XML-RPC API</a>，写了一段简单的脚本，搬家成功。</p>
 
 <p>　　不过新浪博客的API貌似不支持<code>dateCreated</code>，因此导入后所有日志的发布时间都变成当前时间了，另外脚本也没有对日志分类进行处理，好在日志不多，手动调整也不是那么麻烦。</p>
 
@@ -173,7 +173,7 @@ while ($query-&gt;have_posts()) {
 
 <p>　　如下图，在Gude下网站日常管理的几个简单命令。</p>
 
-<p><i><img src="workflow.png" alt="Gude" /></i></p>
+<p><i><img src="http://static.afvisual.com/uploads/projects/2013-01-10-gude/workflow.png" alt="Gude" /></i></p>
 
 <ul>
 <li>基于Python2.7</li>
@@ -280,7 +280,7 @@ while ($query-&gt;have_posts()) {
 <p>　　将下面的链接拖到浏览器收藏栏中，需要时点击即可，在Chrome、Firefox中可用，Safari中似乎直接访问的就是目标地址了</p>
 
 <p><span class="btn-center">
-    <a class="btn btn-large icon-bookmark-empty" href="javascript:(function(){function getRealUrl(l){if(l.indexOf('/url?')&lt;0)return null;var a=document.createElement('a');a.href=l;seg=a.search.replace(/^\?/,'').split('&amp;');for(i=0;i<seg.length;i++){if(!seg[i])continue;s=seg[i].split('=');if(s[0]=='url')return decodeURIComponent(s[1]);}return null;}var real=getRealUrl(location.href);if(real){window.location.href=real;return;};document.addEventListener('click',function(e){for(a=e.target;a;a=a.parentNode){if(a.localName!='a')continue;real=getRealUrl(a.getAttribute('href'));if(real){alert('d');a.setAttribute('href',real);a.removeAttribute('onmousedown');}break;}},false);})();">Google Search URL Uncover</a>
+    <a class="btn btn-large icon-bookmark-empty" href="javascript:(function(){function getRealUrl(l){if(l.indexOf("/url?')&lt;0)return null;var a=document.createElement('a');a.href=l;seg=a.search.replace(/^\?/,'').split('&amp;');for(i=0;i<seg.length;i++){if(!seg[i])continue;s=seg[i].split('=');if(s[0]=='url')return decodeURIComponent(s[1]);}return null;}var real=getRealUrl(location.href);if(real){window.location.href=real;return;};document.addEventListener('click',function(e){for(a=e.target;a;a=a.parentNode){if(a.localName!='a')continue;real=getRealUrl(a.getAttribute('href'));if(real){alert('d');a.setAttribute('href',real);a.removeAttribute('onmousedown');}break;}},false);})();">Google Search URL Uncover</a>
 </span></p>
 
 <h5 id="3-userscript">3. 通过用户脚本（UserScript）</h5>
@@ -337,7 +337,7 @@ while ($query-&gt;have_posts()) {
 
 <h3 id="screenshort">Screenshort</h3>
 
-<p><i><img src="screenshot-general.jpg" alt="General" /></i></p>
+<p><i><img src="http://static.afvisual.com/uploads/projects/2012-11-15-miniature/screenshot-general.jpg" alt="General" /></i></p>
 
 <p><a href="http://jeeker.net/projects/miniature/#more-54977" class="more-link">Read more...</a></p>
 <!-- content end -->
