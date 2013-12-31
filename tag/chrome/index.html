@@ -118,7 +118,7 @@
 <p>　　将下面的链接拖到浏览器收藏栏中，需要时点击即可，在Chrome、Firefox中可用，Safari中似乎直接访问的就是目标地址了</p>
 
 <p><span class="btn-center">
-    <a class="btn btn-large icon-bookmark-empty" href="javascript:(function(){function getRealUrl(l){if(l.indexOf("/url?')&lt;0)return null;var a=document.createElement('a');a.href=l;seg=a.search.replace(/^\?/,'').split('&amp;');for(i=0;i<seg.length;i++){if(!seg[i])continue;s=seg[i].split('=');if(s[0]=='url')return decodeURIComponent(s[1]);}return null;}var real=getRealUrl(location.href);if(real){window.location.href=real;return;};document.addEventListener('click',function(e){for(a=e.target;a;a=a.parentNode){if(a.localName!='a')continue;real=getRealUrl(a.getAttribute('href'));if(real){alert('d');a.setAttribute('href',real);a.removeAttribute('onmousedown');}break;}},false);})();">Google Search URL Uncover</a>
+    <a class="btn btn-large icon-bookmark-empty" href="javascript:(function(){function getRealUrl(l){if(l.indexOf('/url?')&lt;0)return null;var a=document.createElement('a');a.href=l;seg=a.search.replace(/^\?/,'').split('&amp;');for(i=0;i<seg.length;i++){if(!seg[i])continue;s=seg[i].split('=');if(s[0]=='url')return decodeURIComponent(s[1]);}return null;}var real=getRealUrl(location.href);if(real){window.location.href=real;return;};document.addEventListener('click',function(e){for(a=e.target;a;a=a.parentNode){if(a.localName!='a')continue;real=getRealUrl(a.getAttribute('href'));if(real){alert('d');a.setAttribute('href',real);a.removeAttribute('onmousedown');}break;}},false);})();">Google Search URL Uncover</a>
 </span></p>
 
 <h5 id="3-userscript">3. 通过用户脚本（UserScript）</h5>
