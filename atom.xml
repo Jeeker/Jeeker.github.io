@@ -3,7 +3,7 @@
 
 &lt;p&gt;&lt;i&gt;&lt;img src="http://static.afvisual.com/uploads/2013-04-28-alfred-workflow-chinese-tv-epg/screenshot.png" alt="App Dig Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/chinese-tv-epg.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/chinese-tv-epg" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[btn url="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/chinese-tv-epg.alfredworkflow,https://github.com/JinnLynn/alfred-workflows/tree/master/src/chinese-tv-epg" title="Download,Source" style="large" icon="download-alt,github"]&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;输入关键词&lt;code&gt;tv&lt;/code&gt;即可获得已被收藏频道当前及接下来将要播放的节目&lt;/li&gt;
@@ -14,7 +14,7 @@
 
 &lt;p&gt;&lt;i&gt;&lt;img src="http://static.afvisual.com/uploads/2013-04-15-alfred-workflow-app-dig/screenshot.png" alt="App Dig Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/app-dig.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/app-dig" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[btn url="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/app-dig.alfredworkflow,https://github.com/JinnLynn/alfred-workflows/tree/master/src/app-dig" title="Download,Source" style="large" icon="download-alt,github"]&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;支持App列表中显示应用图标&lt;sup class="footnote-ref" id="fnref-1"&gt;&lt;a href="#fn-1"&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
@@ -37,7 +37,7 @@
 
 &lt;p&gt;&lt;i&gt;&lt;img src="http://static.afvisual.com/uploads/2013-04-12-alfred-workflow-manage-synology-download-station/screenshot-main.png" alt="DS Main" /&gt;&lt;/i&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/download-station.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/download-station" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[btn url="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/download-station.alfredworkflow,https://github.com/JinnLynn/alfred-workflows/tree/master/src/download-station" title="Download,Source" style="large" icon="download-alt,github"]&lt;/p&gt;
 
 &lt;div class="footnotes"&gt;
 &lt;hr /&gt;
@@ -48,7 +48,7 @@
 
 &lt;p&gt;&lt;i&gt;&lt;img src="http://static.afvisual.com/uploads/2013-04-12-alfred-workflow-real-download-link/screenshot.png" alt="Real Download Link Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/real-download-link.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/real-download-link" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[btn url="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/real-download-link.alfredworkflow,https://github.com/JinnLynn/alfred-workflows/tree/master/src/real-download-link" title="Download,Source" style="large" icon="download-alt,github"]&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;ENTENR 拷贝真实地址到剪切板&lt;/li&gt;
@@ -60,7 +60,7 @@
 
 &lt;p&gt;&lt;i&gt;&lt;img src="http://static.afvisual.com/uploads/2013-04-12-alfred-workflow-search-lyric/screenshot.png" alt="Lyric Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/lyric.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/lyric" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[btn url="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/lyric.alfredworkflow,https://github.com/JinnLynn/alfred-workflows/tree/master/src/lyric" title="Download,Source" style="large" icon="download-alt,github"]&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;ENTER 下载歌词到&lt;code&gt;~/Downloads&lt;/code&gt;&lt;/li&gt;
@@ -74,7 +74,7 @@
 
 &lt;p&gt;&lt;i&gt;&lt;img src="http://static.afvisual.com/uploads/2013-03-29-alfred-2-workflow-chinese-dictionary/screenshot.png" alt="Alfred 2 Chinese Dictionary" /&gt;&lt;/i&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/chinese-dictionary.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/chinese-dictionary" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[btn url="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/chinese-dictionary.alfredworkflow,https://github.com/JinnLynn/alfred-workflows/tree/master/src/chinese-dictionary" title="Download,Source" style="large" icon="download-alt,github"]&lt;/p&gt;
 
 &lt;p&gt;　　安装什么的就不说了，使用很简单：&lt;/p&gt;
 
@@ -216,7 +216,7 @@ if __name__ == '__main__':
         raise e
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;span class="btn-single btn-center"&gt;&lt;a href="https://gist.github.com/JinnLynn/5210753" class="btn btn-large icon-github"&gt;Source on gist&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[btn url="https://gist.github.com/JinnLynn/5210753" title="Source on gist" style="large" icon="github"]&lt;/p&gt;
 
 &lt;p&gt;　　需配置&lt;code&gt;ACCESS_TOKEN&lt;/code&gt;和&lt;code&gt;ARDUINO_PORT&lt;/code&gt;。&lt;/p&gt;
 
@@ -375,7 +375,7 @@ if __name__ == '__main__':
     ip.run()
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;span class="btn-single btn-center"&gt;&lt;a href="https://gist.github.com/JinnLynn/5080616" class="btn btn-large icon-github"&gt;Source on gist&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[btn url="https://gist.github.com/JinnLynn/5080616" title="Source on gist" style="large" icon="github"]&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;将上述代码另存为文本，并按脚本中的注释正确设置SMTP服务器、账户、密码、发送及接收邮箱地址&lt;/li&gt;
@@ -846,5 +846,5 @@ if __name__ == '__main__':
     main()
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;span class="btn-single btn-center"&gt;&lt;a href="https://github.com/JinnLynn/MacOSX-Kits/blob/master/Python/ds" class="btn btn-large icon-github"&gt;Source on GitHub&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[btn url="https://github.com/JinnLynn/MacOSX-Kits/blob/master/Python/ds" title="Source on GitHub" style="large" icon="github"]&lt;/p&gt;
 </summary></entry></feed>
