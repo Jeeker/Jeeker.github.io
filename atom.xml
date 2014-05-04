@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Jeeker</title><link href="http://jeeker.net/" rel="alternate"></link><link href="http://jeeker.net/atom.xml" rel="self"></link><id>http://jeeker.net/</id><updated>2013-04-28T03:24:29Z</updated><entry><title>Alfred Workflow: 国内电视频道节目表</title><link href="http://jeeker.net/article/alfred-workflow-chinese-tv-epg/" rel="alternate"></link><updated>2013-04-28T03:24:29Z</updated><id>tag:jeeker.net,2013-04-28:/article/alfred-workflow-chinese-tv-epg//</id><summary type="html">&lt;p&gt;　　一个方便查看国内电视频道节目单的Alfred Workflow，数据来自&lt;a href="http://tv.cntv.cn/epg"&gt;CCTV&lt;/a&gt;，包括全部140个频道，支持频道收藏。&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;&lt;img src="http://static.afvisual.com/uploads/2013-04-28-alfred-workflow-chinese-tv-epg/screenshot.png" alt="App Dig Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;&lt;img src="http://jeeker.qiniudn.com/uploads/2013-04-28-alfred-workflow-chinese-tv-epg/screenshot.png" alt="App Dig Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/chinese-tv-epg.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/chinese-tv-epg" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
 
@@ -12,7 +12,7 @@
 &lt;/ul&gt;
 </summary></entry><entry><title>Alfred Workflow: App Dig</title><link href="http://jeeker.net/article/alfred-workflow-app-dig/" rel="alternate"></link><updated>2013-04-15T01:24:29Z</updated><id>tag:jeeker.net,2013-04-15:/article/alfred-workflow-app-dig//</id><summary type="html">&lt;p&gt;　　&lt;a href="http://appshopper.com/"&gt;AppShopper&lt;/a&gt;是一个很实用的iOS/Mac App价格信息搜集网站，App Dig基于它，可以很方便的在Alfed里获取如限时免费等App价格变更信息，同时也支持AppShopper的Wish List。&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;&lt;img src="http://static.afvisual.com/uploads/2013-04-15-alfred-workflow-app-dig/screenshot.png" alt="App Dig Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;&lt;img src="http://jeeker.qiniudn.com/uploads/2013-04-15-alfred-workflow-app-dig/screenshot.png" alt="App Dig Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/app-dig.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/app-dig" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
 
@@ -35,7 +35,7 @@
 &lt;/div&gt;
 </summary></entry><entry><title>Alfred Workflow: 管理Synology Download Station</title><link href="http://jeeker.net/article/alfred-workflow-manage-synology-download-station/" rel="alternate"></link><updated>2013-04-12T04:24:29Z</updated><id>tag:jeeker.net,2013-04-12:/article/alfred-workflow-manage-synology-download-station//</id><summary type="html">&lt;p&gt;　　&lt;a href="http://www.synology.com/dsm/home_home_applications_download_station.php?lang=chs"&gt;Download Station&lt;/a&gt;是&lt;a href="http://www.synology.com/dsm/index.php?lang=chs"&gt;Synology DSM&lt;/a&gt;里我最喜欢的应用之一，我也曾写过一个&lt;a href="http://jeeker.net/article/remote-control-synology-download-station/"&gt;在终端控制它的脚本&lt;/a&gt;，Alfred的Workflow出现后我想到如果可能或许它是本地管理DS最方便的方式了，于是就有了这个，Download Station下载任务的创建、查看、暂停、恢复、删除等操作自然完全支持，也支持一些基本设置的管理如eMule、计划的启用与禁用等。&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;&lt;img src="http://static.afvisual.com/uploads/2013-04-12-alfred-workflow-manage-synology-download-station/screenshot-main.png" alt="DS Main" /&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;&lt;img src="http://jeeker.qiniudn.com/uploads/2013-04-12-alfred-workflow-manage-synology-download-station/screenshot-main.png" alt="DS Main" /&gt;&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/download-station.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/download-station" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
 
@@ -46,7 +46,7 @@
 &lt;/div&gt;
 </summary></entry><entry><title>Alfred Workflow: 获取迅雷、快车、QQ旋风专用链接的真实地址</title><link href="http://jeeker.net/article/alfred-workflow-real-download-link/" rel="alternate"></link><updated>2013-04-12T03:24:29Z</updated><id>tag:jeeker.net,2013-04-12:/article/alfred-workflow-real-download-link//</id><summary type="html">&lt;p&gt;　　　在国内连下载链接都那么有中国特色，什么迅雷、快车、QQ旋风都有自己专用下载链接，封闭私有不通用，强迫用户使用，让人厌恶，其实它们基本上都只是对真实地址的简单base64编码而已，写了一个&lt;a href="http://www.alfredapp.com/"&gt;Alfred&lt;/a&gt; Workflow解析这些专用链接为真实的地址。&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;&lt;img src="http://static.afvisual.com/uploads/2013-04-12-alfred-workflow-real-download-link/screenshot.png" alt="Real Download Link Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;&lt;img src="http://jeeker.qiniudn.com/uploads/2013-04-12-alfred-workflow-real-download-link/screenshot.png" alt="Real Download Link Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/real-download-link.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/real-download-link" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
 
@@ -58,7 +58,7 @@
 &lt;/ul&gt;
 </summary></entry><entry><title>Alfred Workflow: 歌词搜索</title><link href="http://jeeker.net/article/alfred-workflow-search-lyric/" rel="alternate"></link><updated>2013-04-12T01:24:29Z</updated><id>tag:jeeker.net,2013-04-12:/article/alfred-workflow-search-lyric//</id><summary type="html">&lt;p&gt;　　搜索歌词的&lt;a href="http://www.alfredapp.com/"&gt;Alfred&lt;/a&gt; Workflow，支持自动查找iTunes当前播放的歌曲或手动输入歌名查找，可将查到的歌词下载到本地或复制到剪切板或在Large Type显示，或直接保存到iTunes当前播放曲目中。&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;&lt;img src="http://static.afvisual.com/uploads/2013-04-12-alfred-workflow-search-lyric/screenshot.png" alt="Lyric Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;&lt;img src="http://jeeker.qiniudn.com/uploads/2013-04-12-alfred-workflow-search-lyric/screenshot.png" alt="Lyric Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/lyric.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/lyric" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
 
@@ -72,7 +72,7 @@
 &lt;p&gt;&lt;strong&gt;说明：除了下载歌词，其它歌词内容都是去除了时间线信息的&lt;/strong&gt;&lt;/p&gt;
 </summary></entry><entry><title>Alfred 2 Workflow: 中文词典</title><link href="http://jeeker.net/article/alfred-2-workflow-chinese-dictionary/" rel="alternate"></link><updated>2013-03-29T01:24:29Z</updated><id>tag:jeeker.net,2013-03-29:/article/alfred-2-workflow-chinese-dictionary//</id><summary type="html">&lt;p&gt;　　英文不咋地，还不要脸总爱浏览国外的网站，于是字典成了我最重要的工具之一，OS X的三指查词虽然很方便，可惜系统自带的Dictionary即使装了中文词典用着也总觉得不太爽，什么时态什么复数都直接被忽视，平时还是多用在线词典，有需求就要尝试去实现，研究了下&lt;a href="http://www.alfredapp.com/"&gt;Alfred&lt;/a&gt; V2无比强大的&lt;a href="http://support.alfredapp.com/workflows"&gt;Workflow&lt;/a&gt;，写了这个基于在线词典的中英互查工具。&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;&lt;img src="http://static.afvisual.com/uploads/2013-03-29-alfred-2-workflow-chinese-dictionary/screenshot.png" alt="Alfred 2 Chinese Dictionary" /&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;&lt;img src="http://jeeker.qiniudn.com/uploads/2013-03-29-alfred-2-workflow-chinese-dictionary/screenshot.png" alt="Alfred 2 Chinese Dictionary" /&gt;&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/chinese-dictionary.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/chinese-dictionary" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
 
@@ -432,7 +432,7 @@ if __name__ == '__main__':
 &lt;/div&gt;
 </summary></entry><entry><title>向StartSSL申请个人域名SSL证书</title><link href="http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/" rel="alternate"></link><updated>2013-01-21T13:10:46Z</updated><id>tag:jeeker.net,2013-01-21:/article/apply-ssl-certificat-for-domain-from-startssl//</id><summary type="html">&lt;p&gt;　　为方便在外时访问，NAS使用了DDNS服务并绑定了jeeker.net的一个子域名，同时启用了&lt;a href="http://zh.wikipedia.org/wiki/HTTPS"&gt;HTTPS&lt;/a&gt;连接以增强安全性，于是由于证书问题，每次访问NAS总出现烦人的警告。&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;&lt;img src="http://static.afvisual.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/warn-page.png" alt="Chrome SSL Warning" /&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;&lt;img src="http://jeeker.qiniudn.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/warn-page.png" alt="Chrome SSL Warning" /&gt;&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;　　解决这个问题的唯一方法当然就是安装一个有效的SSL证书，但向CA机构申请证书一年少者几十多者数千美元，很不划算，好在互联网上总不缺&lt;a href="http://www.sslshopper.com/article-free-ssl-certificates-from-a-free-certificate-authority.html"&gt;免费午餐&lt;/a&gt;，&lt;a href="https://www.startssl.com/"&gt;StartSSL&lt;/a&gt;就是很好的选择，下面就以它为例了解下SSL证书的申请和安装过程。&lt;/p&gt;
 </summary></entry><entry><title>命令行远程控制Synology DSM Download Station</title><link href="http://jeeker.net/article/remote-control-synology-download-station/" rel="alternate"></link><updated>2013-01-16T13:29:31Z</updated><id>tag:jeeker.net,2013-01-16:/article/remote-control-synology-download-station//</id><summary type="html">&lt;p&gt;　　入手&lt;a href="http://www.synology.com/"&gt;Synology DS211j&lt;/a&gt;近两年，所有下载工作都是通过其自带的Download Station来完成，毫无疑问，DS的功能已经足够强大，不过每次添加任务都要先登陆DSM，总让我觉得有点麻烦，一直想通过本地终端直接控制DS，但始终不得其法。&lt;/p&gt;
