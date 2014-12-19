@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Jeeker</title><link href="http://jeeker.net/" rel="alternate"></link><link href="http://jeeker.net/atom.xml" rel="self"></link><id>http://jeeker.net/</id><updated>2013-04-28T03:24:29Z</updated><entry><title>Alfred Workflow: 国内电视频道节目表</title><link href="http://jeeker.net/article/alfred-workflow-chinese-tv-epg/" rel="alternate"></link><updated>2013-04-28T03:24:29Z</updated><id>tag:jeeker.net,2013-04-28:/article/alfred-workflow-chinese-tv-epg//</id><summary type="html">&lt;p&gt;　　一个方便查看国内电视频道节目单的Alfred Workflow，数据来自&lt;a href="http://tv.cntv.cn/epg"&gt;CCTV&lt;/a&gt;，包括全部140个频道，支持频道收藏。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Jeeker</title><link href="http://jeeker.net/" rel="alternate"></link><link href="http://jeeker.net/atom.xml" rel="self"></link><id>http://jeeker.net/</id><updated>2014-12-19T07:38:17Z</updated><entry><title>Python脚本: 淘宝消费情况统计</title><link href="http://jeeker.net/article/taobao-orders-statistics/" rel="alternate"></link><updated>2014-12-19T07:38:17Z</updated><id>tag:jeeker.net,2014-12-19:/article/taobao-orders-statistics//</id><summary type="html">&lt;p&gt;　　支付宝十年账单上的数字有点吓人，但它统计的项目太多，只是想看看到底单纯在淘宝上支出了多少，于是写了段脚本，统计任意时间段淘宝订单的消费情况，看那结果其实在淘宝上我还是相当节约的说。&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;&lt;img src="http://jeeker.oss.aliyuncs.com/uploads/2013-04-28-alfred-workflow-chinese-tv-epg/screenshot.png" alt="App Dig Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;　　脚本的主要工作是模拟了浏览器登录，解析“&lt;strong&gt;已买到的宝贝&lt;/strong&gt;”页面以获得指定的订单及宝贝信息。&lt;/p&gt;
+
+&lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2014-12-19-taobao-orders-statistics/python-taobao.gif" alt="Taobao" /&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;　　使用方法见代码或执行命令加参数&lt;code&gt;-h&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;span class="btn-single btn-center"&gt;&lt;a href="https://gist.github.com/JinnLynn/86c6ff8555363098b4c4" class="btn btn-large icon-github"&gt;Github Gist&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+</summary></entry><entry><title>Alfred Workflow: 国内电视频道节目表</title><link href="http://jeeker.net/article/alfred-workflow-chinese-tv-epg/" rel="alternate"></link><updated>2013-04-28T03:24:29Z</updated><id>tag:jeeker.net,2013-04-28:/article/alfred-workflow-chinese-tv-epg//</id><summary type="html">&lt;p&gt;　　一个方便查看国内电视频道节目单的Alfred Workflow，数据来自&lt;a href="http://tv.cntv.cn/epg"&gt;CCTV&lt;/a&gt;，包括全部140个频道，支持频道收藏。&lt;/p&gt;
+
+&lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-04-28-alfred-workflow-chinese-tv-epg/screenshot.png" alt="App Dig Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/chinese-tv-epg.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/chinese-tv-epg" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
 
@@ -12,7 +21,7 @@
 &lt;/ul&gt;
 </summary></entry><entry><title>Alfred Workflow: App Dig</title><link href="http://jeeker.net/article/alfred-workflow-app-dig/" rel="alternate"></link><updated>2013-04-15T01:24:29Z</updated><id>tag:jeeker.net,2013-04-15:/article/alfred-workflow-app-dig//</id><summary type="html">&lt;p&gt;　　&lt;a href="http://appshopper.com/"&gt;AppShopper&lt;/a&gt;是一个很实用的iOS/Mac App价格信息搜集网站，App Dig基于它，可以很方便的在Alfed里获取如限时免费等App价格变更信息，同时也支持AppShopper的Wish List。&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;&lt;img src="http://jeeker.oss.aliyuncs.com/uploads/2013-04-15-alfred-workflow-app-dig/screenshot.png" alt="App Dig Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-04-15-alfred-workflow-app-dig/screenshot.png" alt="App Dig Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/app-dig.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/app-dig" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
 
@@ -25,17 +34,17 @@
 &lt;hr /&gt;
 &lt;ol&gt;
 &lt;li id="fn-1"&gt;
-&lt;p&gt;显示应用图标时，获得App列表的时间可能增加，可在&lt;code&gt;app setting&lt;/code&gt;中选择禁用&amp;nbsp;&lt;a href="#fnref-1" class="footnoteBackLink" title="Jump back to footnote 1 in the text."&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;显示应用图标时，获得App列表的时间可能增加，可在&lt;code&gt;app setting&lt;/code&gt;中选择禁用&amp;#160;&lt;a href="#fnref-1" class="footnoteBackLink" title="Jump back to footnote 1 in the text."&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id="fn-2"&gt;
-&lt;p&gt;在AppShopper的Wish List页面选中'Share My Wishlist'即可公开你的愿望列表&amp;nbsp;&lt;a href="#fnref-2" class="footnoteBackLink" title="Jump back to footnote 2 in the text."&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在AppShopper的Wish List页面选中'Share My Wishlist'即可公开你的愿望列表&amp;#160;&lt;a href="#fnref-2" class="footnoteBackLink" title="Jump back to footnote 2 in the text."&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 </summary></entry><entry><title>Alfred Workflow: 管理Synology Download Station</title><link href="http://jeeker.net/article/alfred-workflow-manage-synology-download-station/" rel="alternate"></link><updated>2013-04-12T04:24:29Z</updated><id>tag:jeeker.net,2013-04-12:/article/alfred-workflow-manage-synology-download-station//</id><summary type="html">&lt;p&gt;　　&lt;a href="http://www.synology.com/dsm/home_home_applications_download_station.php?lang=chs"&gt;Download Station&lt;/a&gt;是&lt;a href="http://www.synology.com/dsm/index.php?lang=chs"&gt;Synology DSM&lt;/a&gt;里我最喜欢的应用之一，我也曾写过一个&lt;a href="http://jeeker.net/article/remote-control-synology-download-station/"&gt;在终端控制它的脚本&lt;/a&gt;，Alfred的Workflow出现后我想到如果可能或许它是本地管理DS最方便的方式了，于是就有了这个，Download Station下载任务的创建、查看、暂停、恢复、删除等操作自然完全支持，也支持一些基本设置的管理如eMule、计划的启用与禁用等。&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;&lt;img src="http://jeeker.oss.aliyuncs.com/uploads/2013-04-12-alfred-workflow-manage-synology-download-station/screenshot-main.png" alt="DS Main" /&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-04-12-alfred-workflow-manage-synology-download-station/screenshot-main.png" alt="DS Main" /&gt;&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/download-station.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/download-station" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
 
@@ -46,7 +55,7 @@
 &lt;/div&gt;
 </summary></entry><entry><title>Alfred Workflow: 获取迅雷、快车、QQ旋风专用链接的真实地址</title><link href="http://jeeker.net/article/alfred-workflow-real-download-link/" rel="alternate"></link><updated>2013-04-12T03:24:29Z</updated><id>tag:jeeker.net,2013-04-12:/article/alfred-workflow-real-download-link//</id><summary type="html">&lt;p&gt;　　　在国内连下载链接都那么有中国特色，什么迅雷、快车、QQ旋风都有自己专用下载链接，封闭私有不通用，强迫用户使用，让人厌恶，其实它们基本上都只是对真实地址的简单base64编码而已，写了一个&lt;a href="http://www.alfredapp.com/"&gt;Alfred&lt;/a&gt; Workflow解析这些专用链接为真实的地址。&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;&lt;img src="http://jeeker.oss.aliyuncs.com/uploads/2013-04-12-alfred-workflow-real-download-link/screenshot.png" alt="Real Download Link Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-04-12-alfred-workflow-real-download-link/screenshot.png" alt="Real Download Link Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/real-download-link.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/real-download-link" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
 
@@ -58,7 +67,7 @@
 &lt;/ul&gt;
 </summary></entry><entry><title>Alfred Workflow: 歌词搜索</title><link href="http://jeeker.net/article/alfred-workflow-search-lyric/" rel="alternate"></link><updated>2013-04-12T01:24:29Z</updated><id>tag:jeeker.net,2013-04-12:/article/alfred-workflow-search-lyric//</id><summary type="html">&lt;p&gt;　　搜索歌词的&lt;a href="http://www.alfredapp.com/"&gt;Alfred&lt;/a&gt; Workflow，支持自动查找iTunes当前播放的歌曲或手动输入歌名查找，可将查到的歌词下载到本地或复制到剪切板或在Large Type显示，或直接保存到iTunes当前播放曲目中。&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;&lt;img src="http://jeeker.oss.aliyuncs.com/uploads/2013-04-12-alfred-workflow-search-lyric/screenshot.png" alt="Lyric Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-04-12-alfred-workflow-search-lyric/screenshot.png" alt="Lyric Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/lyric.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/lyric" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
 
@@ -72,7 +81,7 @@
 &lt;p&gt;&lt;strong&gt;说明：除了下载歌词，其它歌词内容都是去除了时间线信息的&lt;/strong&gt;&lt;/p&gt;
 </summary></entry><entry><title>Alfred 2 Workflow: 中文词典</title><link href="http://jeeker.net/article/alfred-2-workflow-chinese-dictionary/" rel="alternate"></link><updated>2013-03-29T01:24:29Z</updated><id>tag:jeeker.net,2013-03-29:/article/alfred-2-workflow-chinese-dictionary//</id><summary type="html">&lt;p&gt;　　英文不咋地，还不要脸总爱浏览国外的网站，于是字典成了我最重要的工具之一，OS X的三指查词虽然很方便，可惜系统自带的Dictionary即使装了中文词典用着也总觉得不太爽，什么时态什么复数都直接被忽视，平时还是多用在线词典，有需求就要尝试去实现，研究了下&lt;a href="http://www.alfredapp.com/"&gt;Alfred&lt;/a&gt; V2无比强大的&lt;a href="http://support.alfredapp.com/workflows"&gt;Workflow&lt;/a&gt;，写了这个基于在线词典的中英互查工具。&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;&lt;img src="http://jeeker.oss.aliyuncs.com/uploads/2013-03-29-alfred-2-workflow-chinese-dictionary/screenshot.png" alt="Alfred 2 Chinese Dictionary" /&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-03-29-alfred-2-workflow-chinese-dictionary/screenshot.png" alt="Alfred 2 Chinese Dictionary" /&gt;&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;span class="btn-group btn-center"&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/chinese-dictionary.alfredworkflow" class="btn btn-large icon-download-alt"&gt;Download&lt;/a&gt;&lt;a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/chinese-dictionary" class="btn btn-large icon-github"&gt;Source&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
 
@@ -414,437 +423,25 @@ if __name__ == '__main__':
 &lt;hr /&gt;
 &lt;ol&gt;
 &lt;li id="fn-1"&gt;
-&lt;p&gt;貌似这是群晖DDNS服务的通病，在DSM4.2已经允许设置多个DDNS服务，不过为以防万一，自行监控IP变化也不失为一个好的预防手段。&amp;nbsp;&lt;a href="#fnref-1" class="footnoteBackLink" title="Jump back to footnote 1 in the text."&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;貌似这是群晖DDNS服务的通病，在DSM4.2已经允许设置多个DDNS服务，不过为以防万一，自行监控IP变化也不失为一个好的预防手段。&amp;#160;&lt;a href="#fnref-1" class="footnoteBackLink" title="Jump back to footnote 1 in the text."&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id="fn-2"&gt;
-&lt;p&gt;群晖NAS DSM上默认不自带Python，需要从套件中心中安装。&amp;nbsp;&lt;a href="#fnref-2" class="footnoteBackLink" title="Jump back to footnote 2 in the text."&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;群晖NAS DSM上默认不自带Python，需要从套件中心中安装。&amp;#160;&lt;a href="#fnref-2" class="footnoteBackLink" title="Jump back to footnote 2 in the text."&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id="fn-3"&gt;
-&lt;p&gt;不仅仅只适用于群晖NAS，只要安装了Python的*nix系统均可正常使用。&amp;nbsp;&lt;a href="#fnref-3" class="footnoteBackLink" title="Jump back to footnote 3 in the text."&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;不仅仅只适用于群晖NAS，只要安装了Python的*nix系统均可正常使用。&amp;#160;&lt;a href="#fnref-3" class="footnoteBackLink" title="Jump back to footnote 3 in the text."&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id="fn-4"&gt;
-&lt;p&gt;简单的vi操作: i进入编辑模式 esc 退出当前模式 : 进入命令行输入模式 w 保存内容 q 退出。&amp;nbsp;&lt;a href="#fnref-4" class="footnoteBackLink" title="Jump back to footnote 4 in the text."&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;简单的vi操作: i进入编辑模式 esc 退出当前模式 : 进入命令行输入模式 w 保存内容 q 退出。&amp;#160;&lt;a href="#fnref-4" class="footnoteBackLink" title="Jump back to footnote 4 in the text."&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 </summary></entry><entry><title>向StartSSL申请个人域名SSL证书</title><link href="http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/" rel="alternate"></link><updated>2013-01-21T13:10:46Z</updated><id>tag:jeeker.net,2013-01-21:/article/apply-ssl-certificat-for-domain-from-startssl//</id><summary type="html">&lt;p&gt;　　为方便在外时访问，NAS使用了DDNS服务并绑定了jeeker.net的一个子域名，同时启用了&lt;a href="http://zh.wikipedia.org/wiki/HTTPS"&gt;HTTPS&lt;/a&gt;连接以增强安全性，于是由于证书问题，每次访问NAS总出现烦人的警告。&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;&lt;img src="http://jeeker.oss.aliyuncs.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/warn-page.png" alt="Chrome SSL Warning" /&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/warn-page.png" alt="Chrome SSL Warning" /&gt;&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;　　解决这个问题的唯一方法当然就是安装一个有效的SSL证书，但向CA机构申请证书一年少者几十多者数千美元，很不划算，好在互联网上总不缺&lt;a href="http://www.sslshopper.com/article-free-ssl-certificates-from-a-free-certificate-authority.html"&gt;免费午餐&lt;/a&gt;，&lt;a href="https://www.startssl.com/"&gt;StartSSL&lt;/a&gt;就是很好的选择，下面就以它为例了解下SSL证书的申请和安装过程。&lt;/p&gt;
-</summary></entry><entry><title>命令行远程控制Synology DSM Download Station</title><link href="http://jeeker.net/article/remote-control-synology-download-station/" rel="alternate"></link><updated>2013-01-16T13:29:31Z</updated><id>tag:jeeker.net,2013-01-16:/article/remote-control-synology-download-station//</id><summary type="html">&lt;p&gt;　　入手&lt;a href="http://www.synology.com/"&gt;Synology DS211j&lt;/a&gt;近两年，所有下载工作都是通过其自带的Download Station来完成，毫无疑问，DS的功能已经足够强大，不过每次添加任务都要先登陆DSM，总让我觉得有点麻烦，一直想通过本地终端直接控制DS，但始终不得其法。&lt;/p&gt;
-
-&lt;p&gt;　　直到这两天才发现其实从DSM 3.2开始DS就已经提供了官方API，看了下&lt;a href="http://download.synology.com/download/other/Synology_Download_Station_Official_API_V3.pdf"&gt;文档&lt;/a&gt;，接口如同常见的网络轮询服务，也不复杂，于是写了一段Python脚本，支持在终端查看、添加、暂停、恢复、清理下载任务以及禁用或启用eMule，基本能够满足日常应用了。&lt;/p&gt;
-
-&lt;p&gt;　　代码结构很简单，如何使用直接看源代码吧，不多废话了。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
-## 
-# 使用Synology Download Station API远程控制文件下载
-# http://download.synology.com/download/other/Synology_Download_Station_Official_API_V3.pdf
-# Created by JinnLynn 2013.01.15 http://jeeker.net 
-##
-
-import json, urllib, urllib2, os, sys
-from argparse import ArgumentParser
-from pprint import pprint
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-# 设置: 网址 用户 密码
-NAS_URL = ''
-NAS_USR = ''
-NAS_PWD = ''
-
-CommonCodeDesc = {  100: 'Unknown error',
-                    101: 'Invalid parameter',
-                    102: 'The requested API does not exist',
-                    103: 'The requested method does not exist',
-                    104: 'The requested version does not support the functionality',
-                    105: 'The logged in session does not have permission',
-                    106: 'Session timeout',
-                    107: 'Session interrupted by duplicate login'
-                }
-
-AuthCodeDesc = {    400: 'No such account or incorrect password',
-                    401: 'Guest account disabled',
-                    402: 'Account disabled',
-                    403: 'Wrong password',
-                    404: 'Permission denied'
-                }
-
-DSTaskCodeDesc = {  400: 'File upload failed',
-                    401: 'Max number of tasks reached',
-                    402: 'Destination denied',
-                    403: 'Destination does not exist',
-                    404: 'Invalid task id',
-                    405: 'Invalid task action'
-                }
-
-DS_VERSION = '0.1'
-
-class DownloadStation:
-    def __init__(self):
-        self.sessionID = ''
-        self.tryLogin()
-        self.debugInfo = {}
-        self.lastError = ''
-
-    def post(self, cgipath, data, subdir=''):
-        if not isinstance(data, dict):
-            print('data error')
-            return
-        if not data.has_key('version'):
-            data.update({'version': 1})
-        if not data.has_key('_sid'):
-            data.update({'_sid': self.sessionID})
-        data = urllib.urlencode(data)
-        url = os.path.join(NAS_URL, 'webapi', subdir, cgipath)
-        try:
-            requst = urllib2.urlopen(url, data)
-            res = json.load(requst)
-        except:
-            res = {'error': {'code': -1},'success': False}
-        return res
-
-    def login(self):
-        data = { 'api':     'SYNO.API.Auth',
-                 'method':  'login',
-                 'version': 2,
-                 'account': NAS_USR,
-                 'passwd':  NAS_PWD,
-                 'session': 'DownloadStation',
-        }
-        res = self.post('auth.cgi', data)
-        if not self.isSuccess(res):
-            self.die( self.lastError )
-        self.sessionID = res['data']['sid']
-
-    def logout(self):
-        data = { 'api':     'SYNO.API.Auth',
-                 'method':  'logout',
-                 'session': 'DownloadStation'
-        }
-        res = self.post('auth.cgi', data)
-        self.sessionID = ''
-
-    def tryLogin(self):
-        if self.sessionID == '':
-            self.login()
-
-    def test(self):
-        self.tryLogin()
-        data = { 'api':     'SYNO.DownloadStation.Info',
-                 'method':  'getinfo'
-        }
-        res = self.post('DownloadStation/info.cgi', data)
-        if not self.isSuccess(res):
-            self.die( self.lastError )
-        manager_info = ', and you are manager.' if res['data']['is_manager'] else '.'
-        info = 'everything is ok, the version of Download Station is {}{}'.format(res['data']['version_string'], manager_info)
-        print(info)
-
-
-    # 显示当前下载速度
-    def showStatistic(self):
-        self.tryLogin()
-        data = { 'api':     'SYNO.DownloadStation.Statistic',
-                 'method':  'getinfo'
-        }
-        res = self.post('statistic.cgi', data, 'DownloadStation')
-        if not self.isSuccess(res):
-            self.die( self.lastError )
-        speed_download          = self.humanSize(res['data']['speed_download'])
-        speed_upload            = self.humanSize(res['data']['speed_upload'])
-        info = '{:15} download {:10} upload {:10}'.format('Speed:', speed_download, speed_upload)
-        print(info)
-        if res['data'].has_key('emule_speed_download'):
-            emule_speed_download    = self.humanSize(res['data']['emule_speed_download'])
-            emule_speed_upload      = self.humanSize(res['data']['emule_speed_upload'])
-            info = '{:15} download {:10} upload {:10}'.format('eMule Speed:', emule_speed_download, emule_speed_upload)
-            print(info)
-        else:
-            print('eMule disabled.')
-
-    # 显示当前任务信息
-    def showTask(self, simple = False, include_seeding = False):
-        self.tryLogin()
-        if not simple:
-            self.showStatistic()
-        data = { 'api':         'SYNO.DownloadStation.Task',
-                 'method':      'list',
-                 'additional':  'transfer'
-        }
-        res = self.post('DownloadStation/task.cgi', data)
-        if not self.isSuccess(res):
-            self.die( self.lastError )
-        if not include_seeding:
-            res['data']['tasks'] = filter(lambda t: t['status'] != 'seeding', res['data']['tasks'])
-        if len(res['data']['tasks']) == 0:
-            print('Task list is empty.')
-            return
-        title = '{:10}{:15}{:10}{:15}{:15}{}'.format('Type', 'Status', 'Size', 'Downloaded', 'Speed', 'Title')
-        if simple:
-            title = '{:40}{}'.format('Task ID', 'Title')
-        print(title)
-
-        for task in res['data']['tasks']:
-            task['size'] = self.humanSize(task['size']);
-            task['add_size_d'] = self.humanSize(task['additional']['transfer']['size_downloaded'])
-            task['add_sued'] = self.humanSize(task['additional']['transfer']['size_uploaded'])
-            task['add_speed_d'] = self.humanSize(task['additional']['transfer']['speed_download'])
-            task['add_su'] = self.humanSize(task['additional']['transfer']['speed_upload'])
-            info = '{type:10}{status:15}{size:10}{add_size_d:15}{add_speed_d:15}{title:30}'.format(**task)
-            if simple:
-                info = '{id:40}{title}'.format(**task)
-            print(info)
-
-    # 创建新的下载任务 参数可以是本地文件或链接
-    def createTask(self, link_or_file):
-        self.tryLogin()
-        if not isinstance(link_or_file, (str, unicode, list)):
-            self.die('arguments error')
-        uris = ','.join(link_or_file) if isinstance(link_or_file, list) else link_or_file
-        try:
-            if os.path.isfile(uris):
-                # 使用file参数似乎有问题 自己读
-                with open(uris, 'r') as fp:
-                    uris = ','.join(map(lambda s: s.strip('\n \t\r'), fp.readlines()))
-        except:
-            pass
-        data = { 'api':     'SYNO.DownloadStation.Task',
-                 'method':  'create',
-                 'uri':     uris
-        }
-        res = self.post('DownloadStation/task.cgi', data)
-        if not self.isSuccess(res):
-            self.die( self.lastError )
-        print('task created.')
-
-    # 清理错误 及 已完成的任务
-    #! eMule任务中 有seeding状态的无法删除
-    def cleanTask(self):
-        self.tryLogin()
-        # 获取任务列表
-        data = { 'api':         'SYNO.DownloadStation.Task',
-                 'method':      'list',
-        }
-        res = self.post('DownloadStation/task.cgi', data)
-        if not self.isSuccess(res):
-            self.die( self.lastError )
-        need_clean = {}
-        for task in res['data']['tasks']:
-            # 错误 已完成 的清理
-            if task['status'] == 'error' or task['status'] == 'finished':
-                need_clean.update({task['id']: task['title']})
-        if not len(need_clean):
-            print('there is no task need to clean.')
-            return
-        data = { 'api':     'SYNO.DownloadStation.Task',
-                 'method':  'delete',
-                 'id':      ','.join(need_clean.keys())
-        }
-        res = self.post('DownloadStation/task.cgi', data)
-        if not self.isSuccess(res):
-            self.die( self.lastError )
-        for task in res['data']:
-            clean_res = 'clean success:' if task['error'] == 0 else 'clean fail(%d):' % task['error']
-            title = need_clean[task['id']] if need_clean.has_key(task['id']) else task['id']
-            info = '{:20}{}'.format(clean_res, title)
-            print(info)
-
-    def pauseTask(self, task_id = ''):
-        self.tryLogin()
-        # 未自定id则暂停所有
-        if not task_id:
-            # 获取任务列表
-            data = { 'api':         'SYNO.DownloadStation.Task',
-                     'method':      'list',
-            }
-            res = self.post('DownloadStation/task.cgi', data)
-            if not self.isSuccess(res):
-                self.die( self.lastError )
-            ids = []
-            for task in res['data']['tasks']:
-                # eMule做种的任务无法暂停
-                if not task['status'] == 'seeding':
-                    ids.append(task['id'])
-            if not len(ids):
-                self.die('there is no task can be paused.')
-            task_id = ',' . join(ids)
-
-        data = { 'api': 'SYNO.DownloadStation.Task',
-                 'method': 'pause',
-                 'id':      task_id
-        }
-        res = self.post('DownloadStation/task.cgi', data)
-        if not self.isSuccess(res):
-            self.die( self.lastError )
-        for task in res['data']:
-            info = 'pause success:' if task['error'] == 0 else 'pause fail(%d):' % task['error']
-            print( '{:20}{}'.format(info, task['id']) )
-
-    def resumeTask(self, task_id = ''):
-        self.tryLogin()
-        # 未自定id则恢复所有
-        if not task_id:
-            # 获取任务列表
-            data = { 'api':         'SYNO.DownloadStation.Task',
-                     'method':      'list',
-            }
-            res = self.post('DownloadStation/task.cgi', data)
-            if not self.isSuccess(res):
-                self.die( self.lastError )
-            ids = []
-            for task in res['data']['tasks']:
-                if task['status'] == 'paused':
-                    ids.append(task['id'])
-            if not len(ids):
-                self.die('there is no task can be paused.')
-            task_id = ',' . join(ids)
-        data = { 'api':     'SYNO.DownloadStation.Task',
-                 'method':  'resume',
-                 'id':      task_id
-        }
-        res = self.post('DownloadStation/task.cgi', data)
-        if not self.isSuccess(res):
-            self.die( self.lastError )
-        for task in res['data']:
-            info = 'resume success:' if task['error'] == 0 else 'resume fail(%d):' % task['error']
-            print( '{:20}{}'.format(info, task['id']) )
-
-    def deleteTask(self, task_id):
-        self.tryLogin()
-        # 获取待删除任务信息
-        data = { 'api':     'SYNO.DownloadStation.Task',
-                 'method':  'getinfo',
-                 'id':      task_id
-        }
-        res = self.post('DownloadStation/task.cgi', data)
-        if not self.isSuccess(res):
-            self.die( self.lastError )
-        if not len(res['data']['tasks']):
-            self.die('task is non-existent.')
-        # 如果任务未完成 且 无错误 请求确认
-        need_confirm = False
-        for task in res['data']['tasks']:
-            if task['status'] != 'error' and task['status'] != 'finished':
-                need_confirm = True
-                print( '{:20}{:40}{}'.format('task uncompleted:', task['id'], task['title']) )
-        if need_confirm:
-            if not raw_input('are you sure to delete it(yes/no)?:') == 'yes':
-                return
-        # 删除
-        data = { 'api':     'SYNO.DownloadStation.Task',
-                 'method':  'delete',
-                 'id':      task_id
-        }
-        res = self.post('DownloadStation/task.cgi', data)
-        if not self.isSuccess(res):
-            self.die( self.lastError )
-        print('task deleted.')
-
-    def eMule(self, is_enable):
-        data = { 'api':             'SYNO.DownloadStation.Info',
-                 'method':          'setserverconfig',
-                 'emule_enabled':   'false' if not is_enable else 'true'
-        }
-        res = self.post('DownloadStation/info.cgi', data)
-        if not self.isSuccess(res):
-            self.die( self.lastError )
-        print('eMule was %s' % ('enabled' if is_enable else 'disabled'))
-
-    def isSuccess(self, res):
-        if not isinstance(res, dict) or not res.has_key('success'):
-            self.lastError = 'something error'
-            return False
-        if res['success']:
-            self.lastError = ''
-            return True
-        self.lastError = 'Fail. error code: %d' % res['error']['code'] if res.has_key('error') and res['error'].has_key('code') else 'something error'
-        return False
-
-    def humanSize(self, byte):
-        if isinstance(byte, (str, unicode)):
-            byte = int(byte) if byte.isnumeric() else 0
-        size = byte / 1024.0
-        unit = 'KB'
-        if size &amp;gt; 1024:
-            size = size / 1024.0
-            unit = 'MB'
-        if size &amp;gt; 1024:
-            size = size / 1024.0
-            unit = 'GB'
-        return '{:.2f}{}'.format(size, unit)
-
-    def die(self, msg=''):
-        if len(msg):
-            sys.stderr.write(msg + '\n')
-        sys.exit(1)
-
-def main():
-    parser = ArgumentParser(prog = 'ds', description = 'Synology NAS Download Station Tool.')
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + DS_VERSION)
-    subparsers = parser.add_subparsers(title = 'subcommands', dest = 'sub_cmd')
-
-    # 任务信息
-    sub_info_parser = subparsers.add_parser('info', help = 'show task infomation')
-    sub_info_parser.add_argument('--simple', action='store_true', default = False, help = 'only show task id and title')
-    sub_info_parser.add_argument('--all', action='store_true', default = False, help = 'show all task')
-
-    # 创建新任务
-    sub_create_parser = subparsers.add_parser('create', help='create new task')
-    sub_create_parser.add_argument('link_or_file', nargs = 1, help='single link or a file which include multi-links')
-
-    # 清理任务
-    sub_clean_parser = subparsers.add_parser('clean', help = 'clean error or completed task')
-
-    # 暂停任务
-    sub_pause_parser = subparsers.add_parser('pause', help = 'pause task')
-    sub_pause_parser.add_argument('task_id', action='store', nargs='?', default = '')
-
-    # 恢复任务
-    sub_resume_parser = subparsers.add_parser('resume', help = 'resume task')
-    sub_resume_parser.add_argument('task_id', nargs = '?', default = '')
-
-    # 删除任务
-    sub_delete_parser = subparsers.add_parser('delete', help = 'delete task')
-    sub_delete_parser.add_argument('task_id')
-
-    # eMule控制
-    sub_emule_parser = subparsers.add_parser('emule', help = 'enable or disable eMule')
-    sub_emule_parser.add_argument('operate', choices=['on', 'off'])
-
-    # 测试
-    sub_test_parser = subparsers.add_parser('test', help = 'test API')
-
-    # 如果没有参数则默认输出info
-    args = parser.parse_args(['info']) if len(sys.argv) == 1 else parser.parse_args()
-
-    cmd_map = { 'info':     lambda: ds.showTask(args.simple, args.all),
-                'create':   lambda: ds.createTask( args.link_or_file ),
-                'clean':    lambda: ds.cleanTask(),
-                'pause':    lambda: ds.pauseTask( args.task_id ),
-                'resume':   lambda: ds.resumeTask( args.task_id ),
-                'delete':   lambda: ds.deleteTask( args.task_id ),
-                'emule':    lambda: ds.eMule( True if args.operate == 'on' else False),
-                'test':     lambda: ds.test()
-    }
-    if cmd_map.has_key(args.sub_cmd):
-        ds = DownloadStation()
-        cmd_map[args.sub_cmd]()
-        ds.logout()
-    else:
-        print('something error.')
-
-if __name__ == '__main__':
-    main()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;span class="btn-single btn-center"&gt;&lt;a href="https://github.com/JinnLynn/MacOSX-Kits/blob/master/Python/ds" class="btn btn-large icon-github"&gt;Source on GitHub&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
 </summary></entry></feed>

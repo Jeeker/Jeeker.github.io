@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?77882" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?74501" />
     <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
@@ -61,7 +61,7 @@
 <!-- content start -->
 <p>　　为方便在外时访问，NAS使用了DDNS服务并绑定了jeeker.net的一个子域名，同时启用了<a href="http://zh.wikipedia.org/wiki/HTTPS">HTTPS</a>连接以增强安全性，于是由于证书问题，每次访问NAS总出现烦人的警告。</p>
 
-<p><i><img src="http://jeeker.oss.aliyuncs.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/warn-page.png" alt="Chrome SSL Warning" /></i></p>
+<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/warn-page.png" alt="Chrome SSL Warning" /></i></p>
 
 <p>　　解决这个问题的唯一方法当然就是安装一个有效的SSL证书，但向CA机构申请证书一年少者几十多者数千美元，很不划算，好在互联网上总不缺<a href="http://www.sslshopper.com/article-free-ssl-certificates-from-a-free-certificate-authority.html">免费午餐</a>，<a href="https://www.startssl.com/">StartSSL</a>就是很好的选择，下面就以它为例了解下SSL证书的申请和安装过程。</p>
 
@@ -71,7 +71,7 @@
 
 <p>　　StartSSL使用的是证书认证，而不是一般网站的用户名+密码的认证方式，因此注册和登陆方式也有所不同。</p>
 
-<p><i><img src="http://jeeker.oss.aliyuncs.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step1.png" alt="Sign Up" /></i></p>
+<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step1.png" alt="Sign Up" /></i></p>
 
 <ol>
 <li>进入<a href="https://www.startssl.com/?app=11&amp;action=regform">注册页面</a>填写表单，这些选项都必须填写，当然除了邮箱你都可以使用虚假的信息，但至少要看起来像真的，否则可能无法通过审核。</li>
@@ -85,7 +85,7 @@
 
 <p>　　在创建证书之前需要先验证域名的所有权。</p>
 
-<p><i><img src="http://jeeker.oss.aliyuncs.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step2.png" alt="Validations Wizard" /></i></p>
+<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step2.png" alt="Validations Wizard" /></i></p>
 
 <ol>
 <li>进入<a href="https://www.startssl.com/?app=11&amp;action=regform">Control Panel</a>（可能需要点击<strong>Authenticate</strong>并使用上一步生成的证书才能看到图示的页面），选择<strong>Validations Wizard</strong>，类型选择<strong>Domain Name Validation</strong>。</li>
@@ -97,7 +97,7 @@
 
 <h2 id="-3">生成证书</h2>
 
-<p><i><img src="http://jeeker.oss.aliyuncs.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step3.png" alt="Certificates Wizard" /></i></p>
+<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step3.png" alt="Certificates Wizard" /></i></p>
 
 <ol>
 <li>选择<strong>Certificates Wizard</strong>进入SSL证书生成向导，证书目标选择<strong>Web Server SSL/TLS Certificate</strong></li>
@@ -113,7 +113,7 @@
 
 <p>　　在使用证书证书之前还需要对生成的秘钥解密，可使用命令<code>openssl rsa -in ssl.key -out ssl_decrypted.key</code>，或者是StartSSL提供的工具: Tool Box - Decrypt Private Key，生成的内容另存为文件，如<strong>ssl_decrypted.key</strong>。</p>
 
-<p><i><img src="http://jeeker.oss.aliyuncs.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step4.png" alt="Decrypt Private Key" /></i></p>
+<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step4.png" alt="Decrypt Private Key" /></i></p>
 
 <h2 id="-5">导入证书</h2>
 
@@ -127,11 +127,11 @@
 
 <p>　　点击<strong>确定</strong>重启网页服务器。</p>
 
-<p><i><img src="http://jeeker.oss.aliyuncs.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step5.png" alt="Import Certificate" /></i></p>
+<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/step5.png" alt="Import Certificate" /></i></p>
 
 <p>　　至此SSL证书安装完成，此时访问NAS就不会再有烦人的警告了，地址栏边上淡绿色的小锁清楚的告诉你已经经过认证了，网站身份是合法有效并值得信赖的。</p>
 
-<p><i><img src="http://jeeker.oss.aliyuncs.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/success.png" alt="HTTPS" /></i></p>
+<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-01-21-apply-ssl-certificat-for-domain-from-startssl/success.png" alt="HTTPS" /></i></p>
 
 <p><strong>TIP:</strong></p>
 
@@ -197,9 +197,9 @@
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?77882"></script>
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?74501"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?77882'></script>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?74501'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
