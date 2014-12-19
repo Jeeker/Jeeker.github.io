@@ -49,36 +49,6 @@
 
 
 
-<div id="post-14367" class="post-list post post-post post-publish">
-    <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/jkit-optimize-database-automatically/" title="JKit: 定期自动优化数据库" rel="bookmark">JKit: 定期自动优化数据库</a></h1>
-        <p class="entry-date" title="2008-12-25 22:12:47">
-            <span class="day">25</span>
-            <span class="month">Dec</span>
-        </p>
-    </div><!-- .entry-header -->
-    <div class="entry-content">
-<!-- content start -->
-<p>　　在MySQL中对表的数据进行删除操作时，实际上并没有真正的删除这些记录，而是被保存在链接清单中，这些多余数据不但占用数据库的存储空间，对效率也有一定的影响，Wordpress中wp<em>comments、wp</em>options等表尤为容易产生这些多余的数据，因为它们往往比别的表进行更多的删除或更新操作。</p>
-
-<p>　　使用SQL中的<a href="http://dev.mysql.com/doc/refman/5.1/zh/sql-syntax.html#optimize-table">OPTIMIZE TABLE</a>语句就可以对数据表进行整理,修复碎片,并且重新排序索引，提升性能，你可以通过phpMyAdmin或Wordpress插件<a href="http://wordpress.designpraxis.at/plugins/optimize-db/">Optimize DB</a>实现上述语句的功能，不过它们都需要手动进行，并不方便。</p>
-
-<p>　　实际上只要通过下列十几行简单的PHP语句就可以在Wordpress中实现定期整理数据库的目的，需要注意的是数据库在使用OPTIMIZE TABLE进行优化时会被锁定，因此不益过于频繁的进行此项操作，下面默认是半个月整理一次，应该是比较合适的。</p>
-
-<p><a href="http://jeeker.net/article/jkit-optimize-database-automatically/#more-14367" class="more-link">Read more...</a></p>
-<!-- content end -->
-    </div><!-- .entry-content -->
-    <div class="entry-meta">
-        <ul>
-            <li class="entry-author">Posted by JinnLynn</li>
-            <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
-</li>
-            <li class="entry-human-time-diff"> on Dec 25, 2008</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/jkit-optimize-database-automatically/#comments" title="Comment on JKit: 定期自动优化数据库">Comments</a></li> 
-        </ul>
-    </div><!-- .entry-meta -->
-</div><!-- #post-14367 -->
 <div id="post-55310" class="post-list post post-post post-publish">
     <div class="entry-head">
         <h1><a href="http://jeeker.net/article/pj2wp-wxr/" title="PJ2WP WXR" rel="bookmark">PJ2WP WXR</a></h1>

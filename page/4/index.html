@@ -48,59 +48,6 @@
     <div id="content" role="main">
 
 
-<div id="post-48411" class="post post-list post-post post-publish">
-    <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/how-to-upgrade-git-on-mac-os/" title="HOW TO: 升级Mac OS X上的GIT" rel="bookmark">HOW TO: 升级Mac OS X上的GIT</a></h1>
-        <p class="entry-date" title="2012-06-06 10:06:51">
-            <span class="day">06</span>
-            <span class="month">Jun</span>
-        </p>
-    </div><!-- .entry-header -->
-    <div class="entry-content">
-<!-- content start -->
-<p>　　在MacOSX下使用<a href="http://mxcl.github.com/homebrew/">Homebrew</a>或其它方式安装最新版本的GIT后，往往并不能使用，系统默认调用的依旧还是比较旧的版本，原因是已经通过XCode等方式安装过git，且它们的路径优先级较高。</p>
-
-<p>　　下面假设你已经通过<a href="http://mxcl.github.com/homebrew/">Homebrew</a>的<code>brew install git</code>成功安装了GIT，但系统默认使用的还是旧版本。</p>
-
-<h4 id="1-homebrew">1.  检查系统默认调用的是否是通过Homebrew安装的最新版本</h4>
-
-<p>　　Homebrew安装的GIT会被软链接到<code>/usr/local/bin</code>目录下，所以如果你使用<code>which git</code>看到的结果不是<code>/usr/local/bin/git</code>，那么你就需要通过后面的方法修改以便能够默认使用你所安装版本的GIT。</p>
-
-<h4 id="2">2. 移除系统自带的版本</h4>
-
-<p>　　如果<code>which git</code>返回的结果是<code>/usr/bin/git</code>，说明你可能通过XCode安装了其自带的GIT，其版本一般都比较低，需要移除。</p>
-
-<pre><code>cd /usr/bin
-sudo mkdir backup-git-apple
-sudo mv git* backup-git-apple
-</code></pre>
-
-<h4 id="3">3. 移除可能存在的其它版本</h4>
-
-<p>　　如果<code>which git</code>返回的结果是<code>/usr/local/git/bin/git</code>，则表示可能是你曾经使用<a href="http://code.google.com/p/git-osx-installer/">git-osx-installer</a>或其它方式安装过GIT，检查系统环境变量PATH可能还包含形如<code>/usr/local/git/bin</code>的路径。</p>
-
-<pre><code>sudo rm -rf /usr/local/git
-sudo rm /etc/paths.d/git
-sudo rm /etc/manpaths.d/git
-</code></pre>
-
-<p>　　最后，重启终端，再次检查<code>which git</code>及<code>git version</code>。</p>
-
-<p>　　BTW: 2、3的情况可能同时存在。</p>
-
-<!-- content end -->
-    </div><!-- .entry-content -->
-    <div class="entry-meta">
-        <ul>
-            <li class="entry-author">Posted by JinnLynn</li>
-            <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
-</li>
-            <li class="entry-human-time-diff"> on Jun 06, 2012</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/how-to-upgrade-git-on-mac-os/#comments" title="Comment on HOW TO: 升级Mac OS X上的GIT">Comments</a></li> 
-        </ul>
-    </div><!-- .entry-meta -->
-</div><!-- #post-48411 -->
 <div id="post-46713" class="post post-list post-post post-publish">
     <div class="entry-head">
         <h1><a href="http://jeeker.net/article/difference-between-hard-link-and-symbolic-soft-link/" title="硬链接和软链接（符号链接）的区别" rel="bookmark">硬链接和软链接（符号链接）的区别</a></h1>
@@ -476,6 +423,39 @@ end tell
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-11545 -->
+<div id="post-54259" class="post post-list post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/activate-new-theme-vellum/" title="启用新主题Vellum" rel="bookmark">启用新主题Vellum</a></h1>
+        <p class="entry-date" title="2012-04-18 21:04:19">
+            <span class="day">18</span>
+            <span class="month">Apr</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2012-04-18-activate-new-theme-vellum/screenshot.png" alt="Vellum Screenshot small" /></i></p>
+
+<p>　　自博客系统从PJBlog2改为Wordpress起我就一直使用<a href="http://designdisease.com/portfolio/illacrimo-wordpress-theme/">illacrimo</a>这个主题，未曾更换过，期间只是调整了某些内容的显示尺寸，整体结构并未做任何的改变，长时间使用下来也有点审美疲劳了。</p>
+
+<p>　　新主题名为Vellum，意为皮纸，就是希望页面呈现的效果如印制在纸上般易于阅读，在Chrome、Safari、Firefox、Opera、IE9下最终效果均无问题，基本一致，不过个人感觉在Mac下更加美观（<a href="http://jeeker.net/demos/vellum-screenshot/">这里</a>可以看到在Chrome Mac版下的截图），尤其是文字的呈现，这可能跟Mac系统本身的特点有关，在文字渲染上Mac从来就都比Windows更具有美感。</p>
+
+<p>　　IE9以前的版本没有给予过多考虑，没必要为落后买单，但内容的显示应该还是不会有问题的。</p>
+
+<p>　　<strong>NOTE:</strong> 设计中部分参考了<a href="http://reederapp.com/">Reeder</a>的风格，如日志内的链接、图片的显示样式。</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
+</li>
+            <li class="entry-human-time-diff"> on Apr 18, 2012</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/activate-new-theme-vellum/#comments" title="Comment on 启用新主题Vellum">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-54259 -->
 
 
     <div id="pagenavi">

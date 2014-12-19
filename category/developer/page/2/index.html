@@ -49,44 +49,6 @@
 
 
 
-<div id="post-29869" class="post-list post post-post post-publish">
-    <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/alfred-workflow-search-lyric/" title="Alfred Workflow: 歌词搜索" rel="bookmark">Alfred Workflow: 歌词搜索</a></h1>
-        <p class="entry-date" title="2013-04-12 09:24:29">
-            <span class="day">12</span>
-            <span class="month">Apr</span>
-        </p>
-    </div><!-- .entry-header -->
-    <div class="entry-content">
-<!-- content start -->
-<p>　　搜索歌词的<a href="http://www.alfredapp.com/">Alfred</a> Workflow，支持自动查找iTunes当前播放的歌曲或手动输入歌名查找，可将查到的歌词下载到本地或复制到剪切板或在Large Type显示，或直接保存到iTunes当前播放曲目中。</p>
-
-<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-04-12-alfred-workflow-search-lyric/screenshot.png" alt="Lyric Screenshot" /></i></p>
-
-<p><span class="btn-group btn-center"><a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/lyric.alfredworkflow" class="btn btn-large icon-download-alt">Download</a><a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/lyric" class="btn btn-large icon-github">Source</a></span></p>
-
-<ul>
-<li>ENTER 下载歌词到<code>~/Downloads</code></li>
-<li>CMD + ENTER 拷贝歌词内容到剪切板</li>
-<li>ALT + ENTER 在Large Type显示歌词并拷贝内容到剪切版</li>
-<li>CTRL + ENTER 保存歌词到iTunes当前正在播放的歌曲</li>
-</ul>
-
-<p><strong>说明：除了下载歌词，其它歌词内容都是去除了时间线信息的</strong></p>
-
-<!-- content end -->
-    </div><!-- .entry-content -->
-    <div class="entry-meta">
-        <ul>
-            <li class="entry-author">Posted by JinnLynn</li>
-            <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
-</li>
-            <li class="entry-human-time-diff"> on Apr 12, 2013</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/alfred-workflow-search-lyric/#comments" title="Comment on Alfred Workflow: 歌词搜索">Comments</a></li> 
-        </ul>
-    </div><!-- .entry-meta -->
-</div><!-- #post-29869 -->
 <div id="post-20269" class="post-list post post-post post-publish">
     <div class="entry-head">
         <h1><a href="http://jeeker.net/article/alfred-2-workflow-chinese-dictionary/" title="Alfred 2 Workflow: 中文词典" rel="bookmark">Alfred 2 Workflow: 中文词典</a></h1>
@@ -776,6 +738,59 @@ while ($query-&gt;have_posts()) {
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-67562 -->
+<div id="post-48411" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/how-to-upgrade-git-on-mac-os/" title="HOW TO: 升级Mac OS X上的GIT" rel="bookmark">HOW TO: 升级Mac OS X上的GIT</a></h1>
+        <p class="entry-date" title="2012-06-06 10:06:51">
+            <span class="day">06</span>
+            <span class="month">Jun</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　在MacOSX下使用<a href="http://mxcl.github.com/homebrew/">Homebrew</a>或其它方式安装最新版本的GIT后，往往并不能使用，系统默认调用的依旧还是比较旧的版本，原因是已经通过XCode等方式安装过git，且它们的路径优先级较高。</p>
+
+<p>　　下面假设你已经通过<a href="http://mxcl.github.com/homebrew/">Homebrew</a>的<code>brew install git</code>成功安装了GIT，但系统默认使用的还是旧版本。</p>
+
+<h4 id="1-homebrew">1.  检查系统默认调用的是否是通过Homebrew安装的最新版本</h4>
+
+<p>　　Homebrew安装的GIT会被软链接到<code>/usr/local/bin</code>目录下，所以如果你使用<code>which git</code>看到的结果不是<code>/usr/local/bin/git</code>，那么你就需要通过后面的方法修改以便能够默认使用你所安装版本的GIT。</p>
+
+<h4 id="2">2. 移除系统自带的版本</h4>
+
+<p>　　如果<code>which git</code>返回的结果是<code>/usr/bin/git</code>，说明你可能通过XCode安装了其自带的GIT，其版本一般都比较低，需要移除。</p>
+
+<pre><code>cd /usr/bin
+sudo mkdir backup-git-apple
+sudo mv git* backup-git-apple
+</code></pre>
+
+<h4 id="3">3. 移除可能存在的其它版本</h4>
+
+<p>　　如果<code>which git</code>返回的结果是<code>/usr/local/git/bin/git</code>，则表示可能是你曾经使用<a href="http://code.google.com/p/git-osx-installer/">git-osx-installer</a>或其它方式安装过GIT，检查系统环境变量PATH可能还包含形如<code>/usr/local/git/bin</code>的路径。</p>
+
+<pre><code>sudo rm -rf /usr/local/git
+sudo rm /etc/paths.d/git
+sudo rm /etc/manpaths.d/git
+</code></pre>
+
+<p>　　最后，重启终端，再次检查<code>which git</code>及<code>git version</code>。</p>
+
+<p>　　BTW: 2、3的情况可能同时存在。</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Jun 06, 2012</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/how-to-upgrade-git-on-mac-os/#comments" title="Comment on HOW TO: 升级Mac OS X上的GIT">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-48411 -->
 
 
     <div id="pagenavi">
