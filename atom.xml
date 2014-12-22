@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Jeeker</title><link href="http://jeeker.net/" rel="alternate"></link><link href="http://jeeker.net/atom.xml" rel="self"></link><id>http://jeeker.net/</id><updated>2014-12-21T02:38:17Z</updated><entry><title>Python脚本: 淘宝消费情况统计</title><link href="http://jeeker.net/article/taobao-orders-statistics/" rel="alternate"></link><updated>2014-12-21T02:38:17Z</updated><id>tag:jeeker.net,2014-12-21:/article/taobao-orders-statistics//</id><summary type="html">&lt;p&gt;　　支付宝十年账单上的数字有点吓人，但它统计的项目太多，只是想看看到底单纯在淘宝上支出了多少，于是写了段脚本，统计任意时间段淘宝订单的消费情况，看那结果其实在淘宝上我还是相当节约的说。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Jeeker</title><link href="http://jeeker.net/" rel="alternate"></link><link href="http://jeeker.net/atom.xml" rel="self"></link><id>http://jeeker.net/</id><updated>2014-12-19T07:38:17Z</updated><entry><title>Python脚本: 淘宝消费情况统计</title><link href="http://jeeker.net/article/taobao-orders-statistics/" rel="alternate"></link><updated>2014-12-19T07:38:17Z</updated><id>tag:jeeker.net,2014-12-19:/article/taobao-orders-statistics//</id><summary type="html">&lt;p&gt;　　支付宝十年账单上的数字有点吓人，但它统计的项目太多，只是想看看到底单纯在淘宝上支出了多少，于是写了段脚本，统计任意时间段淘宝订单的消费情况，看那结果其实在淘宝上我还是相当节约的说。&lt;/p&gt;
 
 &lt;p&gt;　　脚本的主要工作是模拟了浏览器登录，解析“&lt;strong&gt;已买到的宝贝&lt;/strong&gt;”页面以获得指定的订单及宝贝信息。&lt;/p&gt;
 
