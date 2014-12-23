@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?74501" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?26431" />
     <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
@@ -71,124 +71,124 @@
 
 <p>　　代码是Python2.7的，因此Arduino需预先写入<a href="http://firmata.org/">StandardFirmata</a>，而Python则需安装<a href="https://github.com/tino/pyFirmata">pyFirmata</a>模块。</p>
 
-<pre><code>#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-#! 强制默认编码为utf-8
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
+<div class="codehilite"><pre><code><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="c">#! 强制默认编码为utf-8</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="nb">reload</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">)</span>
 
-import pyfirmata, urllib, json, time
-from datetime import datetime
+<span class="kn">import</span> <span class="nn">pyfirmata</span><span class="o">,</span> <span class="nn">urllib</span><span class="o">,</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
-#! 微博的API调用需要OAuth2.0登陆授权
-#! 这里不做授权过程，需使用开发者账号测试 参考：http://t.cn/zYDjFan
-ACCESS_TOKEN = 'YOUR ACCESS TOKEN'
+<span class="c">#! 微博的API调用需要OAuth2.0登陆授权</span>
+<span class="c">#! 这里不做授权过程，需使用开发者账号测试 参考：http://t.cn/zYDjFan</span>
+<span class="n">ACCESS_TOKEN</span> <span class="o">=</span> <span class="s">&#39;YOUR ACCESS TOKEN&#39;</span>
 
-# Arduino硬件接口
-ARDUINO_PORT        = 'YOUR ARDUINO PORT'
+<span class="c"># Arduino硬件接口</span>
+<span class="n">ARDUINO_PORT</span>        <span class="o">=</span> <span class="s">&#39;YOUR ARDUINO PORT&#39;</span>
 
-POWER_PIN           = 13
-DOTPOINT_PIN        = 5
+<span class="n">POWER_PIN</span>           <span class="o">=</span> <span class="mi">13</span>
+<span class="n">DOTPOINT_PIN</span>        <span class="o">=</span> <span class="mi">5</span>
 
-NUMBERS = [
-    #E  D  C  DP B  A  F  G   // 数码管
-    #2  3  4  5  6  7  8  9   // 输出端口
-    [0, 0, 0, 1, 0, 0, 0, 1], # 0
-    [0, 1, 1, 1, 1, 1, 0, 1], # 1
-    [0, 0, 1, 1, 0, 0, 1, 0], # 2 
-    [1, 0, 0, 1, 0, 0, 1, 0], # 3
-    [1, 1, 0, 1, 0, 1, 0, 0], # 4
-    [1, 0, 0, 1, 1, 0, 0, 0], # 5
-    [0, 0, 0, 1, 1, 0, 0, 0], # 6
-    [1, 1, 0, 1, 0, 0, 1, 1], # 7
-    [0, 0, 0, 1, 0, 0, 0, 0], # 8
-    [1, 0, 0, 1, 0, 0, 0, 0], # 9
-    [1, 1, 1, 0, 1, 1, 1, 1], # dot point
-    [1, 1, 1, 1, 1, 1, 1, 0], # line
-    [1, 1, 1, 1, 1, 1, 1, 1]  # nothing
-]
+<span class="n">NUMBERS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c">#E  D  C  DP B  A  F  G   // 数码管</span>
+    <span class="c">#2  3  4  5  6  7  8  9   // 输出端口</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c"># 0</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c"># 1</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># 2 </span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># 3</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># 4</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># 5</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># 6</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c"># 7</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># 8</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># 9</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c"># dot point</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># line</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c"># nothing</span>
+<span class="p">]</span>
 
-class WBftc(object):
-    def __init__(self):
-        self.arduino = None
-        self.lastStatusID = ''
-        self.initArduino()
+<span class="k">class</span> <span class="nc">WBftc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initArduino</span><span class="p">()</span>
 
-    def __del__(self):
-        if isinstance(self.arduino, pyfirmata.Arduino):
-            for i in xrange(2, 14):
-                self.arduino.digital[i].write(0)
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="p">,</span> <span class="n">pyfirmata</span><span class="o">.</span><span class="n">Arduino</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">14</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="o">.</span><span class="n">digital</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-    def initArduino(self):
-        if isinstance(self.arduino, pyfirmata.Arduino):
-            return
-        try:
-            self.arduino = pyfirmata.Arduino(ARDUINO_PORT)
-            self.arduino.digital[13].write(1)
-        except Exception, e:
-            print('init arduino fail.')
-            sys.exit(1)
+    <span class="k">def</span> <span class="nf">initArduino</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="p">,</span> <span class="n">pyfirmata</span><span class="o">.</span><span class="n">Arduino</span><span class="p">):</span>
+            <span class="k">return</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span> <span class="o">=</span> <span class="n">pyfirmata</span><span class="o">.</span><span class="n">Arduino</span><span class="p">(</span><span class="n">ARDUINO_PORT</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="o">.</span><span class="n">digital</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&#39;init arduino fail.&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-    def outputArduino(self, num):
-        if not isinstance(self.arduino, pyfirmata.Arduino):
-            return
-        # 输出 0 - 9 的数字
-        show = num
-        # 小于0 错误
-        if num &lt; 0:
-            show = 12
-        # 大于 9 超出量程
-        elif num &gt; 9:
-            show = 11
-        for x in range(2, 10):
-            self.arduino.digital[x].write(NUMBERS[show][x - 2])
+    <span class="k">def</span> <span class="nf">outputArduino</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="p">,</span> <span class="n">pyfirmata</span><span class="o">.</span><span class="n">Arduino</span><span class="p">):</span>
+            <span class="k">return</span>
+        <span class="c"># 输出 0 - 9 的数字</span>
+        <span class="n">show</span> <span class="o">=</span> <span class="n">num</span>
+        <span class="c"># 小于0 错误</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">show</span> <span class="o">=</span> <span class="mi">12</span>
+        <span class="c"># 大于 9 超出量程</span>
+        <span class="k">elif</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">9</span><span class="p">:</span>
+            <span class="n">show</span> <span class="o">=</span> <span class="mi">11</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="o">.</span><span class="n">digital</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">NUMBERS</span><span class="p">[</span><span class="n">show</span><span class="p">][</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="p">])</span>
 
-    def flashDotPoint(self, interval = 1, count = 30):
-        show_dot = True
-        for x in range(count):
-            self.arduino.digital[DOTPOINT_PIN].write(0 if show_dot else 1)
-            show_dot = False if show_dot else True
-            time.sleep(interval)
+    <span class="k">def</span> <span class="nf">flashDotPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interval</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+        <span class="n">show_dot</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="o">.</span><span class="n">digital</span><span class="p">[</span><span class="n">DOTPOINT_PIN</span><span class="p">]</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span> <span class="k">if</span> <span class="n">show_dot</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">show_dot</span> <span class="o">=</span> <span class="bp">False</span> <span class="k">if</span> <span class="n">show_dot</span> <span class="k">else</span> <span class="bp">True</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
 
-    def fetchWeiboStatusCount(self):
-        # -1 错误
-        url = 'https://api.weibo.com/2/statuses/friends_timeline/ids.json'
-        data = {
-            'access_token'  : ACCESS_TOKEN
-        }
-        if self.lastStatusID:
-            data.update({'since_id' : self.lastStatusID })
-        data = urllib.urlencode(data)
-        try:
-            requst = urllib.urlopen('{}?{}'.format(url, data))
-            res = json.load(requst)
-            if not res.has_key('statuses'):
-                return -1
-            statuses = res['statuses']
-            if len(statuses):
-                self.lastStatusID = statuses[0]
-            return len(statuses)
-        except Exception, e:
-            print('something error.')
-            return -1
+    <span class="k">def</span> <span class="nf">fetchWeiboStatusCount</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># -1 错误</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.weibo.com/2/statuses/friends_timeline/ids.json&#39;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&#39;access_token&#39;</span>  <span class="p">:</span> <span class="n">ACCESS_TOKEN</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span><span class="p">:</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;since_id&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span> <span class="p">})</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">requst</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s">&#39;{}?{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">requst</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">&#39;statuses&#39;</span><span class="p">):</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">statuses</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;statuses&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">statuses</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span> <span class="o">=</span> <span class="n">statuses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">statuses</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&#39;something error.&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
 
-    def run(self):
-        while (True):
-            count = self.fetchWeiboStatusCount()
-            now = datetime.now().strftime('%H:%M:%S')
-            print('{}: {}'.format(now, count))
-            self.outputArduino(count)
-            self.flashDotPoint()
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="p">(</span><span class="bp">True</span><span class="p">):</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetchWeiboStatusCount</span><span class="p">()</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&#39;%H:%M:%S&#39;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&#39;{}: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">now</span><span class="p">,</span> <span class="n">count</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">outputArduino</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flashDotPoint</span><span class="p">()</span>
 
-if __name__ == '__main__':
-    try:
-        WBftc().run()
-    except KeyboardInterrupt:
-        print('\rexit.')
-    except Exception, e:
-        raise e
-</code></pre>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">WBftc</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r</span><span class="s">exit.&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">e</span>
+</code></pre></div>
 
 <p><span class="btn-single btn-center"><a href="https://gist.github.com/JinnLynn/5210753" class="btn btn-large icon-github">Source on gist</a></span></p>
 
@@ -219,49 +219,49 @@ if __name__ == '__main__':
 
 <p>　　附上一个循环显示0 - 9的数字的简单程序。</p>
 
-<pre><code>/**
- * 数字跑马灯
- * Created by JinnLynn 2013.03.19
- */
+<div class="codehilite"><pre><code><span class="cm">/**</span>
+<span class="cm"> * 数字跑马灯</span>
+<span class="cm"> * Created by JinnLynn 2013.03.19</span>
+<span class="cm"> */</span>
 
-int POWER_PIN = 13;
-int DP_PIN = 5;
+<span class="kt">int</span> <span class="n">POWER_PIN</span> <span class="o">=</span> <span class="mi">13</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">DP_PIN</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
 
-// number
-int numbers[10][8] = {
-// E  D  C  DP B  A  F  G
-  {0, 0, 0, 1, 0, 0, 0, 1}, //0
-  {0, 1, 1, 1, 1, 1, 0, 1}, //1
-  {0, 0, 1, 1, 0, 0, 1, 0}, //2 
-  {1, 0, 0, 1, 0, 0, 1, 0}, //3
-  {1, 1, 0, 1, 0, 1, 0, 0}, //4
-  {1, 0, 0, 1, 1, 0, 0, 0}, //5
-  {0, 0, 0, 1, 1, 0, 0, 0}, //6
-  {1, 1, 0, 1, 0, 0, 1, 1}, //7
-  {0, 0, 0, 1, 0, 0, 0, 0}, //8
-  {1, 0, 0, 1, 0, 0, 0, 0}  //9
-};
+<span class="c1">// number</span>
+<span class="kt">int</span> <span class="n">numbers</span><span class="p">[</span><span class="mi">10</span><span class="p">][</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1">// E  D  C  DP B  A  F  G</span>
+  <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="c1">//0</span>
+  <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="c1">//1</span>
+  <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="c1">//2 </span>
+  <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="c1">//3</span>
+  <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="c1">//4</span>
+  <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="c1">//5</span>
+  <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="c1">//6</span>
+  <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="c1">//7</span>
+  <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="c1">//8</span>
+  <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">}</span>  <span class="c1">//9</span>
+<span class="p">};</span>
 
-void setup() {
-  pinMode(POWER_PIN, OUTPUT);
-  for (int i = 2; i &lt; 10; i++) {
-    pinMode(i, OUTPUT);
-  }
-}
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="n">POWER_PIN</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">pinMode</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-void loop() {
-  digitalWrite(POWER_PIN, HIGH);
-  for (int i =0; i &lt; 10; i++) {
-    for (int j = 2; j &lt; 10; j++) {
-      digitalWrite(j, numbers[i][j-2]);
-    }
-    for (int k = 1; k &lt;= 2; k++) {
-      digitalWrite(DP_PIN, k%2);
-      delay(500);
-    }
-  }
-}
-</code></pre>
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">digitalWrite</span><span class="p">(</span><span class="n">POWER_PIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">digitalWrite</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">digitalWrite</span><span class="p">(</span><span class="n">DP_PIN</span><span class="p">,</span> <span class="n">k</span><span class="o">%</span><span class="mi">2</span><span class="p">);</span>
+      <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <!-- content end -->
     </div><!-- .entry-content -->
     <div class="entry-meta">
@@ -310,9 +310,9 @@ void loop() {
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?74501"></script>
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?26431"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?74501'></script>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?26431'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>

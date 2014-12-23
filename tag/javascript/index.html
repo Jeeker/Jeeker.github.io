@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?74501" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?26431" />
     <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
@@ -63,47 +63,47 @@
 
 <p>　　下面的这段很简单的代码就是让你避免使用Google跳转，直接访问目标网址。</p>
 
-<pre><code>(function(){
-    function getRealUrl(l) {
-        if (l.indexOf('/url?') &lt; 0)
-            return null;
-        var a = document.createElement('a'); 
-        a.href = l;
-        seg = a.search.replace(/^\?/,'').split('&amp;');
-        for (i = 0; i &lt; seg.length; i++) { 
-            if (!seg[i])
-                continue;
-            s = seg[i].split('='); 
-            if (s[0] == 'url')
-                return decodeURIComponent( s[1] );
-        } 
-        return null;
-    }
+<div class="codehilite"><pre><code><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">function</span> <span class="nx">getRealUrl</span><span class="p">(</span><span class="nx">l</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">l</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;/url?&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span> 
+        <span class="nx">a</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">l</span><span class="p">;</span>
+        <span class="nx">seg</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">search</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\?/</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">seg</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> 
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">seg</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+                <span class="k">continue</span><span class="p">;</span>
+            <span class="nx">s</span> <span class="o">=</span> <span class="nx">seg</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">);</span> 
+            <span class="k">if</span> <span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;url&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="nb">decodeURIComponent</span><span class="p">(</span> <span class="nx">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
+        <span class="p">}</span> 
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    /**
-     * 直接在载入http:://www.google.com/url?.... 中重定向到真实的目标网址
-     * 问题：当目标网址无法访问时，地址栏中的地址信息并未改变到目标网址，可能产生误解
-     */
-    var real = getRealUrl(location.href);
-    if (real) {
-        window.location.href = real;
-        return;
-    };
+    <span class="cm">/**</span>
+<span class="cm">     * 直接在载入http:://www.google.com/url?.... 中重定向到真实的目标网址</span>
+<span class="cm">     * 问题：当目标网址无法访问时，地址栏中的地址信息并未改变到目标网址，可能产生误解</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">real</span> <span class="o">=</span> <span class="nx">getRealUrl</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">real</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">real</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">};</span>
 
-    document.addEventListener('click', function(e){
-        for(a = e.target; a; a = a.parentNode) {
-            if(a.localName != 'a') 
-                continue;
-            real = getRealUrl( a.getAttribute('href') );
-            if (real) {
-                a.setAttribute( 'href', real );
-                a.removeAttribute('onmousedown');
-            }
-            break;
-        }
-    }, false);
-})();
-</code></pre>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span> <span class="nx">a</span><span class="p">;</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">localName</span> <span class="o">!=</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> 
+                <span class="k">continue</span><span class="p">;</span>
+            <span class="nx">real</span> <span class="o">=</span> <span class="nx">getRealUrl</span><span class="p">(</span> <span class="nx">a</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">)</span> <span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">real</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">a</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span> <span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="nx">real</span> <span class="p">);</span>
+                <span class="nx">a</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="s1">&#39;onmousedown&#39;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+<span class="p">})();</span>
+</code></pre></div>
 
 <p><span class="btn-single btn-center"><a href="https://gist.github.com/4507194" class="btn btn-large icon-github">Source on gist</a></span></p>
 
@@ -125,17 +125,17 @@
 
 <p>　　未测试过，不过理论上应该可行。在脚本前添加如下内容</p>
 
-<pre><code>// ==UserScript==
-// @name           Google URL Uncover
-// @namespace      http://jeeker.net/article/google-search-url-uncover/
-// @description    Google 搜索结果链接去除google跳转，直接访问目标网址。
-// @include        http://*.google.*/*
-// @include        https://*.google.*/*
-// @version        0.1
-// @author         JinnLynn
-// @license        MIT license
-// ==/UserScript==
-</code></pre>
+<div class="codehilite"><pre><code><span class="c1">// ==UserScript==</span>
+<span class="c1">// @name           Google URL Uncover</span>
+<span class="c1">// @namespace      http://jeeker.net/article/google-search-url-uncover/</span>
+<span class="c1">// @description    Google 搜索结果链接去除google跳转，直接访问目标网址。</span>
+<span class="c1">// @include        http://*.google.*/*</span>
+<span class="c1">// @include        https://*.google.*/*</span>
+<span class="c1">// @version        0.1</span>
+<span class="c1">// @author         JinnLynn</span>
+<span class="c1">// @license        MIT license</span>
+<span class="c1">// ==/UserScript==</span>
+</code></pre></div>
 
 <p><strong>PS:</strong> 代码在Chrome下测试通过，IE没戏。</p>
 
@@ -178,9 +178,9 @@
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?74501"></script>
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?26431"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?74501'></script>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?26431'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>

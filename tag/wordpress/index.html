@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?74501" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?26431" />
     <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
@@ -63,87 +63,87 @@
 
 <p>　　不过新浪博客的API貌似不支持<code>dateCreated</code>，因此导入后所有日志的发布时间都变成当前时间了，另外脚本也没有对日志分类进行处理，好在日志不多，手动调整也不是那么麻烦。</p>
 
-<pre><code>&lt;?php
-/**
- * 导出Wordpress日志到新浪博客
- * Created by JinnLynn 2013.01.11 http://jeeker.net/
- */
-require('./wp-blog-header.php');
-require('wp-includes/class-IXR.php');
+<div class="codehilite"><pre><code><span class="cp">&lt;?php</span>
+<span class="sd">/**</span>
+<span class="sd"> * 导出Wordpress日志到新浪博客</span>
+<span class="sd"> * Created by JinnLynn 2013.01.11 http://jeeker.net/</span>
+<span class="sd"> */</span>
+<span class="k">require</span><span class="p">(</span><span class="s1">&#39;./wp-blog-header.php&#39;</span><span class="p">);</span>
+<span class="k">require</span><span class="p">(</span><span class="s1">&#39;wp-includes/class-IXR.php&#39;</span><span class="p">);</span>
 
-define('SINA_XMLRPC', 'http://upload.move.blog.sina.com.cn/blog_rebuild/blog/xmlrpc.php');
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;SINA_XMLRPC&#39;</span><span class="p">,</span> <span class="s1">&#39;http://upload.move.blog.sina.com.cn/blog_rebuild/blog/xmlrpc.php&#39;</span><span class="p">);</span>
 
-if ($_GET['action'] != 1) {
-?&gt;
-&lt;br /&gt;
-&lt;form action="?action=1" method="post"&gt;
-    新浪账户: &lt;input type="text" name="usr" value="" /&gt;&lt;br /&gt;
-    新浪密码: &lt;input type="password" name="pwd" value="" /&gt;&lt;br /&gt;
-    &lt;input type="submit" value="导出" /&gt;&lt;br /&gt;
-&lt;/form&gt;&lt;br /&gt;
-导出前请确认已开通了新浪博客，并设置了正确的账户密码。
-&lt;?php
-    return;
-}
+<span class="k">if</span> <span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">&lt;br /&gt;</span>
+<span class="x">&lt;form action=&quot;?action=1&quot; method=&quot;post&quot;&gt;</span>
+<span class="x">    新浪账户: &lt;input type=&quot;text&quot; name=&quot;usr&quot; value=&quot;&quot; /&gt;&lt;br /&gt;</span>
+<span class="x">    新浪密码: &lt;input type=&quot;password&quot; name=&quot;pwd&quot; value=&quot;&quot; /&gt;&lt;br /&gt;</span>
+<span class="x">    &lt;input type=&quot;submit&quot; value=&quot;导出&quot; /&gt;&lt;br /&gt;</span>
+<span class="x">&lt;/form&gt;&lt;br /&gt;</span>
+<span class="x">导出前请确认已开通了新浪博客，并设置了正确的账户密码。</span>
+<span class="cp">&lt;?php</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
 
-$usr = trim($_POST['usr']);
-$pwd = trim($_POST['pwd']);
-if (empty($usr) || empty($pwd)) {
-    echo '&lt;br /&gt;&lt;span style="color:red;"&gt;用户名或密码错误。&lt;/span&gt;&lt;a href="javascript:history.back()"&gt;back&lt;/a&gt;.';
-    return;
-}
+<span class="nv">$usr</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;usr&#39;</span><span class="p">]);</span>
+<span class="nv">$pwd</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;pwd&#39;</span><span class="p">]);</span>
+<span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$usr</span><span class="p">)</span> <span class="o">||</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$pwd</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;br /&gt;&lt;span style=&quot;color:red;&quot;&gt;用户名或密码错误。&lt;/span&gt;&lt;a href=&quot;javascript:history.back()&quot;&gt;back&lt;/a&gt;.&#39;</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
 
-// 登陆测试
-$params = array(0, $usr, $pwd);
-$sina_xmlrpc = new IXR_Client(SINA_XMLRPC);
-$sina_xmlrpc-&gt;query('metaWeblog.getCategories', $params);
-$res = $sina_xmlrpc-&gt;getResponse();
-unset($sina_xmlrpc);
-if (isset($res['faultCode'])) {
-    echo '&lt;br /&gt;&lt;span style="color:red;"&gt;用户名或密码错误。&lt;/span&gt;&lt;a href="javascript:history.back()"&gt;back&lt;/a&gt;.';
-    return;
-}
+<span class="c1">// 登陆测试</span>
+<span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nv">$usr</span><span class="p">,</span> <span class="nv">$pwd</span><span class="p">);</span>
+<span class="nv">$sina_xmlrpc</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IXR_Client</span><span class="p">(</span><span class="nx">SINA_XMLRPC</span><span class="p">);</span>
+<span class="nv">$sina_xmlrpc</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;metaWeblog.getCategories&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nv">$sina_xmlrpc</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">();</span>
+<span class="nb">unset</span><span class="p">(</span><span class="nv">$sina_xmlrpc</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$res</span><span class="p">[</span><span class="s1">&#39;faultCode&#39;</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;br /&gt;&lt;span style=&quot;color:red;&quot;&gt;用户名或密码错误。&lt;/span&gt;&lt;a href=&quot;javascript:history.back()&quot;&gt;back&lt;/a&gt;.&#39;</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
 
-$query = new WP_Query();
-$query-&gt;query( array( 'post_type'       =&gt; array('post', 'page'), // 导出类型
-                      'order'           =&gt; 'ASC',
-                      'posts_per_page'  =&gt; 10000 )
-              );
-while ($query-&gt;have_posts()) {
-    global $post;
+<span class="nv">$query</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WP_Query</span><span class="p">();</span>
+<span class="nv">$query</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span> <span class="k">array</span><span class="p">(</span> <span class="s1">&#39;post_type&#39;</span>       <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;post&#39;</span><span class="p">,</span> <span class="s1">&#39;page&#39;</span><span class="p">),</span> <span class="c1">// 导出类型</span>
+                      <span class="s1">&#39;order&#39;</span>           <span class="o">=&gt;</span> <span class="s1">&#39;ASC&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;posts_per_page&#39;</span>  <span class="o">=&gt;</span> <span class="mi">10000</span> <span class="p">)</span>
+              <span class="p">);</span>
+<span class="k">while</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">have_posts</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">global</span> <span class="nv">$post</span><span class="p">;</span>
 
-    $query-&gt;the_post();
+    <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">the_post</span><span class="p">();</span>
 
-    $layout = $post-&gt;post_type;
-    $title = get_the_title();
-    $date = get_post_time('Y-m-d H:m:s');
-    $author = get_the_author();
-    $content = $post-&gt;post_content;
-    $content = apply_filters('the_content', $content);
-    $content = str_replace(']]&gt;', ']]&amp;gt;', $content);
+    <span class="nv">$layout</span> <span class="o">=</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">post_type</span><span class="p">;</span>
+    <span class="nv">$title</span> <span class="o">=</span> <span class="nx">get_the_title</span><span class="p">();</span>
+    <span class="nv">$date</span> <span class="o">=</span> <span class="nx">get_post_time</span><span class="p">(</span><span class="s1">&#39;Y-m-d H:m:s&#39;</span><span class="p">);</span>
+    <span class="nv">$author</span> <span class="o">=</span> <span class="nx">get_the_author</span><span class="p">();</span>
+    <span class="nv">$content</span> <span class="o">=</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">post_content</span><span class="p">;</span>
+    <span class="nv">$content</span> <span class="o">=</span> <span class="nx">apply_filters</span><span class="p">(</span><span class="s1">&#39;the_content&#39;</span><span class="p">,</span> <span class="nv">$content</span><span class="p">);</span>
+    <span class="nv">$content</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="s1">&#39;]]&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;]]&gt;&#39;</span><span class="p">,</span> <span class="nv">$content</span><span class="p">);</span>
 
-    $content .= '&lt;p id="original-post-date" style="color:#ccc"&gt;&lt;br /&gt;-----&lt;br /&gt;原文发表于：'. $date . '&lt;/p&gt;';
+    <span class="nv">$content</span> <span class="o">.=</span> <span class="s1">&#39;&lt;p id=&quot;original-post-date&quot; style=&quot;color:#ccc&quot;&gt;&lt;br /&gt;-----&lt;br /&gt;原文发表于：&#39;</span><span class="o">.</span> <span class="nv">$date</span> <span class="o">.</span> <span class="s1">&#39;&lt;/p&gt;&#39;</span><span class="p">;</span>
 
-    $sina_post = array( 'title'       =&gt; $title,
-                        'dateCreated' =&gt; get_post_time('Y-m-d\TH:m:s\Z', true), //!? 没有作用
-                        'description' =&gt; $content);
+    <span class="nv">$sina_post</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> <span class="s1">&#39;title&#39;</span>       <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
+                        <span class="s1">&#39;dateCreated&#39;</span> <span class="o">=&gt;</span> <span class="nx">get_post_time</span><span class="p">(</span><span class="s1">&#39;Y-m-d\TH:m:s\Z&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">),</span> <span class="c1">//!? 没有作用</span>
+                        <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$content</span><span class="p">);</span>
 
-    $params = array(0, $usr, $pwd, $sina_post, true);
+    <span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nv">$usr</span><span class="p">,</span> <span class="nv">$pwd</span><span class="p">,</span> <span class="nv">$sina_post</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
 
-    $sina_xmlrpc = new IXR_Client(SINA_XMLRPC);
-    $sina_xmlrpc-&gt;query('metaWeblog.newPost', $params);
-    $res = $sina_xmlrpc-&gt;getResponse();
+    <span class="nv">$sina_xmlrpc</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IXR_Client</span><span class="p">(</span><span class="nx">SINA_XMLRPC</span><span class="p">);</span>
+    <span class="nv">$sina_xmlrpc</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;metaWeblog.newPost&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
+    <span class="nv">$res</span> <span class="o">=</span> <span class="nv">$sina_xmlrpc</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">();</span>
 
-    unset($sina_xmlrpc);
+    <span class="nb">unset</span><span class="p">(</span><span class="nv">$sina_xmlrpc</span><span class="p">);</span>
 
-    if (isset($res['faultCode'])) {
-        $res = '&lt;span style="color:red;"&gt;导出失败&lt;/span&gt;';
-    }
+    <span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$res</span><span class="p">[</span><span class="s1">&#39;faultCode&#39;</span><span class="p">]))</span> <span class="p">{</span>
+        <span class="nv">$res</span> <span class="o">=</span> <span class="s1">&#39;&lt;span style=&quot;color:red;&quot;&gt;导出失败&lt;/span&gt;&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    echo $title . '&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; ' . $res . '&lt;br /&gt;&lt;br /&gt;';
-}
-?&gt;
-</code></pre>
+    <span class="k">echo</span> <span class="nv">$title</span> <span class="o">.</span> <span class="s1">&#39;&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; &#39;</span> <span class="o">.</span> <span class="nv">$res</span> <span class="o">.</span> <span class="s1">&#39;&lt;br /&gt;&lt;br /&gt;&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</code></pre></div>
 
 <p><span class="btn-single btn-center"><a href="https://gist.github.com/4518491" class="btn btn-large icon-github">Source on gist</a></span></p>
 
@@ -331,9 +331,9 @@ while ($query-&gt;have_posts()) {
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?74501"></script>
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?26431"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?74501'></script>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?26431'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>

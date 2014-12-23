@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?74501" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?26431" />
     <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
@@ -63,88 +63,88 @@
 
 <p>　　在<a href="http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/">4321.la</a>看到使用AppleScript自动获取iTunes曲目歌词的脚本，相当不错，自己做了些修改，添加了当歌词已存在时忽略获取，可以通过Growl通知获取的结果等功能。代码如下：</p>
 
-<pre><code>-- FetchLyric
--- DESCRIPTION: 让iTunes内当前被选中的曲目自动下载并保存歌词，若歌词已存在将被忽略，支持Growl通知
--- AUTHOR: JinnLynn http:://jeeker.net
--- LAST UPDATED: 2012-05-04
--- INTRO PAGE: http://jeeker.net/fetch-lyric-for-itunes/
--- REF: Martian http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/
-property scriptName : "FetchLyric"
-property baseURL : "http://lyrics.sinaapp.com/"
-property isGrowlRunning : false
-property statusDesc : {"歌词已存在，无需再获取。", "歌词获取成功。", "歌词获取失败。", "未选择歌曲。"}
-property STATUS_LYRIC_EXIST : 1
-property STATUS_LYRIC_SUCCESS : 2
-property STATUS_LYRIC_FAIL : 3
-property STATUS_LYRIC_UNSELECTED : 4
+<div class="codehilite"><pre><code><span class="c">-- FetchLyric</span>
+<span class="c">-- DESCRIPTION: 让iTunes内当前被选中的曲目自动下载并保存歌词，若歌词已存在将被忽略，支持Growl通知</span>
+<span class="c">-- AUTHOR: JinnLynn http:://jeeker.net</span>
+<span class="c">-- LAST UPDATED: 2012-05-04</span>
+<span class="c">-- INTRO PAGE: http://jeeker.net/fetch-lyric-for-itunes/</span>
+<span class="c">-- REF: Martian http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/</span>
+<span class="k">property</span> <span class="nv">scriptName</span> <span class="p">:</span> <span class="s2">&quot;FetchLyric&quot;</span>
+<span class="k">property</span> <span class="nv">baseURL</span> <span class="p">:</span> <span class="s2">&quot;http://lyrics.sinaapp.com/&quot;</span>
+<span class="k">property</span> <span class="nv">isGrowlRunning</span> <span class="p">:</span> <span class="no">false</span>
+<span class="k">property</span> <span class="nv">statusDesc</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;歌词已存在，无需再获取。&quot;</span><span class="p">,</span> <span class="s2">&quot;歌词获取成功。&quot;</span><span class="p">,</span> <span class="s2">&quot;歌词获取失败。&quot;</span><span class="p">,</span> <span class="s2">&quot;未选择歌曲。&quot;</span><span class="p">}</span>
+<span class="k">property</span> <span class="nv">STATUS_LYRIC_EXIST</span> <span class="p">:</span> <span class="mi">1</span>
+<span class="k">property</span> <span class="nv">STATUS_LYRIC_SUCCESS</span> <span class="p">:</span> <span class="mi">2</span>
+<span class="k">property</span> <span class="nv">STATUS_LYRIC_FAIL</span> <span class="p">:</span> <span class="mi">3</span>
+<span class="k">property</span> <span class="nv">STATUS_LYRIC_UNSELECTED</span> <span class="p">:</span> <span class="mi">4</span>
 
-tell application "System Events"
-    set isGrowlRunning to (count of (every process whose bundle identifier is "com.Growl.GrowlHelperApp")) &gt; 0
-end tell
+<span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;System Events&quot;</span>
+    <span class="k">set</span> <span class="nv">isGrowlRunning</span> <span class="k">to</span> <span class="p">(</span><span class="nb">count</span> <span class="k">of</span> <span class="p">(</span><span class="nb">every</span> <span class="nv">process</span> <span class="nb">whose</span> <span class="nb">bundle</span> <span class="na">identifier</span> <span class="ow">is</span> <span class="s2">&quot;com.Growl.GrowlHelperApp&quot;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="k">end</span> <span class="k">tell</span>
 
-script growl
-    on growlNotify(artist, title, status)
-        if isGrowlRunning = false then return
-        tell application id "com.Growl.GrowlHelperApp"
-            if title = "" then set title to "unknown"
-            set the_title to title
-            if artist is not equal to "" then set the_title to artist &amp; " - " &amp; the_title
-            set the_desc to item status of statusDesc
-            set the allNotificationsList to {scriptName}
-            set the enabledNotificationsList to {scriptName}
-            register as application ¬
-                scriptName all notifications allNotificationsList ¬
-                default notifications enabledNotificationsList ¬
-                icon of application "iTunes"
-            notify with name ¬
-                scriptName title ¬
-                the_title description ¬
-                the_desc application name scriptName
-            -- 尝试使用歌曲封面作为Growl图标出错
-        end tell
-    end growlNotify
-end script
+<span class="k">script</span> <span class="nv">growl</span>
+    <span class="nb">on</span> <span class="nv">growlNotify</span><span class="p">(</span><span class="nv">artist</span><span class="p">,</span> <span class="na">title</span><span class="p">,</span> <span class="nv">status</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nv">isGrowlRunning</span> <span class="o">=</span> <span class="no">false</span> <span class="k">then</span> <span class="no">return</span>
+        <span class="k">tell</span> <span class="nb">application</span> <span class="na">id</span> <span class="s2">&quot;com.Growl.GrowlHelperApp&quot;</span>
+            <span class="k">if</span> <span class="na">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">then</span> <span class="k">set</span> <span class="na">title</span> <span class="k">to</span> <span class="s2">&quot;unknown&quot;</span>
+            <span class="k">set</span> <span class="nv">the_title</span> <span class="k">to</span> <span class="na">title</span>
+            <span class="k">if</span> <span class="nv">artist</span> <span class="ow">is not</span> <span class="ow">equal to</span> <span class="s2">&quot;&quot;</span> <span class="k">then</span> <span class="k">set</span> <span class="nv">the_title</span> <span class="k">to</span> <span class="nv">artist</span> <span class="o">&amp;</span> <span class="s2">&quot; - &quot;</span> <span class="o">&amp;</span> <span class="nv">the_title</span>
+            <span class="k">set</span> <span class="nv">the_desc</span> <span class="k">to</span> <span class="nb">item</span> <span class="nv">status</span> <span class="k">of</span> <span class="nv">statusDesc</span>
+            <span class="k">set</span> <span class="nb">the</span> <span class="nv">allNotificationsList</span> <span class="k">to</span> <span class="p">{</span><span class="nv">scriptName</span><span class="p">}</span>
+            <span class="k">set</span> <span class="nb">the</span> <span class="nv">enabledNotificationsList</span> <span class="k">to</span> <span class="p">{</span><span class="nv">scriptName</span><span class="p">}</span>
+            <span class="nb">register</span> <span class="k">as</span> <span class="nb">application</span> <span class="se">¬</span>
+                <span class="nv">scriptName</span> <span class="nv">all</span> <span class="nv">notifications</span> <span class="nv">allNotificationsList</span> <span class="se">¬</span>
+                <span class="nv">default</span> <span class="nv">notifications</span> <span class="nv">enabledNotificationsList</span> <span class="se">¬</span>
+                <span class="nv">icon</span> <span class="k">of</span> <span class="nb">application</span> <span class="s2">&quot;iTunes&quot;</span>
+            <span class="nv">notify</span> <span class="nv">with</span> <span class="na">name</span> <span class="se">¬</span>
+                <span class="nv">scriptName</span> <span class="na">title</span> <span class="se">¬</span>
+                <span class="nv">the_title</span> <span class="nv">description</span> <span class="se">¬</span>
+                <span class="nv">the_desc</span> <span class="nb">application</span> <span class="na">name</span> <span class="nv">scriptName</span>
+            <span class="c">-- 尝试使用歌曲封面作为Growl图标出错</span>
+        <span class="k">end</span> <span class="k">tell</span>
+    <span class="k">end</span> <span class="nv">growlNotify</span>
+<span class="k">end</span> <span class="nv">script</span>
 
-tell application "iTunes"
-    if selection is {} then
-        tell growl to growlNotify("", "", STATUS_LYRIC_UNSELECTED)
-        return
-    end if
-    set k to count (item of selection)
-    set i to 1
-    repeat
-        set theTrack to (item i of selection)
-        set this_artist to (get artist of theTrack)
-        set this_title to (get name of theTrack)
-        set this_lyric to (get lyrics of theTrack)
-        -- set this_artwork to data of artwork 1 of theTrack
+<span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;iTunes&quot;</span>
+    <span class="k">if</span> <span class="nv">selection</span> <span class="ow">is</span> <span class="p">{}</span> <span class="k">then</span>
+        <span class="k">tell</span> <span class="nv">growl</span> <span class="k">to</span> <span class="nv">growlNotify</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nv">STATUS_LYRIC_UNSELECTED</span><span class="p">)</span>
+        <span class="no">return</span>
+    <span class="k">end</span> <span class="k">if</span>
+    <span class="k">set</span> <span class="nv">k</span> <span class="k">to</span> <span class="nb">count</span> <span class="p">(</span><span class="nb">item</span> <span class="k">of</span> <span class="nv">selection</span><span class="p">)</span>
+    <span class="k">set</span> <span class="nv">i</span> <span class="k">to</span> <span class="mi">1</span>
+    <span class="k">repeat</span>
+        <span class="k">set</span> <span class="nv">theTrack</span> <span class="k">to</span> <span class="p">(</span><span class="nb">item</span> <span class="nv">i</span> <span class="k">of</span> <span class="nv">selection</span><span class="p">)</span>
+        <span class="k">set</span> <span class="nv">this_artist</span> <span class="k">to</span> <span class="p">(</span><span class="k">get</span> <span class="nv">artist</span> <span class="k">of</span> <span class="nv">theTrack</span><span class="p">)</span>
+        <span class="k">set</span> <span class="nv">this_title</span> <span class="k">to</span> <span class="p">(</span><span class="k">get</span> <span class="na">name</span> <span class="k">of</span> <span class="nv">theTrack</span><span class="p">)</span>
+        <span class="k">set</span> <span class="nv">this_lyric</span> <span class="k">to</span> <span class="p">(</span><span class="k">get</span> <span class="nv">lyrics</span> <span class="k">of</span> <span class="nv">theTrack</span><span class="p">)</span>
+        <span class="c">-- set this_artwork to data of artwork 1 of theTrack</span>
 
-        set fetch_status to STATUS_LYRIC_FAIL
+        <span class="k">set</span> <span class="nv">fetch_status</span> <span class="k">to</span> <span class="nv">STATUS_LYRIC_FAIL</span>
 
-        if length of this_lyric &lt; 1 then
-            -- 只有当歌曲中未存在歌词时才尝试获取歌词
-            set requestData to "title=" &amp; this_title &amp; "&amp;artist=" &amp; this_artist
-            set songLyrics to do shell script "curl -d '" &amp; requestData &amp; "' " &amp; baseURL
-            if length of songLyrics &gt; 1 then
-                -- 歌词成功获取
-                set lyrics of theTrack to songLyrics
-                set fetch_status to STATUS_LYRIC_SUCCESS
-            end if
-        else
-            set fetch_status to STATUS_LYRIC_EXIST
-        end if
+        <span class="k">if</span> <span class="nv">length</span> <span class="k">of</span> <span class="nv">this_lyric</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="k">then</span>
+            <span class="c">-- 只有当歌曲中未存在歌词时才尝试获取歌词</span>
+            <span class="k">set</span> <span class="nv">requestData</span> <span class="k">to</span> <span class="s2">&quot;title=&quot;</span> <span class="o">&amp;</span> <span class="nv">this_title</span> <span class="o">&amp;</span> <span class="s2">&quot;&amp;artist=&quot;</span> <span class="o">&amp;</span> <span class="nv">this_artist</span>
+            <span class="k">set</span> <span class="nv">songLyrics</span> <span class="k">to</span> <span class="nb">do shell script</span> <span class="s2">&quot;curl -d &#39;&quot;</span> <span class="o">&amp;</span> <span class="nv">requestData</span> <span class="o">&amp;</span> <span class="s2">&quot;&#39; &quot;</span> <span class="o">&amp;</span> <span class="nv">baseURL</span>
+            <span class="k">if</span> <span class="nv">length</span> <span class="k">of</span> <span class="nv">songLyrics</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">then</span>
+                <span class="c">-- 歌词成功获取</span>
+                <span class="k">set</span> <span class="nv">lyrics</span> <span class="k">of</span> <span class="nv">theTrack</span> <span class="k">to</span> <span class="nv">songLyrics</span>
+                <span class="k">set</span> <span class="nv">fetch_status</span> <span class="k">to</span> <span class="nv">STATUS_LYRIC_SUCCESS</span>
+            <span class="k">end</span> <span class="k">if</span>
+        <span class="k">else</span>
+            <span class="k">set</span> <span class="nv">fetch_status</span> <span class="k">to</span> <span class="nv">STATUS_LYRIC_EXIST</span>
+        <span class="k">end</span> <span class="k">if</span>
 
-        tell growl to growlNotify(this_artist, this_title, fetch_status)
+        <span class="k">tell</span> <span class="nv">growl</span> <span class="k">to</span> <span class="nv">growlNotify</span><span class="p">(</span><span class="nv">this_artist</span><span class="p">,</span> <span class="nv">this_title</span><span class="p">,</span> <span class="nv">fetch_status</span><span class="p">)</span>
 
-        set i to i + 1
-        if i &gt; k then exit repeat
-    end repeat
-    -- 如果Growl未运行则显示对话框
-    if isGrowlRunning = false then
-        display dialog return &amp; "歌词获取结束！" buttons {"确定"} default button 1 with icon 1 giving up after 5 with title scriptName
-    end if
-end tell
-</code></pre>
+        <span class="k">set</span> <span class="nv">i</span> <span class="k">to</span> <span class="nv">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="nv">i</span> <span class="o">&gt;</span> <span class="nv">k</span> <span class="k">then</span> <span class="k">exit</span> <span class="k">repeat</span>
+    <span class="k">end</span> <span class="k">repeat</span>
+    <span class="c">-- 如果Growl未运行则显示对话框</span>
+    <span class="k">if</span> <span class="nv">isGrowlRunning</span> <span class="o">=</span> <span class="no">false</span> <span class="k">then</span>
+        <span class="nb">display dialog</span> <span class="no">return</span> <span class="o">&amp;</span> <span class="s2">&quot;歌词获取结束！&quot;</span> <span class="nb">buttons</span> <span class="p">{</span><span class="s2">&quot;确定&quot;</span><span class="p">}</span> <span class="nv">default</span> <span class="nb">button</span> <span class="mi">1</span> <span class="nv">with</span> <span class="nv">icon</span> <span class="mi">1</span> <span class="nv">giving</span> <span class="nv">up</span> <span class="nb">after</span> <span class="mi">5</span> <span class="nv">with</span> <span class="na">title</span> <span class="nv">scriptName</span>
+    <span class="k">end</span> <span class="k">if</span>
+<span class="k">end</span> <span class="k">tell</span>
+</code></pre></div>
 
 <p>　　<strong>USAGE:</strong> 在AppleScript Editor中新建包含上述脚本的文件，保存在 <strong>~/Library/iTunes/Scripts</strong> 目录下，这时在iTunes菜单栏中就会出现AppleScript的下拉菜单，选中需要的歌曲执行其中的命令即可。或者也可以使用Automator将上述脚本生成系统服务，具体本文不做详述，自行Google。</p>
 
@@ -202,9 +202,9 @@ end tell
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?74501"></script>
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?26431"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?74501'></script>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?26431'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>

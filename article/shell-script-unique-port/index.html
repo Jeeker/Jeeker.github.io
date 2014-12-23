@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?74501" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?26431" />
     <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
@@ -65,56 +65,56 @@
 
 <h4 id="1">1. 建立统一入口脚本</h4>
 
-<pre><code>#!/bin/bash
+<div class="codehilite"><pre><code><span class="c">#!/bin/bash</span>
 
-#检查环境变量
-if [ -z $KITS ]; then
-    . $(cd $(dirname $0); pwd)/build-env.sh
-fi
+<span class="c">#检查环境变量</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="nv">$KITS</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    . <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span>/build-env.sh
+<span class="k">fi</span>
 
-#Applescrit接口文件
-OSASPORT=$KITSSHELL/osasport.applescript
+<span class="c">#Applescrit接口文件</span>
+<span class="nv">OSASPORT</span><span class="o">=</span><span class="nv">$KITSSHELL</span>/osasport.applescript
 
-#使用说明
-function usage() {
-    more "${KITSSHELL}/misc/kits-usage.txt"
-}
+<span class="c">#使用说明</span>
+<span class="k">function</span> usage<span class="o">()</span> <span class="o">{</span>
+    more <span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITSSHELL</span><span class="si">}</span><span class="s2">/misc/kits-usage.txt&quot;</span>
+<span class="o">}</span>
 
-function sshkey() {
-    if [ -f $KITSSHELL/private.sh ]; then 
-        . $KITSSHELL/private.sh sshkey 
-    else
-        echo 'kits: sshkey is not a kits command.'
-    fi
-}
+<span class="k">function</span> sshkey<span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">[</span> -f <span class="nv">$KITSSHELL</span>/private.sh <span class="o">]</span><span class="p">;</span> <span class="k">then</span> 
+        . <span class="nv">$KITSSHELL</span>/private.sh sshkey 
+    <span class="k">else</span>
+        <span class="nb">echo</span> <span class="s1">&#39;kits: sshkey is not a kits command.&#39;</span>
+    <span class="k">fi</span>
+<span class="o">}</span>
 
-case $1 in
-    'backup' )     #备份文件到NAS
-        $KITSSHELL/backup/backup.sh
-        ;;
-    'genpac' )     #通过GenPAC生成自动代理配置文件
-        $KITS/GenPAC/genpac.py
-        ;;
-    'mamp' )       #MAMP管理
-        $KITSSHELL/mamp.sh $2
-        ;;
-    'itunes' )     #部分itunes操作
-        osascript $OSASPORT itunes $2 $3
-        ;;
-    'sshkey' )     #SSH秘钥处理
+<span class="k">case</span> <span class="nv">$1</span> in
+    <span class="s1">&#39;backup&#39;</span> <span class="o">)</span>     <span class="c">#备份文件到NAS</span>
+        <span class="nv">$KITSSHELL</span>/backup/backup.sh
+        <span class="p">;;</span>
+    <span class="s1">&#39;genpac&#39;</span> <span class="o">)</span>     <span class="c">#通过GenPAC生成自动代理配置文件</span>
+        <span class="nv">$KITS</span>/GenPAC/genpac.py
+        <span class="p">;;</span>
+    <span class="s1">&#39;mamp&#39;</span> <span class="o">)</span>       <span class="c">#MAMP管理</span>
+        <span class="nv">$KITSSHELL</span>/mamp.sh <span class="nv">$2</span>
+        <span class="p">;;</span>
+    <span class="s1">&#39;itunes&#39;</span> <span class="o">)</span>     <span class="c">#部分itunes操作</span>
+        osascript <span class="nv">$OSASPORT</span> itunes <span class="nv">$2</span> <span class="nv">$3</span>
+        <span class="p">;;</span>
+    <span class="s1">&#39;sshkey&#39;</span> <span class="o">)</span>     <span class="c">#SSH秘钥处理</span>
         sshkey
-        ;;
-    'usage' )      #使用说明
+        <span class="p">;;</span>
+    <span class="s1">&#39;usage&#39;</span> <span class="o">)</span>      <span class="c">#使用说明</span>
         usage
-        ;;
-    '' )
+        <span class="p">;;</span>
+    <span class="s1">&#39;&#39;</span> <span class="o">)</span>
         usage
-        ;;
-    * )
-        echo "kits: '$1' is not a kits command. See 'kits usage'."
-        ;;
-esac
-</code></pre>
+        <span class="p">;;</span>
+    * <span class="o">)</span>
+        <span class="nb">echo</span> <span class="s2">&quot;kits: &#39;</span><span class="nv">$1</span><span class="s2">&#39; is not a kits command. See &#39;kits usage&#39;.&quot;</span>
+        <span class="p">;;</span>
+<span class="k">esac</span>
+</code></pre></div>
 
 <p>　　将上述内容保存为<code>kits.sh</code>或其它任意名称，需要注意的是上面脚本里的内容是我个人所使用的，只是作为例子，大部分是无法运行的，你需要根据自己的需要修改。</p>
 
@@ -122,22 +122,22 @@ esac
 
 <p>　　上面的脚本虽然已经实现了做为其它脚本入口的功能，但使用时还不够方便，需要将它系统环境变量中，更容易访问，可能有人已经注意到上面代码中出现的<code>build-env.sh</code>文件，它的目的就是建立一些环境变量。</p>
 
-<pre><code>#!/bin/bash
+<div class="codehilite"><pre><code><span class="c">#!/bin/bash</span>
 
-# 建立Kits的运行环境
-# 在~/.bash_profile 添加 source PATH/TO/build-env.sh
+<span class="c"># 建立Kits的运行环境</span>
+<span class="c"># 在~/.bash_profile 添加 source PATH/TO/build-env.sh</span>
 
-# 注意 这里不能用相对路径
+<span class="c"># 注意 这里不能用相对路径</span>
 
-#Kits所在目录
-export KITS="${HOME}/Developer/Misc/MacOSX-Kits"
+<span class="c">#Kits所在目录</span>
+<span class="nb">export </span><span class="nv">KITS</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/Developer/Misc/MacOSX-Kits&quot;</span>
 
-export KITSSHELL="${KITS}/Shell"
-export PATH="${KITSSHELL}:${PATH}"
+<span class="nb">export </span><span class="nv">KITSSHELL</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITS</span><span class="si">}</span><span class="s2">/Shell&quot;</span>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITSSHELL</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span><span class="s2">&quot;</span>
 
-#建立别名
-alias kits="kits.sh"
-</code></pre>
+<span class="c">#建立别名</span>
+<span class="nb">alias </span><span class="nv">kits</span><span class="o">=</span><span class="s2">&quot;kits.sh&quot;</span>
+</code></pre></div>
 
 <p>　　最后再在<code>~/.bash_profile</code>的末尾添加<code>. /PATH/TO/builde-env.sh</code>（或<code>source /PATH/TO/builde-env.sh</code>）让它在用户登陆终端时被执行。</p>
 
@@ -195,9 +195,9 @@ alias kits="kits.sh"
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?74501"></script>
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?26431"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?74501'></script>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?26431'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>

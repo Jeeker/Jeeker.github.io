@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?74501" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?26431" />
     <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
@@ -63,138 +63,138 @@
 
 <h3 id="1">1. 脚本</h3>
 
-<pre><code>#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-#! 强制默认编码为utf-8
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
+<div class="codehilite"><pre><code><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="c">#! 强制默认编码为utf-8</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="nb">reload</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">)</span>
 
-# 配置
-# SMTP服务器 用户 密码
-smtp_server = 'SMTP SERVER'
-smtp_port   = 25
-smtp_usr    = 'SMTP USERNAME'
-smtp_pwd    = 'SMTP PASSWORD'
+<span class="c"># 配置</span>
+<span class="c"># SMTP服务器 用户 密码</span>
+<span class="n">smtp_server</span> <span class="o">=</span> <span class="s">&#39;SMTP SERVER&#39;</span>
+<span class="n">smtp_port</span>   <span class="o">=</span> <span class="mi">25</span>
+<span class="n">smtp_usr</span>    <span class="o">=</span> <span class="s">&#39;SMTP USERNAME&#39;</span>
+<span class="n">smtp_pwd</span>    <span class="o">=</span> <span class="s">&#39;SMTP PASSWORD&#39;</span>
 
-# 发送接受邮箱地址
-#! 发送邮箱需是smtp_usr有权操作的邮箱
-from_addr   = 'FROM EMAIL ADDRESS'
-to_addr     = 'TO EMAIL ADDRESS'
+<span class="c"># 发送接受邮箱地址</span>
+<span class="c">#! 发送邮箱需是smtp_usr有权操作的邮箱</span>
+<span class="n">from_addr</span>   <span class="o">=</span> <span class="s">&#39;FROM EMAIL ADDRESS&#39;</span>
+<span class="n">to_addr</span>     <span class="o">=</span> <span class="s">&#39;TO EMAIL ADDRESS&#39;</span>
 
-# 获取外网IP的网址 可以是
-# http://ifconfig.me/ip
-# http://ip.3322.net
-# http://members.3322.org/dyndns/getip
-ip_check_server = 'http://ip.3322.net'
+<span class="c"># 获取外网IP的网址 可以是</span>
+<span class="c"># http://ifconfig.me/ip</span>
+<span class="c"># http://ip.3322.net</span>
+<span class="c"># http://members.3322.org/dyndns/getip</span>
+<span class="n">ip_check_server</span> <span class="o">=</span> <span class="s">&#39;http://ip.3322.net&#39;</span>
 
-# 记录文件路径
-log_file    = '/tmp/ipcheck.log'
+<span class="c"># 记录文件路径</span>
+<span class="n">log_file</span>    <span class="o">=</span> <span class="s">&#39;/tmp/ipcheck.log&#39;</span>
 
-# 邮件主题 
-# 内容为新的IP
-mail_subject = 'IP check message'
+<span class="c"># 邮件主题 </span>
+<span class="c"># 内容为新的IP</span>
+<span class="n">mail_subject</span> <span class="o">=</span> <span class="s">&#39;IP check message&#39;</span>
 
-import os, urllib2, smtplib
-from datetime import datetime
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">urllib2</span><span class="o">,</span> <span class="nn">smtplib</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
-class CheckIP(object):
-    def __init__(self):
-        self.logs = []
-        self.openLog()
+<span class="k">class</span> <span class="nc">CheckIP</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">openLog</span><span class="p">()</span>
 
-    def __del__(self):
-        self.saveLog()
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">saveLog</span><span class="p">()</span>
 
-    def openLog(self):
-        if not os.path.isfile(log_file):
-            open(log_file, 'w').close()
-        with open(log_file, 'r') as f:
-            self.logs = f.readlines()
-        if not self.logs or len(self.logs) &lt; 2:
-            self.logs = ['\n', '----\n']
-        # 确保第二行永远是分隔符
-        self.logs[1] = '----\n'
+    <span class="k">def</span> <span class="nf">openLog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">log_file</span><span class="p">):</span>
+            <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logs</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">logs</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="s">&#39;----</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">]</span>
+        <span class="c"># 确保第二行永远是分隔符</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;----</span><span class="se">\n</span><span class="s">&#39;</span>
 
-    def saveLog(self):
-        with open(log_file, 'w') as f:
-            f.writelines(self.logs)
+    <span class="k">def</span> <span class="nf">saveLog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">)</span>
 
-    def getOldIP(self):
-        return self.logs[0].strip()
+    <span class="k">def</span> <span class="nf">getOldIP</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
-    def setNewIP(self, new_ip):
-        if new_ip:
-            self.logs[0] = '{}\n'.format(new_ip)
+    <span class="k">def</span> <span class="nf">setNewIP</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_ip</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">new_ip</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;{}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">)</span>
 
-    def sendMail(self, msg):
-        if not msg:
-            return
-        data = {'from_addr' : from_addr,
-                'to_addr'   : to_addr,
-                'subject'   : mail_subject,
-                'msg'       : msg }
-        msg = 'From: {from_addr}\r\nTo: {to_addr}\r\nSubject: {subject}\r\n\r\n{msg}'.format(**data)
-        try:
-            smtp = smtplib.SMTP()
-            # smtp.set_debuglevel(1)
-            smtp.connect(smtp_server, smtp_port)
-            smtp.login(smtp_usr, smtp_pwd)
-            smtp.sendmail(from_addr, to_addr, msg)   
-            smtp.quit()
-        except Exception, e:
-            return False, 'send mail fail. {}'.format(e)
-        return True, None
+    <span class="k">def</span> <span class="nf">sendMail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;from_addr&#39;</span> <span class="p">:</span> <span class="n">from_addr</span><span class="p">,</span>
+                <span class="s">&#39;to_addr&#39;</span>   <span class="p">:</span> <span class="n">to_addr</span><span class="p">,</span>
+                <span class="s">&#39;subject&#39;</span>   <span class="p">:</span> <span class="n">mail_subject</span><span class="p">,</span>
+                <span class="s">&#39;msg&#39;</span>       <span class="p">:</span> <span class="n">msg</span> <span class="p">}</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;From: {from_addr}</span><span class="se">\r\n</span><span class="s">To: {to_addr}</span><span class="se">\r\n</span><span class="s">Subject: {subject}</span><span class="se">\r\n\r\n</span><span class="s">{msg}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">smtp</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">()</span>
+            <span class="c"># smtp.set_debuglevel(1)</span>
+            <span class="n">smtp</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">smtp_server</span><span class="p">,</span> <span class="n">smtp_port</span><span class="p">)</span>
+            <span class="n">smtp</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">smtp_usr</span><span class="p">,</span> <span class="n">smtp_pwd</span><span class="p">)</span>
+            <span class="n">smtp</span><span class="o">.</span><span class="n">sendmail</span><span class="p">(</span><span class="n">from_addr</span><span class="p">,</span> <span class="n">to_addr</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>   
+            <span class="n">smtp</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&#39;send mail fail. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">None</span>
 
-    def log(self, msg, need_mail = False):
-        if not msg:
-            return
-        print(msg)
-        log_msg = '{}\t{}\n'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), msg)
-        # 检查最近的记录，如果相同仅更新时间
-        try:
-            last_log = self.logs[2].split('\t')[1].strip()
-            if last_log == msg:
-                self.logs[2] = log_msg
-            else:
-                self.logs.insert(2, log_msg)
-        except Exception, e:
-            self.logs.insert(2, log_msg)
+    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">need_mail</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">log_msg</span> <span class="o">=</span> <span class="s">&#39;{}</span><span class="se">\t</span><span class="s">{}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&#39;%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M:%S&#39;</span><span class="p">),</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="c"># 检查最近的记录，如果相同仅更新时间</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">last_log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">last_log</span> <span class="o">==</span> <span class="n">msg</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">log_msg</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">log_msg</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">log_msg</span><span class="p">)</span>
 
-        if need_mail:
-            self.sendMail(msg)
+        <span class="k">if</span> <span class="n">need_mail</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sendMail</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-    def checkIP(self):
-        old_ip = self.getOldIP()
-        try:
-            url = urllib2.Request(ip_check_server)
-            res = urllib2.urlopen(url)
-            new_ip = res.read().strip('\r\n ')
-        except Exception, e:
-            self.log('get ip fail. {}'.format(e), True)
-            return
-        if old_ip == new_ip:
-            return self.log('IP unchanged.')
-        res, msg = self.sendMail('IP Changed. {}'.format(new_ip))
-        if not res:
-            return self.log(msg)
-        self.setNewIP(new_ip)
-        self.log('IP changed. {}'.format(new_ip))
+    <span class="k">def</span> <span class="nf">checkIP</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">old_ip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getOldIP</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">ip_check_server</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">new_ip</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r\n</span><span class="s"> &#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#39;get ip fail. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="bp">True</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">old_ip</span> <span class="o">==</span> <span class="n">new_ip</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#39;IP unchanged.&#39;</span><span class="p">)</span>
+        <span class="n">res</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendMail</span><span class="p">(</span><span class="s">&#39;IP Changed. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setNewIP</span><span class="p">(</span><span class="n">new_ip</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#39;IP changed. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">))</span>
 
-    def cleanLog(self):
-        self.logs[2:] = []
+    <span class="k">def</span> <span class="nf">cleanLog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">=</span> <span class="p">[]</span>
 
-    def run(self):
-        if len(sys.argv) == 1:
-            return self.checkIP()
-        if '--clean' in sys.argv:
-            return self.cleanLog()
-        print('argument error.')
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkIP</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s">&#39;--clean&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleanLog</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;argument error.&#39;</span><span class="p">)</span>
 
-if __name__ == '__main__':
-    ip = CheckIP()
-    ip.run()
-</code></pre>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="n">CheckIP</span><span class="p">()</span>
+    <span class="n">ip</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
 
 <p><span class="btn-single btn-center"><a href="https://gist.github.com/JinnLynn/5080616" class="btn btn-large icon-github">Source on gist</a></span></p>
 
@@ -290,9 +290,9 @@ if __name__ == '__main__':
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?74501"></script>
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?26431"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?74501'></script>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?26431'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>

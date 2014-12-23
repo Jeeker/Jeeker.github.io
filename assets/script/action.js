@@ -79,8 +79,35 @@ console.log = console.log || function(){};
         })();
 
         // 高亮代码块
-        $("pre code").addClass("prettyprint linenums");
-        prettyPrint();
+        // $("pre code").addClass("prettyprint linenums");
+        // prettyPrint();
+        $(".entry-content div.codehilite").each(function(){
+            $this = $(this)
+            codes = $this.find("pre code").eq(0)
+            code_lines = codes.html().split('\n')
+            
+            $this.empty().append('<table cellpadding="0" cellspacing="0"><tbody><tr></tr></tbody></table>')
+            $tr = $this.find('table tr').eq(0)
+            // line number
+            $td_line_numbers = $('<td class="line-numbers"></td>')
+            for (var i = 0; i < code_lines.length; i++) {
+                if (i == (code_lines.length - 1) && code_lines[i] == '')
+                    continue
+                 $td_line_numbers.append('<span class="line-number">' + (i + 1) + '</span>')  
+            }
+            $tr.append($td_line_numbers)
+            // line data
+            $td_line_data = $('<td class="line-data"><pre class="line-pre"></pre></td>')
+            for (var i = 0; i < code_lines.length; i++) {
+                if (i == (code_lines.length - 1) && code_lines[i] == '')
+                    continue
+                c = code_lines[i] == '' ? '\n' : code_lines[i]
+                $td_line_data.find('pre').append('<div class="line">' + c + '</div>')
+            }
+            $tr.append($td_line_data)
+
+            $this.addClass('with-line-numbers')
+        })
 
         // 使外链在新窗口打开
         $(document).on("click", "a", function(){

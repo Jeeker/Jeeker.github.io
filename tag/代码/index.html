@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?74501" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?26431" />
     <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
@@ -63,87 +63,87 @@
 
 <p>　　不过新浪博客的API貌似不支持<code>dateCreated</code>，因此导入后所有日志的发布时间都变成当前时间了，另外脚本也没有对日志分类进行处理，好在日志不多，手动调整也不是那么麻烦。</p>
 
-<pre><code>&lt;?php
-/**
- * 导出Wordpress日志到新浪博客
- * Created by JinnLynn 2013.01.11 http://jeeker.net/
- */
-require('./wp-blog-header.php');
-require('wp-includes/class-IXR.php');
+<div class="codehilite"><pre><code><span class="cp">&lt;?php</span>
+<span class="sd">/**</span>
+<span class="sd"> * 导出Wordpress日志到新浪博客</span>
+<span class="sd"> * Created by JinnLynn 2013.01.11 http://jeeker.net/</span>
+<span class="sd"> */</span>
+<span class="k">require</span><span class="p">(</span><span class="s1">&#39;./wp-blog-header.php&#39;</span><span class="p">);</span>
+<span class="k">require</span><span class="p">(</span><span class="s1">&#39;wp-includes/class-IXR.php&#39;</span><span class="p">);</span>
 
-define('SINA_XMLRPC', 'http://upload.move.blog.sina.com.cn/blog_rebuild/blog/xmlrpc.php');
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;SINA_XMLRPC&#39;</span><span class="p">,</span> <span class="s1">&#39;http://upload.move.blog.sina.com.cn/blog_rebuild/blog/xmlrpc.php&#39;</span><span class="p">);</span>
 
-if ($_GET['action'] != 1) {
-?&gt;
-&lt;br /&gt;
-&lt;form action="?action=1" method="post"&gt;
-    新浪账户: &lt;input type="text" name="usr" value="" /&gt;&lt;br /&gt;
-    新浪密码: &lt;input type="password" name="pwd" value="" /&gt;&lt;br /&gt;
-    &lt;input type="submit" value="导出" /&gt;&lt;br /&gt;
-&lt;/form&gt;&lt;br /&gt;
-导出前请确认已开通了新浪博客，并设置了正确的账户密码。
-&lt;?php
-    return;
-}
+<span class="k">if</span> <span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">&lt;br /&gt;</span>
+<span class="x">&lt;form action=&quot;?action=1&quot; method=&quot;post&quot;&gt;</span>
+<span class="x">    新浪账户: &lt;input type=&quot;text&quot; name=&quot;usr&quot; value=&quot;&quot; /&gt;&lt;br /&gt;</span>
+<span class="x">    新浪密码: &lt;input type=&quot;password&quot; name=&quot;pwd&quot; value=&quot;&quot; /&gt;&lt;br /&gt;</span>
+<span class="x">    &lt;input type=&quot;submit&quot; value=&quot;导出&quot; /&gt;&lt;br /&gt;</span>
+<span class="x">&lt;/form&gt;&lt;br /&gt;</span>
+<span class="x">导出前请确认已开通了新浪博客，并设置了正确的账户密码。</span>
+<span class="cp">&lt;?php</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
 
-$usr = trim($_POST['usr']);
-$pwd = trim($_POST['pwd']);
-if (empty($usr) || empty($pwd)) {
-    echo '&lt;br /&gt;&lt;span style="color:red;"&gt;用户名或密码错误。&lt;/span&gt;&lt;a href="javascript:history.back()"&gt;back&lt;/a&gt;.';
-    return;
-}
+<span class="nv">$usr</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;usr&#39;</span><span class="p">]);</span>
+<span class="nv">$pwd</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;pwd&#39;</span><span class="p">]);</span>
+<span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$usr</span><span class="p">)</span> <span class="o">||</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$pwd</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;br /&gt;&lt;span style=&quot;color:red;&quot;&gt;用户名或密码错误。&lt;/span&gt;&lt;a href=&quot;javascript:history.back()&quot;&gt;back&lt;/a&gt;.&#39;</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
 
-// 登陆测试
-$params = array(0, $usr, $pwd);
-$sina_xmlrpc = new IXR_Client(SINA_XMLRPC);
-$sina_xmlrpc-&gt;query('metaWeblog.getCategories', $params);
-$res = $sina_xmlrpc-&gt;getResponse();
-unset($sina_xmlrpc);
-if (isset($res['faultCode'])) {
-    echo '&lt;br /&gt;&lt;span style="color:red;"&gt;用户名或密码错误。&lt;/span&gt;&lt;a href="javascript:history.back()"&gt;back&lt;/a&gt;.';
-    return;
-}
+<span class="c1">// 登陆测试</span>
+<span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nv">$usr</span><span class="p">,</span> <span class="nv">$pwd</span><span class="p">);</span>
+<span class="nv">$sina_xmlrpc</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IXR_Client</span><span class="p">(</span><span class="nx">SINA_XMLRPC</span><span class="p">);</span>
+<span class="nv">$sina_xmlrpc</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;metaWeblog.getCategories&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nv">$sina_xmlrpc</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">();</span>
+<span class="nb">unset</span><span class="p">(</span><span class="nv">$sina_xmlrpc</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$res</span><span class="p">[</span><span class="s1">&#39;faultCode&#39;</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;br /&gt;&lt;span style=&quot;color:red;&quot;&gt;用户名或密码错误。&lt;/span&gt;&lt;a href=&quot;javascript:history.back()&quot;&gt;back&lt;/a&gt;.&#39;</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
 
-$query = new WP_Query();
-$query-&gt;query( array( 'post_type'       =&gt; array('post', 'page'), // 导出类型
-                      'order'           =&gt; 'ASC',
-                      'posts_per_page'  =&gt; 10000 )
-              );
-while ($query-&gt;have_posts()) {
-    global $post;
+<span class="nv">$query</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WP_Query</span><span class="p">();</span>
+<span class="nv">$query</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span> <span class="k">array</span><span class="p">(</span> <span class="s1">&#39;post_type&#39;</span>       <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;post&#39;</span><span class="p">,</span> <span class="s1">&#39;page&#39;</span><span class="p">),</span> <span class="c1">// 导出类型</span>
+                      <span class="s1">&#39;order&#39;</span>           <span class="o">=&gt;</span> <span class="s1">&#39;ASC&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;posts_per_page&#39;</span>  <span class="o">=&gt;</span> <span class="mi">10000</span> <span class="p">)</span>
+              <span class="p">);</span>
+<span class="k">while</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">have_posts</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">global</span> <span class="nv">$post</span><span class="p">;</span>
 
-    $query-&gt;the_post();
+    <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">the_post</span><span class="p">();</span>
 
-    $layout = $post-&gt;post_type;
-    $title = get_the_title();
-    $date = get_post_time('Y-m-d H:m:s');
-    $author = get_the_author();
-    $content = $post-&gt;post_content;
-    $content = apply_filters('the_content', $content);
-    $content = str_replace(']]&gt;', ']]&amp;gt;', $content);
+    <span class="nv">$layout</span> <span class="o">=</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">post_type</span><span class="p">;</span>
+    <span class="nv">$title</span> <span class="o">=</span> <span class="nx">get_the_title</span><span class="p">();</span>
+    <span class="nv">$date</span> <span class="o">=</span> <span class="nx">get_post_time</span><span class="p">(</span><span class="s1">&#39;Y-m-d H:m:s&#39;</span><span class="p">);</span>
+    <span class="nv">$author</span> <span class="o">=</span> <span class="nx">get_the_author</span><span class="p">();</span>
+    <span class="nv">$content</span> <span class="o">=</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">post_content</span><span class="p">;</span>
+    <span class="nv">$content</span> <span class="o">=</span> <span class="nx">apply_filters</span><span class="p">(</span><span class="s1">&#39;the_content&#39;</span><span class="p">,</span> <span class="nv">$content</span><span class="p">);</span>
+    <span class="nv">$content</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="s1">&#39;]]&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;]]&gt;&#39;</span><span class="p">,</span> <span class="nv">$content</span><span class="p">);</span>
 
-    $content .= '&lt;p id="original-post-date" style="color:#ccc"&gt;&lt;br /&gt;-----&lt;br /&gt;原文发表于：'. $date . '&lt;/p&gt;';
+    <span class="nv">$content</span> <span class="o">.=</span> <span class="s1">&#39;&lt;p id=&quot;original-post-date&quot; style=&quot;color:#ccc&quot;&gt;&lt;br /&gt;-----&lt;br /&gt;原文发表于：&#39;</span><span class="o">.</span> <span class="nv">$date</span> <span class="o">.</span> <span class="s1">&#39;&lt;/p&gt;&#39;</span><span class="p">;</span>
 
-    $sina_post = array( 'title'       =&gt; $title,
-                        'dateCreated' =&gt; get_post_time('Y-m-d\TH:m:s\Z', true), //!? 没有作用
-                        'description' =&gt; $content);
+    <span class="nv">$sina_post</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> <span class="s1">&#39;title&#39;</span>       <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
+                        <span class="s1">&#39;dateCreated&#39;</span> <span class="o">=&gt;</span> <span class="nx">get_post_time</span><span class="p">(</span><span class="s1">&#39;Y-m-d\TH:m:s\Z&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">),</span> <span class="c1">//!? 没有作用</span>
+                        <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$content</span><span class="p">);</span>
 
-    $params = array(0, $usr, $pwd, $sina_post, true);
+    <span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nv">$usr</span><span class="p">,</span> <span class="nv">$pwd</span><span class="p">,</span> <span class="nv">$sina_post</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
 
-    $sina_xmlrpc = new IXR_Client(SINA_XMLRPC);
-    $sina_xmlrpc-&gt;query('metaWeblog.newPost', $params);
-    $res = $sina_xmlrpc-&gt;getResponse();
+    <span class="nv">$sina_xmlrpc</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IXR_Client</span><span class="p">(</span><span class="nx">SINA_XMLRPC</span><span class="p">);</span>
+    <span class="nv">$sina_xmlrpc</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;metaWeblog.newPost&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
+    <span class="nv">$res</span> <span class="o">=</span> <span class="nv">$sina_xmlrpc</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">();</span>
 
-    unset($sina_xmlrpc);
+    <span class="nb">unset</span><span class="p">(</span><span class="nv">$sina_xmlrpc</span><span class="p">);</span>
 
-    if (isset($res['faultCode'])) {
-        $res = '&lt;span style="color:red;"&gt;导出失败&lt;/span&gt;';
-    }
+    <span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$res</span><span class="p">[</span><span class="s1">&#39;faultCode&#39;</span><span class="p">]))</span> <span class="p">{</span>
+        <span class="nv">$res</span> <span class="o">=</span> <span class="s1">&#39;&lt;span style=&quot;color:red;&quot;&gt;导出失败&lt;/span&gt;&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    echo $title . '&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; ' . $res . '&lt;br /&gt;&lt;br /&gt;';
-}
-?&gt;
-</code></pre>
+    <span class="k">echo</span> <span class="nv">$title</span> <span class="o">.</span> <span class="s1">&#39;&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; &#39;</span> <span class="o">.</span> <span class="nv">$res</span> <span class="o">.</span> <span class="s1">&#39;&lt;br /&gt;&lt;br /&gt;&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</code></pre></div>
 
 <p><span class="btn-single btn-center"><a href="https://gist.github.com/4518491" class="btn btn-large icon-github">Source on gist</a></span></p>
 
@@ -174,47 +174,47 @@ while ($query-&gt;have_posts()) {
 
 <p>　　下面的这段很简单的代码就是让你避免使用Google跳转，直接访问目标网址。</p>
 
-<pre><code>(function(){
-    function getRealUrl(l) {
-        if (l.indexOf('/url?') &lt; 0)
-            return null;
-        var a = document.createElement('a'); 
-        a.href = l;
-        seg = a.search.replace(/^\?/,'').split('&amp;');
-        for (i = 0; i &lt; seg.length; i++) { 
-            if (!seg[i])
-                continue;
-            s = seg[i].split('='); 
-            if (s[0] == 'url')
-                return decodeURIComponent( s[1] );
-        } 
-        return null;
-    }
+<div class="codehilite"><pre><code><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">function</span> <span class="nx">getRealUrl</span><span class="p">(</span><span class="nx">l</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">l</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;/url?&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span> 
+        <span class="nx">a</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">l</span><span class="p">;</span>
+        <span class="nx">seg</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">search</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\?/</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">seg</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> 
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">seg</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+                <span class="k">continue</span><span class="p">;</span>
+            <span class="nx">s</span> <span class="o">=</span> <span class="nx">seg</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">);</span> 
+            <span class="k">if</span> <span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;url&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="nb">decodeURIComponent</span><span class="p">(</span> <span class="nx">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
+        <span class="p">}</span> 
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    /**
-     * 直接在载入http:://www.google.com/url?.... 中重定向到真实的目标网址
-     * 问题：当目标网址无法访问时，地址栏中的地址信息并未改变到目标网址，可能产生误解
-     */
-    var real = getRealUrl(location.href);
-    if (real) {
-        window.location.href = real;
-        return;
-    };
+    <span class="cm">/**</span>
+<span class="cm">     * 直接在载入http:://www.google.com/url?.... 中重定向到真实的目标网址</span>
+<span class="cm">     * 问题：当目标网址无法访问时，地址栏中的地址信息并未改变到目标网址，可能产生误解</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">real</span> <span class="o">=</span> <span class="nx">getRealUrl</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">real</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">real</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">};</span>
 
-    document.addEventListener('click', function(e){
-        for(a = e.target; a; a = a.parentNode) {
-            if(a.localName != 'a') 
-                continue;
-            real = getRealUrl( a.getAttribute('href') );
-            if (real) {
-                a.setAttribute( 'href', real );
-                a.removeAttribute('onmousedown');
-            }
-            break;
-        }
-    }, false);
-})();
-</code></pre>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span> <span class="nx">a</span><span class="p">;</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">localName</span> <span class="o">!=</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> 
+                <span class="k">continue</span><span class="p">;</span>
+            <span class="nx">real</span> <span class="o">=</span> <span class="nx">getRealUrl</span><span class="p">(</span> <span class="nx">a</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">)</span> <span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">real</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">a</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span> <span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="nx">real</span> <span class="p">);</span>
+                <span class="nx">a</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="s1">&#39;onmousedown&#39;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+<span class="p">})();</span>
+</code></pre></div>
 
 <p><span class="btn-single btn-center"><a href="https://gist.github.com/4507194" class="btn btn-large icon-github">Source on gist</a></span></p>
 
@@ -236,17 +236,17 @@ while ($query-&gt;have_posts()) {
 
 <p>　　未测试过，不过理论上应该可行。在脚本前添加如下内容</p>
 
-<pre><code>// ==UserScript==
-// @name           Google URL Uncover
-// @namespace      http://jeeker.net/article/google-search-url-uncover/
-// @description    Google 搜索结果链接去除google跳转，直接访问目标网址。
-// @include        http://*.google.*/*
-// @include        https://*.google.*/*
-// @version        0.1
-// @author         JinnLynn
-// @license        MIT license
-// ==/UserScript==
-</code></pre>
+<div class="codehilite"><pre><code><span class="c1">// ==UserScript==</span>
+<span class="c1">// @name           Google URL Uncover</span>
+<span class="c1">// @namespace      http://jeeker.net/article/google-search-url-uncover/</span>
+<span class="c1">// @description    Google 搜索结果链接去除google跳转，直接访问目标网址。</span>
+<span class="c1">// @include        http://*.google.*/*</span>
+<span class="c1">// @include        https://*.google.*/*</span>
+<span class="c1">// @version        0.1</span>
+<span class="c1">// @author         JinnLynn</span>
+<span class="c1">// @license        MIT license</span>
+<span class="c1">// ==/UserScript==</span>
+</code></pre></div>
 
 <p><strong>PS:</strong> 代码在Chrome下测试通过，IE没戏。</p>
 
@@ -279,56 +279,56 @@ while ($query-&gt;have_posts()) {
 
 <h4 id="1">1. 建立统一入口脚本</h4>
 
-<pre><code>#!/bin/bash
+<div class="codehilite"><pre><code><span class="c">#!/bin/bash</span>
 
-#检查环境变量
-if [ -z $KITS ]; then
-    . $(cd $(dirname $0); pwd)/build-env.sh
-fi
+<span class="c">#检查环境变量</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="nv">$KITS</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    . <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span>/build-env.sh
+<span class="k">fi</span>
 
-#Applescrit接口文件
-OSASPORT=$KITSSHELL/osasport.applescript
+<span class="c">#Applescrit接口文件</span>
+<span class="nv">OSASPORT</span><span class="o">=</span><span class="nv">$KITSSHELL</span>/osasport.applescript
 
-#使用说明
-function usage() {
-    more "${KITSSHELL}/misc/kits-usage.txt"
-}
+<span class="c">#使用说明</span>
+<span class="k">function</span> usage<span class="o">()</span> <span class="o">{</span>
+    more <span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITSSHELL</span><span class="si">}</span><span class="s2">/misc/kits-usage.txt&quot;</span>
+<span class="o">}</span>
 
-function sshkey() {
-    if [ -f $KITSSHELL/private.sh ]; then 
-        . $KITSSHELL/private.sh sshkey 
-    else
-        echo 'kits: sshkey is not a kits command.'
-    fi
-}
+<span class="k">function</span> sshkey<span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">[</span> -f <span class="nv">$KITSSHELL</span>/private.sh <span class="o">]</span><span class="p">;</span> <span class="k">then</span> 
+        . <span class="nv">$KITSSHELL</span>/private.sh sshkey 
+    <span class="k">else</span>
+        <span class="nb">echo</span> <span class="s1">&#39;kits: sshkey is not a kits command.&#39;</span>
+    <span class="k">fi</span>
+<span class="o">}</span>
 
-case $1 in
-    'backup' )     #备份文件到NAS
-        $KITSSHELL/backup/backup.sh
-        ;;
-    'genpac' )     #通过GenPAC生成自动代理配置文件
-        $KITS/GenPAC/genpac.py
-        ;;
-    'mamp' )       #MAMP管理
-        $KITSSHELL/mamp.sh $2
-        ;;
-    'itunes' )     #部分itunes操作
-        osascript $OSASPORT itunes $2 $3
-        ;;
-    'sshkey' )     #SSH秘钥处理
+<span class="k">case</span> <span class="nv">$1</span> in
+    <span class="s1">&#39;backup&#39;</span> <span class="o">)</span>     <span class="c">#备份文件到NAS</span>
+        <span class="nv">$KITSSHELL</span>/backup/backup.sh
+        <span class="p">;;</span>
+    <span class="s1">&#39;genpac&#39;</span> <span class="o">)</span>     <span class="c">#通过GenPAC生成自动代理配置文件</span>
+        <span class="nv">$KITS</span>/GenPAC/genpac.py
+        <span class="p">;;</span>
+    <span class="s1">&#39;mamp&#39;</span> <span class="o">)</span>       <span class="c">#MAMP管理</span>
+        <span class="nv">$KITSSHELL</span>/mamp.sh <span class="nv">$2</span>
+        <span class="p">;;</span>
+    <span class="s1">&#39;itunes&#39;</span> <span class="o">)</span>     <span class="c">#部分itunes操作</span>
+        osascript <span class="nv">$OSASPORT</span> itunes <span class="nv">$2</span> <span class="nv">$3</span>
+        <span class="p">;;</span>
+    <span class="s1">&#39;sshkey&#39;</span> <span class="o">)</span>     <span class="c">#SSH秘钥处理</span>
         sshkey
-        ;;
-    'usage' )      #使用说明
+        <span class="p">;;</span>
+    <span class="s1">&#39;usage&#39;</span> <span class="o">)</span>      <span class="c">#使用说明</span>
         usage
-        ;;
-    '' )
+        <span class="p">;;</span>
+    <span class="s1">&#39;&#39;</span> <span class="o">)</span>
         usage
-        ;;
-    * )
-        echo "kits: '$1' is not a kits command. See 'kits usage'."
-        ;;
-esac
-</code></pre>
+        <span class="p">;;</span>
+    * <span class="o">)</span>
+        <span class="nb">echo</span> <span class="s2">&quot;kits: &#39;</span><span class="nv">$1</span><span class="s2">&#39; is not a kits command. See &#39;kits usage&#39;.&quot;</span>
+        <span class="p">;;</span>
+<span class="k">esac</span>
+</code></pre></div>
 
 <p>　　将上述内容保存为<code>kits.sh</code>或其它任意名称，需要注意的是上面脚本里的内容是我个人所使用的，只是作为例子，大部分是无法运行的，你需要根据自己的需要修改。</p>
 
@@ -336,22 +336,22 @@ esac
 
 <p>　　上面的脚本虽然已经实现了做为其它脚本入口的功能，但使用时还不够方便，需要将它系统环境变量中，更容易访问，可能有人已经注意到上面代码中出现的<code>build-env.sh</code>文件，它的目的就是建立一些环境变量。</p>
 
-<pre><code>#!/bin/bash
+<div class="codehilite"><pre><code><span class="c">#!/bin/bash</span>
 
-# 建立Kits的运行环境
-# 在~/.bash_profile 添加 source PATH/TO/build-env.sh
+<span class="c"># 建立Kits的运行环境</span>
+<span class="c"># 在~/.bash_profile 添加 source PATH/TO/build-env.sh</span>
 
-# 注意 这里不能用相对路径
+<span class="c"># 注意 这里不能用相对路径</span>
 
-#Kits所在目录
-export KITS="${HOME}/Developer/Misc/MacOSX-Kits"
+<span class="c">#Kits所在目录</span>
+<span class="nb">export </span><span class="nv">KITS</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/Developer/Misc/MacOSX-Kits&quot;</span>
 
-export KITSSHELL="${KITS}/Shell"
-export PATH="${KITSSHELL}:${PATH}"
+<span class="nb">export </span><span class="nv">KITSSHELL</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITS</span><span class="si">}</span><span class="s2">/Shell&quot;</span>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITSSHELL</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span><span class="s2">&quot;</span>
 
-#建立别名
-alias kits="kits.sh"
-</code></pre>
+<span class="c">#建立别名</span>
+<span class="nb">alias </span><span class="nv">kits</span><span class="o">=</span><span class="s2">&quot;kits.sh&quot;</span>
+</code></pre></div>
 
 <p>　　最后再在<code>~/.bash_profile</code>的末尾添加<code>. /PATH/TO/builde-env.sh</code>（或<code>source /PATH/TO/builde-env.sh</code>）让它在用户登陆终端时被执行。</p>
 
@@ -388,88 +388,88 @@ alias kits="kits.sh"
 
 <p>　　在<a href="http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/">4321.la</a>看到使用AppleScript自动获取iTunes曲目歌词的脚本，相当不错，自己做了些修改，添加了当歌词已存在时忽略获取，可以通过Growl通知获取的结果等功能。代码如下：</p>
 
-<pre><code>-- FetchLyric
--- DESCRIPTION: 让iTunes内当前被选中的曲目自动下载并保存歌词，若歌词已存在将被忽略，支持Growl通知
--- AUTHOR: JinnLynn http:://jeeker.net
--- LAST UPDATED: 2012-05-04
--- INTRO PAGE: http://jeeker.net/fetch-lyric-for-itunes/
--- REF: Martian http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/
-property scriptName : "FetchLyric"
-property baseURL : "http://lyrics.sinaapp.com/"
-property isGrowlRunning : false
-property statusDesc : {"歌词已存在，无需再获取。", "歌词获取成功。", "歌词获取失败。", "未选择歌曲。"}
-property STATUS_LYRIC_EXIST : 1
-property STATUS_LYRIC_SUCCESS : 2
-property STATUS_LYRIC_FAIL : 3
-property STATUS_LYRIC_UNSELECTED : 4
+<div class="codehilite"><pre><code><span class="c">-- FetchLyric</span>
+<span class="c">-- DESCRIPTION: 让iTunes内当前被选中的曲目自动下载并保存歌词，若歌词已存在将被忽略，支持Growl通知</span>
+<span class="c">-- AUTHOR: JinnLynn http:://jeeker.net</span>
+<span class="c">-- LAST UPDATED: 2012-05-04</span>
+<span class="c">-- INTRO PAGE: http://jeeker.net/fetch-lyric-for-itunes/</span>
+<span class="c">-- REF: Martian http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/</span>
+<span class="k">property</span> <span class="nv">scriptName</span> <span class="p">:</span> <span class="s2">&quot;FetchLyric&quot;</span>
+<span class="k">property</span> <span class="nv">baseURL</span> <span class="p">:</span> <span class="s2">&quot;http://lyrics.sinaapp.com/&quot;</span>
+<span class="k">property</span> <span class="nv">isGrowlRunning</span> <span class="p">:</span> <span class="no">false</span>
+<span class="k">property</span> <span class="nv">statusDesc</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;歌词已存在，无需再获取。&quot;</span><span class="p">,</span> <span class="s2">&quot;歌词获取成功。&quot;</span><span class="p">,</span> <span class="s2">&quot;歌词获取失败。&quot;</span><span class="p">,</span> <span class="s2">&quot;未选择歌曲。&quot;</span><span class="p">}</span>
+<span class="k">property</span> <span class="nv">STATUS_LYRIC_EXIST</span> <span class="p">:</span> <span class="mi">1</span>
+<span class="k">property</span> <span class="nv">STATUS_LYRIC_SUCCESS</span> <span class="p">:</span> <span class="mi">2</span>
+<span class="k">property</span> <span class="nv">STATUS_LYRIC_FAIL</span> <span class="p">:</span> <span class="mi">3</span>
+<span class="k">property</span> <span class="nv">STATUS_LYRIC_UNSELECTED</span> <span class="p">:</span> <span class="mi">4</span>
 
-tell application "System Events"
-    set isGrowlRunning to (count of (every process whose bundle identifier is "com.Growl.GrowlHelperApp")) &gt; 0
-end tell
+<span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;System Events&quot;</span>
+    <span class="k">set</span> <span class="nv">isGrowlRunning</span> <span class="k">to</span> <span class="p">(</span><span class="nb">count</span> <span class="k">of</span> <span class="p">(</span><span class="nb">every</span> <span class="nv">process</span> <span class="nb">whose</span> <span class="nb">bundle</span> <span class="na">identifier</span> <span class="ow">is</span> <span class="s2">&quot;com.Growl.GrowlHelperApp&quot;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="k">end</span> <span class="k">tell</span>
 
-script growl
-    on growlNotify(artist, title, status)
-        if isGrowlRunning = false then return
-        tell application id "com.Growl.GrowlHelperApp"
-            if title = "" then set title to "unknown"
-            set the_title to title
-            if artist is not equal to "" then set the_title to artist &amp; " - " &amp; the_title
-            set the_desc to item status of statusDesc
-            set the allNotificationsList to {scriptName}
-            set the enabledNotificationsList to {scriptName}
-            register as application ¬
-                scriptName all notifications allNotificationsList ¬
-                default notifications enabledNotificationsList ¬
-                icon of application "iTunes"
-            notify with name ¬
-                scriptName title ¬
-                the_title description ¬
-                the_desc application name scriptName
-            -- 尝试使用歌曲封面作为Growl图标出错
-        end tell
-    end growlNotify
-end script
+<span class="k">script</span> <span class="nv">growl</span>
+    <span class="nb">on</span> <span class="nv">growlNotify</span><span class="p">(</span><span class="nv">artist</span><span class="p">,</span> <span class="na">title</span><span class="p">,</span> <span class="nv">status</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nv">isGrowlRunning</span> <span class="o">=</span> <span class="no">false</span> <span class="k">then</span> <span class="no">return</span>
+        <span class="k">tell</span> <span class="nb">application</span> <span class="na">id</span> <span class="s2">&quot;com.Growl.GrowlHelperApp&quot;</span>
+            <span class="k">if</span> <span class="na">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">then</span> <span class="k">set</span> <span class="na">title</span> <span class="k">to</span> <span class="s2">&quot;unknown&quot;</span>
+            <span class="k">set</span> <span class="nv">the_title</span> <span class="k">to</span> <span class="na">title</span>
+            <span class="k">if</span> <span class="nv">artist</span> <span class="ow">is not</span> <span class="ow">equal to</span> <span class="s2">&quot;&quot;</span> <span class="k">then</span> <span class="k">set</span> <span class="nv">the_title</span> <span class="k">to</span> <span class="nv">artist</span> <span class="o">&amp;</span> <span class="s2">&quot; - &quot;</span> <span class="o">&amp;</span> <span class="nv">the_title</span>
+            <span class="k">set</span> <span class="nv">the_desc</span> <span class="k">to</span> <span class="nb">item</span> <span class="nv">status</span> <span class="k">of</span> <span class="nv">statusDesc</span>
+            <span class="k">set</span> <span class="nb">the</span> <span class="nv">allNotificationsList</span> <span class="k">to</span> <span class="p">{</span><span class="nv">scriptName</span><span class="p">}</span>
+            <span class="k">set</span> <span class="nb">the</span> <span class="nv">enabledNotificationsList</span> <span class="k">to</span> <span class="p">{</span><span class="nv">scriptName</span><span class="p">}</span>
+            <span class="nb">register</span> <span class="k">as</span> <span class="nb">application</span> <span class="se">¬</span>
+                <span class="nv">scriptName</span> <span class="nv">all</span> <span class="nv">notifications</span> <span class="nv">allNotificationsList</span> <span class="se">¬</span>
+                <span class="nv">default</span> <span class="nv">notifications</span> <span class="nv">enabledNotificationsList</span> <span class="se">¬</span>
+                <span class="nv">icon</span> <span class="k">of</span> <span class="nb">application</span> <span class="s2">&quot;iTunes&quot;</span>
+            <span class="nv">notify</span> <span class="nv">with</span> <span class="na">name</span> <span class="se">¬</span>
+                <span class="nv">scriptName</span> <span class="na">title</span> <span class="se">¬</span>
+                <span class="nv">the_title</span> <span class="nv">description</span> <span class="se">¬</span>
+                <span class="nv">the_desc</span> <span class="nb">application</span> <span class="na">name</span> <span class="nv">scriptName</span>
+            <span class="c">-- 尝试使用歌曲封面作为Growl图标出错</span>
+        <span class="k">end</span> <span class="k">tell</span>
+    <span class="k">end</span> <span class="nv">growlNotify</span>
+<span class="k">end</span> <span class="nv">script</span>
 
-tell application "iTunes"
-    if selection is {} then
-        tell growl to growlNotify("", "", STATUS_LYRIC_UNSELECTED)
-        return
-    end if
-    set k to count (item of selection)
-    set i to 1
-    repeat
-        set theTrack to (item i of selection)
-        set this_artist to (get artist of theTrack)
-        set this_title to (get name of theTrack)
-        set this_lyric to (get lyrics of theTrack)
-        -- set this_artwork to data of artwork 1 of theTrack
+<span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;iTunes&quot;</span>
+    <span class="k">if</span> <span class="nv">selection</span> <span class="ow">is</span> <span class="p">{}</span> <span class="k">then</span>
+        <span class="k">tell</span> <span class="nv">growl</span> <span class="k">to</span> <span class="nv">growlNotify</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nv">STATUS_LYRIC_UNSELECTED</span><span class="p">)</span>
+        <span class="no">return</span>
+    <span class="k">end</span> <span class="k">if</span>
+    <span class="k">set</span> <span class="nv">k</span> <span class="k">to</span> <span class="nb">count</span> <span class="p">(</span><span class="nb">item</span> <span class="k">of</span> <span class="nv">selection</span><span class="p">)</span>
+    <span class="k">set</span> <span class="nv">i</span> <span class="k">to</span> <span class="mi">1</span>
+    <span class="k">repeat</span>
+        <span class="k">set</span> <span class="nv">theTrack</span> <span class="k">to</span> <span class="p">(</span><span class="nb">item</span> <span class="nv">i</span> <span class="k">of</span> <span class="nv">selection</span><span class="p">)</span>
+        <span class="k">set</span> <span class="nv">this_artist</span> <span class="k">to</span> <span class="p">(</span><span class="k">get</span> <span class="nv">artist</span> <span class="k">of</span> <span class="nv">theTrack</span><span class="p">)</span>
+        <span class="k">set</span> <span class="nv">this_title</span> <span class="k">to</span> <span class="p">(</span><span class="k">get</span> <span class="na">name</span> <span class="k">of</span> <span class="nv">theTrack</span><span class="p">)</span>
+        <span class="k">set</span> <span class="nv">this_lyric</span> <span class="k">to</span> <span class="p">(</span><span class="k">get</span> <span class="nv">lyrics</span> <span class="k">of</span> <span class="nv">theTrack</span><span class="p">)</span>
+        <span class="c">-- set this_artwork to data of artwork 1 of theTrack</span>
 
-        set fetch_status to STATUS_LYRIC_FAIL
+        <span class="k">set</span> <span class="nv">fetch_status</span> <span class="k">to</span> <span class="nv">STATUS_LYRIC_FAIL</span>
 
-        if length of this_lyric &lt; 1 then
-            -- 只有当歌曲中未存在歌词时才尝试获取歌词
-            set requestData to "title=" &amp; this_title &amp; "&amp;artist=" &amp; this_artist
-            set songLyrics to do shell script "curl -d '" &amp; requestData &amp; "' " &amp; baseURL
-            if length of songLyrics &gt; 1 then
-                -- 歌词成功获取
-                set lyrics of theTrack to songLyrics
-                set fetch_status to STATUS_LYRIC_SUCCESS
-            end if
-        else
-            set fetch_status to STATUS_LYRIC_EXIST
-        end if
+        <span class="k">if</span> <span class="nv">length</span> <span class="k">of</span> <span class="nv">this_lyric</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="k">then</span>
+            <span class="c">-- 只有当歌曲中未存在歌词时才尝试获取歌词</span>
+            <span class="k">set</span> <span class="nv">requestData</span> <span class="k">to</span> <span class="s2">&quot;title=&quot;</span> <span class="o">&amp;</span> <span class="nv">this_title</span> <span class="o">&amp;</span> <span class="s2">&quot;&amp;artist=&quot;</span> <span class="o">&amp;</span> <span class="nv">this_artist</span>
+            <span class="k">set</span> <span class="nv">songLyrics</span> <span class="k">to</span> <span class="nb">do shell script</span> <span class="s2">&quot;curl -d &#39;&quot;</span> <span class="o">&amp;</span> <span class="nv">requestData</span> <span class="o">&amp;</span> <span class="s2">&quot;&#39; &quot;</span> <span class="o">&amp;</span> <span class="nv">baseURL</span>
+            <span class="k">if</span> <span class="nv">length</span> <span class="k">of</span> <span class="nv">songLyrics</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">then</span>
+                <span class="c">-- 歌词成功获取</span>
+                <span class="k">set</span> <span class="nv">lyrics</span> <span class="k">of</span> <span class="nv">theTrack</span> <span class="k">to</span> <span class="nv">songLyrics</span>
+                <span class="k">set</span> <span class="nv">fetch_status</span> <span class="k">to</span> <span class="nv">STATUS_LYRIC_SUCCESS</span>
+            <span class="k">end</span> <span class="k">if</span>
+        <span class="k">else</span>
+            <span class="k">set</span> <span class="nv">fetch_status</span> <span class="k">to</span> <span class="nv">STATUS_LYRIC_EXIST</span>
+        <span class="k">end</span> <span class="k">if</span>
 
-        tell growl to growlNotify(this_artist, this_title, fetch_status)
+        <span class="k">tell</span> <span class="nv">growl</span> <span class="k">to</span> <span class="nv">growlNotify</span><span class="p">(</span><span class="nv">this_artist</span><span class="p">,</span> <span class="nv">this_title</span><span class="p">,</span> <span class="nv">fetch_status</span><span class="p">)</span>
 
-        set i to i + 1
-        if i &gt; k then exit repeat
-    end repeat
-    -- 如果Growl未运行则显示对话框
-    if isGrowlRunning = false then
-        display dialog return &amp; "歌词获取结束！" buttons {"确定"} default button 1 with icon 1 giving up after 5 with title scriptName
-    end if
-end tell
-</code></pre>
+        <span class="k">set</span> <span class="nv">i</span> <span class="k">to</span> <span class="nv">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="nv">i</span> <span class="o">&gt;</span> <span class="nv">k</span> <span class="k">then</span> <span class="k">exit</span> <span class="k">repeat</span>
+    <span class="k">end</span> <span class="k">repeat</span>
+    <span class="c">-- 如果Growl未运行则显示对话框</span>
+    <span class="k">if</span> <span class="nv">isGrowlRunning</span> <span class="o">=</span> <span class="no">false</span> <span class="k">then</span>
+        <span class="nb">display dialog</span> <span class="no">return</span> <span class="o">&amp;</span> <span class="s2">&quot;歌词获取结束！&quot;</span> <span class="nb">buttons</span> <span class="p">{</span><span class="s2">&quot;确定&quot;</span><span class="p">}</span> <span class="nv">default</span> <span class="nb">button</span> <span class="mi">1</span> <span class="nv">with</span> <span class="nv">icon</span> <span class="mi">1</span> <span class="nv">giving</span> <span class="nv">up</span> <span class="nb">after</span> <span class="mi">5</span> <span class="nv">with</span> <span class="na">title</span> <span class="nv">scriptName</span>
+    <span class="k">end</span> <span class="k">if</span>
+<span class="k">end</span> <span class="k">tell</span>
+</code></pre></div>
 
 <p>　　<strong>USAGE:</strong> 在AppleScript Editor中新建包含上述脚本的文件，保存在 <strong>~/Library/iTunes/Scripts</strong> 目录下，这时在iTunes菜单栏中就会出现AppleScript的下拉菜单，选中需要的歌曲执行其中的命令即可。或者也可以使用Automator将上述脚本生成系统服务，具体本文不做详述，自行Google。</p>
 
@@ -549,9 +549,9 @@ end tell
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?74501"></script>
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?26431"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?74501'></script>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?26431'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>

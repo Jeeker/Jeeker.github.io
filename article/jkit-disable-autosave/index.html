@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?74501" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?26431" />
     <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
@@ -67,32 +67,34 @@
 
 <p><span id="more-99803"></span></p>
 
-<pre><code>/**
- * 仅在编辑草稿、发表新日志或页面时启用自动保存。
- * 防止编辑已发表日志页面自动保存时在数据库中产生新的数据
- * 
- * @version 0.1
- * @author JinnLynn
- */
-function JKit_RemoveAutosave() {
-    if (!defined('DOING_AJAX') || $_POST['action'] != 'autosave')
-        return;
-    $post_id = isset($_POST['post_ID']) ? (int) $_POST['post_ID'] : 0;
-    if (!$post_id)
-        return;
-    $post = get_post($post_id);
-    if ($post-&gt;post_status == 'draft')
-        return;
-    $message = __('Autosave is disabled.&amp;nbsp;&amp;nbsp;');
-    $res = new WP_Ajax_Response(array( 'what' =&gt; 'autosave',
-                                       'id'   =&gt; $post-&gt;ID,
-                                       'data' =&gt; $message )
-                               );
-    $res-&gt;send();
-    exit();
-}
-add_action('init', 'JKit_RemoveAutosave');
-</code></pre>
+<div class="codehilite"><pre><code><span class="cp">&lt;?php</span>
+<span class="sd">/**</span>
+<span class="sd"> * 仅在编辑草稿、发表新日志或页面时启用自动保存。</span>
+<span class="sd"> * 防止编辑已发表日志页面自动保存时在数据库中产生新的数据</span>
+<span class="sd"> * </span>
+<span class="sd"> * @version 0.1</span>
+<span class="sd"> * @author JinnLynn</span>
+<span class="sd"> */</span>
+<span class="k">function</span> <span class="nf">JKit_RemoveAutosave</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">defined</span><span class="p">(</span><span class="s1">&#39;DOING_AJAX&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;autosave&#39;</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="nv">$post_id</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;post_ID&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;post_ID&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$post_id</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="nv">$post</span> <span class="o">=</span> <span class="nx">get_post</span><span class="p">(</span><span class="nv">$post_id</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$post</span><span class="o">-&gt;</span><span class="na">post_status</span> <span class="o">==</span> <span class="s1">&#39;draft&#39;</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="nv">$message</span> <span class="o">=</span> <span class="nx">__</span><span class="p">(</span><span class="s1">&#39;Autosave is disabled.&amp;nbsp;&amp;nbsp;&#39;</span><span class="p">);</span>
+    <span class="nv">$res</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WP_Ajax_Response</span><span class="p">(</span><span class="k">array</span><span class="p">(</span> <span class="s1">&#39;what&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;autosave&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;id&#39;</span>   <span class="o">=&gt;</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">ID</span><span class="p">,</span>
+                                       <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="nv">$message</span> <span class="p">)</span>
+                               <span class="p">);</span>
+    <span class="nv">$res</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
+    <span class="k">exit</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="nx">add_action</span><span class="p">(</span><span class="s1">&#39;init&#39;</span><span class="p">,</span> <span class="s1">&#39;JKit_RemoveAutosave&#39;</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</code></pre></div>
 
 <p><strong>NOTE:</strong> 同样的，你可以使用<a href="http://jeeker:8888/jkit-builder/">JKit Builder</a>生成带此功能的插件。</p>
 <!-- content end -->
@@ -144,9 +146,9 @@ add_action('init', 'JKit_RemoveAutosave');
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?74501"></script>
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?26431"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?74501'></script>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?26431'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>

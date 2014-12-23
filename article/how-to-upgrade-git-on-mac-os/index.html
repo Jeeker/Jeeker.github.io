@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?74501" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?26431" />
     <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
@@ -71,19 +71,19 @@
 
 <p>　　如果<code>which git</code>返回的结果是<code>/usr/bin/git</code>，说明你可能通过XCode安装了其自带的GIT，其版本一般都比较低，需要移除。</p>
 
-<pre><code>cd /usr/bin
+<div class="codehilite"><pre><code><span class="nb">cd</span> /usr/bin
 sudo mkdir backup-git-apple
 sudo mv git* backup-git-apple
-</code></pre>
+</code></pre></div>
 
 <h4 id="3">3. 移除可能存在的其它版本</h4>
 
 <p>　　如果<code>which git</code>返回的结果是<code>/usr/local/git/bin/git</code>，则表示可能是你曾经使用<a href="http://code.google.com/p/git-osx-installer/">git-osx-installer</a>或其它方式安装过GIT，检查系统环境变量PATH可能还包含形如<code>/usr/local/git/bin</code>的路径。</p>
 
-<pre><code>sudo rm -rf /usr/local/git
+<div class="codehilite"><pre><code>sudo rm -rf /usr/local/git
 sudo rm /etc/paths.d/git
 sudo rm /etc/manpaths.d/git
-</code></pre>
+</code></pre></div>
 
 <p>　　最后，重启终端，再次检查<code>which git</code>及<code>git version</code>。</p>
 
@@ -137,9 +137,9 @@ sudo rm /etc/manpaths.d/git
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?74501"></script>
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?26431"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?74501'></script>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?26431'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>

@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?74501" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?26431" />
     <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
@@ -67,11 +67,11 @@
 
 <p>　　如有如下文件</p>
 
-<pre><code>name     inode
+<div class="codehilite"><pre><code>name     inode
 f1.txt    100
 f2.txt    200
 f3.txt    100
-</code></pre>
+</code></pre></div>
 
 <p>　　那么f1.txt与f3.txt的文件内容实际上是一样的。</p>
 
@@ -83,12 +83,12 @@ f3.txt    100
 
 <p>　　用下面的命令可以验证：</p>
 
-<pre><code>JMBP:~ JinnLynn$ touch source-file
-JMBP:~ JinnLynn$ ln source-file hard-link
-JMBP:~ JinnLynn$ ln -s source-file soft-link
-JMBP:~ JinnLynn$ ls -i
-89773125 hard-link   89773158 soft-link   89773125 source-file
-</code></pre>
+<div class="codehilite"><pre><code>JMBP:~ JinnLynn<span class="nv">$ </span>touch <span class="nb">source</span>-file
+JMBP:~ JinnLynn<span class="nv">$ </span>ln <span class="nb">source</span>-file hard-link
+JMBP:~ JinnLynn<span class="nv">$ </span>ln -s <span class="nb">source</span>-file soft-link
+JMBP:~ JinnLynn<span class="nv">$ </span>ls -i
+<span class="m">89773125</span> hard-link   <span class="m">89773158</span> soft-link   <span class="m">89773125</span> <span class="nb">source</span>-file
+</code></pre></div>
 
 <p>　　可以看到 hard-link与source-file有相同的inode数值89773125。</p>
 
@@ -197,9 +197,9 @@ JMBP:~ JinnLynn$ ls -i
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?74501"></script>
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?26431"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?74501'></script>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?26431'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>

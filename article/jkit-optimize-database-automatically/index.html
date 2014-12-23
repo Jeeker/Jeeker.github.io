@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?74501" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?26431" />
     <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
@@ -67,39 +67,41 @@
 
 <p><span id="more-14367"></span></p>
 
-<pre><code>/**
- * 添加计划周期
- *
- * @version 0.1
- * @author JinnLynn
- * @param array $schedules
- * @return array
- */
-function JKit_AddScheduleRecurrence($schedules) {
-    $schedules['semimonthly'] = array( 'interval' =&gt; 1296000, 
-                                       'display'  =&gt; __('Once Semimonthly') );
-    return $schedules;
-}
-add_filter('cron_schedules', 'JKit_AddScheduleRecurrence');
+<div class="codehilite"><pre><code><span class="cp">&lt;?php</span>
+<span class="sd">/**</span>
+<span class="sd"> * 添加计划周期</span>
+<span class="sd"> *</span>
+<span class="sd"> * @version 0.1</span>
+<span class="sd"> * @author JinnLynn</span>
+<span class="sd"> * @param array $schedules</span>
+<span class="sd"> * @return array</span>
+<span class="sd"> */</span>
+<span class="k">function</span> <span class="nf">JKit_AddScheduleRecurrence</span><span class="p">(</span><span class="nv">$schedules</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$schedules</span><span class="p">[</span><span class="s1">&#39;semimonthly&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> <span class="s1">&#39;interval&#39;</span> <span class="o">=&gt;</span> <span class="mi">1296000</span><span class="p">,</span> 
+                                       <span class="s1">&#39;display&#39;</span>  <span class="o">=&gt;</span> <span class="nx">__</span><span class="p">(</span><span class="s1">&#39;Once Semimonthly&#39;</span><span class="p">)</span> <span class="p">);</span>
+    <span class="k">return</span> <span class="nv">$schedules</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">add_filter</span><span class="p">(</span><span class="s1">&#39;cron_schedules&#39;</span><span class="p">,</span> <span class="s1">&#39;JKit_AddScheduleRecurrence&#39;</span><span class="p">);</span>
 
-/**
- * 优化数据库，整理数据库碎片，重建索引
- *
- * @version 0.1
- * @author JinnLynn
- */
-function JKit_OptimizeDB() {
-    global $wpdb;
-    $tables = $wpdb-&gt;get_results("SHOW TABLE STATUS");
-    foreach ($tables as $table) {
-        if (!empty($table-&gt;Data_free))
-            $wpdb-&gt;query("OPTIMIZE TABLE " . $table-&gt;Name);
-    }
-}
-add_action('optimizedb_automatically_schedule', 'JKit_OptimizeDB');
-if (!wp_next_scheduled('optimizedb_automatically_schedule'))
-    wp_schedule_event(time(), 'semimonthly', 'optimizedb_automatically_schedule');
-</code></pre>
+<span class="sd">/**</span>
+<span class="sd"> * 优化数据库，整理数据库碎片，重建索引</span>
+<span class="sd"> *</span>
+<span class="sd"> * @version 0.1</span>
+<span class="sd"> * @author JinnLynn</span>
+<span class="sd"> */</span>
+<span class="k">function</span> <span class="nf">JKit_OptimizeDB</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">global</span> <span class="nv">$wpdb</span><span class="p">;</span>
+    <span class="nv">$tables</span> <span class="o">=</span> <span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">get_results</span><span class="p">(</span><span class="s2">&quot;SHOW TABLE STATUS&quot;</span><span class="p">);</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$tables</span> <span class="k">as</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$table</span><span class="o">-&gt;</span><span class="na">Data_free</span><span class="p">))</span>
+            <span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;OPTIMIZE TABLE &quot;</span> <span class="o">.</span> <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">Name</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">add_action</span><span class="p">(</span><span class="s1">&#39;optimizedb_automatically_schedule&#39;</span><span class="p">,</span> <span class="s1">&#39;JKit_OptimizeDB&#39;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">wp_next_scheduled</span><span class="p">(</span><span class="s1">&#39;optimizedb_automatically_schedule&#39;</span><span class="p">))</span>
+    <span class="nx">wp_schedule_event</span><span class="p">(</span><span class="nb">time</span><span class="p">(),</span> <span class="s1">&#39;semimonthly&#39;</span><span class="p">,</span> <span class="s1">&#39;optimizedb_automatically_schedule&#39;</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</code></pre></div>
 
 <p>　　<strong>NOTE:</strong> wp<em>schedule</em>event必须在add_filter之后被执行，否则优化数据库的计划操作不会被成功执行。你可以使用<a href="http://jeeker.net/projects/jkit-builder/">JKit Builder</a>生成带此功能的插件。</p>
 <!-- content end -->
@@ -151,9 +153,9 @@ if (!wp_next_scheduled('optimizedb_automatically_schedule'))
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?74501"></script>
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?26431"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?74501'></script>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?26431'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
