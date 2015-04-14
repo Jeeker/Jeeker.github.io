@@ -3,7 +3,7 @@
 
 &lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2015-04-14-diablo3-hero-data-statistics/python-diablo3.gif" alt="Diablo3" /&gt;&lt;/i&gt;&lt;/p&gt;
 
-&lt;p&gt;　　脚本只是统计了主动技能、被动技能和传奇宝石的使用情况，理论上统计其它如装备等信息也是一样简单可行的，但Diablo装备的生成机制使得统计这个没有多大意义，相同的装备属性可能各有优劣，难以比较，而且某些装备坑爹的掉率也让你不是想要就能有的。&lt;/p&gt;
+&lt;p&gt;　　脚本只是统计了主动技能、被动技能和传奇宝石的使用情况，理论上统计其它如装备等信息也是一样简单可行的，但Diablo装备的生成机制使得统计这个没有多大意义，相同的装备属性可能各有优劣，难以比较，而且某些装备坑爹的掉率也不是你想要就能有的。&lt;/p&gt;
 
 &lt;p&gt;　　题外话，不得不说Python太适合写这类功能相对简单的脚本了，一个字：快。&lt;/p&gt;
 
