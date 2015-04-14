@@ -49,6 +49,42 @@
 
 
 
+<div id="post-37069" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/alfred-workflow-real-download-link/" title="Alfred Workflow: 获取迅雷、快车、QQ旋风专用链接的真实地址" rel="bookmark">Alfred Workflow: 获取迅雷、快车、QQ旋风专用链接的真实地址</a></h1>
+        <p class="entry-date" title="2013-04-12 11:24:29">
+            <span class="day">12</span>
+            <span class="month">Apr</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　　在国内连下载链接都那么有中国特色，什么迅雷、快车、QQ旋风都有自己专用下载链接，封闭私有不通用，强迫用户使用，让人厌恶，其实它们基本上都只是对真实地址的简单base64编码而已，写了一个<a href="http://www.alfredapp.com/">Alfred</a> Workflow解析这些专用链接为真实的地址。</p>
+
+<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-04-12-alfred-workflow-real-download-link/screenshot.png" alt="Real Download Link Screenshot" /></i></p>
+
+<p><span class="btn-group btn-center"><a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/real-download-link.alfredworkflow" class="btn btn-large icon-download-alt">Download</a><a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/real-download-link" class="btn btn-large icon-github">Source</a></span></p>
+
+<ul>
+<li>ENTENR 拷贝真实地址到剪切板</li>
+<li>CTRL + ENTENR 在浏览器打开真实地址</li>
+<li>支持thunder://, flashget://, qqdl://的解密</li>
+<li>支持ed2k://, http://, ftp://等文件信息的基本解析</li>
+</ul>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Apr 12, 2013</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/alfred-workflow-real-download-link/#comments" title="Comment on Alfred Workflow: 获取迅雷、快车、QQ旋风专用链接的真实地址">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-37069 -->
 <div id="post-29869" class="post-list post post-post post-publish">
     <div class="entry-head">
         <h1><a href="http://jeeker.net/article/alfred-workflow-search-lyric/" title="Alfred Workflow: 歌词搜索" rel="bookmark">Alfred Workflow: 歌词搜索</a></h1>
@@ -673,109 +709,6 @@
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-45453 -->
-<div id="post-67562" class="post-list post post-post post-publish">
-    <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/google-search-url-uncover/" title="一个超简单的在Google中直接访问目标网址的脚本" rel="bookmark">一个超简单的在Google中直接访问目标网址的脚本</a></h1>
-        <p class="entry-date" title="2012-11-22 14:59:22">
-            <span class="day">22</span>
-            <span class="month">Nov</span>
-        </p>
-    </div><!-- .entry-header -->
-    <div class="entry-content">
-<!-- content start -->
-<p>　　前段时间因开某会，悲催的Google一如以往的无法正常使用，常常搜索结果页面顺利出现了，点击链接却无法打开或打开很慢，产生这种现象的原因是Google通过跳转后才把目标网址返回给你，于是领导一个不高兴就又被墙了。</p>
-
-<p>　　下面的这段很简单的代码就是让你避免使用Google跳转，直接访问目标网址。</p>
-
-<div class="codehilite"><pre><code><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-    <span class="kd">function</span> <span class="nx">getRealUrl</span><span class="p">(</span><span class="nx">l</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">l</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;/url?&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-        <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span> 
-        <span class="nx">a</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">l</span><span class="p">;</span>
-        <span class="nx">seg</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">search</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\?/</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">);</span>
-        <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">seg</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> 
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">seg</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
-                <span class="k">continue</span><span class="p">;</span>
-            <span class="nx">s</span> <span class="o">=</span> <span class="nx">seg</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">);</span> 
-            <span class="k">if</span> <span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;url&#39;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="nb">decodeURIComponent</span><span class="p">(</span> <span class="nx">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
-        <span class="p">}</span> 
-        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="cm">/**</span>
-<span class="cm">     * 直接在载入http:://www.google.com/url?.... 中重定向到真实的目标网址</span>
-<span class="cm">     * 问题：当目标网址无法访问时，地址栏中的地址信息并未改变到目标网址，可能产生误解</span>
-<span class="cm">     */</span>
-    <span class="kd">var</span> <span class="nx">real</span> <span class="o">=</span> <span class="nx">getRealUrl</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">real</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">real</span><span class="p">;</span>
-        <span class="k">return</span><span class="p">;</span>
-    <span class="p">};</span>
-
-    <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-        <span class="k">for</span><span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span> <span class="nx">a</span><span class="p">;</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">localName</span> <span class="o">!=</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> 
-                <span class="k">continue</span><span class="p">;</span>
-            <span class="nx">real</span> <span class="o">=</span> <span class="nx">getRealUrl</span><span class="p">(</span> <span class="nx">a</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">)</span> <span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">real</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">a</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span> <span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="nx">real</span> <span class="p">);</span>
-                <span class="nx">a</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="s1">&#39;onmousedown&#39;</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">break</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
-<span class="p">})();</span>
-</code></pre></div>
-
-<p><span class="btn-single btn-center"><a href="https://gist.github.com/4507194" class="btn btn-large icon-github">Source on gist</a></span></p>
-
-<p>你可以通过三种方法使用：</p>
-
-<h5 id="1-chrome">1. 通过Chrome扩展</h5>
-
-<p>　　将url.js、manifest.json通过Chrome扩展开发工具打包成crx包。</p>
-
-<h5 id="2">2. 通过收藏栏链接</h5>
-
-<p>　　将下面的链接拖到浏览器收藏栏中，需要时点击即可，在Chrome、Firefox中可用，Safari中似乎直接访问的就是目标地址了</p>
-
-<p><span class="btn-center">
-    <a class="btn btn-large icon-bookmark-empty" href="javascript:(function(){function getRealUrl(l){if(l.indexOf("/url?')&lt;0)return null;var a=document.createElement('a');a.href=l;seg=a.search.replace(/^\?/,'').split('&amp;');for(i=0;i<seg.length;i++){if(!seg[i])continue;s=seg[i].split('=');if(s[0]=='url')return decodeURIComponent(s[1]);}return null;}var real=getRealUrl(location.href);if(real){window.location.href=real;return;};document.addEventListener('click',function(e){for(a=e.target;a;a=a.parentNode){if(a.localName!='a')continue;real=getRealUrl(a.getAttribute('href'));if(real){alert('d');a.setAttribute('href',real);a.removeAttribute('onmousedown');}break;}},false);})();">Google Search URL Uncover</a>
-</span></p>
-
-<h5 id="3-userscript">3. 通过用户脚本（UserScript）</h5>
-
-<p>　　未测试过，不过理论上应该可行。在脚本前添加如下内容</p>
-
-<div class="codehilite"><pre><code><span class="c1">// ==UserScript==</span>
-<span class="c1">// @name           Google URL Uncover</span>
-<span class="c1">// @namespace      http://jeeker.net/article/google-search-url-uncover/</span>
-<span class="c1">// @description    Google 搜索结果链接去除google跳转，直接访问目标网址。</span>
-<span class="c1">// @include        http://*.google.*/*</span>
-<span class="c1">// @include        https://*.google.*/*</span>
-<span class="c1">// @version        0.1</span>
-<span class="c1">// @author         JinnLynn</span>
-<span class="c1">// @license        MIT license</span>
-<span class="c1">// ==/UserScript==</span>
-</code></pre></div>
-
-<p><strong>PS:</strong> 代码在Chrome下测试通过，IE没戏。</p>
-
-<!-- content end -->
-    </div><!-- .entry-content -->
-    <div class="entry-meta">
-        <ul>
-            <li class="entry-author">Posted by JinnLynn</li>
-            <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
-</li>
-            <li class="entry-human-time-diff"> on Nov 22, 2012</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/google-search-url-uncover/#comments" title="Comment on 一个超简单的在Google中直接访问目标网址的脚本">Comments</a></li> 
-        </ul>
-    </div><!-- .entry-meta -->
-</div><!-- #post-67562 -->
 
 
     <div id="pagenavi">

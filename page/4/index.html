@@ -48,6 +48,45 @@
     <div id="content" role="main">
 
 
+<div id="post-54977" class="post post-list post-page post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/projects/miniature/" title="Miniature" rel="bookmark">Miniature</a></h1>
+        <p class="entry-date" title="2012-11-15 12:49:37">
+            <span class="day">15</span>
+            <span class="month">Nov</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　Miniature是一个<a href="http://wordpress.org/">Wordpress</a>插件，它会找出日志内所包含的所有图片并将其生成相应的缩略图，同时以类似画册的方式展示在站点的侧边栏。</p>
+
+<ul>
+<li>生成的缩略图尺寸、格式可定义</li>
+<li>允许对生成缩略图的原始图片进行尺寸限制</li>
+<li>定时生成</li>
+<li>丰富的自定义输出选项</li>
+</ul>
+
+<p><span class="btn-group btn-center"><a href="https://github.com/JinnLynn/miniature" class="btn btn-large icon-github">Project on GitHub</a><a href="http://wordpress.org/extend/plugins/miniature/" class="btn btn-large icon-inbox">WP Plugins</a></span></p>
+
+<h3 id="screenshort">Screenshort</h3>
+
+<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/projects/2012-11-15-miniature/screenshot-general.jpg" alt="General" /></i></p>
+
+<p><a href="http://jeeker.net/projects/miniature/#more-54977" class="more-link">Read more...</a></p>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/projects/" title="View all posts in Projects" rel="category tag">Projects</a>
+</li>
+            <li class="entry-human-time-diff"> on Nov 15, 2012</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/projects/miniature/#comments" title="Comment on Miniature">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-54977 -->
 <div id="post-48411" class="post post-list post-post post-publish">
     <div class="entry-head">
         <h1><a href="http://jeeker.net/article/how-to-upgrade-git-on-mac-os/" title="HOW TO: 升级Mac OS X上的GIT" rel="bookmark">HOW TO: 升级Mac OS X上的GIT</a></h1>
@@ -358,124 +397,6 @@ JMBP:~ JinnLynn<span class="nv">$ </span>ls -i
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-03143 -->
-<div id="post-11545" class="post post-list post-post post-publish">
-    <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/fetch-lyric-for-itunes/" title="让iTunes的歌曲自动获取歌词" rel="bookmark">让iTunes的歌曲自动获取歌词</a></h1>
-        <p class="entry-date" title="2012-05-04 14:05:45">
-            <span class="day">04</span>
-            <span class="month">May</span>
-        </p>
-    </div><!-- .entry-header -->
-    <div class="entry-content">
-<!-- content start -->
-<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2012-05-04-fetch-lyric-for-itunes/screenshot.jpg" alt="Fetch Lyric for iTunes" /></i></p>
-
-<p>　　在<a href="http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/">4321.la</a>看到使用AppleScript自动获取iTunes曲目歌词的脚本，相当不错，自己做了些修改，添加了当歌词已存在时忽略获取，可以通过Growl通知获取的结果等功能。代码如下：</p>
-
-<div class="codehilite"><pre><code><span class="c">-- FetchLyric</span>
-<span class="c">-- DESCRIPTION: 让iTunes内当前被选中的曲目自动下载并保存歌词，若歌词已存在将被忽略，支持Growl通知</span>
-<span class="c">-- AUTHOR: JinnLynn http:://jeeker.net</span>
-<span class="c">-- LAST UPDATED: 2012-05-04</span>
-<span class="c">-- INTRO PAGE: http://jeeker.net/fetch-lyric-for-itunes/</span>
-<span class="c">-- REF: Martian http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/</span>
-<span class="k">property</span> <span class="nv">scriptName</span> <span class="p">:</span> <span class="s2">&quot;FetchLyric&quot;</span>
-<span class="k">property</span> <span class="nv">baseURL</span> <span class="p">:</span> <span class="s2">&quot;http://lyrics.sinaapp.com/&quot;</span>
-<span class="k">property</span> <span class="nv">isGrowlRunning</span> <span class="p">:</span> <span class="no">false</span>
-<span class="k">property</span> <span class="nv">statusDesc</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;歌词已存在，无需再获取。&quot;</span><span class="p">,</span> <span class="s2">&quot;歌词获取成功。&quot;</span><span class="p">,</span> <span class="s2">&quot;歌词获取失败。&quot;</span><span class="p">,</span> <span class="s2">&quot;未选择歌曲。&quot;</span><span class="p">}</span>
-<span class="k">property</span> <span class="nv">STATUS_LYRIC_EXIST</span> <span class="p">:</span> <span class="mi">1</span>
-<span class="k">property</span> <span class="nv">STATUS_LYRIC_SUCCESS</span> <span class="p">:</span> <span class="mi">2</span>
-<span class="k">property</span> <span class="nv">STATUS_LYRIC_FAIL</span> <span class="p">:</span> <span class="mi">3</span>
-<span class="k">property</span> <span class="nv">STATUS_LYRIC_UNSELECTED</span> <span class="p">:</span> <span class="mi">4</span>
-
-<span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;System Events&quot;</span>
-    <span class="k">set</span> <span class="nv">isGrowlRunning</span> <span class="k">to</span> <span class="p">(</span><span class="nb">count</span> <span class="k">of</span> <span class="p">(</span><span class="nb">every</span> <span class="nv">process</span> <span class="nb">whose</span> <span class="nb">bundle</span> <span class="na">identifier</span> <span class="ow">is</span> <span class="s2">&quot;com.Growl.GrowlHelperApp&quot;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span>
-<span class="k">end</span> <span class="k">tell</span>
-
-<span class="k">script</span> <span class="nv">growl</span>
-    <span class="nb">on</span> <span class="nv">growlNotify</span><span class="p">(</span><span class="nv">artist</span><span class="p">,</span> <span class="na">title</span><span class="p">,</span> <span class="nv">status</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nv">isGrowlRunning</span> <span class="o">=</span> <span class="no">false</span> <span class="k">then</span> <span class="no">return</span>
-        <span class="k">tell</span> <span class="nb">application</span> <span class="na">id</span> <span class="s2">&quot;com.Growl.GrowlHelperApp&quot;</span>
-            <span class="k">if</span> <span class="na">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">then</span> <span class="k">set</span> <span class="na">title</span> <span class="k">to</span> <span class="s2">&quot;unknown&quot;</span>
-            <span class="k">set</span> <span class="nv">the_title</span> <span class="k">to</span> <span class="na">title</span>
-            <span class="k">if</span> <span class="nv">artist</span> <span class="ow">is not</span> <span class="ow">equal to</span> <span class="s2">&quot;&quot;</span> <span class="k">then</span> <span class="k">set</span> <span class="nv">the_title</span> <span class="k">to</span> <span class="nv">artist</span> <span class="o">&amp;</span> <span class="s2">&quot; - &quot;</span> <span class="o">&amp;</span> <span class="nv">the_title</span>
-            <span class="k">set</span> <span class="nv">the_desc</span> <span class="k">to</span> <span class="nb">item</span> <span class="nv">status</span> <span class="k">of</span> <span class="nv">statusDesc</span>
-            <span class="k">set</span> <span class="nb">the</span> <span class="nv">allNotificationsList</span> <span class="k">to</span> <span class="p">{</span><span class="nv">scriptName</span><span class="p">}</span>
-            <span class="k">set</span> <span class="nb">the</span> <span class="nv">enabledNotificationsList</span> <span class="k">to</span> <span class="p">{</span><span class="nv">scriptName</span><span class="p">}</span>
-            <span class="nb">register</span> <span class="k">as</span> <span class="nb">application</span> <span class="se">¬</span>
-                <span class="nv">scriptName</span> <span class="nv">all</span> <span class="nv">notifications</span> <span class="nv">allNotificationsList</span> <span class="se">¬</span>
-                <span class="nv">default</span> <span class="nv">notifications</span> <span class="nv">enabledNotificationsList</span> <span class="se">¬</span>
-                <span class="nv">icon</span> <span class="k">of</span> <span class="nb">application</span> <span class="s2">&quot;iTunes&quot;</span>
-            <span class="nv">notify</span> <span class="nv">with</span> <span class="na">name</span> <span class="se">¬</span>
-                <span class="nv">scriptName</span> <span class="na">title</span> <span class="se">¬</span>
-                <span class="nv">the_title</span> <span class="nv">description</span> <span class="se">¬</span>
-                <span class="nv">the_desc</span> <span class="nb">application</span> <span class="na">name</span> <span class="nv">scriptName</span>
-            <span class="c">-- 尝试使用歌曲封面作为Growl图标出错</span>
-        <span class="k">end</span> <span class="k">tell</span>
-    <span class="k">end</span> <span class="nv">growlNotify</span>
-<span class="k">end</span> <span class="nv">script</span>
-
-<span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;iTunes&quot;</span>
-    <span class="k">if</span> <span class="nv">selection</span> <span class="ow">is</span> <span class="p">{}</span> <span class="k">then</span>
-        <span class="k">tell</span> <span class="nv">growl</span> <span class="k">to</span> <span class="nv">growlNotify</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nv">STATUS_LYRIC_UNSELECTED</span><span class="p">)</span>
-        <span class="no">return</span>
-    <span class="k">end</span> <span class="k">if</span>
-    <span class="k">set</span> <span class="nv">k</span> <span class="k">to</span> <span class="nb">count</span> <span class="p">(</span><span class="nb">item</span> <span class="k">of</span> <span class="nv">selection</span><span class="p">)</span>
-    <span class="k">set</span> <span class="nv">i</span> <span class="k">to</span> <span class="mi">1</span>
-    <span class="k">repeat</span>
-        <span class="k">set</span> <span class="nv">theTrack</span> <span class="k">to</span> <span class="p">(</span><span class="nb">item</span> <span class="nv">i</span> <span class="k">of</span> <span class="nv">selection</span><span class="p">)</span>
-        <span class="k">set</span> <span class="nv">this_artist</span> <span class="k">to</span> <span class="p">(</span><span class="k">get</span> <span class="nv">artist</span> <span class="k">of</span> <span class="nv">theTrack</span><span class="p">)</span>
-        <span class="k">set</span> <span class="nv">this_title</span> <span class="k">to</span> <span class="p">(</span><span class="k">get</span> <span class="na">name</span> <span class="k">of</span> <span class="nv">theTrack</span><span class="p">)</span>
-        <span class="k">set</span> <span class="nv">this_lyric</span> <span class="k">to</span> <span class="p">(</span><span class="k">get</span> <span class="nv">lyrics</span> <span class="k">of</span> <span class="nv">theTrack</span><span class="p">)</span>
-        <span class="c">-- set this_artwork to data of artwork 1 of theTrack</span>
-
-        <span class="k">set</span> <span class="nv">fetch_status</span> <span class="k">to</span> <span class="nv">STATUS_LYRIC_FAIL</span>
-
-        <span class="k">if</span> <span class="nv">length</span> <span class="k">of</span> <span class="nv">this_lyric</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="k">then</span>
-            <span class="c">-- 只有当歌曲中未存在歌词时才尝试获取歌词</span>
-            <span class="k">set</span> <span class="nv">requestData</span> <span class="k">to</span> <span class="s2">&quot;title=&quot;</span> <span class="o">&amp;</span> <span class="nv">this_title</span> <span class="o">&amp;</span> <span class="s2">&quot;&amp;artist=&quot;</span> <span class="o">&amp;</span> <span class="nv">this_artist</span>
-            <span class="k">set</span> <span class="nv">songLyrics</span> <span class="k">to</span> <span class="nb">do shell script</span> <span class="s2">&quot;curl -d &#39;&quot;</span> <span class="o">&amp;</span> <span class="nv">requestData</span> <span class="o">&amp;</span> <span class="s2">&quot;&#39; &quot;</span> <span class="o">&amp;</span> <span class="nv">baseURL</span>
-            <span class="k">if</span> <span class="nv">length</span> <span class="k">of</span> <span class="nv">songLyrics</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">then</span>
-                <span class="c">-- 歌词成功获取</span>
-                <span class="k">set</span> <span class="nv">lyrics</span> <span class="k">of</span> <span class="nv">theTrack</span> <span class="k">to</span> <span class="nv">songLyrics</span>
-                <span class="k">set</span> <span class="nv">fetch_status</span> <span class="k">to</span> <span class="nv">STATUS_LYRIC_SUCCESS</span>
-            <span class="k">end</span> <span class="k">if</span>
-        <span class="k">else</span>
-            <span class="k">set</span> <span class="nv">fetch_status</span> <span class="k">to</span> <span class="nv">STATUS_LYRIC_EXIST</span>
-        <span class="k">end</span> <span class="k">if</span>
-
-        <span class="k">tell</span> <span class="nv">growl</span> <span class="k">to</span> <span class="nv">growlNotify</span><span class="p">(</span><span class="nv">this_artist</span><span class="p">,</span> <span class="nv">this_title</span><span class="p">,</span> <span class="nv">fetch_status</span><span class="p">)</span>
-
-        <span class="k">set</span> <span class="nv">i</span> <span class="k">to</span> <span class="nv">i</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="nv">i</span> <span class="o">&gt;</span> <span class="nv">k</span> <span class="k">then</span> <span class="k">exit</span> <span class="k">repeat</span>
-    <span class="k">end</span> <span class="k">repeat</span>
-    <span class="c">-- 如果Growl未运行则显示对话框</span>
-    <span class="k">if</span> <span class="nv">isGrowlRunning</span> <span class="o">=</span> <span class="no">false</span> <span class="k">then</span>
-        <span class="nb">display dialog</span> <span class="no">return</span> <span class="o">&amp;</span> <span class="s2">&quot;歌词获取结束！&quot;</span> <span class="nb">buttons</span> <span class="p">{</span><span class="s2">&quot;确定&quot;</span><span class="p">}</span> <span class="nv">default</span> <span class="nb">button</span> <span class="mi">1</span> <span class="nv">with</span> <span class="nv">icon</span> <span class="mi">1</span> <span class="nv">giving</span> <span class="nv">up</span> <span class="nb">after</span> <span class="mi">5</span> <span class="nv">with</span> <span class="na">title</span> <span class="nv">scriptName</span>
-    <span class="k">end</span> <span class="k">if</span>
-<span class="k">end</span> <span class="k">tell</span>
-</code></pre></div>
-
-<p>　　<strong>USAGE:</strong> 在AppleScript Editor中新建包含上述脚本的文件，保存在 <strong>~/Library/iTunes/Scripts</strong> 目录下，这时在iTunes菜单栏中就会出现AppleScript的下拉菜单，选中需要的歌曲执行其中的命令即可。或者也可以使用Automator将上述脚本生成系统服务，具体本文不做详述，自行Google。</p>
-
-<p>　　实际上实现功能需要服务端的支持，上述脚本中使用了Martian搭建在SAE上的服务端，如果你想搭建自己的服务端可以在Martian的<a href="http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/">文章</a>中找到代码，或下载下面的文件，里面也包含了一个在服务端运行的PHP文件。</p>
-
-<p><span class="btn-group btn-center"><a href="https://github.com/JinnLynn/MacOSX-Kits/tree/master/FetchLyric" class="btn btn-large icon-github">Project on GitHub</a><a href="https://github.com/downloads/JinnLynn/MacOSX-Kits/fetchlyric20120508.zip" class="btn btn-large icon-download-alt">Download</a></span></p>
-
-<p>　　<strong>BTW:</strong> 尝试过使用歌曲封面做为Growl的图标没有成功，总提示无法生成数据，不知道什么原因。</p>
-
-<!-- content end -->
-    </div><!-- .entry-content -->
-    <div class="entry-meta">
-        <ul>
-            <li class="entry-author">Posted by JinnLynn</li>
-            <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
-</li>
-            <li class="entry-human-time-diff"> on May 04, 2012</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/fetch-lyric-for-itunes/#comments" title="Comment on 让iTunes的歌曲自动获取歌词">Comments</a></li> 
-        </ul>
-    </div><!-- .entry-meta -->
-</div><!-- #post-11545 -->
 
 
     <div id="pagenavi">

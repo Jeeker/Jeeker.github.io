@@ -49,6 +49,38 @@
 
 
 
+<div id="post-49398" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/jkit-auto-link-at-reply/" title="JKit: 自动在评论@用户名中添加页面跳转链接" rel="bookmark">JKit: 自动在评论@用户名中添加页面跳转链接</a></h1>
+        <p class="entry-date" title="2009-03-13 21:03:18">
+            <span class="day">13</span>
+            <span class="month">Mar</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　<strong>2009-04-02 ver0.2 Update:</strong> 支持"@用户名 "、"@用户名,"、"@用户名:"等多种形式；添加跳转链接为绝对路径，不再有分页跳转链接失效问题；链接添加类似“reply-回复的评论ID”的ID，便于使用JS实现一些特效。</p>
+
+<p>　　在回复评论时我个人习惯使用如Twitter“@用户名 回复内容”的形式，不过由于不像Twitter能给用户名添加链接，如果评论较多的话读者并不能很轻易找到该用户的评论，手动添加又显得麻烦，当原评论被删除时还有链接失效的问题。</p>
+
+<p>　　其实在Wordpress的插件库里你可以找到一个名为<a href="http://wordpress.org/extend/plugins/at-reply/">@reply</a>的插件解决上述问题，它能自动给用户名添加链接，不过仔细看@reply的源代码你会发现每当它找到一个需要添加链接的用户名时就要进行一次数据库查询操作，相当浪费资源，同时它只对在评论起始处使用“@用户名”时才有效，多次或在评论内容中穿插使用都是无效的。此外@reply还有一个很大的BUG，当一个用户对一篇日志发布多次评论，你也多次使用“@用户名 ”的形式对该用户进行回复时，自动添加的链接指向的都是该用户最后发表的评论，这当然是不合理的。</p>
+
+<p>　　于是我自己写了一个类似功能的函数，它不进行任何的数据库查询，无论“@用户名 ”在评论中什么位置使用多少次都是有效的，链接总是指向在该回复发表日期之前该用户发表的最近一篇评论。具体效果见<a href="http://jeeker.net/the-opening-ceremony-of-beijing-2008-from-nbc/#comments">这里</a>，你可以拷贝后面的源代码或使用<a href="http://jeeker.net/projects/jkit-builder/">JKit Builder</a>生成带此功能的插件。</p>
+
+<p><a href="http://jeeker.net/article/jkit-auto-link-at-reply/#more-49398" class="more-link">Read more...</a></p>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Mar 13, 2009</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/jkit-auto-link-at-reply/#comments" title="Comment on JKit: 自动在评论@用户名中添加页面跳转链接">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-49398 -->
 <div id="post-14367" class="post-list post post-post post-publish">
     <div class="entry-head">
         <h1><a href="http://jeeker.net/article/jkit-optimize-database-automatically/" title="JKit: 定期自动优化数据库" rel="bookmark">JKit: 定期自动优化数据库</a></h1>
