@@ -7,10 +7,10 @@
 <head>
     <title>终端脚本统一入口 - Jeeker</title>
     <meta charset="UTF-8">
-    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
-    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?88452" />
-    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <link rel="apple-touch-icon" href="http://127.0.0.1:8910/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://127.0.0.1:8910/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8910/assets/style.css?53190" />
+    <link rel="alternate" type="application/atom+xml" href="http://127.0.0.1:8910/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
     <!-- <meta name="keywords" content="" /> -->
@@ -22,12 +22,12 @@
     <div id="header">
         <div id="menu">
             <ul>
-                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
-                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
-                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
-                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
-                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
-                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+                <li><a href="http://127.0.0.1:8910/"><span>Home</span></a></li>
+                <li><a href="http://127.0.0.1:8910/projects/"><span>Projects</span></a></li>
+                <li><a href="http://127.0.0.1:8910/tags/"><span>Tags</span></a></li>
+                <li><a href="http://127.0.0.1:8910/archives/"><span>Archives</span></a></li>
+                <li><a href="http://127.0.0.1:8910/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://127.0.0.1:8910/about/"><span>About</span></a></li>
             </ul>
         </div>
     </div><!-- ＃header -->
@@ -38,7 +38,7 @@
             <li id="tool-search">
                 <form action="http://google.com/search" method="get">
                     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-                    <input type="hidden" name="q" value="site:jeeker.net" />
+                    <input type="hidden" name="q" value="site:127.0.0.1:8910" />
                 </form>
             </li>
         </ul>
@@ -65,17 +65,17 @@
 
 <h4 id="1">1. 建立统一入口脚本</h4>
 
-<div class="codehilite"><pre><code><span class="c">#!/bin/bash</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
-<span class="c">#检查环境变量</span>
+<span class="c1">#检查环境变量</span>
 <span class="k">if</span> <span class="o">[</span> -z <span class="nv">$KITS</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     . <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span>/build-env.sh
 <span class="k">fi</span>
 
-<span class="c">#Applescrit接口文件</span>
+<span class="c1">#Applescrit接口文件</span>
 <span class="nv">OSASPORT</span><span class="o">=</span><span class="nv">$KITSSHELL</span>/osasport.applescript
 
-<span class="c">#使用说明</span>
+<span class="c1">#使用说明</span>
 <span class="k">function</span> usage<span class="o">()</span> <span class="o">{</span>
     more <span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITSSHELL</span><span class="si">}</span><span class="s2">/misc/kits-usage.txt&quot;</span>
 <span class="o">}</span>
@@ -89,22 +89,22 @@
 <span class="o">}</span>
 
 <span class="k">case</span> <span class="nv">$1</span> in
-    <span class="s1">&#39;backup&#39;</span> <span class="o">)</span>     <span class="c">#备份文件到NAS</span>
+    <span class="s1">&#39;backup&#39;</span> <span class="o">)</span>     <span class="c1">#备份文件到NAS</span>
         <span class="nv">$KITSSHELL</span>/backup/backup.sh
         <span class="p">;;</span>
-    <span class="s1">&#39;genpac&#39;</span> <span class="o">)</span>     <span class="c">#通过GenPAC生成自动代理配置文件</span>
+    <span class="s1">&#39;genpac&#39;</span> <span class="o">)</span>     <span class="c1">#通过GenPAC生成自动代理配置文件</span>
         <span class="nv">$KITS</span>/GenPAC/genpac.py
         <span class="p">;;</span>
-    <span class="s1">&#39;mamp&#39;</span> <span class="o">)</span>       <span class="c">#MAMP管理</span>
+    <span class="s1">&#39;mamp&#39;</span> <span class="o">)</span>       <span class="c1">#MAMP管理</span>
         <span class="nv">$KITSSHELL</span>/mamp.sh <span class="nv">$2</span>
         <span class="p">;;</span>
-    <span class="s1">&#39;itunes&#39;</span> <span class="o">)</span>     <span class="c">#部分itunes操作</span>
+    <span class="s1">&#39;itunes&#39;</span> <span class="o">)</span>     <span class="c1">#部分itunes操作</span>
         osascript <span class="nv">$OSASPORT</span> itunes <span class="nv">$2</span> <span class="nv">$3</span>
         <span class="p">;;</span>
-    <span class="s1">&#39;sshkey&#39;</span> <span class="o">)</span>     <span class="c">#SSH秘钥处理</span>
+    <span class="s1">&#39;sshkey&#39;</span> <span class="o">)</span>     <span class="c1">#SSH秘钥处理</span>
         sshkey
         <span class="p">;;</span>
-    <span class="s1">&#39;usage&#39;</span> <span class="o">)</span>      <span class="c">#使用说明</span>
+    <span class="s1">&#39;usage&#39;</span> <span class="o">)</span>      <span class="c1">#使用说明</span>
         usage
         <span class="p">;;</span>
     <span class="s1">&#39;&#39;</span> <span class="o">)</span>
@@ -122,21 +122,21 @@
 
 <p>　　上面的脚本虽然已经实现了做为其它脚本入口的功能，但使用时还不够方便，需要将它系统环境变量中，更容易访问，可能有人已经注意到上面代码中出现的<code>build-env.sh</code>文件，它的目的就是建立一些环境变量。</p>
 
-<div class="codehilite"><pre><code><span class="c">#!/bin/bash</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
-<span class="c"># 建立Kits的运行环境</span>
-<span class="c"># 在~/.bash_profile 添加 source PATH/TO/build-env.sh</span>
+<span class="c1"># 建立Kits的运行环境</span>
+<span class="c1"># 在~/.bash_profile 添加 source PATH/TO/build-env.sh</span>
 
-<span class="c"># 注意 这里不能用相对路径</span>
+<span class="c1"># 注意 这里不能用相对路径</span>
 
-<span class="c">#Kits所在目录</span>
-<span class="nb">export </span><span class="nv">KITS</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/Developer/Misc/MacOSX-Kits&quot;</span>
+<span class="c1">#Kits所在目录</span>
+<span class="nb">export</span> <span class="nv">KITS</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/Developer/Misc/MacOSX-Kits&quot;</span>
 
-<span class="nb">export </span><span class="nv">KITSSHELL</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITS</span><span class="si">}</span><span class="s2">/Shell&quot;</span>
-<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITSSHELL</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">export</span> <span class="nv">KITSSHELL</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITS</span><span class="si">}</span><span class="s2">/Shell&quot;</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITSSHELL</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span><span class="s2">&quot;</span>
 
-<span class="c">#建立别名</span>
-<span class="nb">alias </span><span class="nv">kits</span><span class="o">=</span><span class="s2">&quot;kits.sh&quot;</span>
+<span class="c1">#建立别名</span>
+<span class="nb">alias</span> <span class="nv">kits</span><span class="o">=</span><span class="s2">&quot;kits.sh&quot;</span>
 </code></pre></div>
 
 <p>　　最后再在<code>~/.bash_profile</code>的末尾添加<code>. /PATH/TO/builde-env.sh</code>（或<code>source /PATH/TO/builde-env.sh</code>）让它在用户登陆终端时被执行。</p>
@@ -152,10 +152,10 @@
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
+        <a href="http://127.0.0.1:8910/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
 </li>
             <li class="entry-human-time-diff"> on May 16, 2012</li>
-            <li class="entry-comments">with <a href="http://jeeker.net/article/shell-script-unique-port/#comments">comments</a></li>
+            <li class="entry-comments">with <a href="http://127.0.0.1:8910/article/shell-script-unique-port/#comments">comments</a></li>
         </ul>  
     </div><!-- .entry-meta -->
 </div><!-- #post-73514 -->
@@ -195,22 +195,14 @@
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?88452"></script>
+<script type="text/javascript" src="http://127.0.0.1:8910/assets/script/action.js?53190"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?88452'></script>
+<script type='text/javascript' src='http://127.0.0.1:8910/assets/script/css3-mediaqueries.js?53190'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
 <script type="text/javascript" src="/assets/additional.js"></script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+<script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();</script>
 
 <!-- google analytics track code -->
 <script type="text/javascript">

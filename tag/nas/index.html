@@ -7,10 +7,10 @@
 <head>
     <title>NAS - Jeeker</title>
     <meta charset="UTF-8">
-    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
-    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?88452" />
-    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <link rel="apple-touch-icon" href="http://127.0.0.1:8910/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://127.0.0.1:8910/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8910/assets/style.css?53190" />
+    <link rel="alternate" type="application/atom+xml" href="http://127.0.0.1:8910/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
     <!-- <meta name="keywords" content="" /> -->
@@ -22,12 +22,12 @@
     <div id="header">
         <div id="menu">
             <ul>
-                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
-                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
-                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
-                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
-                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
-                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+                <li><a href="http://127.0.0.1:8910/"><span>Home</span></a></li>
+                <li><a href="http://127.0.0.1:8910/projects/"><span>Projects</span></a></li>
+                <li><a href="http://127.0.0.1:8910/tags/"><span>Tags</span></a></li>
+                <li><a href="http://127.0.0.1:8910/archives/"><span>Archives</span></a></li>
+                <li><a href="http://127.0.0.1:8910/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://127.0.0.1:8910/about/"><span>About</span></a></li>
             </ul>
         </div>
     </div><!-- ＃header -->
@@ -38,7 +38,7 @@
             <li id="tool-search">
                 <form action="http://google.com/search" method="get">
                     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-                    <input type="hidden" name="q" value="site:jeeker.net" />
+                    <input type="hidden" name="q" value="site:127.0.0.1:8910" />
                 </form>
             </li>
         </ul>
@@ -49,9 +49,149 @@
 
 
 
+<div id="post-45097" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://127.0.0.1:8910/article/compile-shadowsocks-libev-for-synology-nas-dsm/" title="在Synology群晖NAS上使用shadowsocks-libev、polipo" rel="bookmark">在Synology群晖NAS上使用shadowsocks-libev、polipo</a></h1>
+        <p class="entry-date" title="2016-05-11 13:38:17">
+            <span class="day">11</span>
+            <span class="month">May</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　翻墙一直主要使用的是SSH动态端口映射，SSH代理数据传输的安全性自然没必要担心，但据说有较明显的流量特征，服务器较易暴露，再加上SSH代理在Windows下使用并不那么友好，因此在自己购买了<a href="https://m.do.co/c/dbb13a862eff">VPS</a>后就决定要用<a href="http://shadowsocks.org">shadowsocks</a>做代理服务器。</p>
+
+<p>　　Python版的shadowsocks因作者<a href="https://github.com/clowwindy">clowwindy</a><a href="https://zh.wikipedia.org/wiki/Shadowsocks#.E5.81.9C.E6.AD.A2.E7.B6.AD.E8.AD.B7">被请喝茶早就停止更新</a>，托开源的福，shadowsock有众多其它语言版本，比如纯C的<a href="https://github.com/shadowsocks/shadowsocks-libev">shadowsocks-libev</a>，较低的资源消耗更适合配置一般的VPS和我那内存仅区区<em>128M</em>的NAS。</p>
+
+<p>　　<a href="https://m.do.co/c/dbb13a862eff">VPS</a>操作系统是Ubuntu，不论是自己编译还是从软件源安装都很简单，但群晖NAS上就比较麻烦了。NAS配置低的惨不忍睹，而且缺少编译环境，只能在其他Linux服务器上进行交叉编译。关于交叉编译，Synology提供了详尽的<a href="https://global.download.synology.com/download/Document/DeveloperGuide/DSM_Developer_Guide.pdf">开发指南</a>可供参考。</p>
+
+<h5>一、环境准备</h5>
+
+<p>　　1. 准备编译服务器，一般常见的Linux发行版都没有问题，但需要注意的是必须是32位的，我是在Paralels Desktop虚拟机里安装的Ubuntu 16.04 i386。</p>
+
+<p>　　2. 确定NAS的<a href="http://domoticx.com/synology-nas-cpu-lijst/">CPU类型</a>、DSM版本，下载对应的<a href="https://sourceforge.net/projects/dsgpl/files/">Tool Chains</a>，如我的老爷机DS211j，<strong>CPU: Marvell mv6282 DSM: 6.0</strong>，需要下载的就是<a href="https://sourceforge.net/projects/dsgpl/files/DSM%206.0%20Tool%20Chains/Marvell%2088F628x%20Linux%202.6.32/">6281-gcc464_glibc215_88f6281-GPL.txz</a>。</p>
+
+<p>　　3. 上传Tool Chains到编译服务器。</p>
+
+<p>　　<strong>注意：下文脚本假定工作目录为<code>/home/jinnlynn/nas</code>，Tool Chains也被上传到该目录下</strong></p>
+
+<h5 id="-2">二、编译</h5>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># 工作目录，前文下载的6281-gcc464_glibc215_88f6281-GPL.txz在该目录下</span>
+<span class="nv">WDIR</span><span class="o">=</span>/home/jinnlynn/nas
+<span class="c1"># 目标目录，编译好的文件将会保存在这</span>
+<span class="nv">DIST</span><span class="o">=</span><span class="nv">$WDIR</span>/dist
+
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+
+<span class="c1"># 安装工具</span>
+sudo apt-get -y install make binutils
+
+<span class="c1"># 解压Tool Chains，将生成arm-marvell-linux-gnueabi文件夹</span>
+tar xvf 6281-gcc464_glibc215_88f6281-GPL.txz
+
+<span class="c1"># 编译环境变量，不同的CPU环境可能不同，详见Synology开发指南的Compile Open Source Projects章节</span>
+<span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-gcc
+<span class="nb">export</span> <span class="nv">LD</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-ld
+<span class="nb">export</span> <span class="nv">RANLIB</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-ranlib
+<span class="nb">export</span> <span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-I</span><span class="nv">$WDIR</span><span class="s2">/arm-marvell-linux-gnueabi/arm-marvell-linux-gnueabi/libc/include&quot;</span>
+<span class="nb">export</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&quot;-L</span><span class="nv">$WDIR</span><span class="s2">/arm-marvell-linux-gnueabi/arm-marvell-linux-gnueabi/libc/lib&quot;</span>
+
+<span class="c1"># 依赖zlib，下载编译</span>
+curl -O http://zlib.net/zlib-1.2.8.tar.gz
+tar xvf zlib-1.2.8.tar.gz
+<span class="nb">cd</span> zlib-1.2.8/
+./configure --prefix<span class="o">=</span><span class="nv">$DIST</span>/zlib-1.2.8
+make install
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+
+<span class="c1"># 依赖openssl，下载编译</span>
+curl -O https://www.openssl.org/source/openssl-1.0.2h.tar.gz
+tar xvf openssl-1.0.2h.tar.gz
+<span class="nb">cd</span> openssl-1.0.2h
+./Configure dist --prefix<span class="o">=</span><span class="nv">$DIST</span>/openssl-1.0.2h
+make
+make install
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+
+<span class="c1"># 编译shadowsocks-libev</span>
+curl -OL https://github.com/shadowsocks/shadowsocks-libev/archive/v2.4.6.tar.gz
+tar xvf v2.4.6.tar.gz
+<span class="nb">cd</span> shadowsocks-libev-2.4.6
+<span class="c1"># 配置 需要注意的是--host选项，目标NAS不同值可能也会不同</span>
+<span class="c1"># 详见Synology开发指南的Compile Open Source Projects章节</span>
+./configure <span class="se">\</span>
+    --with-zlib<span class="o">=</span><span class="nv">$DIST</span>/zlib-1.2.8 <span class="se">\</span>
+    --with-openssl<span class="o">=</span><span class="nv">$DIST</span>/openssl-1.0.2h <span class="se">\</span>
+    --prefix<span class="o">=</span><span class="nv">$DIST</span>/shadowsocks-libev-2.4.6 <span class="se">\</span>
+    --host<span class="o">=</span>armle-unknown-linux
+make
+make install
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+</code></pre></div>
+
+<p>　　将生成的shadowsocks-libev-2.4.6目录拷贝到NAS即可正常使用了。</p>
+
+<h5 id="polipo">三、编译polipo</h5>
+
+<p>　　shadowsocks-libev是socks5代理，但某些应用可能只能使用HTTP代理，因此需要转换，软件个人推荐<a href="https://www.irif.univ-paris-diderot.fr/~jch/software/polipo/">polipo</a>，轻量高效，ipkg软件源上也有但版本较低，最好也自己编译。</p>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># 工作目录</span>
+<span class="nv">WDIR</span><span class="o">=</span>/home/jinnlynn/nas
+<span class="c1"># 目标目录，编译好的文件将会保存在这</span>
+<span class="nv">DIST</span><span class="o">=</span><span class="nv">$WDIR</span>/dist/
+
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+
+<span class="c1"># 安装工具</span>
+sudo apt-get -y install texinfo
+
+<span class="c1"># 编译环境变量，不同的CPU环境可能不同，详见Synology开发指南的Compile Open Source Projects章节</span>
+<span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-gcc
+<span class="nb">export</span> <span class="nv">LD</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-ld
+<span class="nb">export</span> <span class="nv">RANLIB</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-ranlib
+<span class="nb">export</span> <span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-I</span><span class="nv">$WDIR</span><span class="s2">/arm-marvell-linux-gnueabi/arm-marvell-linux-gnueabi/libc/include&quot;</span>
+<span class="nb">export</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&quot;-L</span><span class="nv">$WDIR</span><span class="s2">/arm-marvell-linux-gnueabi/arm-marvell-linux-gnueabi/libc/lib&quot;</span>
+
+curl -OL https://github.com/jech/polipo/archive/polipo-1.1.1.tar.gz
+tar xvf polipo-1.1.1.tar.gz
+<span class="nb">cd</span> polipo-polipo-1.1.1/
+
+make all
+
+<span class="c1"># polipo的make install默认将安装到当前系统目录</span>
+<span class="c1"># 这里自己拷贝出所需文件</span>
+<span class="nv">PREFIX</span><span class="o">=</span><span class="nv">$DIST</span>/polipo-1.1.1
+mkdir -p <span class="nv">$PREFIX</span>/bin
+mkdir -p <span class="nv">$PREFIX</span>/share/www/doc
+rm -f <span class="nv">$PREFIX</span>/bin/polipo
+cp -f polipo <span class="nv">$PREFIX</span>/bin/
+cp -f html/* <span class="nv">$PREFIX</span>/share/www/doc
+cp -f localindex.html <span class="nv">$PREFIX</span>/share/www/index.html
+mkdir -p <span class="nv">$PREFIX</span>/man/man1
+mkdir -p <span class="nv">$PREFIX</span>/info
+cp -f polipo.man <span class="nv">$PREFIX</span>/man/man1/polipo.1
+cp polipo.info <span class="nv">$PREFIX</span>/info/
+</code></pre></div>
+
+<p>　　同样的拷贝polipo-1.1.1目录到NAS即可，要注意的一点是运行时可能出现<code>Disabling disk cache: No such file or directory</code> 或 <code>Disabling local tree: No such file or directory</code>提示，这是因为编译默认的缓存目录和本地文档目录在NAS上不一定存在，只要运行时给polipo添加<strong>localDocumentRoot</strong>和<strong>diskCacheRoot</strong>选项，设置正确的目录就没有问题了。</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on May 11, 2016</li>
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/compile-shadowsocks-libev-for-synology-nas-dsm/#comments" title="Comment on 在Synology群晖NAS上使用shadowsocks-libev、polipo">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-45097 -->
 <div id="post-40669" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/alfred-workflow-manage-synology-download-station/" title="Alfred Workflow: 管理Synology Download Station" rel="bookmark">Alfred Workflow: 管理Synology Download Station</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/alfred-workflow-manage-synology-download-station/" title="Alfred Workflow: 管理Synology Download Station" rel="bookmark">Alfred Workflow: 管理Synology Download Station</a></h1>
         <p class="entry-date" title="2013-04-12 12:24:29">
             <span class="day">12</span>
             <span class="month">Apr</span>
@@ -71,23 +211,23 @@
 </ol>
 </div>
 
-<p><a href="http://jeeker.net/article/alfred-workflow-manage-synology-download-station/#more-40669" class="more-link">Read more...</a></p>
+<p><a href="http://127.0.0.1:8910/article/alfred-workflow-manage-synology-download-station/#more-40669" class="more-link">Read more...</a></p>
 <!-- content end -->
     </div><!-- .entry-content -->
     <div class="entry-meta">
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Apr 12, 2013</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/alfred-workflow-manage-synology-download-station/#comments" title="Comment on Alfred Workflow: 管理Synology Download Station">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/alfred-workflow-manage-synology-download-station/#comments" title="Comment on Alfred Workflow: 管理Synology Download Station">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-40669 -->
 <div id="post-81780" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/synology-nas-external-ip-change-notify/" title="Synology群晖NAS外部IP更新通知" rel="bookmark">Synology群晖NAS外部IP更新通知</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/synology-nas-external-ip-change-notify/" title="Synology群晖NAS外部IP更新通知" rel="bookmark">Synology群晖NAS外部IP更新通知</a></h1>
         <p class="entry-date" title="2013-03-04 15:23:00">
             <span class="day">04</span>
             <span class="month">Mar</span>
@@ -99,37 +239,37 @@
 
 <h3 id="1">1. 脚本</h3>
 
-<div class="codehilite"><pre><code><span class="c">#!/usr/bin/env python</span>
-<span class="c"># -*- coding: utf-8 -*-</span>
-<span class="c">#! 强制默认编码为utf-8</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#! 强制默认编码为utf-8</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="nb">reload</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
 
-<span class="c"># 配置</span>
-<span class="c"># SMTP服务器 用户 密码</span>
-<span class="n">smtp_server</span> <span class="o">=</span> <span class="s">&#39;SMTP SERVER&#39;</span>
+<span class="c1"># 配置</span>
+<span class="c1"># SMTP服务器 用户 密码</span>
+<span class="n">smtp_server</span> <span class="o">=</span> <span class="s1">&#39;SMTP SERVER&#39;</span>
 <span class="n">smtp_port</span>   <span class="o">=</span> <span class="mi">25</span>
-<span class="n">smtp_usr</span>    <span class="o">=</span> <span class="s">&#39;SMTP USERNAME&#39;</span>
-<span class="n">smtp_pwd</span>    <span class="o">=</span> <span class="s">&#39;SMTP PASSWORD&#39;</span>
+<span class="n">smtp_usr</span>    <span class="o">=</span> <span class="s1">&#39;SMTP USERNAME&#39;</span>
+<span class="n">smtp_pwd</span>    <span class="o">=</span> <span class="s1">&#39;SMTP PASSWORD&#39;</span>
 
-<span class="c"># 发送接受邮箱地址</span>
-<span class="c">#! 发送邮箱需是smtp_usr有权操作的邮箱</span>
-<span class="n">from_addr</span>   <span class="o">=</span> <span class="s">&#39;FROM EMAIL ADDRESS&#39;</span>
-<span class="n">to_addr</span>     <span class="o">=</span> <span class="s">&#39;TO EMAIL ADDRESS&#39;</span>
+<span class="c1"># 发送接受邮箱地址</span>
+<span class="c1">#! 发送邮箱需是smtp_usr有权操作的邮箱</span>
+<span class="n">from_addr</span>   <span class="o">=</span> <span class="s1">&#39;FROM EMAIL ADDRESS&#39;</span>
+<span class="n">to_addr</span>     <span class="o">=</span> <span class="s1">&#39;TO EMAIL ADDRESS&#39;</span>
 
-<span class="c"># 获取外网IP的网址 可以是</span>
-<span class="c"># http://ifconfig.me/ip</span>
-<span class="c"># http://ip.3322.net</span>
-<span class="c"># http://members.3322.org/dyndns/getip</span>
-<span class="n">ip_check_server</span> <span class="o">=</span> <span class="s">&#39;http://ip.3322.net&#39;</span>
+<span class="c1"># 获取外网IP的网址 可以是</span>
+<span class="c1"># http://ifconfig.me/ip</span>
+<span class="c1"># http://ip.3322.net</span>
+<span class="c1"># http://members.3322.org/dyndns/getip</span>
+<span class="n">ip_check_server</span> <span class="o">=</span> <span class="s1">&#39;http://ip.3322.net&#39;</span>
 
-<span class="c"># 记录文件路径</span>
-<span class="n">log_file</span>    <span class="o">=</span> <span class="s">&#39;/tmp/ipcheck.log&#39;</span>
+<span class="c1"># 记录文件路径</span>
+<span class="n">log_file</span>    <span class="o">=</span> <span class="s1">&#39;/tmp/ipcheck.log&#39;</span>
 
-<span class="c"># 邮件主题 </span>
-<span class="c"># 内容为新的IP</span>
-<span class="n">mail_subject</span> <span class="o">=</span> <span class="s">&#39;IP check message&#39;</span>
+<span class="c1"># 邮件主题 </span>
+<span class="c1"># 内容为新的IP</span>
+<span class="n">mail_subject</span> <span class="o">=</span> <span class="s1">&#39;IP check message&#39;</span>
 
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">urllib2</span><span class="o">,</span> <span class="nn">smtplib</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
@@ -144,16 +284,16 @@
 
     <span class="k">def</span> <span class="nf">openLog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">log_file</span><span class="p">):</span>
-            <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logs</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">logs</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="s">&#39;----</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">]</span>
-        <span class="c"># 确保第二行永远是分隔符</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;----</span><span class="se">\n</span><span class="s">&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;----</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">]</span>
+        <span class="c1"># 确保第二行永远是分隔符</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;----</span><span class="se">\n</span><span class="s1">&#39;</span>
 
     <span class="k">def</span> <span class="nf">saveLog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">getOldIP</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -161,35 +301,35 @@
 
     <span class="k">def</span> <span class="nf">setNewIP</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_ip</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">new_ip</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;{}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">sendMail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">msg</span><span class="p">:</span>
             <span class="k">return</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;from_addr&#39;</span> <span class="p">:</span> <span class="n">from_addr</span><span class="p">,</span>
-                <span class="s">&#39;to_addr&#39;</span>   <span class="p">:</span> <span class="n">to_addr</span><span class="p">,</span>
-                <span class="s">&#39;subject&#39;</span>   <span class="p">:</span> <span class="n">mail_subject</span><span class="p">,</span>
-                <span class="s">&#39;msg&#39;</span>       <span class="p">:</span> <span class="n">msg</span> <span class="p">}</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;From: {from_addr}</span><span class="se">\r\n</span><span class="s">To: {to_addr}</span><span class="se">\r\n</span><span class="s">Subject: {subject}</span><span class="se">\r\n\r\n</span><span class="s">{msg}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;from_addr&#39;</span> <span class="p">:</span> <span class="n">from_addr</span><span class="p">,</span>
+                <span class="s1">&#39;to_addr&#39;</span>   <span class="p">:</span> <span class="n">to_addr</span><span class="p">,</span>
+                <span class="s1">&#39;subject&#39;</span>   <span class="p">:</span> <span class="n">mail_subject</span><span class="p">,</span>
+                <span class="s1">&#39;msg&#39;</span>       <span class="p">:</span> <span class="n">msg</span> <span class="p">}</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;From: {from_addr}</span><span class="se">\r\n</span><span class="s1">To: {to_addr}</span><span class="se">\r\n</span><span class="s1">Subject: {subject}</span><span class="se">\r\n\r\n</span><span class="s1">{msg}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">smtp</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">()</span>
-            <span class="c"># smtp.set_debuglevel(1)</span>
+            <span class="c1"># smtp.set_debuglevel(1)</span>
             <span class="n">smtp</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">smtp_server</span><span class="p">,</span> <span class="n">smtp_port</span><span class="p">)</span>
             <span class="n">smtp</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">smtp_usr</span><span class="p">,</span> <span class="n">smtp_pwd</span><span class="p">)</span>
             <span class="n">smtp</span><span class="o">.</span><span class="n">sendmail</span><span class="p">(</span><span class="n">from_addr</span><span class="p">,</span> <span class="n">to_addr</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>   
             <span class="n">smtp</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&#39;send mail fail. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;send mail fail. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">None</span>
 
     <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">need_mail</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">msg</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="n">log_msg</span> <span class="o">=</span> <span class="s">&#39;{}</span><span class="se">\t</span><span class="s">{}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&#39;%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M:%S&#39;</span><span class="p">),</span> <span class="n">msg</span><span class="p">)</span>
-        <span class="c"># 检查最近的记录，如果相同仅更新时间</span>
+        <span class="n">log_msg</span> <span class="o">=</span> <span class="s1">&#39;{}</span><span class="se">\t</span><span class="s1">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">),</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="c1"># 检查最近的记录，如果相同仅更新时间</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">last_log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">last_log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">last_log</span> <span class="o">==</span> <span class="n">msg</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">log_msg</span>
             <span class="k">else</span><span class="p">:</span>
@@ -205,17 +345,17 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">url</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">ip_check_server</span><span class="p">)</span>
             <span class="n">res</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-            <span class="n">new_ip</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r\n</span><span class="s"> &#39;</span><span class="p">)</span>
+            <span class="n">new_ip</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1"> &#39;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#39;get ip fail. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="bp">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;get ip fail. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="bp">True</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="k">if</span> <span class="n">old_ip</span> <span class="o">==</span> <span class="n">new_ip</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#39;IP unchanged.&#39;</span><span class="p">)</span>
-        <span class="n">res</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendMail</span><span class="p">(</span><span class="s">&#39;IP Changed. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;IP unchanged.&#39;</span><span class="p">)</span>
+        <span class="n">res</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendMail</span><span class="p">(</span><span class="s1">&#39;IP Changed. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setNewIP</span><span class="p">(</span><span class="n">new_ip</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#39;IP changed. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;IP changed. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">cleanLog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -223,11 +363,11 @@
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkIP</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s">&#39;--clean&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;--clean&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleanLog</span><span class="p">()</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;argument error.&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;argument error.&#39;</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">ip</span> <span class="o">=</span> <span class="n">CheckIP</span><span class="p">()</span>
     <span class="n">ip</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
@@ -296,13 +436,13 @@
             <li class="entry-categories"> in 
 </li>
             <li class="entry-human-time-diff"> on Mar 04, 2013</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/synology-nas-external-ip-change-notify/#comments" title="Comment on Synology群晖NAS外部IP更新通知">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/synology-nas-external-ip-change-notify/#comments" title="Comment on Synology群晖NAS外部IP更新通知">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-81780 -->
 <div id="post-73846" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/" title="向StartSSL申请个人域名SSL证书" rel="bookmark">向StartSSL申请个人域名SSL证书</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/apply-ssl-certificat-for-domain-from-startssl/" title="向StartSSL申请个人域名SSL证书" rel="bookmark">向StartSSL申请个人域名SSL证书</a></h1>
         <p class="entry-date" title="2013-01-21 21:10:46">
             <span class="day">21</span>
             <span class="month">Jan</span>
@@ -316,23 +456,23 @@
 
 <p>　　解决这个问题的唯一方法当然就是安装一个有效的SSL证书，但向CA机构申请证书一年少者几十多者数千美元，很不划算，好在互联网上总不缺<a href="http://www.sslshopper.com/article-free-ssl-certificates-from-a-free-certificate-authority.html">免费午餐</a>，<a href="https://www.startssl.com/">StartSSL</a>就是很好的选择，下面就以它为例了解下SSL证书的申请和安装过程。</p>
 
-<p><a href="http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/#more-73846" class="more-link">Read more...</a></p>
+<p><a href="http://127.0.0.1:8910/article/apply-ssl-certificat-for-domain-from-startssl/#more-73846" class="more-link">Read more...</a></p>
 <!-- content end -->
     </div><!-- .entry-content -->
     <div class="entry-meta">
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
+        <a href="http://127.0.0.1:8910/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
 </li>
             <li class="entry-human-time-diff"> on Jan 21, 2013</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/#comments" title="Comment on 向StartSSL申请个人域名SSL证书">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/apply-ssl-certificat-for-domain-from-startssl/#comments" title="Comment on 向StartSSL申请个人域名SSL证书">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-73846 -->
 <div id="post-42971" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/remote-control-synology-download-station/" title="命令行远程控制Synology DSM Download Station" rel="bookmark">命令行远程控制Synology DSM Download Station</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/remote-control-synology-download-station/" title="命令行远程控制Synology DSM Download Station" rel="bookmark">命令行远程控制Synology DSM Download Station</a></h1>
         <p class="entry-date" title="2013-01-16 21:29:31">
             <span class="day">16</span>
             <span class="month">Jan</span>
@@ -346,408 +486,408 @@
 
 <p>　　代码结构很简单，如何使用直接看源代码吧，不多废话了。</p>
 
-<div class="codehilite"><pre><code><span class="c">#! /usr/bin/env python</span>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c">## </span>
-<span class="c"># 使用Synology Download Station API远程控制文件下载</span>
-<span class="c"># http://download.synology.com/download/other/Synology_Download_Station_Official_API_V3.pdf</span>
-<span class="c"># Created by JinnLynn 2013.01.15 http://jeeker.net </span>
-<span class="c">##</span>
+<span class="c1">## </span>
+<span class="c1"># 使用Synology Download Station API远程控制文件下载</span>
+<span class="c1"># http://download.synology.com/download/other/Synology_Download_Station_Official_API_V3.pdf</span>
+<span class="c1"># Created by JinnLynn 2013.01.15 http://jeeker.net </span>
+<span class="c1">##</span>
 
 <span class="kn">import</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">urllib</span><span class="o">,</span> <span class="nn">urllib2</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 <span class="nb">reload</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
 
-<span class="c"># 设置: 网址 用户 密码</span>
-<span class="n">NAS_URL</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-<span class="n">NAS_USR</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-<span class="n">NAS_PWD</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<span class="c1"># 设置: 网址 用户 密码</span>
+<span class="n">NAS_URL</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="n">NAS_USR</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="n">NAS_PWD</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
-<span class="n">CommonCodeDesc</span> <span class="o">=</span> <span class="p">{</span>  <span class="mi">100</span><span class="p">:</span> <span class="s">&#39;Unknown error&#39;</span><span class="p">,</span>
-                    <span class="mi">101</span><span class="p">:</span> <span class="s">&#39;Invalid parameter&#39;</span><span class="p">,</span>
-                    <span class="mi">102</span><span class="p">:</span> <span class="s">&#39;The requested API does not exist&#39;</span><span class="p">,</span>
-                    <span class="mi">103</span><span class="p">:</span> <span class="s">&#39;The requested method does not exist&#39;</span><span class="p">,</span>
-                    <span class="mi">104</span><span class="p">:</span> <span class="s">&#39;The requested version does not support the functionality&#39;</span><span class="p">,</span>
-                    <span class="mi">105</span><span class="p">:</span> <span class="s">&#39;The logged in session does not have permission&#39;</span><span class="p">,</span>
-                    <span class="mi">106</span><span class="p">:</span> <span class="s">&#39;Session timeout&#39;</span><span class="p">,</span>
-                    <span class="mi">107</span><span class="p">:</span> <span class="s">&#39;Session interrupted by duplicate login&#39;</span>
+<span class="n">CommonCodeDesc</span> <span class="o">=</span> <span class="p">{</span>  <span class="mi">100</span><span class="p">:</span> <span class="s1">&#39;Unknown error&#39;</span><span class="p">,</span>
+                    <span class="mi">101</span><span class="p">:</span> <span class="s1">&#39;Invalid parameter&#39;</span><span class="p">,</span>
+                    <span class="mi">102</span><span class="p">:</span> <span class="s1">&#39;The requested API does not exist&#39;</span><span class="p">,</span>
+                    <span class="mi">103</span><span class="p">:</span> <span class="s1">&#39;The requested method does not exist&#39;</span><span class="p">,</span>
+                    <span class="mi">104</span><span class="p">:</span> <span class="s1">&#39;The requested version does not support the functionality&#39;</span><span class="p">,</span>
+                    <span class="mi">105</span><span class="p">:</span> <span class="s1">&#39;The logged in session does not have permission&#39;</span><span class="p">,</span>
+                    <span class="mi">106</span><span class="p">:</span> <span class="s1">&#39;Session timeout&#39;</span><span class="p">,</span>
+                    <span class="mi">107</span><span class="p">:</span> <span class="s1">&#39;Session interrupted by duplicate login&#39;</span>
                 <span class="p">}</span>
 
-<span class="n">AuthCodeDesc</span> <span class="o">=</span> <span class="p">{</span>    <span class="mi">400</span><span class="p">:</span> <span class="s">&#39;No such account or incorrect password&#39;</span><span class="p">,</span>
-                    <span class="mi">401</span><span class="p">:</span> <span class="s">&#39;Guest account disabled&#39;</span><span class="p">,</span>
-                    <span class="mi">402</span><span class="p">:</span> <span class="s">&#39;Account disabled&#39;</span><span class="p">,</span>
-                    <span class="mi">403</span><span class="p">:</span> <span class="s">&#39;Wrong password&#39;</span><span class="p">,</span>
-                    <span class="mi">404</span><span class="p">:</span> <span class="s">&#39;Permission denied&#39;</span>
+<span class="n">AuthCodeDesc</span> <span class="o">=</span> <span class="p">{</span>    <span class="mi">400</span><span class="p">:</span> <span class="s1">&#39;No such account or incorrect password&#39;</span><span class="p">,</span>
+                    <span class="mi">401</span><span class="p">:</span> <span class="s1">&#39;Guest account disabled&#39;</span><span class="p">,</span>
+                    <span class="mi">402</span><span class="p">:</span> <span class="s1">&#39;Account disabled&#39;</span><span class="p">,</span>
+                    <span class="mi">403</span><span class="p">:</span> <span class="s1">&#39;Wrong password&#39;</span><span class="p">,</span>
+                    <span class="mi">404</span><span class="p">:</span> <span class="s1">&#39;Permission denied&#39;</span>
                 <span class="p">}</span>
 
-<span class="n">DSTaskCodeDesc</span> <span class="o">=</span> <span class="p">{</span>  <span class="mi">400</span><span class="p">:</span> <span class="s">&#39;File upload failed&#39;</span><span class="p">,</span>
-                    <span class="mi">401</span><span class="p">:</span> <span class="s">&#39;Max number of tasks reached&#39;</span><span class="p">,</span>
-                    <span class="mi">402</span><span class="p">:</span> <span class="s">&#39;Destination denied&#39;</span><span class="p">,</span>
-                    <span class="mi">403</span><span class="p">:</span> <span class="s">&#39;Destination does not exist&#39;</span><span class="p">,</span>
-                    <span class="mi">404</span><span class="p">:</span> <span class="s">&#39;Invalid task id&#39;</span><span class="p">,</span>
-                    <span class="mi">405</span><span class="p">:</span> <span class="s">&#39;Invalid task action&#39;</span>
+<span class="n">DSTaskCodeDesc</span> <span class="o">=</span> <span class="p">{</span>  <span class="mi">400</span><span class="p">:</span> <span class="s1">&#39;File upload failed&#39;</span><span class="p">,</span>
+                    <span class="mi">401</span><span class="p">:</span> <span class="s1">&#39;Max number of tasks reached&#39;</span><span class="p">,</span>
+                    <span class="mi">402</span><span class="p">:</span> <span class="s1">&#39;Destination denied&#39;</span><span class="p">,</span>
+                    <span class="mi">403</span><span class="p">:</span> <span class="s1">&#39;Destination does not exist&#39;</span><span class="p">,</span>
+                    <span class="mi">404</span><span class="p">:</span> <span class="s1">&#39;Invalid task id&#39;</span><span class="p">,</span>
+                    <span class="mi">405</span><span class="p">:</span> <span class="s1">&#39;Invalid task action&#39;</span>
                 <span class="p">}</span>
 
-<span class="n">DS_VERSION</span> <span class="o">=</span> <span class="s">&#39;0.1&#39;</span>
+<span class="n">DS_VERSION</span> <span class="o">=</span> <span class="s1">&#39;0.1&#39;</span>
 
 <span class="k">class</span> <span class="nc">DownloadStation</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sessionID</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sessionID</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tryLogin</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">debugInfo</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cgipath</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">subdir</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cgipath</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">subdir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&#39;data error&#39;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;data error&#39;</span><span class="p">)</span>
             <span class="k">return</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">&#39;version&#39;</span><span class="p">):</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;version&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">&#39;_sid&#39;</span><span class="p">):</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;_sid&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sessionID</span><span class="p">})</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">):</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;_sid&#39;</span><span class="p">):</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;_sid&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sessionID</span><span class="p">})</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">NAS_URL</span><span class="p">,</span> <span class="s">&#39;webapi&#39;</span><span class="p">,</span> <span class="n">subdir</span><span class="p">,</span> <span class="n">cgipath</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">NAS_URL</span><span class="p">,</span> <span class="s1">&#39;webapi&#39;</span><span class="p">,</span> <span class="n">subdir</span><span class="p">,</span> <span class="n">cgipath</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">requst</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
             <span class="n">res</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">requst</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;error&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;code&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span><span class="s">&#39;success&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span><span class="s1">&#39;success&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
         <span class="k">return</span> <span class="n">res</span>
 
     <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span>     <span class="s">&#39;SYNO.API.Auth&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;method&#39;</span><span class="p">:</span>  <span class="s">&#39;login&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;version&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-                 <span class="s">&#39;account&#39;</span><span class="p">:</span> <span class="n">NAS_USR</span><span class="p">,</span>
-                 <span class="s">&#39;passwd&#39;</span><span class="p">:</span>  <span class="n">NAS_PWD</span><span class="p">,</span>
-                 <span class="s">&#39;session&#39;</span><span class="p">:</span> <span class="s">&#39;DownloadStation&#39;</span><span class="p">,</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span>     <span class="s1">&#39;SYNO.API.Auth&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;method&#39;</span><span class="p">:</span>  <span class="s1">&#39;login&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                 <span class="s1">&#39;account&#39;</span><span class="p">:</span> <span class="n">NAS_USR</span><span class="p">,</span>
+                 <span class="s1">&#39;passwd&#39;</span><span class="p">:</span>  <span class="n">NAS_PWD</span><span class="p">,</span>
+                 <span class="s1">&#39;session&#39;</span><span class="p">:</span> <span class="s1">&#39;DownloadStation&#39;</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;auth.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;auth.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sessionID</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;sid&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sessionID</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;sid&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span>     <span class="s">&#39;SYNO.API.Auth&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;method&#39;</span><span class="p">:</span>  <span class="s">&#39;logout&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;session&#39;</span><span class="p">:</span> <span class="s">&#39;DownloadStation&#39;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span>     <span class="s1">&#39;SYNO.API.Auth&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;method&#39;</span><span class="p">:</span>  <span class="s1">&#39;logout&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;session&#39;</span><span class="p">:</span> <span class="s1">&#39;DownloadStation&#39;</span>
         <span class="p">}</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;auth.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sessionID</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;auth.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sessionID</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
     <span class="k">def</span> <span class="nf">tryLogin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sessionID</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sessionID</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">login</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tryLogin</span><span class="p">()</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span>     <span class="s">&#39;SYNO.DownloadStation.Info&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;method&#39;</span><span class="p">:</span>  <span class="s">&#39;getinfo&#39;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span>     <span class="s1">&#39;SYNO.DownloadStation.Info&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;method&#39;</span><span class="p">:</span>  <span class="s1">&#39;getinfo&#39;</span>
         <span class="p">}</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;DownloadStation/info.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;DownloadStation/info.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="p">)</span>
-        <span class="n">manager_info</span> <span class="o">=</span> <span class="s">&#39;, and you are manager.&#39;</span> <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;is_manager&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s">&#39;.&#39;</span>
-        <span class="n">info</span> <span class="o">=</span> <span class="s">&#39;everything is ok, the version of Download Station is {}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;version_string&#39;</span><span class="p">],</span> <span class="n">manager_info</span><span class="p">)</span>
+        <span class="n">manager_info</span> <span class="o">=</span> <span class="s1">&#39;, and you are manager.&#39;</span> <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;is_manager&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;.&#39;</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="s1">&#39;everything is ok, the version of Download Station is {}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;version_string&#39;</span><span class="p">],</span> <span class="n">manager_info</span><span class="p">)</span>
         <span class="k">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
 
 
-    <span class="c"># 显示当前下载速度</span>
+    <span class="c1"># 显示当前下载速度</span>
     <span class="k">def</span> <span class="nf">showStatistic</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tryLogin</span><span class="p">()</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span>     <span class="s">&#39;SYNO.DownloadStation.Statistic&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;method&#39;</span><span class="p">:</span>  <span class="s">&#39;getinfo&#39;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span>     <span class="s1">&#39;SYNO.DownloadStation.Statistic&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;method&#39;</span><span class="p">:</span>  <span class="s1">&#39;getinfo&#39;</span>
         <span class="p">}</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;statistic.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s">&#39;DownloadStation&#39;</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;statistic.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s1">&#39;DownloadStation&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="p">)</span>
-        <span class="n">speed_download</span>          <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;speed_download&#39;</span><span class="p">])</span>
-        <span class="n">speed_upload</span>            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;speed_upload&#39;</span><span class="p">])</span>
-        <span class="n">info</span> <span class="o">=</span> <span class="s">&#39;{:15} download {:10} upload {:10}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;Speed:&#39;</span><span class="p">,</span> <span class="n">speed_download</span><span class="p">,</span> <span class="n">speed_upload</span><span class="p">)</span>
+        <span class="n">speed_download</span>          <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;speed_download&#39;</span><span class="p">])</span>
+        <span class="n">speed_upload</span>            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;speed_upload&#39;</span><span class="p">])</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="s1">&#39;{:15} download {:10} upload {:10}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;Speed:&#39;</span><span class="p">,</span> <span class="n">speed_download</span><span class="p">,</span> <span class="n">speed_upload</span><span class="p">)</span>
         <span class="k">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">&#39;emule_speed_download&#39;</span><span class="p">):</span>
-            <span class="n">emule_speed_download</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;emule_speed_download&#39;</span><span class="p">])</span>
-            <span class="n">emule_speed_upload</span>      <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;emule_speed_upload&#39;</span><span class="p">])</span>
-            <span class="n">info</span> <span class="o">=</span> <span class="s">&#39;{:15} download {:10} upload {:10}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;eMule Speed:&#39;</span><span class="p">,</span> <span class="n">emule_speed_download</span><span class="p">,</span> <span class="n">emule_speed_upload</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;emule_speed_download&#39;</span><span class="p">):</span>
+            <span class="n">emule_speed_download</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;emule_speed_download&#39;</span><span class="p">])</span>
+            <span class="n">emule_speed_upload</span>      <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;emule_speed_upload&#39;</span><span class="p">])</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="s1">&#39;{:15} download {:10} upload {:10}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;eMule Speed:&#39;</span><span class="p">,</span> <span class="n">emule_speed_download</span><span class="p">,</span> <span class="n">emule_speed_upload</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&#39;eMule disabled.&#39;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;eMule disabled.&#39;</span><span class="p">)</span>
 
-    <span class="c"># 显示当前任务信息</span>
+    <span class="c1"># 显示当前任务信息</span>
     <span class="k">def</span> <span class="nf">showTask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simple</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">include_seeding</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tryLogin</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">simple</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">showStatistic</span><span class="p">()</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span>         <span class="s">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;method&#39;</span><span class="p">:</span>      <span class="s">&#39;list&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;additional&#39;</span><span class="p">:</span>  <span class="s">&#39;transfer&#39;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span>         <span class="s1">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;method&#39;</span><span class="p">:</span>      <span class="s1">&#39;list&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;additional&#39;</span><span class="p">:</span>  <span class="s1">&#39;transfer&#39;</span>
         <span class="p">}</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">include_seeding</span><span class="p">:</span>
-            <span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;tasks&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;seeding&#39;</span><span class="p">,</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;tasks&#39;</span><span class="p">])</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;tasks&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&#39;Task list is empty.&#39;</span><span class="p">)</span>
+            <span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;tasks&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;seeding&#39;</span><span class="p">,</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;tasks&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;tasks&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Task list is empty.&#39;</span><span class="p">)</span>
             <span class="k">return</span>
-        <span class="n">title</span> <span class="o">=</span> <span class="s">&#39;{:10}{:15}{:10}{:15}{:15}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;Type&#39;</span><span class="p">,</span> <span class="s">&#39;Status&#39;</span><span class="p">,</span> <span class="s">&#39;Size&#39;</span><span class="p">,</span> <span class="s">&#39;Downloaded&#39;</span><span class="p">,</span> <span class="s">&#39;Speed&#39;</span><span class="p">,</span> <span class="s">&#39;Title&#39;</span><span class="p">)</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;{:10}{:15}{:10}{:15}{:15}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;Type&#39;</span><span class="p">,</span> <span class="s1">&#39;Status&#39;</span><span class="p">,</span> <span class="s1">&#39;Size&#39;</span><span class="p">,</span> <span class="s1">&#39;Downloaded&#39;</span><span class="p">,</span> <span class="s1">&#39;Speed&#39;</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">simple</span><span class="p">:</span>
-            <span class="n">title</span> <span class="o">=</span> <span class="s">&#39;{:40}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;Task ID&#39;</span><span class="p">,</span> <span class="s">&#39;Title&#39;</span><span class="p">)</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;{:40}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;Task ID&#39;</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">)</span>
         <span class="k">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;tasks&#39;</span><span class="p">]:</span>
-            <span class="n">task</span><span class="p">[</span><span class="s">&#39;size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s">&#39;size&#39;</span><span class="p">]);</span>
-            <span class="n">task</span><span class="p">[</span><span class="s">&#39;add_size_d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s">&#39;additional&#39;</span><span class="p">][</span><span class="s">&#39;transfer&#39;</span><span class="p">][</span><span class="s">&#39;size_downloaded&#39;</span><span class="p">])</span>
-            <span class="n">task</span><span class="p">[</span><span class="s">&#39;add_sued&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s">&#39;additional&#39;</span><span class="p">][</span><span class="s">&#39;transfer&#39;</span><span class="p">][</span><span class="s">&#39;size_uploaded&#39;</span><span class="p">])</span>
-            <span class="n">task</span><span class="p">[</span><span class="s">&#39;add_speed_d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s">&#39;additional&#39;</span><span class="p">][</span><span class="s">&#39;transfer&#39;</span><span class="p">][</span><span class="s">&#39;speed_download&#39;</span><span class="p">])</span>
-            <span class="n">task</span><span class="p">[</span><span class="s">&#39;add_su&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s">&#39;additional&#39;</span><span class="p">][</span><span class="s">&#39;transfer&#39;</span><span class="p">][</span><span class="s">&#39;speed_upload&#39;</span><span class="p">])</span>
-            <span class="n">info</span> <span class="o">=</span> <span class="s">&#39;{type:10}{status:15}{size:10}{add_size_d:15}{add_speed_d:15}{title:30}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">task</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;tasks&#39;</span><span class="p">]:</span>
+            <span class="n">task</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">]);</span>
+            <span class="n">task</span><span class="p">[</span><span class="s1">&#39;add_size_d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s1">&#39;additional&#39;</span><span class="p">][</span><span class="s1">&#39;transfer&#39;</span><span class="p">][</span><span class="s1">&#39;size_downloaded&#39;</span><span class="p">])</span>
+            <span class="n">task</span><span class="p">[</span><span class="s1">&#39;add_sued&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s1">&#39;additional&#39;</span><span class="p">][</span><span class="s1">&#39;transfer&#39;</span><span class="p">][</span><span class="s1">&#39;size_uploaded&#39;</span><span class="p">])</span>
+            <span class="n">task</span><span class="p">[</span><span class="s1">&#39;add_speed_d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s1">&#39;additional&#39;</span><span class="p">][</span><span class="s1">&#39;transfer&#39;</span><span class="p">][</span><span class="s1">&#39;speed_download&#39;</span><span class="p">])</span>
+            <span class="n">task</span><span class="p">[</span><span class="s1">&#39;add_su&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">humanSize</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s1">&#39;additional&#39;</span><span class="p">][</span><span class="s1">&#39;transfer&#39;</span><span class="p">][</span><span class="s1">&#39;speed_upload&#39;</span><span class="p">])</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="s1">&#39;{type:10}{status:15}{size:10}{add_size_d:15}{add_speed_d:15}{title:30}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">task</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">simple</span><span class="p">:</span>
-                <span class="n">info</span> <span class="o">=</span> <span class="s">&#39;{id:40}{title}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">task</span><span class="p">)</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="s1">&#39;{id:40}{title}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">task</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
 
-    <span class="c"># 创建新的下载任务 参数可以是本地文件或链接</span>
+    <span class="c1"># 创建新的下载任务 参数可以是本地文件或链接</span>
     <span class="k">def</span> <span class="nf">createTask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link_or_file</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tryLogin</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">link_or_file</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span><span class="s">&#39;arguments error&#39;</span><span class="p">)</span>
-        <span class="n">uris</span> <span class="o">=</span> <span class="s">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">link_or_file</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">link_or_file</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">link_or_file</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span><span class="s1">&#39;arguments error&#39;</span><span class="p">)</span>
+        <span class="n">uris</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">link_or_file</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">link_or_file</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">link_or_file</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">uris</span><span class="p">):</span>
-                <span class="c"># 使用file参数似乎有问题 自己读</span>
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">uris</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-                    <span class="n">uris</span> <span class="o">=</span> <span class="s">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s"> </span><span class="se">\t\r</span><span class="s">&#39;</span><span class="p">),</span> <span class="n">fp</span><span class="o">.</span><span class="n">readlines</span><span class="p">()))</span>
+                <span class="c1"># 使用file参数似乎有问题 自己读</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">uris</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+                    <span class="n">uris</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> </span><span class="se">\t\r</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">fp</span><span class="o">.</span><span class="n">readlines</span><span class="p">()))</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span>     <span class="s">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;method&#39;</span><span class="p">:</span>  <span class="s">&#39;create&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;uri&#39;</span><span class="p">:</span>     <span class="n">uris</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span>     <span class="s1">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;method&#39;</span><span class="p">:</span>  <span class="s1">&#39;create&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;uri&#39;</span><span class="p">:</span>     <span class="n">uris</span>
         <span class="p">}</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;task created.&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;task created.&#39;</span><span class="p">)</span>
 
-    <span class="c"># 清理错误 及 已完成的任务</span>
-    <span class="c">#! eMule任务中 有seeding状态的无法删除</span>
+    <span class="c1"># 清理错误 及 已完成的任务</span>
+    <span class="c1">#! eMule任务中 有seeding状态的无法删除</span>
     <span class="k">def</span> <span class="nf">cleanTask</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tryLogin</span><span class="p">()</span>
-        <span class="c"># 获取任务列表</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span>         <span class="s">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;method&#39;</span><span class="p">:</span>      <span class="s">&#39;list&#39;</span><span class="p">,</span>
+        <span class="c1"># 获取任务列表</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span>         <span class="s1">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;method&#39;</span><span class="p">:</span>      <span class="s1">&#39;list&#39;</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="p">)</span>
         <span class="n">need_clean</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;tasks&#39;</span><span class="p">]:</span>
-            <span class="c"># 错误 已完成 的清理</span>
-            <span class="k">if</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;error&#39;</span> <span class="ow">or</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;finished&#39;</span><span class="p">:</span>
-                <span class="n">need_clean</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">task</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]:</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]})</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;tasks&#39;</span><span class="p">]:</span>
+            <span class="c1"># 错误 已完成 的清理</span>
+            <span class="k">if</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;error&#39;</span> <span class="ow">or</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;finished&#39;</span><span class="p">:</span>
+                <span class="n">need_clean</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">task</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]:</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]})</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">need_clean</span><span class="p">):</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&#39;there is no task need to clean.&#39;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;there is no task need to clean.&#39;</span><span class="p">)</span>
             <span class="k">return</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span>     <span class="s">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;method&#39;</span><span class="p">:</span>  <span class="s">&#39;delete&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;id&#39;</span><span class="p">:</span>      <span class="s">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">need_clean</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span>     <span class="s1">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;method&#39;</span><span class="p">:</span>  <span class="s1">&#39;delete&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;id&#39;</span><span class="p">:</span>      <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">need_clean</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
         <span class="p">}</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="p">)</span>
-        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]:</span>
-            <span class="n">clean_res</span> <span class="o">=</span> <span class="s">&#39;clean success:&#39;</span> <span class="k">if</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s">&#39;clean fail(</span><span class="si">%d</span><span class="s">):&#39;</span> <span class="o">%</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">]</span>
-            <span class="n">title</span> <span class="o">=</span> <span class="n">need_clean</span><span class="p">[</span><span class="n">task</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="n">need_clean</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">])</span> <span class="k">else</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
-            <span class="n">info</span> <span class="o">=</span> <span class="s">&#39;{:20}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clean_res</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]:</span>
+            <span class="n">clean_res</span> <span class="o">=</span> <span class="s1">&#39;clean success:&#39;</span> <span class="k">if</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;clean fail(</span><span class="si">%d</span><span class="s1">):&#39;</span> <span class="o">%</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">need_clean</span><span class="p">[</span><span class="n">task</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="n">need_clean</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span> <span class="k">else</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="s1">&#39;{:20}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clean_res</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">pauseTask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">pauseTask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tryLogin</span><span class="p">()</span>
-        <span class="c"># 未自定id则暂停所有</span>
+        <span class="c1"># 未自定id则暂停所有</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">task_id</span><span class="p">:</span>
-            <span class="c"># 获取任务列表</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span>         <span class="s">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
-                     <span class="s">&#39;method&#39;</span><span class="p">:</span>      <span class="s">&#39;list&#39;</span><span class="p">,</span>
+            <span class="c1"># 获取任务列表</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span>         <span class="s1">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;method&#39;</span><span class="p">:</span>      <span class="s1">&#39;list&#39;</span><span class="p">,</span>
             <span class="p">}</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="p">)</span>
             <span class="n">ids</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;tasks&#39;</span><span class="p">]:</span>
-                <span class="c"># eMule做种的任务无法暂停</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;seeding&#39;</span><span class="p">:</span>
-                    <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;tasks&#39;</span><span class="p">]:</span>
+                <span class="c1"># eMule做种的任务无法暂停</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;seeding&#39;</span><span class="p">:</span>
+                    <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span><span class="s">&#39;there is no task can be paused.&#39;</span><span class="p">)</span>
-            <span class="n">task_id</span> <span class="o">=</span> <span class="s">&#39;,&#39;</span> <span class="o">.</span> <span class="n">join</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span><span class="s1">&#39;there is no task can be paused.&#39;</span><span class="p">)</span>
+            <span class="n">task_id</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span> <span class="o">.</span> <span class="n">join</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
 
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span> <span class="s">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;method&#39;</span><span class="p">:</span> <span class="s">&#39;pause&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;id&#39;</span><span class="p">:</span>      <span class="n">task_id</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span> <span class="s1">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;pause&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;id&#39;</span><span class="p">:</span>      <span class="n">task_id</span>
         <span class="p">}</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="p">)</span>
-        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]:</span>
-            <span class="n">info</span> <span class="o">=</span> <span class="s">&#39;pause success:&#39;</span> <span class="k">if</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s">&#39;pause fail(</span><span class="si">%d</span><span class="s">):&#39;</span> <span class="o">%</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">]</span>
-            <span class="k">print</span><span class="p">(</span> <span class="s">&#39;{:20}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">])</span> <span class="p">)</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="s1">&#39;pause success:&#39;</span> <span class="k">if</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;pause fail(</span><span class="si">%d</span><span class="s1">):&#39;</span> <span class="o">%</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span>
+            <span class="k">print</span><span class="p">(</span> <span class="s1">&#39;{:20}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">resumeTask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">resumeTask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tryLogin</span><span class="p">()</span>
-        <span class="c"># 未自定id则恢复所有</span>
+        <span class="c1"># 未自定id则恢复所有</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">task_id</span><span class="p">:</span>
-            <span class="c"># 获取任务列表</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span>         <span class="s">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
-                     <span class="s">&#39;method&#39;</span><span class="p">:</span>      <span class="s">&#39;list&#39;</span><span class="p">,</span>
+            <span class="c1"># 获取任务列表</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span>         <span class="s1">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;method&#39;</span><span class="p">:</span>      <span class="s1">&#39;list&#39;</span><span class="p">,</span>
             <span class="p">}</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="p">)</span>
             <span class="n">ids</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;tasks&#39;</span><span class="p">]:</span>
-                <span class="k">if</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;paused&#39;</span><span class="p">:</span>
-                    <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;tasks&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;paused&#39;</span><span class="p">:</span>
+                    <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span><span class="s">&#39;there is no task can be paused.&#39;</span><span class="p">)</span>
-            <span class="n">task_id</span> <span class="o">=</span> <span class="s">&#39;,&#39;</span> <span class="o">.</span> <span class="n">join</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span>     <span class="s">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;method&#39;</span><span class="p">:</span>  <span class="s">&#39;resume&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;id&#39;</span><span class="p">:</span>      <span class="n">task_id</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span><span class="s1">&#39;there is no task can be paused.&#39;</span><span class="p">)</span>
+            <span class="n">task_id</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span> <span class="o">.</span> <span class="n">join</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span>     <span class="s1">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;method&#39;</span><span class="p">:</span>  <span class="s1">&#39;resume&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;id&#39;</span><span class="p">:</span>      <span class="n">task_id</span>
         <span class="p">}</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="p">)</span>
-        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]:</span>
-            <span class="n">info</span> <span class="o">=</span> <span class="s">&#39;resume success:&#39;</span> <span class="k">if</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s">&#39;resume fail(</span><span class="si">%d</span><span class="s">):&#39;</span> <span class="o">%</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">]</span>
-            <span class="k">print</span><span class="p">(</span> <span class="s">&#39;{:20}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">])</span> <span class="p">)</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="s1">&#39;resume success:&#39;</span> <span class="k">if</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;resume fail(</span><span class="si">%d</span><span class="s1">):&#39;</span> <span class="o">%</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span>
+            <span class="k">print</span><span class="p">(</span> <span class="s1">&#39;{:20}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span> <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">deleteTask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tryLogin</span><span class="p">()</span>
-        <span class="c"># 获取待删除任务信息</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span>     <span class="s">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;method&#39;</span><span class="p">:</span>  <span class="s">&#39;getinfo&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;id&#39;</span><span class="p">:</span>      <span class="n">task_id</span>
+        <span class="c1"># 获取待删除任务信息</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span>     <span class="s1">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;method&#39;</span><span class="p">:</span>  <span class="s1">&#39;getinfo&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;id&#39;</span><span class="p">:</span>      <span class="n">task_id</span>
         <span class="p">}</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;tasks&#39;</span><span class="p">]):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span><span class="s">&#39;task is non-existent.&#39;</span><span class="p">)</span>
-        <span class="c"># 如果任务未完成 且 无错误 请求确认</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;tasks&#39;</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span><span class="s1">&#39;task is non-existent.&#39;</span><span class="p">)</span>
+        <span class="c1"># 如果任务未完成 且 无错误 请求确认</span>
         <span class="n">need_confirm</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">][</span><span class="s">&#39;tasks&#39;</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;error&#39;</span> <span class="ow">and</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;finished&#39;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;tasks&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;error&#39;</span> <span class="ow">and</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;finished&#39;</span><span class="p">:</span>
                 <span class="n">need_confirm</span> <span class="o">=</span> <span class="bp">True</span>
-                <span class="k">print</span><span class="p">(</span> <span class="s">&#39;{:20}{:40}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;task uncompleted:&#39;</span><span class="p">,</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="n">task</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">])</span> <span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span> <span class="s1">&#39;{:20}{:40}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;task uncompleted:&#39;</span><span class="p">,</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">task</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">])</span> <span class="p">)</span>
         <span class="k">if</span> <span class="n">need_confirm</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&#39;are you sure to delete it(yes/no)?:&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;yes&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s1">&#39;are you sure to delete it(yes/no)?:&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span><span class="p">:</span>
                 <span class="k">return</span>
-        <span class="c"># 删除</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span>     <span class="s">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;method&#39;</span><span class="p">:</span>  <span class="s">&#39;delete&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;id&#39;</span><span class="p">:</span>      <span class="n">task_id</span>
+        <span class="c1"># 删除</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span>     <span class="s1">&#39;SYNO.DownloadStation.Task&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;method&#39;</span><span class="p">:</span>  <span class="s1">&#39;delete&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;id&#39;</span><span class="p">:</span>      <span class="n">task_id</span>
         <span class="p">}</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;DownloadStation/task.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;task deleted.&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;task deleted.&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">eMule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_enable</span><span class="p">):</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;api&#39;</span><span class="p">:</span>             <span class="s">&#39;SYNO.DownloadStation.Info&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;method&#39;</span><span class="p">:</span>          <span class="s">&#39;setserverconfig&#39;</span><span class="p">,</span>
-                 <span class="s">&#39;emule_enabled&#39;</span><span class="p">:</span>   <span class="s">&#39;false&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">is_enable</span> <span class="k">else</span> <span class="s">&#39;true&#39;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;api&#39;</span><span class="p">:</span>             <span class="s1">&#39;SYNO.DownloadStation.Info&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;method&#39;</span><span class="p">:</span>          <span class="s1">&#39;setserverconfig&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;emule_enabled&#39;</span><span class="p">:</span>   <span class="s1">&#39;false&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">is_enable</span> <span class="k">else</span> <span class="s1">&#39;true&#39;</span>
         <span class="p">}</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;DownloadStation/info.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;DownloadStation/info.cgi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;eMule was </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s">&#39;enabled&#39;</span> <span class="k">if</span> <span class="n">is_enable</span> <span class="k">else</span> <span class="s">&#39;disabled&#39;</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;eMule was </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;enabled&#39;</span> <span class="k">if</span> <span class="n">is_enable</span> <span class="k">else</span> <span class="s1">&#39;disabled&#39;</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">isSuccess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">&#39;success&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="o">=</span> <span class="s">&#39;something error&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="o">=</span> <span class="s1">&#39;something error&#39;</span>
             <span class="k">return</span> <span class="bp">False</span>
-        <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;success&#39;</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;success&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
             <span class="k">return</span> <span class="bp">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="o">=</span> <span class="s">&#39;Fail. error code: </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;code&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">&#39;error&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">&#39;code&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s">&#39;something error&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastError</span> <span class="o">=</span> <span class="s1">&#39;Fail. error code: </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">][</span><span class="s1">&#39;code&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;something error&#39;</span>
         <span class="k">return</span> <span class="bp">False</span>
 
     <span class="k">def</span> <span class="nf">humanSize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">byte</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">byte</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">)):</span>
             <span class="n">byte</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">byte</span><span class="p">)</span> <span class="k">if</span> <span class="n">byte</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">()</span> <span class="k">else</span> <span class="mi">0</span>
         <span class="n">size</span> <span class="o">=</span> <span class="n">byte</span> <span class="o">/</span> <span class="mf">1024.0</span>
-        <span class="n">unit</span> <span class="o">=</span> <span class="s">&#39;KB&#39;</span>
+        <span class="n">unit</span> <span class="o">=</span> <span class="s1">&#39;KB&#39;</span>
         <span class="k">if</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1024</span><span class="p">:</span>
             <span class="n">size</span> <span class="o">=</span> <span class="n">size</span> <span class="o">/</span> <span class="mf">1024.0</span>
-            <span class="n">unit</span> <span class="o">=</span> <span class="s">&#39;MB&#39;</span>
+            <span class="n">unit</span> <span class="o">=</span> <span class="s1">&#39;MB&#39;</span>
         <span class="k">if</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1024</span><span class="p">:</span>
             <span class="n">size</span> <span class="o">=</span> <span class="n">size</span> <span class="o">/</span> <span class="mf">1024.0</span>
-            <span class="n">unit</span> <span class="o">=</span> <span class="s">&#39;GB&#39;</span>
-        <span class="k">return</span> <span class="s">&#39;{:.2f}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span>
+            <span class="n">unit</span> <span class="o">=</span> <span class="s1">&#39;GB&#39;</span>
+        <span class="k">return</span> <span class="s1">&#39;{:.2f}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">die</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">die</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">msg</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">msg</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">prog</span> <span class="o">=</span> <span class="s">&#39;ds&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&#39;Synology NAS Download Station Tool.&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-v&#39;</span><span class="p">,</span> <span class="s">&#39;--version&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;version&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s">&#39;</span><span class="si">%(prog)s</span><span class="s"> &#39;</span> <span class="o">+</span> <span class="n">DS_VERSION</span><span class="p">)</span>
-    <span class="n">subparsers</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s">&#39;subcommands&#39;</span><span class="p">,</span> <span class="n">dest</span> <span class="o">=</span> <span class="s">&#39;sub_cmd&#39;</span><span class="p">)</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">prog</span> <span class="o">=</span> <span class="s1">&#39;ds&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Synology NAS Download Station Tool.&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="s1">&#39;--version&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(prog)s</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="n">DS_VERSION</span><span class="p">)</span>
+    <span class="n">subparsers</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;subcommands&#39;</span><span class="p">,</span> <span class="n">dest</span> <span class="o">=</span> <span class="s1">&#39;sub_cmd&#39;</span><span class="p">)</span>
 
-    <span class="c"># 任务信息</span>
-    <span class="n">sub_info_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s">&#39;info&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s">&#39;show task infomation&#39;</span><span class="p">)</span>
-    <span class="n">sub_info_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--simple&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s">&#39;only show task id and title&#39;</span><span class="p">)</span>
-    <span class="n">sub_info_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--all&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s">&#39;show all task&#39;</span><span class="p">)</span>
+    <span class="c1"># 任务信息</span>
+    <span class="n">sub_info_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;show task infomation&#39;</span><span class="p">)</span>
+    <span class="n">sub_info_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--simple&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;only show task id and title&#39;</span><span class="p">)</span>
+    <span class="n">sub_info_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--all&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;show all task&#39;</span><span class="p">)</span>
 
-    <span class="c"># 创建新任务</span>
-    <span class="n">sub_create_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s">&#39;create&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;create new task&#39;</span><span class="p">)</span>
-    <span class="n">sub_create_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;link_or_file&#39;</span><span class="p">,</span> <span class="n">nargs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;single link or a file which include multi-links&#39;</span><span class="p">)</span>
+    <span class="c1"># 创建新任务</span>
+    <span class="n">sub_create_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;create&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;create new task&#39;</span><span class="p">)</span>
+    <span class="n">sub_create_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;link_or_file&#39;</span><span class="p">,</span> <span class="n">nargs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;single link or a file which include multi-links&#39;</span><span class="p">)</span>
 
-    <span class="c"># 清理任务</span>
-    <span class="n">sub_clean_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s">&#39;clean&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s">&#39;clean error or completed task&#39;</span><span class="p">)</span>
+    <span class="c1"># 清理任务</span>
+    <span class="n">sub_clean_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;clean error or completed task&#39;</span><span class="p">)</span>
 
-    <span class="c"># 暂停任务</span>
-    <span class="n">sub_pause_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s">&#39;pause&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s">&#39;pause task&#39;</span><span class="p">)</span>
-    <span class="n">sub_pause_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;task_id&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+    <span class="c1"># 暂停任务</span>
+    <span class="n">sub_pause_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;pause&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;pause task&#39;</span><span class="p">)</span>
+    <span class="n">sub_pause_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;task_id&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
 
-    <span class="c"># 恢复任务</span>
-    <span class="n">sub_resume_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s">&#39;resume&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s">&#39;resume task&#39;</span><span class="p">)</span>
-    <span class="n">sub_resume_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;task_id&#39;</span><span class="p">,</span> <span class="n">nargs</span> <span class="o">=</span> <span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+    <span class="c1"># 恢复任务</span>
+    <span class="n">sub_resume_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;resume&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;resume task&#39;</span><span class="p">)</span>
+    <span class="n">sub_resume_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;task_id&#39;</span><span class="p">,</span> <span class="n">nargs</span> <span class="o">=</span> <span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
 
-    <span class="c"># 删除任务</span>
-    <span class="n">sub_delete_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s">&#39;delete&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s">&#39;delete task&#39;</span><span class="p">)</span>
-    <span class="n">sub_delete_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;task_id&#39;</span><span class="p">)</span>
+    <span class="c1"># 删除任务</span>
+    <span class="n">sub_delete_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;delete&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;delete task&#39;</span><span class="p">)</span>
+    <span class="n">sub_delete_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;task_id&#39;</span><span class="p">)</span>
 
-    <span class="c"># eMule控制</span>
-    <span class="n">sub_emule_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s">&#39;emule&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s">&#39;enable or disable eMule&#39;</span><span class="p">)</span>
-    <span class="n">sub_emule_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;operate&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;on&#39;</span><span class="p">,</span> <span class="s">&#39;off&#39;</span><span class="p">])</span>
+    <span class="c1"># eMule控制</span>
+    <span class="n">sub_emule_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;emule&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;enable or disable eMule&#39;</span><span class="p">)</span>
+    <span class="n">sub_emule_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;operate&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;on&#39;</span><span class="p">,</span> <span class="s1">&#39;off&#39;</span><span class="p">])</span>
 
-    <span class="c"># 测试</span>
-    <span class="n">sub_test_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s">&#39;test&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s">&#39;test API&#39;</span><span class="p">)</span>
+    <span class="c1"># 测试</span>
+    <span class="n">sub_test_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;test API&#39;</span><span class="p">)</span>
 
-    <span class="c"># 如果没有参数则默认输出info</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([</span><span class="s">&#39;info&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="c1"># 如果没有参数则默认输出info</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([</span><span class="s1">&#39;info&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
-    <span class="n">cmd_map</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;info&#39;</span><span class="p">:</span>     <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">showTask</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">simple</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">all</span><span class="p">),</span>
-                <span class="s">&#39;create&#39;</span><span class="p">:</span>   <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">createTask</span><span class="p">(</span> <span class="n">args</span><span class="o">.</span><span class="n">link_or_file</span> <span class="p">),</span>
-                <span class="s">&#39;clean&#39;</span><span class="p">:</span>    <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">cleanTask</span><span class="p">(),</span>
-                <span class="s">&#39;pause&#39;</span><span class="p">:</span>    <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">pauseTask</span><span class="p">(</span> <span class="n">args</span><span class="o">.</span><span class="n">task_id</span> <span class="p">),</span>
-                <span class="s">&#39;resume&#39;</span><span class="p">:</span>   <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">resumeTask</span><span class="p">(</span> <span class="n">args</span><span class="o">.</span><span class="n">task_id</span> <span class="p">),</span>
-                <span class="s">&#39;delete&#39;</span><span class="p">:</span>   <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">deleteTask</span><span class="p">(</span> <span class="n">args</span><span class="o">.</span><span class="n">task_id</span> <span class="p">),</span>
-                <span class="s">&#39;emule&#39;</span><span class="p">:</span>    <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">eMule</span><span class="p">(</span> <span class="bp">True</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">operate</span> <span class="o">==</span> <span class="s">&#39;on&#39;</span> <span class="k">else</span> <span class="bp">False</span><span class="p">),</span>
-                <span class="s">&#39;test&#39;</span><span class="p">:</span>     <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
+    <span class="n">cmd_map</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;info&#39;</span><span class="p">:</span>     <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">showTask</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">simple</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">all</span><span class="p">),</span>
+                <span class="s1">&#39;create&#39;</span><span class="p">:</span>   <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">createTask</span><span class="p">(</span> <span class="n">args</span><span class="o">.</span><span class="n">link_or_file</span> <span class="p">),</span>
+                <span class="s1">&#39;clean&#39;</span><span class="p">:</span>    <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">cleanTask</span><span class="p">(),</span>
+                <span class="s1">&#39;pause&#39;</span><span class="p">:</span>    <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">pauseTask</span><span class="p">(</span> <span class="n">args</span><span class="o">.</span><span class="n">task_id</span> <span class="p">),</span>
+                <span class="s1">&#39;resume&#39;</span><span class="p">:</span>   <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">resumeTask</span><span class="p">(</span> <span class="n">args</span><span class="o">.</span><span class="n">task_id</span> <span class="p">),</span>
+                <span class="s1">&#39;delete&#39;</span><span class="p">:</span>   <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">deleteTask</span><span class="p">(</span> <span class="n">args</span><span class="o">.</span><span class="n">task_id</span> <span class="p">),</span>
+                <span class="s1">&#39;emule&#39;</span><span class="p">:</span>    <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">eMule</span><span class="p">(</span> <span class="bp">True</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">operate</span> <span class="o">==</span> <span class="s1">&#39;on&#39;</span> <span class="k">else</span> <span class="bp">False</span><span class="p">),</span>
+                <span class="s1">&#39;test&#39;</span><span class="p">:</span>     <span class="k">lambda</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
     <span class="p">}</span>
     <span class="k">if</span> <span class="n">cmd_map</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">sub_cmd</span><span class="p">):</span>
         <span class="n">ds</span> <span class="o">=</span> <span class="n">DownloadStation</span><span class="p">()</span>
         <span class="n">cmd_map</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">sub_cmd</span><span class="p">]()</span>
         <span class="n">ds</span><span class="o">.</span><span class="n">logout</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;something error.&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;something error.&#39;</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </code></pre></div>
 
@@ -759,10 +899,10 @@
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Jan 16, 2013</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/remote-control-synology-download-station/#comments" title="Comment on 命令行远程控制Synology DSM Download Station">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/remote-control-synology-download-station/#comments" title="Comment on 命令行远程控制Synology DSM Download Station">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-42971 -->
@@ -792,22 +932,14 @@
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?88452"></script>
+<script type="text/javascript" src="http://127.0.0.1:8910/assets/script/action.js?53190"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?88452'></script>
+<script type='text/javascript' src='http://127.0.0.1:8910/assets/script/css3-mediaqueries.js?53190'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
 <script type="text/javascript" src="/assets/additional.js"></script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+<script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();</script>
 
 <!-- google analytics track code -->
 <script type="text/javascript">

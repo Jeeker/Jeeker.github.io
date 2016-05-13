@@ -7,10 +7,10 @@
 <head>
     <title>Arduino - Jeeker</title>
     <meta charset="UTF-8">
-    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
-    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?88452" />
-    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <link rel="apple-touch-icon" href="http://127.0.0.1:8910/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://127.0.0.1:8910/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8910/assets/style.css?53190" />
+    <link rel="alternate" type="application/atom+xml" href="http://127.0.0.1:8910/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
     <!-- <meta name="keywords" content="" /> -->
@@ -22,12 +22,12 @@
     <div id="header">
         <div id="menu">
             <ul>
-                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
-                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
-                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
-                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
-                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
-                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+                <li><a href="http://127.0.0.1:8910/"><span>Home</span></a></li>
+                <li><a href="http://127.0.0.1:8910/projects/"><span>Projects</span></a></li>
+                <li><a href="http://127.0.0.1:8910/tags/"><span>Tags</span></a></li>
+                <li><a href="http://127.0.0.1:8910/archives/"><span>Archives</span></a></li>
+                <li><a href="http://127.0.0.1:8910/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://127.0.0.1:8910/about/"><span>About</span></a></li>
             </ul>
         </div>
     </div><!-- ＃header -->
@@ -38,7 +38,7 @@
             <li id="tool-search">
                 <form action="http://google.com/search" method="get">
                     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-                    <input type="hidden" name="q" value="site:jeeker.net" />
+                    <input type="hidden" name="q" value="site:127.0.0.1:8910" />
                 </form>
             </li>
         </ul>
@@ -51,7 +51,7 @@
 
 <div id="post-64180" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/" title="第一个Arduino实验: 新浪微博关注好友状态更新数量" rel="bookmark">第一个Arduino实验: 新浪微博关注好友状态更新数量</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/" title="第一个Arduino实验: 新浪微博关注好友状态更新数量" rel="bookmark">第一个Arduino实验: 新浪微博关注好友状态更新数量</a></h1>
         <p class="entry-date" title="2013-03-20 15:23:00">
             <span class="day">20</span>
             <span class="month">Mar</span>
@@ -71,48 +71,48 @@
 
 <p>　　代码是Python2.7的，因此Arduino需预先写入<a href="http://firmata.org/">StandardFirmata</a>，而Python则需安装<a href="https://github.com/tino/pyFirmata">pyFirmata</a>模块。</p>
 
-<div class="codehilite"><pre><code><span class="c">#!/usr/bin/env python</span>
-<span class="c"># -*- coding: utf-8 -*-</span>
-<span class="c">#! 强制默认编码为utf-8</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#! 强制默认编码为utf-8</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="nb">reload</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">pyfirmata</span><span class="o">,</span> <span class="nn">urllib</span><span class="o">,</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
-<span class="c">#! 微博的API调用需要OAuth2.0登陆授权</span>
-<span class="c">#! 这里不做授权过程，需使用开发者账号测试 参考：http://t.cn/zYDjFan</span>
-<span class="n">ACCESS_TOKEN</span> <span class="o">=</span> <span class="s">&#39;YOUR ACCESS TOKEN&#39;</span>
+<span class="c1">#! 微博的API调用需要OAuth2.0登陆授权</span>
+<span class="c1">#! 这里不做授权过程，需使用开发者账号测试 参考：http://t.cn/zYDjFan</span>
+<span class="n">ACCESS_TOKEN</span> <span class="o">=</span> <span class="s1">&#39;YOUR ACCESS TOKEN&#39;</span>
 
-<span class="c"># Arduino硬件接口</span>
-<span class="n">ARDUINO_PORT</span>        <span class="o">=</span> <span class="s">&#39;YOUR ARDUINO PORT&#39;</span>
+<span class="c1"># Arduino硬件接口</span>
+<span class="n">ARDUINO_PORT</span>        <span class="o">=</span> <span class="s1">&#39;YOUR ARDUINO PORT&#39;</span>
 
 <span class="n">POWER_PIN</span>           <span class="o">=</span> <span class="mi">13</span>
 <span class="n">DOTPOINT_PIN</span>        <span class="o">=</span> <span class="mi">5</span>
 
 <span class="n">NUMBERS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="c">#E  D  C  DP B  A  F  G   // 数码管</span>
-    <span class="c">#2  3  4  5  6  7  8  9   // 输出端口</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c"># 0</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c"># 1</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># 2 </span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># 3</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># 4</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># 5</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># 6</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c"># 7</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># 8</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># 9</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c"># dot point</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c"># line</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c"># nothing</span>
+    <span class="c1">#E  D  C  DP B  A  F  G   // 数码管</span>
+    <span class="c1">#2  3  4  5  6  7  8  9   // 输出端口</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c1"># 0</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c1"># 1</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># 2 </span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># 3</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># 4</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># 5</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># 6</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c1"># 7</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># 8</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># 9</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c1"># dot point</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># line</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># nothing</span>
 <span class="p">]</span>
 
 <span class="k">class</span> <span class="nc">WBftc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">initArduino</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -127,18 +127,18 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span> <span class="o">=</span> <span class="n">pyfirmata</span><span class="o">.</span><span class="n">Arduino</span><span class="p">(</span><span class="n">ARDUINO_PORT</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="o">.</span><span class="n">digital</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&#39;init arduino fail.&#39;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;init arduino fail.&#39;</span><span class="p">)</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">outputArduino</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="p">,</span> <span class="n">pyfirmata</span><span class="o">.</span><span class="n">Arduino</span><span class="p">):</span>
             <span class="k">return</span>
-        <span class="c"># 输出 0 - 9 的数字</span>
+        <span class="c1"># 输出 0 - 9 的数字</span>
         <span class="n">show</span> <span class="o">=</span> <span class="n">num</span>
-        <span class="c"># 小于0 错误</span>
+        <span class="c1"># 小于0 错误</span>
         <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">show</span> <span class="o">=</span> <span class="mi">12</span>
-        <span class="c"># 大于 9 超出量程</span>
+        <span class="c1"># 大于 9 超出量程</span>
         <span class="k">elif</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">9</span><span class="p">:</span>
             <span class="n">show</span> <span class="o">=</span> <span class="mi">11</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
@@ -152,40 +152,40 @@
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">fetchWeiboStatusCount</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c"># -1 错误</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.weibo.com/2/statuses/friends_timeline/ids.json&#39;</span>
+        <span class="c1"># -1 错误</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.weibo.com/2/statuses/friends_timeline/ids.json&#39;</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;access_token&#39;</span>  <span class="p">:</span> <span class="n">ACCESS_TOKEN</span>
+            <span class="s1">&#39;access_token&#39;</span>  <span class="p">:</span> <span class="n">ACCESS_TOKEN</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span><span class="p">:</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;since_id&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span> <span class="p">})</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;since_id&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span> <span class="p">})</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">requst</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s">&#39;{}?{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span>
+            <span class="n">requst</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s1">&#39;{}?{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span>
             <span class="n">res</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">requst</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">&#39;statuses&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;statuses&#39;</span><span class="p">):</span>
                 <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
-            <span class="n">statuses</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;statuses&#39;</span><span class="p">]</span>
+            <span class="n">statuses</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;statuses&#39;</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">statuses</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span> <span class="o">=</span> <span class="n">statuses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">statuses</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&#39;something error.&#39;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;something error.&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
 
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">while</span> <span class="p">(</span><span class="bp">True</span><span class="p">):</span>
             <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetchWeiboStatusCount</span><span class="p">()</span>
-            <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&#39;%H:%M:%S&#39;</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&#39;{}: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">now</span><span class="p">,</span> <span class="n">count</span><span class="p">))</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{}: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">now</span><span class="p">,</span> <span class="n">count</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">outputArduino</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">flashDotPoint</span><span class="p">()</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">WBftc</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
     <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r</span><span class="s">exit.&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">exit.&#39;</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">e</span>
 </code></pre></div>
@@ -213,7 +213,7 @@
     <iframe class="user-box" height="445" width="720" src="http://player.youku.com/embed/XNTI5NjQ0NDA4" frameborder="0" allowfullscreen></iframe>
 </center></p>
 
-<p><a href="http://jeeker.net/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/#more-64180" class="more-link">Read more...</a></p>
+<p><a href="http://127.0.0.1:8910/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/#more-64180" class="more-link">Read more...</a></p>
 <!-- content end -->
     </div><!-- .entry-content -->
     <div class="entry-meta">
@@ -222,7 +222,7 @@
             <li class="entry-categories"> in 
 </li>
             <li class="entry-human-time-diff"> on Mar 20, 2013</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/#comments" title="Comment on 第一个Arduino实验: 新浪微博关注好友状态更新数量">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/#comments" title="Comment on 第一个Arduino实验: 新浪微博关注好友状态更新数量">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-64180 -->
@@ -252,22 +252,14 @@
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?88452"></script>
+<script type="text/javascript" src="http://127.0.0.1:8910/assets/script/action.js?53190"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?88452'></script>
+<script type='text/javascript' src='http://127.0.0.1:8910/assets/script/css3-mediaqueries.js?53190'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
 <script type="text/javascript" src="/assets/additional.js"></script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+<script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();</script>
 
 <!-- google analytics track code -->
 <script type="text/javascript">

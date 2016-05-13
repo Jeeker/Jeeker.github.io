@@ -7,10 +7,10 @@
 <head>
     <title>Jeeker</title>
     <meta charset="UTF-8">
-    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
-    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?88452" />
-    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <link rel="apple-touch-icon" href="http://127.0.0.1:8910/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://127.0.0.1:8910/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8910/assets/style.css?53190" />
+    <link rel="alternate" type="application/atom+xml" href="http://127.0.0.1:8910/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
     <!-- <meta name="keywords" content="" /> -->
@@ -22,12 +22,12 @@
     <div id="header">
         <div id="menu">
             <ul>
-                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
-                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
-                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
-                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
-                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
-                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+                <li><a href="http://127.0.0.1:8910/"><span>Home</span></a></li>
+                <li><a href="http://127.0.0.1:8910/projects/"><span>Projects</span></a></li>
+                <li><a href="http://127.0.0.1:8910/tags/"><span>Tags</span></a></li>
+                <li><a href="http://127.0.0.1:8910/archives/"><span>Archives</span></a></li>
+                <li><a href="http://127.0.0.1:8910/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://127.0.0.1:8910/about/"><span>About</span></a></li>
             </ul>
         </div>
     </div><!-- ＃header -->
@@ -38,7 +38,7 @@
             <li id="tool-search">
                 <form action="http://google.com/search" method="get">
                     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-                    <input type="hidden" name="q" value="site:jeeker.net" />
+                    <input type="hidden" name="q" value="site:127.0.0.1:8910" />
                 </form>
             </li>
         </ul>
@@ -48,9 +48,149 @@
     <div id="content" role="main">
 
 
+<div id="post-45097" class="post post-list post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://127.0.0.1:8910/article/compile-shadowsocks-libev-for-synology-nas-dsm/" title="在Synology群晖NAS上使用shadowsocks-libev、polipo" rel="bookmark">在Synology群晖NAS上使用shadowsocks-libev、polipo</a></h1>
+        <p class="entry-date" title="2016-05-11 13:38:17">
+            <span class="day">11</span>
+            <span class="month">May</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　翻墙一直主要使用的是SSH动态端口映射，SSH代理数据传输的安全性自然没必要担心，但据说有较明显的流量特征，服务器较易暴露，再加上SSH代理在Windows下使用并不那么友好，因此在自己购买了<a href="https://m.do.co/c/dbb13a862eff">VPS</a>后就决定要用<a href="http://shadowsocks.org">shadowsocks</a>做代理服务器。</p>
+
+<p>　　Python版的shadowsocks因作者<a href="https://github.com/clowwindy">clowwindy</a><a href="https://zh.wikipedia.org/wiki/Shadowsocks#.E5.81.9C.E6.AD.A2.E7.B6.AD.E8.AD.B7">被请喝茶早就停止更新</a>，托开源的福，shadowsock有众多其它语言版本，比如纯C的<a href="https://github.com/shadowsocks/shadowsocks-libev">shadowsocks-libev</a>，较低的资源消耗更适合配置一般的VPS和我那内存仅区区<em>128M</em>的NAS。</p>
+
+<p>　　<a href="https://m.do.co/c/dbb13a862eff">VPS</a>操作系统是Ubuntu，不论是自己编译还是从软件源安装都很简单，但群晖NAS上就比较麻烦了。NAS配置低的惨不忍睹，而且缺少编译环境，只能在其他Linux服务器上进行交叉编译。关于交叉编译，Synology提供了详尽的<a href="https://global.download.synology.com/download/Document/DeveloperGuide/DSM_Developer_Guide.pdf">开发指南</a>可供参考。</p>
+
+<h5>一、环境准备</h5>
+
+<p>　　1. 准备编译服务器，一般常见的Linux发行版都没有问题，但需要注意的是必须是32位的，我是在Paralels Desktop虚拟机里安装的Ubuntu 16.04 i386。</p>
+
+<p>　　2. 确定NAS的<a href="http://domoticx.com/synology-nas-cpu-lijst/">CPU类型</a>、DSM版本，下载对应的<a href="https://sourceforge.net/projects/dsgpl/files/">Tool Chains</a>，如我的老爷机DS211j，<strong>CPU: Marvell mv6282 DSM: 6.0</strong>，需要下载的就是<a href="https://sourceforge.net/projects/dsgpl/files/DSM%206.0%20Tool%20Chains/Marvell%2088F628x%20Linux%202.6.32/">6281-gcc464_glibc215_88f6281-GPL.txz</a>。</p>
+
+<p>　　3. 上传Tool Chains到编译服务器。</p>
+
+<p>　　<strong>注意：下文脚本假定工作目录为<code>/home/jinnlynn/nas</code>，Tool Chains也被上传到该目录下</strong></p>
+
+<h5 id="-2">二、编译</h5>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># 工作目录，前文下载的6281-gcc464_glibc215_88f6281-GPL.txz在该目录下</span>
+<span class="nv">WDIR</span><span class="o">=</span>/home/jinnlynn/nas
+<span class="c1"># 目标目录，编译好的文件将会保存在这</span>
+<span class="nv">DIST</span><span class="o">=</span><span class="nv">$WDIR</span>/dist
+
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+
+<span class="c1"># 安装工具</span>
+sudo apt-get -y install make binutils
+
+<span class="c1"># 解压Tool Chains，将生成arm-marvell-linux-gnueabi文件夹</span>
+tar xvf 6281-gcc464_glibc215_88f6281-GPL.txz
+
+<span class="c1"># 编译环境变量，不同的CPU环境可能不同，详见Synology开发指南的Compile Open Source Projects章节</span>
+<span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-gcc
+<span class="nb">export</span> <span class="nv">LD</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-ld
+<span class="nb">export</span> <span class="nv">RANLIB</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-ranlib
+<span class="nb">export</span> <span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-I</span><span class="nv">$WDIR</span><span class="s2">/arm-marvell-linux-gnueabi/arm-marvell-linux-gnueabi/libc/include&quot;</span>
+<span class="nb">export</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&quot;-L</span><span class="nv">$WDIR</span><span class="s2">/arm-marvell-linux-gnueabi/arm-marvell-linux-gnueabi/libc/lib&quot;</span>
+
+<span class="c1"># 依赖zlib，下载编译</span>
+curl -O http://zlib.net/zlib-1.2.8.tar.gz
+tar xvf zlib-1.2.8.tar.gz
+<span class="nb">cd</span> zlib-1.2.8/
+./configure --prefix<span class="o">=</span><span class="nv">$DIST</span>/zlib-1.2.8
+make install
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+
+<span class="c1"># 依赖openssl，下载编译</span>
+curl -O https://www.openssl.org/source/openssl-1.0.2h.tar.gz
+tar xvf openssl-1.0.2h.tar.gz
+<span class="nb">cd</span> openssl-1.0.2h
+./Configure dist --prefix<span class="o">=</span><span class="nv">$DIST</span>/openssl-1.0.2h
+make
+make install
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+
+<span class="c1"># 编译shadowsocks-libev</span>
+curl -OL https://github.com/shadowsocks/shadowsocks-libev/archive/v2.4.6.tar.gz
+tar xvf v2.4.6.tar.gz
+<span class="nb">cd</span> shadowsocks-libev-2.4.6
+<span class="c1"># 配置 需要注意的是--host选项，目标NAS不同值可能也会不同</span>
+<span class="c1"># 详见Synology开发指南的Compile Open Source Projects章节</span>
+./configure <span class="se">\</span>
+    --with-zlib<span class="o">=</span><span class="nv">$DIST</span>/zlib-1.2.8 <span class="se">\</span>
+    --with-openssl<span class="o">=</span><span class="nv">$DIST</span>/openssl-1.0.2h <span class="se">\</span>
+    --prefix<span class="o">=</span><span class="nv">$DIST</span>/shadowsocks-libev-2.4.6 <span class="se">\</span>
+    --host<span class="o">=</span>armle-unknown-linux
+make
+make install
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+</code></pre></div>
+
+<p>　　将生成的shadowsocks-libev-2.4.6目录拷贝到NAS即可正常使用了。</p>
+
+<h5 id="polipo">三、编译polipo</h5>
+
+<p>　　shadowsocks-libev是socks5代理，但某些应用可能只能使用HTTP代理，因此需要转换，软件个人推荐<a href="https://www.irif.univ-paris-diderot.fr/~jch/software/polipo/">polipo</a>，轻量高效，ipkg软件源上也有但版本较低，最好也自己编译。</p>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># 工作目录</span>
+<span class="nv">WDIR</span><span class="o">=</span>/home/jinnlynn/nas
+<span class="c1"># 目标目录，编译好的文件将会保存在这</span>
+<span class="nv">DIST</span><span class="o">=</span><span class="nv">$WDIR</span>/dist/
+
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+
+<span class="c1"># 安装工具</span>
+sudo apt-get -y install texinfo
+
+<span class="c1"># 编译环境变量，不同的CPU环境可能不同，详见Synology开发指南的Compile Open Source Projects章节</span>
+<span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-gcc
+<span class="nb">export</span> <span class="nv">LD</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-ld
+<span class="nb">export</span> <span class="nv">RANLIB</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-ranlib
+<span class="nb">export</span> <span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-I</span><span class="nv">$WDIR</span><span class="s2">/arm-marvell-linux-gnueabi/arm-marvell-linux-gnueabi/libc/include&quot;</span>
+<span class="nb">export</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&quot;-L</span><span class="nv">$WDIR</span><span class="s2">/arm-marvell-linux-gnueabi/arm-marvell-linux-gnueabi/libc/lib&quot;</span>
+
+curl -OL https://github.com/jech/polipo/archive/polipo-1.1.1.tar.gz
+tar xvf polipo-1.1.1.tar.gz
+<span class="nb">cd</span> polipo-polipo-1.1.1/
+
+make all
+
+<span class="c1"># polipo的make install默认将安装到当前系统目录</span>
+<span class="c1"># 这里自己拷贝出所需文件</span>
+<span class="nv">PREFIX</span><span class="o">=</span><span class="nv">$DIST</span>/polipo-1.1.1
+mkdir -p <span class="nv">$PREFIX</span>/bin
+mkdir -p <span class="nv">$PREFIX</span>/share/www/doc
+rm -f <span class="nv">$PREFIX</span>/bin/polipo
+cp -f polipo <span class="nv">$PREFIX</span>/bin/
+cp -f html/* <span class="nv">$PREFIX</span>/share/www/doc
+cp -f localindex.html <span class="nv">$PREFIX</span>/share/www/index.html
+mkdir -p <span class="nv">$PREFIX</span>/man/man1
+mkdir -p <span class="nv">$PREFIX</span>/info
+cp -f polipo.man <span class="nv">$PREFIX</span>/man/man1/polipo.1
+cp polipo.info <span class="nv">$PREFIX</span>/info/
+</code></pre></div>
+
+<p>　　同样的拷贝polipo-1.1.1目录到NAS即可，要注意的一点是运行时可能出现<code>Disabling disk cache: No such file or directory</code> 或 <code>Disabling local tree: No such file or directory</code>提示，这是因为编译默认的缓存目录和本地文档目录在NAS上不一定存在，只要运行时给polipo添加<strong>localDocumentRoot</strong>和<strong>diskCacheRoot</strong>选项，设置正确的目录就没有问题了。</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on May 11, 2016</li>
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/compile-shadowsocks-libev-for-synology-nas-dsm/#comments" title="Comment on 在Synology群晖NAS上使用shadowsocks-libev、polipo">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-45097 -->
 <div id="post-93497" class="post post-list post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/diablo3-hero-data-statistics/" title="Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计" rel="bookmark">Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/diablo3-hero-data-statistics/" title="Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计" rel="bookmark">Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计</a></h1>
         <p class="entry-date" title="2015-04-14 14:38:17">
             <span class="day">14</span>
             <span class="month">Apr</span>
@@ -66,7 +206,7 @@
 
 <p>　　题外话，不得不说Python太适合写这类功能相对简单的脚本了，一个字：快。</p>
 
-<div class="codehilite"><pre><code><span class="c"># -*- coding: utf-8 -*-</span>
+<div class="codehilite"><pre><span></span><code><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Diablo3 排名前1000玩家英雄使用技能统计</span>
 
@@ -85,103 +225,103 @@
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
-<span class="n">__version__</span> <span class="o">=</span> <span class="s">&#39;1.0.0&#39;</span>
-<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;JinnLynn &lt;eatfishlin@gmail.com&gt;&#39;</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="s">&#39;The MIT License&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="s">&#39;Copyright 2015 JinnLynn&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;JinnLynn &lt;eatfishlin@gmail.com&gt;&#39;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;The MIT License&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2015 JinnLynn&#39;</span>
 
-<span class="c"># 排名页面</span>
-<span class="n">_rank_page</span> <span class="o">=</span> <span class="s">&#39;http://tw.battle.net/d3/zh/rankings/&#39;</span>
-<span class="c"># api</span>
-<span class="n">_api</span> <span class="o">=</span> <span class="s">&#39;http://tw.battle.net/api/d3/&#39;</span>
-<span class="n">_api_profile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_api</span><span class="p">,</span> <span class="s">&#39;profile&#39;</span><span class="p">)</span>
-<span class="n">_api_data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_api</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">)</span>
+<span class="c1"># 排名页面</span>
+<span class="n">_rank_page</span> <span class="o">=</span> <span class="s1">&#39;http://tw.battle.net/d3/zh/rankings/&#39;</span>
+<span class="c1"># api</span>
+<span class="n">_api</span> <span class="o">=</span> <span class="s1">&#39;http://tw.battle.net/api/d3/&#39;</span>
+<span class="n">_api_profile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_api</span><span class="p">,</span> <span class="s1">&#39;profile&#39;</span><span class="p">)</span>
+<span class="n">_api_data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_api</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
 
 <span class="n">_hero_classes</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">&#39;barbarian&#39;</span><span class="p">:</span> <span class="s">&#39;野蠻人&#39;</span><span class="p">,</span> <span class="s">&#39;crusader&#39;</span><span class="p">:</span> <span class="s">&#39;聖教軍&#39;</span><span class="p">,</span> <span class="s">&#39;demon-hunter&#39;</span><span class="p">:</span> <span class="s">&#39;狩魔獵人&#39;</span><span class="p">,</span>
-    <span class="s">&#39;monk&#39;</span><span class="p">:</span> <span class="s">&#39;武僧&#39;</span><span class="p">,</span> <span class="s">&#39;witch-doctor&#39;</span><span class="p">:</span> <span class="s">&#39;巫醫&#39;</span><span class="p">,</span> <span class="s">&#39;wizard&#39;</span><span class="p">:</span> <span class="s">&#39;秘術師&#39;</span><span class="p">}</span>
+    <span class="s1">&#39;barbarian&#39;</span><span class="p">:</span> <span class="s1">&#39;野蠻人&#39;</span><span class="p">,</span> <span class="s1">&#39;crusader&#39;</span><span class="p">:</span> <span class="s1">&#39;聖教軍&#39;</span><span class="p">,</span> <span class="s1">&#39;demon-hunter&#39;</span><span class="p">:</span> <span class="s1">&#39;狩魔獵人&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;monk&#39;</span><span class="p">:</span> <span class="s1">&#39;武僧&#39;</span><span class="p">,</span> <span class="s1">&#39;witch-doctor&#39;</span><span class="p">:</span> <span class="s1">&#39;巫醫&#39;</span><span class="p">,</span> <span class="s1">&#39;wizard&#39;</span><span class="p">:</span> <span class="s1">&#39;秘術師&#39;</span><span class="p">}</span>
 
 <span class="n">_retry</span> <span class="o">=</span> <span class="mi">5</span>
 
-<span class="n">_hero_class</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<span class="n">_hero_class</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 <span class="n">_active_skills</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">_passive_skills</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">_unique_gems</span> <span class="o">=</span> <span class="p">{}</span>
 
 
-<span class="k">def</span> <span class="nf">_clear_output</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r</span><span class="s">{:30}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">))</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r</span><span class="s">{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">_clear_output</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">{:30}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">))</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
 
 
 <span class="k">def</span> <span class="nf">_process</span><span class="p">(</span><span class="n">stated</span><span class="p">,</span> <span class="n">total</span><span class="p">):</span>
-    <span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;英雄数据分析中... {}/{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stated</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;英雄数据分析中... {}/{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stated</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
     <span class="n">_clear_output</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">is_json</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-    <span class="c"># print(&#39;GET: &#39;, url)</span>
+    <span class="c1"># print(&#39;GET: &#39;, url)</span>
     <span class="n">retry</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">if</span> <span class="n">_retry</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">_retry</span>
     <span class="k">while</span> <span class="n">retry</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+            <span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">req</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_json</span> <span class="k">else</span> <span class="n">req</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">e</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">retry</span> <span class="o">-=</span> <span class="mi">1</span>
-            <span class="c"># print(&#39;retry&#39;, retry, e)</span>
-            <span class="c"># raise e</span>
+            <span class="c1"># print(&#39;retry&#39;, retry, e)</span>
+            <span class="c1"># raise e</span>
 
 
 <span class="k">def</span> <span class="nf">_api_url</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">slash</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;slash&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">slash</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;slash&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="nb">unicode</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">url</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="k">if</span> <span class="n">slash</span> <span class="k">else</span> <span class="n">url</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">url</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="k">if</span> <span class="n">slash</span> <span class="k">else</span> <span class="n">url</span>
 
 
 <span class="k">def</span> <span class="nf">get_era</span><span class="p">():</span>
     <span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">_rank_page</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">req</span><span class="o">.</span><span class="n">geturl</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">req</span><span class="o">.</span><span class="n">geturl</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">get_rank_page_url</span><span class="p">(</span><span class="n">era</span><span class="p">):</span>
-    <span class="n">url_part</span> <span class="o">=</span> <span class="s">&#39;rift-&#39;</span>
-    <span class="k">if</span> <span class="n">_hero_class</span> <span class="o">==</span> <span class="s">&#39;demon-hunter&#39;</span><span class="p">:</span>
-        <span class="n">url_part</span> <span class="o">+=</span> <span class="s">&#39;dh&#39;</span>
-    <span class="k">elif</span> <span class="n">_hero_class</span> <span class="o">==</span> <span class="s">&#39;witch-doctor&#39;</span><span class="p">:</span>
-        <span class="n">url_part</span> <span class="o">+=</span> <span class="s">&#39;wd&#39;</span>
+    <span class="n">url_part</span> <span class="o">=</span> <span class="s1">&#39;rift-&#39;</span>
+    <span class="k">if</span> <span class="n">_hero_class</span> <span class="o">==</span> <span class="s1">&#39;demon-hunter&#39;</span><span class="p">:</span>
+        <span class="n">url_part</span> <span class="o">+=</span> <span class="s1">&#39;dh&#39;</span>
+    <span class="k">elif</span> <span class="n">_hero_class</span> <span class="o">==</span> <span class="s1">&#39;witch-doctor&#39;</span><span class="p">:</span>
+        <span class="n">url_part</span> <span class="o">+=</span> <span class="s1">&#39;wd&#39;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">url_part</span> <span class="o">+=</span> <span class="n">_hero_class</span>
-    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_rank_page</span><span class="p">,</span> <span class="s">&#39;era&#39;</span><span class="p">,</span> <span class="n">era</span><span class="p">,</span> <span class="n">url_part</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_rank_page</span><span class="p">,</span> <span class="s1">&#39;era&#39;</span><span class="p">,</span> <span class="n">era</span><span class="p">,</span> <span class="n">url_part</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">fetch_rank_list</span><span class="p">():</span>
     <span class="n">tags</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">_clear_output</span><span class="p">(</span><span class="s">&#39;获取当前游戏纪元...&#39;</span><span class="p">)</span>
+        <span class="n">_clear_output</span><span class="p">(</span><span class="s1">&#39;获取当前游戏纪元...&#39;</span><span class="p">)</span>
         <span class="n">era</span> <span class="o">=</span> <span class="n">get_era</span><span class="p">()</span>
-        <span class="n">_clear_output</span><span class="p">(</span><span class="s">&#39;获取当前排名前1000的玩家...&#39;</span><span class="p">)</span>
+        <span class="n">_clear_output</span><span class="p">(</span><span class="s1">&#39;获取当前排名前1000的玩家...&#39;</span><span class="p">)</span>
         <span class="n">url</span> <span class="o">=</span> <span class="n">get_rank_page_url</span><span class="p">(</span><span class="n">era</span><span class="p">)</span>
         <span class="n">html</span> <span class="o">=</span> <span class="n">_get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">is_json</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-        <span class="c"># re parse</span>
+        <span class="c1"># re parse</span>
         <span class="n">lst</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
-            <span class="s">r&quot;a href=</span><span class="se">\&quot;</span><span class="s">(.*)</span><span class="se">\&quot;</span><span class="s"> title=.*class=</span><span class="se">\&quot;</span><span class="s">icon-profile link-first</span><span class="se">\&quot;</span><span class="s">&gt;&quot;</span><span class="p">,</span>
-            <span class="n">html</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">),</span>
+            <span class="s2">r&quot;a href=</span><span class="se">\&quot;</span><span class="s2">(.*)</span><span class="se">\&quot;</span><span class="s2"> title=.*class=</span><span class="se">\&quot;</span><span class="s2">icon-profile link-first</span><span class="se">\&quot;</span><span class="s2">&gt;&quot;</span><span class="p">,</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">),</span>
             <span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">)</span>
-        <span class="c"># BeautifulSoup parse</span>
-        <span class="c"># import bs4</span>
-        <span class="c"># soup = bs4.BeautifulSoup(html)</span>
-        <span class="c"># lst = soup.select(&#39;#ladders-table tbody tr .battletag a&#39;)[&#39;href&#39;]</span>
+        <span class="c1"># BeautifulSoup parse</span>
+        <span class="c1"># import bs4</span>
+        <span class="c1"># soup = bs4.BeautifulSoup(html)</span>
+        <span class="c1"># lst = soup.select(&#39;#ladders-table tbody tr .battletag a&#39;)[&#39;href&#39;]</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
             <span class="k">except</span><span class="p">:</span>
                 <span class="k">pass</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;fetch rank list fail. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_rank_page</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;fetch rank list fail. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_rank_page</span><span class="p">))</span>
         <span class="k">raise</span> <span class="n">e</span>
     <span class="k">return</span> <span class="n">tags</span>
 
@@ -190,65 +330,65 @@
     <span class="n">url</span> <span class="o">=</span> <span class="n">_api_url</span><span class="p">(</span><span class="n">_api_profile</span><span class="p">,</span> <span class="n">player_tag</span><span class="p">,</span> <span class="n">slash</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">_get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="n">hero_selected</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="k">for</span> <span class="n">hero</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;heroes&#39;</span><span class="p">,</span> <span class="p">[]):</span>
-        <span class="k">if</span> <span class="n">hero</span><span class="p">[</span><span class="s">&#39;class&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_hero_class</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">hero</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;heroes&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">if</span> <span class="n">hero</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_hero_class</span><span class="p">:</span>
             <span class="k">continue</span>
-        <span class="n">last_updated</span> <span class="o">=</span> <span class="n">hero_selected</span><span class="p">[</span><span class="s">&#39;last-updated&#39;</span><span class="p">]</span>
-        <span class="c"># 最近使用的英雄</span>
-        <span class="k">if</span> <span class="n">hero_selected</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">last_updated</span> <span class="o">&lt;</span> <span class="n">hero</span><span class="p">[</span><span class="s">&#39;last-updated&#39;</span><span class="p">]:</span>
+        <span class="n">last_updated</span> <span class="o">=</span> <span class="n">hero_selected</span><span class="p">[</span><span class="s1">&#39;last-updated&#39;</span><span class="p">]</span>
+        <span class="c1"># 最近使用的英雄</span>
+        <span class="k">if</span> <span class="n">hero_selected</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">last_updated</span> <span class="o">&lt;</span> <span class="n">hero</span><span class="p">[</span><span class="s1">&#39;last-updated&#39;</span><span class="p">]:</span>
             <span class="n">hero_selected</span> <span class="o">=</span> <span class="n">hero</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">hero_selected</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;{} hero missing.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player_tag</span><span class="p">))</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="n">_api_url</span><span class="p">(</span><span class="n">_api_profile</span><span class="p">,</span> <span class="n">player_tag</span><span class="p">,</span> <span class="s">&#39;hero&#39;</span><span class="p">,</span> <span class="n">hero_selected</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">])</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;{} hero missing.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player_tag</span><span class="p">))</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">_api_url</span><span class="p">(</span><span class="n">_api_profile</span><span class="p">,</span> <span class="n">player_tag</span><span class="p">,</span> <span class="s1">&#39;hero&#39;</span><span class="p">,</span> <span class="n">hero_selected</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">_get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 
 
-<span class="c"># 主动技能符文</span>
+<span class="c1"># 主动技能符文</span>
 <span class="k">def</span> <span class="nf">stat_active_skill_rune</span><span class="p">(</span><span class="n">skill_slug</span><span class="p">,</span> <span class="n">rune</span><span class="p">):</span>
     <span class="k">global</span> <span class="n">_active_skills</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">rune</span><span class="p">:</span>
         <span class="k">return</span>
-    <span class="n">slug</span> <span class="o">=</span> <span class="n">rune</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;slug&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">slug</span> <span class="ow">in</span> <span class="n">_active_skills</span><span class="p">[</span><span class="n">skill_slug</span><span class="p">][</span><span class="s">&#39;rune&#39;</span><span class="p">]:</span>
-        <span class="n">_active_skills</span><span class="p">[</span><span class="n">skill_slug</span><span class="p">][</span><span class="s">&#39;rune&#39;</span><span class="p">][</span><span class="n">slug</span><span class="p">][</span><span class="s">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">slug</span> <span class="o">=</span> <span class="n">rune</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;slug&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">slug</span> <span class="ow">in</span> <span class="n">_active_skills</span><span class="p">[</span><span class="n">skill_slug</span><span class="p">][</span><span class="s1">&#39;rune&#39;</span><span class="p">]:</span>
+        <span class="n">_active_skills</span><span class="p">[</span><span class="n">skill_slug</span><span class="p">][</span><span class="s1">&#39;rune&#39;</span><span class="p">][</span><span class="n">slug</span><span class="p">][</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">_active_skills</span><span class="p">[</span><span class="n">skill_slug</span><span class="p">][</span><span class="s">&#39;rune&#39;</span><span class="p">][</span><span class="n">slug</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">rune</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
+        <span class="n">_active_skills</span><span class="p">[</span><span class="n">skill_slug</span><span class="p">][</span><span class="s1">&#39;rune&#39;</span><span class="p">][</span><span class="n">slug</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">rune</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
         <span class="p">}</span>
 
 
-<span class="c"># 主动技能</span>
+<span class="c1"># 主动技能</span>
 <span class="k">def</span> <span class="nf">stat_active_skill</span><span class="p">(</span><span class="n">active</span><span class="p">):</span>
     <span class="k">global</span> <span class="n">_active_skills</span>
-    <span class="n">slug</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;skill&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;slug&#39;</span><span class="p">)</span>
-    <span class="c"># d3 API 返回的数据中可能存在空的数据</span>
+    <span class="n">slug</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;skill&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;slug&#39;</span><span class="p">)</span>
+    <span class="c1"># d3 API 返回的数据中可能存在空的数据</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">slug</span><span class="p">:</span>
         <span class="k">return</span>
     <span class="k">if</span> <span class="n">slug</span> <span class="ow">in</span> <span class="n">_active_skills</span><span class="p">:</span>
-        <span class="n">_active_skills</span><span class="p">[</span><span class="n">slug</span><span class="p">][</span><span class="s">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">_active_skills</span><span class="p">[</span><span class="n">slug</span><span class="p">][</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">_active_skills</span><span class="p">[</span><span class="n">slug</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">active</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;skill&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">),</span>
-            <span class="s">&#39;rune&#39;</span><span class="p">:</span> <span class="p">{}</span>
+            <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">active</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;skill&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;rune&#39;</span><span class="p">:</span> <span class="p">{}</span>
         <span class="p">}</span>
-    <span class="n">stat_active_skill_rune</span><span class="p">(</span><span class="n">slug</span><span class="p">,</span> <span class="n">active</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;rune&#39;</span><span class="p">))</span>
+    <span class="n">stat_active_skill_rune</span><span class="p">(</span><span class="n">slug</span><span class="p">,</span> <span class="n">active</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;rune&#39;</span><span class="p">))</span>
 
 
-<span class="c"># 被动技能</span>
+<span class="c1"># 被动技能</span>
 <span class="k">def</span> <span class="nf">stat_passive_skill</span><span class="p">(</span><span class="n">passive</span><span class="p">):</span>
     <span class="k">global</span> <span class="n">_passive_skills</span>
-    <span class="n">slug</span> <span class="o">=</span> <span class="n">passive</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;skill&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;slug&#39;</span><span class="p">)</span>
-    <span class="c"># d3 API 返回的数据中可能存在空的数据</span>
+    <span class="n">slug</span> <span class="o">=</span> <span class="n">passive</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;skill&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;slug&#39;</span><span class="p">)</span>
+    <span class="c1"># d3 API 返回的数据中可能存在空的数据</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">slug</span><span class="p">:</span>
         <span class="k">return</span>
     <span class="k">if</span> <span class="n">slug</span> <span class="ow">in</span> <span class="n">_passive_skills</span><span class="p">:</span>
-        <span class="n">_passive_skills</span><span class="p">[</span><span class="n">slug</span><span class="p">][</span><span class="s">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">_passive_skills</span><span class="p">[</span><span class="n">slug</span><span class="p">][</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">_passive_skills</span><span class="p">[</span><span class="n">slug</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">passive</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;skill&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
+            <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">passive</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;skill&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
         <span class="p">}</span>
 
 
@@ -260,78 +400,78 @@
             <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
         <span class="n">url</span> <span class="o">=</span> <span class="n">_api_url</span><span class="p">(</span><span class="n">_api_data</span><span class="p">,</span> <span class="n">tooltip</span><span class="p">)</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">_get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-        <span class="n">gems</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;gems&#39;</span><span class="p">)</span>
+        <span class="n">gems</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;gems&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">gems</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
-        <span class="n">gem</span> <span class="o">=</span> <span class="n">gems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;item&#39;</span><span class="p">,</span> <span class="p">{})</span>
-        <span class="k">return</span> <span class="n">gem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">),</span> <span class="n">gem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
+        <span class="n">gem</span> <span class="o">=</span> <span class="n">gems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;item&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">return</span> <span class="n">gem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="n">gem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">items</span><span class="p">:</span>
         <span class="k">return</span>
 
-    <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">items</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">{})</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;leftFinger&#39;</span><span class="p">,</span> <span class="s">&#39;rightFinger&#39;</span><span class="p">,</span> <span class="s">&#39;neck&#39;</span><span class="p">]]</span>
-    <span class="k">for</span> <span class="n">tooltip</span> <span class="ow">in</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;tooltipParams&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">]:</span>
+    <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">items</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">{})</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;leftFinger&#39;</span><span class="p">,</span> <span class="s1">&#39;rightFinger&#39;</span><span class="p">,</span> <span class="s1">&#39;neck&#39;</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">tooltip</span> <span class="ow">in</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tooltipParams&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">]:</span>
         <span class="n">id_</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">get_gem</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">id_</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="k">if</span> <span class="n">id_</span> <span class="ow">in</span> <span class="n">_unique_gems</span><span class="p">:</span>
-            <span class="n">_unique_gems</span><span class="p">[</span><span class="n">id_</span><span class="p">][</span><span class="s">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">_unique_gems</span><span class="p">[</span><span class="n">id_</span><span class="p">][</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">_unique_gems</span><span class="p">[</span><span class="n">id_</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-                <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span>
+                <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span>
             <span class="p">}</span>
 
 
 <span class="k">def</span> <span class="nf">stat</span><span class="p">(</span><span class="n">hero</span><span class="p">):</span>
     <span class="k">global</span> <span class="n">_active_skills</span><span class="p">,</span> <span class="n">_passive_skills</span>
 
-    <span class="nb">map</span><span class="p">(</span><span class="n">stat_active_skill</span><span class="p">,</span> <span class="n">hero</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;skills&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;active&#39;</span><span class="p">,</span> <span class="p">[]))</span>
-    <span class="nb">map</span><span class="p">(</span><span class="n">stat_passive_skill</span><span class="p">,</span> <span class="n">hero</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;skills&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;passive&#39;</span><span class="p">,</span> <span class="p">[]))</span>
+    <span class="nb">map</span><span class="p">(</span><span class="n">stat_active_skill</span><span class="p">,</span> <span class="n">hero</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;skills&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="p">[]))</span>
+    <span class="nb">map</span><span class="p">(</span><span class="n">stat_passive_skill</span><span class="p">,</span> <span class="n">hero</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;skills&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;passive&#39;</span><span class="p">,</span> <span class="p">[]))</span>
 
-    <span class="n">items</span> <span class="o">=</span> <span class="n">hero</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;items&#39;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="n">hero</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="p">{})</span>
     <span class="n">stat_unique_gem</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="n">hero_stated</span><span class="p">,</span> <span class="n">hero_stat_failed</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s">&#39;count&#39;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;count&#39;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">d</span> <span class="k">if</span> <span class="n">count</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">count</span><span class="p">]</span>
 
     <span class="n">_clear_output</span><span class="p">()</span>
 
-    <span class="c"># print(&#39;======&#39;)</span>
-    <span class="c"># print(hero_stated, hero_stat_failed)</span>
-    <span class="c"># print(&#39;======&#39;)</span>
-    <span class="c"># pprint(_active_skills)</span>
-    <span class="c"># print(&#39;======&#39;)</span>
-    <span class="c"># pprint(_passive_skills)</span>
-    <span class="c"># print(&#39;======&#39;)</span>
-    <span class="c"># pprint(_unique_gems)</span>
-    <span class="c"># pprint(_active_skills.items())</span>
-    <span class="c"># print(&#39;======&#39;)</span>
+    <span class="c1"># print(&#39;======&#39;)</span>
+    <span class="c1"># print(hero_stated, hero_stat_failed)</span>
+    <span class="c1"># print(&#39;======&#39;)</span>
+    <span class="c1"># pprint(_active_skills)</span>
+    <span class="c1"># print(&#39;======&#39;)</span>
+    <span class="c1"># pprint(_passive_skills)</span>
+    <span class="c1"># print(&#39;======&#39;)</span>
+    <span class="c1"># pprint(_unique_gems)</span>
+    <span class="c1"># pprint(_active_skills.items())</span>
+    <span class="c1"># print(&#39;======&#39;)</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">=== RESULT ===</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;统计英雄数</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;  成功: {} 失败: {}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hero_stated</span><span class="p">,</span> <span class="n">hero_stat_failed</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">=== RESULT ===</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;统计英雄数</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  成功: {} 失败: {}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hero_stated</span><span class="p">,</span> <span class="n">hero_stat_failed</span><span class="p">))</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;主动技能使用排名: &#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;主动技能使用排名: &#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">sort</span><span class="p">(</span><span class="n">_active_skills</span><span class="p">):</span>
         <span class="n">runes</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">sort</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;rune&#39;</span><span class="p">,</span> <span class="p">{})):</span>
-            <span class="n">runes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;{name}[{count}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">r</span><span class="p">))</span>
-        <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;rune_rank&#39;</span><span class="p">:</span> <span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">runes</span><span class="p">)})</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;  {name}[{count}]: {rune_rank}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">sort</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;rune&#39;</span><span class="p">,</span> <span class="p">{})):</span>
+            <span class="n">runes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;{name}[{count}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">r</span><span class="p">))</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;rune_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">runes</span><span class="p">)})</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  {name}[{count}]: {rune_rank}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">))</span>
     <span class="k">print</span><span class="p">()</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;被动技能使用排名: &#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;被动技能使用排名: &#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">sort</span><span class="p">(</span><span class="n">_passive_skills</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;  {name}[{count}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  {name}[{count}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">))</span>
     <span class="k">print</span><span class="p">()</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;传奇宝石使用排名: &#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;传奇宝石使用排名: &#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">sort</span><span class="p">(</span><span class="n">_unique_gems</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;  {name}[{count}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  {name}[{count}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">))</span>
     <span class="k">print</span><span class="p">()</span>
 
 
@@ -339,19 +479,19 @@
     <span class="k">global</span> <span class="n">_hero_class</span>
 
     <span class="k">def</span> <span class="nf">print_hc</span><span class="p">():</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;仅支持以下英雄类型, 默认 demon-hunter:</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;仅支持以下英雄类型, 默认 demon-hunter:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">_hero_classes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;:&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">_hero_class</span> <span class="o">=</span> <span class="s">&#39;demon-hunter&#39;</span>
+        <span class="n">_hero_class</span> <span class="o">=</span> <span class="s1">&#39;demon-hunter&#39;</span>
     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s">&#39;参数错误&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;参数错误&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">arg</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">arg</span> <span class="o">==</span> <span class="s">&#39;help&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">arg</span> <span class="o">==</span> <span class="s1">&#39;help&#39;</span><span class="p">:</span>
             <span class="n">print_hc</span><span class="p">()</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">Tips: 运行中可随时Ctrl+C终止以获得已统计的数据结果&#39;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Tips: 运行中可随时Ctrl+C终止以获得已统计的数据结果&#39;</span><span class="p">)</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">arg</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_hero_classes</span><span class="p">:</span>
             <span class="n">print_hc</span><span class="p">()</span>
@@ -362,16 +502,16 @@
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">prepare</span><span class="p">()</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;待分析的英雄类型:&#39;</span><span class="p">,</span> <span class="n">_hero_classes</span><span class="p">[</span><span class="n">_hero_class</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;待分析的英雄类型:&#39;</span><span class="p">,</span> <span class="n">_hero_classes</span><span class="p">[</span><span class="n">_hero_class</span><span class="p">])</span>
 
     <span class="n">hero_stated</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">hero_stat_failed</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">tags</span> <span class="o">=</span> <span class="n">fetch_rank_list</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">tags</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;parse battle.net rank page fail.&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;parse battle.net rank page fail.&#39;</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;error,&#39;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;error,&#39;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 
     <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span>
@@ -380,20 +520,20 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">hero</span> <span class="o">=</span> <span class="n">get_hero</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">hero</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;no hero data&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;no hero data&#39;</span><span class="p">)</span>
             <span class="n">stat</span><span class="p">(</span><span class="n">hero</span><span class="p">)</span>
             <span class="n">hero_stated</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">_process</span><span class="p">(</span><span class="n">hero_stated</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
             <span class="k">break</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="c"># print(&#39;Fail: &#39;, tag, e, hero)</span>
+            <span class="c1"># print(&#39;Fail: &#39;, tag, e, hero)</span>
             <span class="n">hero_stat_failed</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="n">output</span><span class="p">(</span><span class="n">hero_stated</span><span class="p">,</span> <span class="n">hero_stat_failed</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </code></pre></div>
 
@@ -403,16 +543,16 @@
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Apr 14, 2015</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/diablo3-hero-data-statistics/#comments" title="Comment on Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/diablo3-hero-data-statistics/#comments" title="Comment on Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-93497 -->
 <div id="post-74697" class="post post-list post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/taobao-orders-statistics/" title="Python脚本: 淘宝消费情况统计" rel="bookmark">Python脚本: 淘宝消费情况统计</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/taobao-orders-statistics/" title="Python脚本: 淘宝消费情况统计" rel="bookmark">Python脚本: 淘宝消费情况统计</a></h1>
         <p class="entry-date" title="2014-12-19 15:38:17">
             <span class="day">19</span>
             <span class="month">Dec</span>
@@ -430,7 +570,7 @@
 
 <p><span class="btn-single btn-center"><a href="https://gist.github.com/JinnLynn/86c6ff8555363098b4c4" class="btn btn-large icon-github">Github Gist</a></span></p>
 
-<div class="codehilite"><pre><code><span class="c"># -*- coding: utf-8 -*-</span>
+<div class="codehilite"><pre><span></span><code><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;淘宝消费情况统计</span>
 
 <span class="sd">使用方法:</span>
@@ -469,255 +609,255 @@
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s">&#39;BeautifulSoup4 missing.&#39;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;BeautifulSoup4 missing.&#39;</span><span class="p">)</span>
 
-<span class="n">__version__</span> <span class="o">=</span> <span class="s">&#39;1.0.0&#39;</span>
-<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;JinnLynn&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="s">&#39;Copyright (c) 2014 JinnLynn&#39;</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="s">&#39;The MIT License&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;JinnLynn&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright (c) 2014 JinnLynn&#39;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;The MIT License&#39;</span>
 
 <span class="n">HEADERS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">&#39;x-requestted-with&#39;</span> <span class="p">:</span> <span class="s">&#39;XMLHttpRequest&#39;</span><span class="p">,</span>
-    <span class="s">&#39;Accept-Language&#39;</span> <span class="p">:</span> <span class="s">&#39;zh-cn&#39;</span><span class="p">,</span>
-    <span class="s">&#39;Accept-Encoding&#39;</span> <span class="p">:</span> <span class="s">&#39;gzip, deflate&#39;</span><span class="p">,</span>
-    <span class="s">&#39;ContentType&#39;</span> <span class="p">:</span> <span class="s">&#39;application/x-www-form-urlencoded; chartset=UTF-8&#39;</span><span class="p">,</span>
-    <span class="s">&#39;Cache-Control&#39;</span> <span class="p">:</span> <span class="s">&#39;no-cache&#39;</span><span class="p">,</span>
-    <span class="s">&#39;User-Agent&#39;</span> <span class="p">:</span><span class="s">&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.38 Safari/537.36&#39;</span><span class="p">,</span>
-    <span class="s">&#39;Connection&#39;</span> <span class="p">:</span> <span class="s">&#39;Keep-Alive&#39;</span>
+    <span class="s1">&#39;x-requestted-with&#39;</span> <span class="p">:</span> <span class="s1">&#39;XMLHttpRequest&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Accept-Language&#39;</span> <span class="p">:</span> <span class="s1">&#39;zh-cn&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Accept-Encoding&#39;</span> <span class="p">:</span> <span class="s1">&#39;gzip, deflate&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ContentType&#39;</span> <span class="p">:</span> <span class="s1">&#39;application/x-www-form-urlencoded; chartset=UTF-8&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Cache-Control&#39;</span> <span class="p">:</span> <span class="s1">&#39;no-cache&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;User-Agent&#39;</span> <span class="p">:</span><span class="s1">&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.38 Safari/537.36&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Connection&#39;</span> <span class="p">:</span> <span class="s1">&#39;Keep-Alive&#39;</span>
 <span class="p">}</span>
 
 <span class="n">DEFAULT_POST_DATA</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">&#39;TPL_username&#39;</span> <span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="c">#用户名</span>
-    <span class="s">&#39;TPL_password&#39;</span> <span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="c">#密码</span>
-    <span class="s">&#39;TPL_checkcode&#39;</span> <span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>
-    <span class="s">&#39;need_check_code&#39;</span> <span class="p">:</span> <span class="s">&#39;false&#39;</span><span class="p">,</span>
-    <span class="s">&#39;callback&#39;</span> <span class="p">:</span> <span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="c"># 有值返回JSON</span>
+    <span class="s1">&#39;TPL_username&#39;</span> <span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">#用户名</span>
+    <span class="s1">&#39;TPL_password&#39;</span> <span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">#密码</span>
+    <span class="s1">&#39;TPL_checkcode&#39;</span> <span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;need_check_code&#39;</span> <span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;callback&#39;</span> <span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="c1"># 有值返回JSON</span>
 <span class="p">}</span>
 
-<span class="c"># 无效订单状态</span>
+<span class="c1"># 无效订单状态</span>
 <span class="n">INVALID_ORDER_STATES</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s">&#39;CREATE_CLOSED_OF_TAOBAO&#39;</span><span class="p">,</span> <span class="c"># 取消</span>
-    <span class="s">&#39;TRADE_CLOSED&#39;</span><span class="p">,</span> <span class="c"># 订单关闭</span>
+    <span class="s1">&#39;CREATE_CLOSED_OF_TAOBAO&#39;</span><span class="p">,</span> <span class="c1"># 取消</span>
+    <span class="s1">&#39;TRADE_CLOSED&#39;</span><span class="p">,</span> <span class="c1"># 订单关闭</span>
 <span class="p">]</span>
 
-<span class="n">LOGIN_URL</span> <span class="o">=</span> <span class="s">&#39;https://login.taobao.com/member/login.jhtml&#39;</span>
+<span class="n">LOGIN_URL</span> <span class="o">=</span> <span class="s1">&#39;https://login.taobao.com/member/login.jhtml&#39;</span>
 
-<span class="n">RAW_IMPUT_ENCODING</span> <span class="o">=</span> <span class="s">&#39;gbk&#39;</span> <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;Windows&#39;</span> <span class="k">else</span> <span class="s">&#39;utf-8&#39;</span>
+<span class="n">RAW_IMPUT_ENCODING</span> <span class="o">=</span> <span class="s1">&#39;gbk&#39;</span> <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span> <span class="k">else</span> <span class="s1">&#39;utf-8&#39;</span>
 
-<span class="k">def</span> <span class="nf">_request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;POST&#39;</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;POST&#39;</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
-            <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;{}?{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;{}?{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="c"># print(url)</span>
-    <span class="c"># print(data)</span>
+    <span class="c1"># print(url)</span>
+    <span class="c1"># print(data)</span>
     <span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">HEADERS</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">stdout_cr</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r</span><span class="s">{:10}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">))</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r</span><span class="s">{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">stdout_cr</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">{:10}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">))</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;GET&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;GET&#39;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;POST&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;POST&#39;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">login_post</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">login_data</span> <span class="o">=</span> <span class="n">DEFAULT_POST_DATA</span>
     <span class="n">login_data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">post</span><span class="p">(</span><span class="n">LOGIN_URL</span><span class="p">,</span> <span class="n">login_data</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#39;gbk&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;gbk&#39;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">usr</span><span class="p">,</span> <span class="n">pwd</span><span class="p">):</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s">&#39;TPL_username&#39;</span> <span class="p">:</span> <span class="n">usr</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span> <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;Windows&#39;</span> <span class="k">else</span> <span class="s">&#39;GB18030&#39;</span><span class="p">),</span>
-        <span class="s">&#39;TPL_password&#39;</span> <span class="p">:</span> <span class="n">pwd</span>
+        <span class="s1">&#39;TPL_username&#39;</span> <span class="p">:</span> <span class="n">usr</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span> <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span> <span class="k">else</span> <span class="s1">&#39;GB18030&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;TPL_password&#39;</span> <span class="p">:</span> <span class="n">pwd</span>
     <span class="p">}</span>
 
-    <span class="c"># 1. 尝试登录</span>
+    <span class="c1"># 1. 尝试登录</span>
     <span class="n">ret</span> <span class="o">=</span> <span class="n">login_post</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="k">while</span> <span class="ow">not</span> <span class="n">ret</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;state&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
-        <span class="n">code</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;code&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">ret</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">3425</span> <span class="ow">or</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">1000</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&#39;INFO: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;message&#39;</span><span class="p">)))</span>
-            <span class="n">check_code</span> <span class="o">=</span> <span class="n">checkcode</span><span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;ccurl&#39;</span><span class="p">))</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;TPL_checkcode&#39;</span> <span class="p">:</span> <span class="n">check_code</span><span class="p">,</span> <span class="s">&#39;need_check_code&#39;</span> <span class="p">:</span> <span class="s">&#39;true&#39;</span><span class="p">})</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;INFO: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">)))</span>
+            <span class="n">check_code</span> <span class="o">=</span> <span class="n">checkcode</span><span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ccurl&#39;</span><span class="p">))</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;TPL_checkcode&#39;</span> <span class="p">:</span> <span class="n">check_code</span><span class="p">,</span> <span class="s1">&#39;need_check_code&#39;</span> <span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">})</span>
             <span class="n">ret</span> <span class="o">=</span> <span class="n">login_post</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s">&#39;ERROR. code: {}, message:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">ret</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;message&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)))</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;ERROR. code: {}, message:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">ret</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)))</span>
 
-    <span class="n">token</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;token&#39;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;LOGIN SUCCESS. token: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">token</span><span class="p">))</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;LOGIN SUCCESS. token: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">token</span><span class="p">))</span>
 
-    <span class="c"># 2. 重定向</span>
-    <span class="c"># 2.1 st值</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="s">&#39;https://passport.alipay.com/mini_apply_st.js&#39;</span><span class="p">,</span> <span class="p">{</span>
-        <span class="s">&#39;site&#39;</span> <span class="p">:</span> <span class="s">&#39;0&#39;</span><span class="p">,</span>
-        <span class="s">&#39;token&#39;</span> <span class="p">:</span> <span class="n">token</span><span class="p">,</span>
-        <span class="s">&#39;callback&#39;</span> <span class="p">:</span> <span class="s">&#39;stCallback4&#39;</span><span class="p">})</span>
+    <span class="c1"># 2. 重定向</span>
+    <span class="c1"># 2.1 st值</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://passport.alipay.com/mini_apply_st.js&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">&#39;site&#39;</span> <span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;token&#39;</span> <span class="p">:</span> <span class="n">token</span><span class="p">,</span>
+        <span class="s1">&#39;callback&#39;</span> <span class="p">:</span> <span class="s1">&#39;stCallback4&#39;</span><span class="p">})</span>
     <span class="n">content</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="n">st</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">r&#39;&quot;st&quot;:&quot;(\S*)&quot;( |})&#39;</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="c"># 2.1 重定向</span>
-    <span class="n">get</span><span class="p">(</span><span class="s">&#39;http://login.taobao.com/member/vst.htm&#39;</span><span class="p">,</span>
-        <span class="p">{</span><span class="s">&#39;st&#39;</span> <span class="p">:</span> <span class="n">st</span><span class="p">,</span> <span class="s">&#39;TPL_uesrname&#39;</span> <span class="p">:</span> <span class="n">usr</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;GB18030&#39;</span><span class="p">)})</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;&quot;st&quot;:&quot;(\S*)&quot;( |})&#39;</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># 2.1 重定向</span>
+    <span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://login.taobao.com/member/vst.htm&#39;</span><span class="p">,</span>
+        <span class="p">{</span><span class="s1">&#39;st&#39;</span> <span class="p">:</span> <span class="n">st</span><span class="p">,</span> <span class="s1">&#39;TPL_uesrname&#39;</span> <span class="p">:</span> <span class="n">usr</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;GB18030&#39;</span><span class="p">)})</span>
 
 <span class="k">def</span> <span class="nf">checkcode</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="n">filename</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;.jpg&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">):</span>
         <span class="n">old_fn</span> <span class="o">=</span> <span class="n">filename</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="s">&#39;{}.jpg&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;{}.jpg&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">old_fn</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;Darwin&#39;</span><span class="p">:</span>
-        <span class="c"># mac 下直接preview打开</span>
-        <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s">&#39;open&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="p">])</span>
-    <span class="k">elif</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;Windows&#39;</span><span class="p">:</span>
-        <span class="c"># windows 执行文件用默认程序打开</span>
+    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Darwin&#39;</span><span class="p">:</span>
+        <span class="c1"># mac 下直接preview打开</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s1">&#39;open&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
+        <span class="c1"># windows 执行文件用默认程序打开</span>
         <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c"># 其它系统 输出文件名</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;打开该文件获取验证码: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
-    <span class="k">return</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&#39;输入验证码: &#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">RAW_IMPUT_ENCODING</span><span class="p">))</span>
+        <span class="c1"># 其它系统 输出文件名</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;打开该文件获取验证码: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s1">&#39;输入验证码: &#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">RAW_IMPUT_ENCODING</span><span class="p">))</span>
 
 <span class="k">def</span> <span class="nf">parse_bought_list</span><span class="p">(</span><span class="n">start_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://buyer.trade.taobao.com/trade/itemlist/list_bought_items.htm&#39;</span>
-    <span class="c">#                 运费险           增值服务         分段支付（定金，尾款）</span>
-    <span class="n">extra_service</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;freight-info&#39;</span><span class="p">,</span> <span class="s">&#39;service-info&#39;</span><span class="p">,</span> <span class="s">&#39;stage-item&#39;</span><span class="p">]</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://buyer.trade.taobao.com/trade/itemlist/list_bought_items.htm&#39;</span>
+    <span class="c1">#                 运费险           增值服务         分段支付（定金，尾款）</span>
+    <span class="n">extra_service</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;freight-info&#39;</span><span class="p">,</span> <span class="s1">&#39;service-info&#39;</span><span class="p">,</span> <span class="s1">&#39;stage-item&#39;</span><span class="p">]</span>
 
-    <span class="n">stdout_cr</span><span class="p">(</span><span class="s">&#39;working... {:.0%}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="c"># 1. 解析第一页</span>
+    <span class="n">stdout_cr</span><span class="p">(</span><span class="s1">&#39;working... {:.0%}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="c1"># 1. 解析第一页</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;gbk&#39;</span><span class="p">))</span>
-    <span class="c"># 2. 获取页数相关</span>
-    <span class="n">page_jump</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;span&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s">&#39;J_JumpTo&#39;</span><span class="p">)</span>
-    <span class="n">jump_url</span> <span class="o">=</span> <span class="n">page_jump</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;data-url&#39;</span><span class="p">]</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;gbk&#39;</span><span class="p">))</span>
+    <span class="c1"># 2. 获取页数相关</span>
+    <span class="n">page_jump</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;J_JumpTo&#39;</span><span class="p">)</span>
+    <span class="n">jump_url</span> <span class="o">=</span> <span class="n">page_jump</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;data-url&#39;</span><span class="p">]</span>
     <span class="n">url_parts</span> <span class="o">=</span> <span class="n">urlparse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">jump_url</span><span class="p">)</span>
     <span class="n">query_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">urlparse</span><span class="o">.</span><span class="n">parse_qsl</span><span class="p">(</span><span class="n">url_parts</span><span class="o">.</span><span class="n">query</span><span class="p">))</span>
-    <span class="n">total_pages</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">query_data</span><span class="p">[</span><span class="s">&#39;tPage&#39;</span><span class="p">])</span>
+    <span class="n">total_pages</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">query_data</span><span class="p">[</span><span class="s1">&#39;tPage&#39;</span><span class="p">])</span>
 
-    <span class="c"># 解析</span>
+    <span class="c1"># 解析</span>
     <span class="n">orders</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">cur_page</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">out_date</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">bought_items</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s">&#39;tbody&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;data-orderid&#39;</span> <span class="p">:</span> <span class="bp">True</span><span class="p">})</span>
-        <span class="c"># pprint(len(bought_items))</span>
+        <span class="n">bought_items</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;tbody&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;data-orderid&#39;</span> <span class="p">:</span> <span class="bp">True</span><span class="p">})</span>
+        <span class="c1"># pprint(len(bought_items))</span>
         <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bought_items</span><span class="p">:</span>
             <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="c"># pprint(&#39;{}.{}&#39;.format(cur_page, count))</span>
+            <span class="c1"># pprint(&#39;{}.{}&#39;.format(cur_page, count))</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">info</span> <span class="o">=</span> <span class="p">{}</span>
-                <span class="c"># 订单在页面上的位置 页数.排序号</span>
-                <span class="n">info</span><span class="p">[</span><span class="s">&#39;pos&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;{}.{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cur_page</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
-                <span class="n">info</span><span class="p">[</span><span class="s">&#39;orderid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;data-orderid&#39;</span><span class="p">]</span>
-                <span class="n">info</span><span class="p">[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;data-status&#39;</span><span class="p">]</span>
-                <span class="c"># 店铺</span>
-                <span class="n">node</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s">&#39;tr.order-hd a.shopname&#39;</span><span class="p">)</span>
+                <span class="c1"># 订单在页面上的位置 页数.排序号</span>
+                <span class="n">info</span><span class="p">[</span><span class="s1">&#39;pos&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;{}.{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cur_page</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+                <span class="n">info</span><span class="p">[</span><span class="s1">&#39;orderid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;data-orderid&#39;</span><span class="p">]</span>
+                <span class="n">info</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;data-status&#39;</span><span class="p">]</span>
+                <span class="c1"># 店铺</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;tr.order-hd a.shopname&#39;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span>
-                    <span class="c"># 店铺不存在，可能是赠送彩票订单，忽略</span>
-                    <span class="c"># print(&#39;ignore&#39;)</span>
+                    <span class="c1"># 店铺不存在，可能是赠送彩票订单，忽略</span>
+                    <span class="c1"># print(&#39;ignore&#39;)</span>
                     <span class="k">continue</span>
-                <span class="n">info</span><span class="p">[</span><span class="s">&#39;shop_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                <span class="n">info</span><span class="p">[</span><span class="s">&#39;shop_url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">]</span>
-                <span class="c"># 日期</span>
-                <span class="n">node</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s">&#39;tr.order-hd span.dealtime&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="n">info</span><span class="p">[</span><span class="s">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">],</span> <span class="s">&#39;%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M&#39;</span><span class="p">)</span>
+                <span class="n">info</span><span class="p">[</span><span class="s1">&#39;shop_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">info</span><span class="p">[</span><span class="s1">&#39;shop_url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+                <span class="c1"># 日期</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;tr.order-hd span.dealtime&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">info</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M&#39;</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="n">end_date</span> <span class="ow">and</span> <span class="n">info</span><span class="p">[</span><span class="s">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">toordinal</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">end_date</span><span class="o">.</span><span class="n">toordinal</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">end_date</span> <span class="ow">and</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">toordinal</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">end_date</span><span class="o">.</span><span class="n">toordinal</span><span class="p">():</span>
                     <span class="k">continue</span>
 
-                <span class="k">if</span> <span class="n">start_date</span> <span class="ow">and</span> <span class="n">info</span><span class="p">[</span><span class="s">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">toordinal</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">start_date</span><span class="o">.</span><span class="n">toordinal</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">start_date</span> <span class="ow">and</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">toordinal</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">start_date</span><span class="o">.</span><span class="n">toordinal</span><span class="p">():</span>
                     <span class="n">out_date</span> <span class="o">=</span> <span class="bp">True</span>
                     <span class="k">break</span>
 
-                <span class="c"># 宝贝</span>
+                <span class="c1"># 宝贝</span>
                 <span class="n">baobei</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="n">node</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s">&#39;tr&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s">&#39;order-bd&#39;</span><span class="p">)</span>
-                <span class="c"># pprint(len(node))</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;tr&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;order-bd&#39;</span><span class="p">)</span>
+                <span class="c1"># pprint(len(node))</span>
                 <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">node</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
                         <span class="n">bb</span> <span class="o">=</span> <span class="p">{}</span>
-                        <span class="k">if</span> <span class="p">[</span><span class="bp">True</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">extra_service</span> <span class="k">if</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">n</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;class&#39;</span><span class="p">]]:</span>
-                            <span class="c"># 额外服务处理</span>
-                            <span class="c"># print(&#39;额外服务处理&#39;)</span>
-                            <span class="n">name_node</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;td&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s">&#39;baobei&#39;</span><span class="p">)</span>
-                            <span class="c"># 宝贝地址</span>
-                            <span class="n">bb</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name_node</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                            <span class="n">bb</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-                            <span class="n">bb</span><span class="p">[</span><span class="s">&#39;spec&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-                            <span class="c"># 宝贝快照</span>
-                            <span class="n">bb</span><span class="p">[</span><span class="s">&#39;snapshot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-                            <span class="c"># 宝贝价格</span>
-                            <span class="n">bb</span><span class="p">[</span><span class="s">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-                            <span class="c"># 宝贝数量</span>
-                            <span class="n">bb</span><span class="p">[</span><span class="s">&#39;quantity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-                            <span class="n">bb</span><span class="p">[</span><span class="s">&#39;is_goods&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+                        <span class="k">if</span> <span class="p">[</span><span class="bp">True</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">extra_service</span> <span class="k">if</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">n</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]]:</span>
+                            <span class="c1"># 额外服务处理</span>
+                            <span class="c1"># print(&#39;额外服务处理&#39;)</span>
+                            <span class="n">name_node</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;baobei&#39;</span><span class="p">)</span>
+                            <span class="c1"># 宝贝地址</span>
+                            <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name_node</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                            <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                            <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;spec&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                            <span class="c1"># 宝贝快照</span>
+                            <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;snapshot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                            <span class="c1"># 宝贝价格</span>
+                            <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+                            <span class="c1"># 宝贝数量</span>
+                            <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;quantity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                            <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;is_goods&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
                             <span class="k">try</span><span class="p">:</span>
-                                <span class="n">bb</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name_node</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">]</span>
-                                <span class="n">bb</span><span class="p">[</span><span class="s">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;td&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s">&#39;price&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+                                <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name_node</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+                                <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
                             <span class="k">except</span><span class="p">:</span>
                                 <span class="k">pass</span>
                         <span class="k">else</span><span class="p">:</span>
-                            <span class="n">name_node</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s">&#39;p.baobei-name a&#39;</span><span class="p">)</span>
-                            <span class="c"># 宝贝地址</span>
-                            <span class="n">bb</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name_node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                            <span class="n">bb</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name_node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">]</span>
-                            <span class="c"># 宝贝快照</span>
-                            <span class="n">bb</span><span class="p">[</span><span class="s">&#39;snapshot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+                            <span class="n">name_node</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;p.baobei-name a&#39;</span><span class="p">)</span>
+                            <span class="c1"># 宝贝地址</span>
+                            <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name_node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                            <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name_node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+                            <span class="c1"># 宝贝快照</span>
+                            <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;snapshot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
                             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">name_node</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                                <span class="n">bb</span><span class="p">[</span><span class="s">&#39;snapshot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name_node</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">]</span>
-                            <span class="c"># 宝贝规格</span>
-                            <span class="n">bb</span><span class="p">[</span><span class="s">&#39;spec&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s">&#39;.spec&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                            <span class="c"># 宝贝价格</span>
-                            <span class="n">bb</span><span class="p">[</span><span class="s">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;td&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s">&#39;price&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">])</span>
-                            <span class="c"># 宝贝数量</span>
-                            <span class="n">bb</span><span class="p">[</span><span class="s">&#39;quantity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;td&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s">&#39;quantity&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">])</span>
-                            <span class="n">bb</span><span class="p">[</span><span class="s">&#39;is_goods&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+                                <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;snapshot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name_node</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+                            <span class="c1"># 宝贝规格</span>
+                            <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;spec&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;.spec&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                            <span class="c1"># 宝贝价格</span>
+                            <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">])</span>
+                            <span class="c1"># 宝贝数量</span>
+                            <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;quantity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;quantity&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">])</span>
+                            <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;is_goods&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
                         <span class="n">baobei</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span>
-                        <span class="c"># 尝试获取实付款</span>
-                        <span class="c"># 实付款所在的节点可能跨越多个tr的td</span>
-                        <span class="n">amount_node</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s">&#39;td.amount em.real-price&#39;</span><span class="p">)</span>
+                        <span class="c1"># 尝试获取实付款</span>
+                        <span class="c1"># 实付款所在的节点可能跨越多个tr的td</span>
+                        <span class="n">amount_node</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;td.amount em.real-price&#39;</span><span class="p">)</span>
                         <span class="k">if</span> <span class="n">amount_node</span><span class="p">:</span>
-                            <span class="n">info</span><span class="p">[</span><span class="s">&#39;amount&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">amount_node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+                            <span class="n">info</span><span class="p">[</span><span class="s1">&#39;amount&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">amount_node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
                     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                         <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                            <span class="s">&#39;type&#39;</span> <span class="p">:</span> <span class="s">&#39;baobei&#39;</span><span class="p">,</span>
-                            <span class="s">&#39;id&#39;</span> <span class="p">:</span> <span class="s">&#39;{}.{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cur_page</span><span class="p">,</span> <span class="n">count</span><span class="p">),</span>
-                            <span class="s">&#39;node&#39;</span> <span class="p">:</span> <span class="s">&#39;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">),</span>
-                            <span class="s">&#39;error&#39;</span> <span class="p">:</span> <span class="s">&#39;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                            <span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="s1">&#39;baobei&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;id&#39;</span> <span class="p">:</span> <span class="s1">&#39;{}.{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cur_page</span><span class="p">,</span> <span class="n">count</span><span class="p">),</span>
+                            <span class="s1">&#39;node&#39;</span> <span class="p">:</span> <span class="s1">&#39;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">),</span>
+                            <span class="s1">&#39;error&#39;</span> <span class="p">:</span> <span class="s1">&#39;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
                         <span class="p">})</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                    <span class="s">&#39;type&#39;</span> <span class="p">:</span> <span class="s">&#39;order&#39;</span><span class="p">,</span>
-                    <span class="s">&#39;id&#39;</span> <span class="p">:</span> <span class="s">&#39;{}.{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cur_page</span><span class="p">,</span> <span class="n">count</span><span class="p">),</span>
-                    <span class="s">&#39;node&#39;</span> <span class="p">:</span> <span class="s">&#39;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">),</span>
-                    <span class="s">&#39;error&#39;</span> <span class="p">:</span> <span class="s">&#39;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                    <span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="s1">&#39;order&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;id&#39;</span> <span class="p">:</span> <span class="s1">&#39;{}.{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cur_page</span><span class="p">,</span> <span class="n">count</span><span class="p">),</span>
+                    <span class="s1">&#39;node&#39;</span> <span class="p">:</span> <span class="s1">&#39;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">),</span>
+                    <span class="s1">&#39;error&#39;</span> <span class="p">:</span> <span class="s1">&#39;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
                 <span class="p">})</span>
 
-            <span class="n">info</span><span class="p">[</span><span class="s">&#39;baobei&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">baobei</span>
+            <span class="n">info</span><span class="p">[</span><span class="s1">&#39;baobei&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">baobei</span>
             <span class="n">orders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
 
-        <span class="n">stdout_cr</span><span class="p">(</span><span class="s">&#39;working... {:.0%}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cur_page</span> <span class="o">/</span> <span class="n">total_pages</span><span class="p">))</span>
+        <span class="n">stdout_cr</span><span class="p">(</span><span class="s1">&#39;working... {:.0%}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cur_page</span> <span class="o">/</span> <span class="n">total_pages</span><span class="p">))</span>
 
-        <span class="c"># 下一页</span>
+        <span class="c1"># 下一页</span>
         <span class="n">cur_page</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">cur_page</span> <span class="o">&gt;</span> <span class="n">total_pages</span> <span class="ow">or</span> <span class="n">out_date</span><span class="p">:</span>
             <span class="k">break</span>
-        <span class="n">query_data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;pageNum&#39;</span> <span class="p">:</span> <span class="n">cur_page</span><span class="p">})</span>
-        <span class="n">page_url</span> <span class="o">=</span> <span class="s">&#39;{}?{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">query_data</span><span class="p">))</span>
+        <span class="n">query_data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;pageNum&#39;</span> <span class="p">:</span> <span class="n">cur_page</span><span class="p">})</span>
+        <span class="n">page_url</span> <span class="o">=</span> <span class="s1">&#39;{}?{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">query_data</span><span class="p">))</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">page_url</span><span class="p">)</span>
-        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;gbk&#39;</span><span class="p">))</span>
+        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;gbk&#39;</span><span class="p">))</span>
 
     <span class="n">stdout_cr</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">errors</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;INFO. 有错误发生，统计结果可能不准确。&#39;</span><span class="p">)</span>
-        <span class="c"># pprint(errors)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;INFO. 有错误发生，统计结果可能不准确。&#39;</span><span class="p">)</span>
+        <span class="c1"># pprint(errors)</span>
     <span class="k">return</span> <span class="n">orders</span>
 
 <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="n">orders</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">):</span>
@@ -727,95 +867,95 @@
     <span class="n">order_count</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">invaild_order_count</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">orders</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">order</span><span class="p">[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">INVALID_ORDER_STATES</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">order</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">INVALID_ORDER_STATES</span><span class="p">:</span>
             <span class="n">invaild_order_count</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">continue</span>
-        <span class="n">amount</span> <span class="o">+=</span> <span class="n">order</span><span class="p">[</span><span class="s">&#39;amount&#39;</span><span class="p">]</span>
+        <span class="n">amount</span> <span class="o">+=</span> <span class="n">order</span><span class="p">[</span><span class="s1">&#39;amount&#39;</span><span class="p">]</span>
         <span class="n">order_count</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">for</span> <span class="n">baobei</span> <span class="ow">in</span> <span class="n">order</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;baobei&#39;</span><span class="p">,</span> <span class="p">[]):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">baobei</span><span class="p">[</span><span class="s">&#39;is_goods&#39;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">baobei</span> <span class="ow">in</span> <span class="n">order</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;baobei&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">baobei</span><span class="p">[</span><span class="s1">&#39;is_goods&#39;</span><span class="p">]:</span>
                 <span class="k">continue</span>
-            <span class="n">org_amount</span> <span class="o">+=</span> <span class="n">baobei</span><span class="p">[</span><span class="s">&#39;price&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">baobei</span><span class="p">[</span><span class="s">&#39;quantity&#39;</span><span class="p">]</span>
-            <span class="n">baobei_count</span> <span class="o">+=</span> <span class="n">baobei</span><span class="p">[</span><span class="s">&#39;quantity&#39;</span><span class="p">]</span>
+            <span class="n">org_amount</span> <span class="o">+=</span> <span class="n">baobei</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">baobei</span><span class="p">[</span><span class="s1">&#39;quantity&#39;</span><span class="p">]</span>
+            <span class="n">baobei_count</span> <span class="o">+=</span> <span class="n">baobei</span><span class="p">[</span><span class="s1">&#39;quantity&#39;</span><span class="p">]</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;{:&lt;9} {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;累计消费:&#39;</span><span class="p">,</span> <span class="n">amount</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;{:&lt;9} {}/{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;订单/宝贝:&#39;</span><span class="p">,</span> <span class="n">order_count</span><span class="p">,</span> <span class="n">baobei_count</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{:&lt;9} {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;累计消费:&#39;</span><span class="p">,</span> <span class="n">amount</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{:&lt;9} {}/{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;订单/宝贝:&#39;</span><span class="p">,</span> <span class="n">order_count</span><span class="p">,</span> <span class="n">baobei_count</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">invaild_order_count</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;{:&lt;9} {} (退货或取消等, 不在上述订单之内)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;无效订单:&#39;</span><span class="p">,</span> <span class="n">invaild_order_count</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;{:&lt;7} {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;宝贝原始总价:&#39;</span><span class="p">,</span> <span class="n">org_amount</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;{:&lt;7} {:.2f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;宝贝平均单价:&#39;</span><span class="p">,</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">baobei_count</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">org_amount</span> <span class="o">/</span> <span class="n">baobei_count</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;{:&lt;9} {} ({:.2%})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;节约了(?)：&#39;</span><span class="p">,</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{:&lt;9} {} (退货或取消等, 不在上述订单之内)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;无效订单:&#39;</span><span class="p">,</span> <span class="n">invaild_order_count</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{:&lt;7} {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;宝贝原始总价:&#39;</span><span class="p">,</span> <span class="n">org_amount</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{:&lt;7} {:.2f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;宝贝平均单价:&#39;</span><span class="p">,</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">baobei_count</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">org_amount</span> <span class="o">/</span> <span class="n">baobei_count</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{:&lt;9} {} ({:.2%})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;节约了(?)：&#39;</span><span class="p">,</span>
                                      <span class="n">org_amount</span> <span class="o">-</span> <span class="n">amount</span><span class="p">,</span>
                                      <span class="mi">0</span> <span class="k">if</span> <span class="n">org_amount</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="n">org_amount</span> <span class="o">-</span> <span class="n">amount</span><span class="p">)</span> <span class="o">/</span> <span class="n">org_amount</span><span class="p">))</span>
-    <span class="n">from_date</span> <span class="o">=</span> <span class="n">start_date</span> <span class="k">if</span> <span class="n">start_date</span> <span class="k">else</span> <span class="n">orders</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s">&#39;date&#39;</span><span class="p">]</span>
+    <span class="n">from_date</span> <span class="o">=</span> <span class="n">start_date</span> <span class="k">if</span> <span class="n">start_date</span> <span class="k">else</span> <span class="n">orders</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;date&#39;</span><span class="p">]</span>
     <span class="n">to_date</span> <span class="o">=</span> <span class="n">end_date</span> <span class="k">if</span> <span class="n">end_date</span> <span class="k">else</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;{:&lt;9} {:%Y-%m-</span><span class="si">%d</span><span class="s">} - {:%Y-%m-</span><span class="si">%d</span><span class="s">}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;统计区间:&#39;</span><span class="p">,</span> <span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{:&lt;9} {:%Y-%m-</span><span class="si">%d</span><span class="s1">} - {:%Y-%m-</span><span class="si">%d</span><span class="s1">}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;统计区间:&#39;</span><span class="p">,</span> <span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="p">))</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">start_date</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;{:&lt;9} {:%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;败家始于:&#39;</span><span class="p">,</span> <span class="n">orders</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s">&#39;date&#39;</span><span class="p">]))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{:&lt;9} {:%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;败家始于:&#39;</span><span class="p">,</span> <span class="n">orders</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;date&#39;</span><span class="p">]))</span>
 
 <span class="k">def</span> <span class="nf">ouput_orders</span><span class="p">(</span><span class="n">orders</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;所有订单:&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;所有订单:&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">orders</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;  --&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  --&#39;</span><span class="p">)</span>
         <span class="k">return</span>
     <span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">orders</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;  {:-^20}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">))</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;  * 订单号: {orderid}  实付款: {amount}  店铺: {shop_name}  时间: {date:%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">order</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">bb</span> <span class="ow">in</span> <span class="n">order</span><span class="p">[</span><span class="s">&#39;baobei&#39;</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">bb</span><span class="p">[</span><span class="s">&#39;is_goods&#39;</span><span class="p">]:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  {:-^20}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  * 订单号: {orderid}  实付款: {amount}  店铺: {shop_name}  时间: {date:%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">order</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">bb</span> <span class="ow">in</span> <span class="n">order</span><span class="p">[</span><span class="s1">&#39;baobei&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;is_goods&#39;</span><span class="p">]:</span>
                 <span class="k">continue</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&#39;    - {name}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">bb</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">bb</span><span class="p">[</span><span class="s">&#39;spec&#39;</span><span class="p">]:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s">&#39;      {spec}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">bb</span><span class="p">))</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&#39;      {price} X {quantity}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">bb</span><span class="p">))</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;    - {name}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">bb</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">bb</span><span class="p">[</span><span class="s1">&#39;spec&#39;</span><span class="p">]:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s1">&#39;      {spec}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">bb</span><span class="p">))</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;      {price} X {quantity}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">bb</span><span class="p">))</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
-        <span class="n">prog</span><span class="o">=</span><span class="s">&#39;python {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
+        <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;python {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
     <span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-u&#39;</span><span class="p">,</span> <span class="s">&#39;--username&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;淘宝用户名&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-p&#39;</span><span class="p">,</span> <span class="s">&#39;--password&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;淘宝密码&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-s&#39;</span><span class="p">,</span> <span class="s">&#39;--start&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;起始时间，可选, 格式如: 2014-11-11&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-e&#39;</span><span class="p">,</span> <span class="s">&#39;--end&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;结束时间，可选, 格式如: 2014-11-11&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--verbose&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;订单详细输出&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-v&#39;</span><span class="p">,</span> <span class="s">&#39;--version&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;version&#39;</span><span class="p">,</span>
-                        <span class="n">version</span><span class="o">=</span><span class="s">&#39;v{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">__version__</span><span class="p">),</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;版本号&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-u&#39;</span><span class="p">,</span> <span class="s1">&#39;--username&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;淘宝用户名&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;--password&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;淘宝密码&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;--start&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;起始时间，可选, 格式如: 2014-11-11&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="s1">&#39;--end&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;结束时间，可选, 格式如: 2014-11-11&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--verbose&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;订单详细输出&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="s1">&#39;--version&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;version&#39;</span><span class="p">,</span>
+                        <span class="n">version</span><span class="o">=</span><span class="s1">&#39;v{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">__version__</span><span class="p">),</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;版本号&#39;</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
     <span class="n">usr</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">username</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">usr</span><span class="p">:</span>
-        <span class="n">usr</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&#39;输入淘宝用户名: &#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">RAW_IMPUT_ENCODING</span><span class="p">))</span>
-    <span class="n">usr</span> <span class="o">=</span> <span class="n">usr</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span> <span class="c"># 中文输入问题</span>
+        <span class="n">usr</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s1">&#39;输入淘宝用户名: &#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">RAW_IMPUT_ENCODING</span><span class="p">))</span>
+    <span class="n">usr</span> <span class="o">=</span> <span class="n">usr</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="c1"># 中文输入问题</span>
     <span class="n">pwd</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">password</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">pwd</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;Windows&#39;</span><span class="p">:</span>
-            <span class="c"># Windows下中文输出有问题</span>
+        <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
+            <span class="c1"># Windows下中文输出有问题</span>
             <span class="n">pwd</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">pwd</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="s">&#39;输入淘宝密码: &#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">))</span>
+            <span class="n">pwd</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="s1">&#39;输入淘宝密码: &#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
 
-    <span class="n">pwd</span> <span class="o">=</span> <span class="n">pwd</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="n">pwd</span> <span class="o">=</span> <span class="n">pwd</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 
     <span class="n">verbose</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span>
 
     <span class="n">start_date</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">start</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="s">&#39;%Y-%m-</span><span class="si">%d</span><span class="s">&#39;</span><span class="p">)</span>
+            <span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s">&#39;ERROR. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;ERROR. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
 
     <span class="n">end_date</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">end</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="s">&#39;%Y-%m-</span><span class="si">%d</span><span class="s">&#39;</span><span class="p">)</span>
+            <span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s">&#39;ERROR. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;ERROR. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="n">start_date</span> <span class="ow">and</span> <span class="n">end_date</span> <span class="ow">and</span> <span class="n">start_date</span> <span class="o">&gt;</span> <span class="n">end_date</span><span class="p">:</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s">&#39;ERROR, 结束日期必须晚于或等于开始日期&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;ERROR, 结束日期必须晚于或等于开始日期&#39;</span><span class="p">)</span>
 
-    <span class="n">cj_file</span> <span class="o">=</span> <span class="s">&#39;./{}.tmp&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">usr</span><span class="p">)</span>
+    <span class="n">cj_file</span> <span class="o">=</span> <span class="s1">&#39;./{}.tmp&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">usr</span><span class="p">)</span>
     <span class="n">cj</span> <span class="o">=</span> <span class="n">cookielib</span><span class="o">.</span><span class="n">LWPCookieJar</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">cj</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cj_file</span><span class="p">)</span>
@@ -834,11 +974,11 @@
     <span class="n">orders</span> <span class="o">=</span> <span class="n">parse_bought_list</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
     <span class="n">output</span><span class="p">(</span><span class="n">orders</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
 
-    <span class="c"># 输出订单明细</span>
+    <span class="c1"># 输出订单明细</span>
     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
         <span class="n">ouput_orders</span><span class="p">(</span><span class="n">orders</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </code></pre></div>
 
@@ -848,16 +988,16 @@
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Dec 19, 2014</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/taobao-orders-statistics/#comments" title="Comment on Python脚本: 淘宝消费情况统计">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/taobao-orders-statistics/#comments" title="Comment on Python脚本: 淘宝消费情况统计">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-74697 -->
 <div id="post-19469" class="post post-list post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/alfred-workflow-chinese-tv-epg/" title="Alfred Workflow: 国内电视频道节目表" rel="bookmark">Alfred Workflow: 国内电视频道节目表</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/alfred-workflow-chinese-tv-epg/" title="Alfred Workflow: 国内电视频道节目表" rel="bookmark">Alfred Workflow: 国内电视频道节目表</a></h1>
         <p class="entry-date" title="2013-04-28 11:24:29">
             <span class="day">28</span>
             <span class="month">Apr</span>
@@ -883,16 +1023,16 @@
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Apr 28, 2013</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/alfred-workflow-chinese-tv-epg/#comments" title="Comment on Alfred Workflow: 国内电视频道节目表">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/alfred-workflow-chinese-tv-epg/#comments" title="Comment on Alfred Workflow: 国内电视频道节目表">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-19469 -->
 <div id="post-89069" class="post post-list post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/alfred-workflow-app-dig/" title="Alfred Workflow: App Dig" rel="bookmark">Alfred Workflow: App Dig</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/alfred-workflow-app-dig/" title="Alfred Workflow: App Dig" rel="bookmark">Alfred Workflow: App Dig</a></h1>
         <p class="entry-date" title="2013-04-15 09:24:29">
             <span class="day">15</span>
             <span class="month">Apr</span>
@@ -924,61 +1064,25 @@
 </ol>
 </div>
 
-<p><a href="http://jeeker.net/article/alfred-workflow-app-dig/#more-89069" class="more-link">Read more...</a></p>
+<p><a href="http://127.0.0.1:8910/article/alfred-workflow-app-dig/#more-89069" class="more-link">Read more...</a></p>
 <!-- content end -->
     </div><!-- .entry-content -->
     <div class="entry-meta">
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Apr 15, 2013</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/alfred-workflow-app-dig/#comments" title="Comment on Alfred Workflow: App Dig">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/alfred-workflow-app-dig/#comments" title="Comment on Alfred Workflow: App Dig">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-89069 -->
-<div id="post-40669" class="post post-list post-post post-publish">
-    <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/alfred-workflow-manage-synology-download-station/" title="Alfred Workflow: 管理Synology Download Station" rel="bookmark">Alfred Workflow: 管理Synology Download Station</a></h1>
-        <p class="entry-date" title="2013-04-12 12:24:29">
-            <span class="day">12</span>
-            <span class="month">Apr</span>
-        </p>
-    </div><!-- .entry-header -->
-    <div class="entry-content">
-<!-- content start -->
-<p>　　<a href="http://www.synology.com/dsm/home_home_applications_download_station.php?lang=chs">Download Station</a>是<a href="http://www.synology.com/dsm/index.php?lang=chs">Synology DSM</a>里我最喜欢的应用之一，我也曾写过一个<a href="http://jeeker.net/article/remote-control-synology-download-station/">在终端控制它的脚本</a>，Alfred的Workflow出现后我想到如果可能或许它是本地管理DS最方便的方式了，于是就有了这个，Download Station下载任务的创建、查看、暂停、恢复、删除等操作自然完全支持，也支持一些基本设置的管理如eMule、计划的启用与禁用等。</p>
-
-<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-04-12-alfred-workflow-manage-synology-download-station/screenshot-main.png" alt="DS Main" /></i></p>
-
-<p><span class="btn-group btn-center"><a href="https://github.com/JinnLynn/alfred-workflows/raw/master/bin/download-station.alfredworkflow" class="btn btn-large icon-download-alt">Download</a><a href="https://github.com/JinnLynn/alfred-workflows/tree/master/src/download-station" class="btn btn-large icon-github">Source</a></span></p>
-
-<div class="footnotes">
-<hr />
-<ol>
-</ol>
-</div>
-
-<p><a href="http://jeeker.net/article/alfred-workflow-manage-synology-download-station/#more-40669" class="more-link">Read more...</a></p>
-<!-- content end -->
-    </div><!-- .entry-content -->
-    <div class="entry-meta">
-        <ul>
-            <li class="entry-author">Posted by JinnLynn</li>
-            <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
-</li>
-            <li class="entry-human-time-diff"> on Apr 12, 2013</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/alfred-workflow-manage-synology-download-station/#comments" title="Comment on Alfred Workflow: 管理Synology Download Station">Comments</a></li> 
-        </ul>
-    </div><!-- .entry-meta -->
-</div><!-- #post-40669 -->
 
 
     <div id="pagenavi">
-        <span class="pages">Page 1 of 7</span>
-        <a href="http://jeeker.net/page/2/" class="nav-older">Older</a>
+        <span class="pages">Page 1 of 8</span>
+        <a href="http://127.0.0.1:8910/page/2/" class="nav-older">Older</a>
     </div><!-- #pagenavi -->
    
     </div><!-- #content -->
@@ -1001,22 +1105,14 @@
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?88452"></script>
+<script type="text/javascript" src="http://127.0.0.1:8910/assets/script/action.js?53190"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?88452'></script>
+<script type='text/javascript' src='http://127.0.0.1:8910/assets/script/css3-mediaqueries.js?53190'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
 <script type="text/javascript" src="/assets/additional.js"></script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+<script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();</script>
 
 <!-- google analytics track code -->
 <script type="text/javascript">

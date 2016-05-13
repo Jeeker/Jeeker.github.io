@@ -7,10 +7,10 @@
 <head>
     <title>群晖 - Jeeker</title>
     <meta charset="UTF-8">
-    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
-    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?88452" />
-    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <link rel="apple-touch-icon" href="http://127.0.0.1:8910/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://127.0.0.1:8910/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8910/assets/style.css?53190" />
+    <link rel="alternate" type="application/atom+xml" href="http://127.0.0.1:8910/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
     <!-- <meta name="keywords" content="" /> -->
@@ -22,12 +22,12 @@
     <div id="header">
         <div id="menu">
             <ul>
-                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
-                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
-                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
-                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
-                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
-                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+                <li><a href="http://127.0.0.1:8910/"><span>Home</span></a></li>
+                <li><a href="http://127.0.0.1:8910/projects/"><span>Projects</span></a></li>
+                <li><a href="http://127.0.0.1:8910/tags/"><span>Tags</span></a></li>
+                <li><a href="http://127.0.0.1:8910/archives/"><span>Archives</span></a></li>
+                <li><a href="http://127.0.0.1:8910/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://127.0.0.1:8910/about/"><span>About</span></a></li>
             </ul>
         </div>
     </div><!-- ＃header -->
@@ -38,7 +38,7 @@
             <li id="tool-search">
                 <form action="http://google.com/search" method="get">
                     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-                    <input type="hidden" name="q" value="site:jeeker.net" />
+                    <input type="hidden" name="q" value="site:127.0.0.1:8910" />
                 </form>
             </li>
         </ul>
@@ -51,7 +51,7 @@
 
 <div id="post-81780" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/synology-nas-external-ip-change-notify/" title="Synology群晖NAS外部IP更新通知" rel="bookmark">Synology群晖NAS外部IP更新通知</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/synology-nas-external-ip-change-notify/" title="Synology群晖NAS外部IP更新通知" rel="bookmark">Synology群晖NAS外部IP更新通知</a></h1>
         <p class="entry-date" title="2013-03-04 15:23:00">
             <span class="day">04</span>
             <span class="month">Mar</span>
@@ -63,37 +63,37 @@
 
 <h3 id="1">1. 脚本</h3>
 
-<div class="codehilite"><pre><code><span class="c">#!/usr/bin/env python</span>
-<span class="c"># -*- coding: utf-8 -*-</span>
-<span class="c">#! 强制默认编码为utf-8</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#! 强制默认编码为utf-8</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="nb">reload</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
 
-<span class="c"># 配置</span>
-<span class="c"># SMTP服务器 用户 密码</span>
-<span class="n">smtp_server</span> <span class="o">=</span> <span class="s">&#39;SMTP SERVER&#39;</span>
+<span class="c1"># 配置</span>
+<span class="c1"># SMTP服务器 用户 密码</span>
+<span class="n">smtp_server</span> <span class="o">=</span> <span class="s1">&#39;SMTP SERVER&#39;</span>
 <span class="n">smtp_port</span>   <span class="o">=</span> <span class="mi">25</span>
-<span class="n">smtp_usr</span>    <span class="o">=</span> <span class="s">&#39;SMTP USERNAME&#39;</span>
-<span class="n">smtp_pwd</span>    <span class="o">=</span> <span class="s">&#39;SMTP PASSWORD&#39;</span>
+<span class="n">smtp_usr</span>    <span class="o">=</span> <span class="s1">&#39;SMTP USERNAME&#39;</span>
+<span class="n">smtp_pwd</span>    <span class="o">=</span> <span class="s1">&#39;SMTP PASSWORD&#39;</span>
 
-<span class="c"># 发送接受邮箱地址</span>
-<span class="c">#! 发送邮箱需是smtp_usr有权操作的邮箱</span>
-<span class="n">from_addr</span>   <span class="o">=</span> <span class="s">&#39;FROM EMAIL ADDRESS&#39;</span>
-<span class="n">to_addr</span>     <span class="o">=</span> <span class="s">&#39;TO EMAIL ADDRESS&#39;</span>
+<span class="c1"># 发送接受邮箱地址</span>
+<span class="c1">#! 发送邮箱需是smtp_usr有权操作的邮箱</span>
+<span class="n">from_addr</span>   <span class="o">=</span> <span class="s1">&#39;FROM EMAIL ADDRESS&#39;</span>
+<span class="n">to_addr</span>     <span class="o">=</span> <span class="s1">&#39;TO EMAIL ADDRESS&#39;</span>
 
-<span class="c"># 获取外网IP的网址 可以是</span>
-<span class="c"># http://ifconfig.me/ip</span>
-<span class="c"># http://ip.3322.net</span>
-<span class="c"># http://members.3322.org/dyndns/getip</span>
-<span class="n">ip_check_server</span> <span class="o">=</span> <span class="s">&#39;http://ip.3322.net&#39;</span>
+<span class="c1"># 获取外网IP的网址 可以是</span>
+<span class="c1"># http://ifconfig.me/ip</span>
+<span class="c1"># http://ip.3322.net</span>
+<span class="c1"># http://members.3322.org/dyndns/getip</span>
+<span class="n">ip_check_server</span> <span class="o">=</span> <span class="s1">&#39;http://ip.3322.net&#39;</span>
 
-<span class="c"># 记录文件路径</span>
-<span class="n">log_file</span>    <span class="o">=</span> <span class="s">&#39;/tmp/ipcheck.log&#39;</span>
+<span class="c1"># 记录文件路径</span>
+<span class="n">log_file</span>    <span class="o">=</span> <span class="s1">&#39;/tmp/ipcheck.log&#39;</span>
 
-<span class="c"># 邮件主题 </span>
-<span class="c"># 内容为新的IP</span>
-<span class="n">mail_subject</span> <span class="o">=</span> <span class="s">&#39;IP check message&#39;</span>
+<span class="c1"># 邮件主题 </span>
+<span class="c1"># 内容为新的IP</span>
+<span class="n">mail_subject</span> <span class="o">=</span> <span class="s1">&#39;IP check message&#39;</span>
 
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">urllib2</span><span class="o">,</span> <span class="nn">smtplib</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
@@ -108,16 +108,16 @@
 
     <span class="k">def</span> <span class="nf">openLog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">log_file</span><span class="p">):</span>
-            <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logs</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">logs</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="s">&#39;----</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">]</span>
-        <span class="c"># 确保第二行永远是分隔符</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;----</span><span class="se">\n</span><span class="s">&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;----</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">]</span>
+        <span class="c1"># 确保第二行永远是分隔符</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;----</span><span class="se">\n</span><span class="s1">&#39;</span>
 
     <span class="k">def</span> <span class="nf">saveLog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">getOldIP</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -125,35 +125,35 @@
 
     <span class="k">def</span> <span class="nf">setNewIP</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_ip</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">new_ip</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;{}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">sendMail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">msg</span><span class="p">:</span>
             <span class="k">return</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;from_addr&#39;</span> <span class="p">:</span> <span class="n">from_addr</span><span class="p">,</span>
-                <span class="s">&#39;to_addr&#39;</span>   <span class="p">:</span> <span class="n">to_addr</span><span class="p">,</span>
-                <span class="s">&#39;subject&#39;</span>   <span class="p">:</span> <span class="n">mail_subject</span><span class="p">,</span>
-                <span class="s">&#39;msg&#39;</span>       <span class="p">:</span> <span class="n">msg</span> <span class="p">}</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;From: {from_addr}</span><span class="se">\r\n</span><span class="s">To: {to_addr}</span><span class="se">\r\n</span><span class="s">Subject: {subject}</span><span class="se">\r\n\r\n</span><span class="s">{msg}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;from_addr&#39;</span> <span class="p">:</span> <span class="n">from_addr</span><span class="p">,</span>
+                <span class="s1">&#39;to_addr&#39;</span>   <span class="p">:</span> <span class="n">to_addr</span><span class="p">,</span>
+                <span class="s1">&#39;subject&#39;</span>   <span class="p">:</span> <span class="n">mail_subject</span><span class="p">,</span>
+                <span class="s1">&#39;msg&#39;</span>       <span class="p">:</span> <span class="n">msg</span> <span class="p">}</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;From: {from_addr}</span><span class="se">\r\n</span><span class="s1">To: {to_addr}</span><span class="se">\r\n</span><span class="s1">Subject: {subject}</span><span class="se">\r\n\r\n</span><span class="s1">{msg}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">smtp</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">()</span>
-            <span class="c"># smtp.set_debuglevel(1)</span>
+            <span class="c1"># smtp.set_debuglevel(1)</span>
             <span class="n">smtp</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">smtp_server</span><span class="p">,</span> <span class="n">smtp_port</span><span class="p">)</span>
             <span class="n">smtp</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">smtp_usr</span><span class="p">,</span> <span class="n">smtp_pwd</span><span class="p">)</span>
             <span class="n">smtp</span><span class="o">.</span><span class="n">sendmail</span><span class="p">(</span><span class="n">from_addr</span><span class="p">,</span> <span class="n">to_addr</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>   
             <span class="n">smtp</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&#39;send mail fail. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;send mail fail. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">None</span>
 
     <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">need_mail</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">msg</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="n">log_msg</span> <span class="o">=</span> <span class="s">&#39;{}</span><span class="se">\t</span><span class="s">{}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&#39;%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M:%S&#39;</span><span class="p">),</span> <span class="n">msg</span><span class="p">)</span>
-        <span class="c"># 检查最近的记录，如果相同仅更新时间</span>
+        <span class="n">log_msg</span> <span class="o">=</span> <span class="s1">&#39;{}</span><span class="se">\t</span><span class="s1">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">),</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="c1"># 检查最近的记录，如果相同仅更新时间</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">last_log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">last_log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">last_log</span> <span class="o">==</span> <span class="n">msg</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">log_msg</span>
             <span class="k">else</span><span class="p">:</span>
@@ -169,17 +169,17 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">url</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">ip_check_server</span><span class="p">)</span>
             <span class="n">res</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-            <span class="n">new_ip</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r\n</span><span class="s"> &#39;</span><span class="p">)</span>
+            <span class="n">new_ip</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1"> &#39;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#39;get ip fail. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="bp">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;get ip fail. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="bp">True</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="k">if</span> <span class="n">old_ip</span> <span class="o">==</span> <span class="n">new_ip</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#39;IP unchanged.&#39;</span><span class="p">)</span>
-        <span class="n">res</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendMail</span><span class="p">(</span><span class="s">&#39;IP Changed. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;IP unchanged.&#39;</span><span class="p">)</span>
+        <span class="n">res</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendMail</span><span class="p">(</span><span class="s1">&#39;IP Changed. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setNewIP</span><span class="p">(</span><span class="n">new_ip</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#39;IP changed. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;IP changed. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_ip</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">cleanLog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -187,11 +187,11 @@
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkIP</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s">&#39;--clean&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;--clean&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleanLog</span><span class="p">()</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;argument error.&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;argument error.&#39;</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">ip</span> <span class="o">=</span> <span class="n">CheckIP</span><span class="p">()</span>
     <span class="n">ip</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
@@ -260,13 +260,13 @@
             <li class="entry-categories"> in 
 </li>
             <li class="entry-human-time-diff"> on Mar 04, 2013</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/synology-nas-external-ip-change-notify/#comments" title="Comment on Synology群晖NAS外部IP更新通知">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/synology-nas-external-ip-change-notify/#comments" title="Comment on Synology群晖NAS外部IP更新通知">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-81780 -->
 <div id="post-73846" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/" title="向StartSSL申请个人域名SSL证书" rel="bookmark">向StartSSL申请个人域名SSL证书</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/apply-ssl-certificat-for-domain-from-startssl/" title="向StartSSL申请个人域名SSL证书" rel="bookmark">向StartSSL申请个人域名SSL证书</a></h1>
         <p class="entry-date" title="2013-01-21 21:10:46">
             <span class="day">21</span>
             <span class="month">Jan</span>
@@ -280,17 +280,17 @@
 
 <p>　　解决这个问题的唯一方法当然就是安装一个有效的SSL证书，但向CA机构申请证书一年少者几十多者数千美元，很不划算，好在互联网上总不缺<a href="http://www.sslshopper.com/article-free-ssl-certificates-from-a-free-certificate-authority.html">免费午餐</a>，<a href="https://www.startssl.com/">StartSSL</a>就是很好的选择，下面就以它为例了解下SSL证书的申请和安装过程。</p>
 
-<p><a href="http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/#more-73846" class="more-link">Read more...</a></p>
+<p><a href="http://127.0.0.1:8910/article/apply-ssl-certificat-for-domain-from-startssl/#more-73846" class="more-link">Read more...</a></p>
 <!-- content end -->
     </div><!-- .entry-content -->
     <div class="entry-meta">
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
+        <a href="http://127.0.0.1:8910/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
 </li>
             <li class="entry-human-time-diff"> on Jan 21, 2013</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/#comments" title="Comment on 向StartSSL申请个人域名SSL证书">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/apply-ssl-certificat-for-domain-from-startssl/#comments" title="Comment on 向StartSSL申请个人域名SSL证书">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-73846 -->
@@ -320,22 +320,14 @@
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?88452"></script>
+<script type="text/javascript" src="http://127.0.0.1:8910/assets/script/action.js?53190"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?88452'></script>
+<script type='text/javascript' src='http://127.0.0.1:8910/assets/script/css3-mediaqueries.js?53190'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
 <script type="text/javascript" src="/assets/additional.js"></script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+<script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();</script>
 
 <!-- google analytics track code -->
 <script type="text/javascript">

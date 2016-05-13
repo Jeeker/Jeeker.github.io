@@ -1,511 +1,575 @@
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <url>
-        <loc>http://jeeker.net/article/diablo3-hero-data-statistics/</loc>
+        <loc>http://127.0.0.1:8910/article/compile-shadowsocks-libev-for-synology-nas-dsm/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/article/diablo3-hero-data-statistics/</loc>
         <lastmod>2015-04-14T07:00:42Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/taobao-orders-statistics/</loc>
+        <loc>http://127.0.0.1:8910/article/taobao-orders-statistics/</loc>
         <lastmod>2015-01-06T00:43:33Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/alfred-workflow-chinese-tv-epg/</loc>
+        <loc>http://127.0.0.1:8910/article/alfred-workflow-chinese-tv-epg/</loc>
         <lastmod>2013-05-08T01:25:08Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/alfred-workflow-app-dig/</loc>
+        <loc>http://127.0.0.1:8910/article/alfred-workflow-app-dig/</loc>
         <lastmod>2013-05-08T01:15:06Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/alfred-workflow-manage-synology-download-station/</loc>
+        <loc>http://127.0.0.1:8910/article/alfred-workflow-manage-synology-download-station/</loc>
         <lastmod>2013-05-08T01:31:53Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/alfred-workflow-real-download-link/</loc>
+        <loc>http://127.0.0.1:8910/article/alfred-workflow-real-download-link/</loc>
         <lastmod>2013-05-08T01:24:31Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/alfred-workflow-search-lyric/</loc>
+        <loc>http://127.0.0.1:8910/article/alfred-workflow-search-lyric/</loc>
         <lastmod>2013-05-08T01:24:56Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/alfred-2-workflow-chinese-dictionary/</loc>
+        <loc>http://127.0.0.1:8910/projects/alfred-workflows/</loc>
+        <lastmod>2013-05-08T02:59:33Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/article/alfred-2-workflow-chinese-dictionary/</loc>
         <lastmod>2013-05-08T01:24:17Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/</loc>
+        <loc>http://127.0.0.1:8910/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/</loc>
         <lastmod>2014-12-23T09:04:17Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/synology-nas-external-ip-change-notify/</loc>
+        <loc>http://127.0.0.1:8910/article/synology-nas-external-ip-change-notify/</loc>
         <lastmod>2014-12-23T09:07:51Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/</loc>
+        <loc>http://127.0.0.1:8910/article/apply-ssl-certificat-for-domain-from-startssl/</loc>
         <lastmod>2013-05-08T01:19:05Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/remote-control-synology-download-station/</loc>
+        <loc>http://127.0.0.1:8910/article/remote-control-synology-download-station/</loc>
         <lastmod>2014-12-23T09:02:26Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/export-wordpress-to-sina-blog/</loc>
+        <loc>http://127.0.0.1:8910/article/export-wordpress-to-sina-blog/</loc>
         <lastmod>2014-12-23T09:07:58Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/projects/gude/</loc>
+        <loc>http://127.0.0.1:8910/projects/gude/</loc>
         <lastmod>2013-05-08T02:12:33Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/about/index.html</loc>
+        <loc>http://127.0.0.1:8910/article/style-test/</loc>
+        <lastmod>2014-12-23T08:55:03Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/about/index.html</loc>
         <lastmod>2013-05-07T14:15:24Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/pac/index.html</loc>
+        <loc>http://127.0.0.1:8910/pac/index.html</loc>
         <lastmod>2013-03-04T08:22:22Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/google-search-url-uncover/</loc>
+        <loc>http://127.0.0.1:8910/article/alfred/</loc>
+        <lastmod>2013-05-08T02:29:14Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/article/google-search-url-uncover/</loc>
         <lastmod>2014-12-23T09:05:43Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/projects/miniature/</loc>
+        <loc>http://127.0.0.1:8910/projects/miniature/</loc>
         <lastmod>2013-05-08T02:08:39Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/how-to-upgrade-git-on-mac-os/</loc>
+        <loc>http://127.0.0.1:8910/article/how-to-upgrade-git-on-mac-os/</loc>
         <lastmod>2014-12-23T09:00:08Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/difference-between-hard-link-and-symbolic-soft-link/</loc>
+        <loc>http://127.0.0.1:8910/article/difference-between-hard-link-and-symbolic-soft-link/</loc>
         <lastmod>2014-12-23T08:59:58Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/shell-script-unique-port/</loc>
+        <loc>http://127.0.0.1:8910/article/shell-script-unique-port/</loc>
         <lastmod>2014-12-23T08:59:40Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/projects/genpac/</loc>
+        <loc>http://127.0.0.1:8910/projects/genpac/</loc>
         <lastmod>2013-01-12T02:01:27Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/fetch-lyric-for-itunes/</loc>
+        <loc>http://127.0.0.1:8910/article/fetch-lyric-for-itunes/</loc>
         <lastmod>2014-12-23T08:58:47Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/activate-new-theme-vellum/</loc>
+        <loc>http://127.0.0.1:8910/article/activate-new-theme-vellum/</loc>
         <lastmod>2013-05-08T01:41:22Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/steve-jobs/</loc>
+        <loc>http://127.0.0.1:8910/article/steve-jobs/</loc>
         <lastmod>2013-05-08T01:49:38Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/evernote-tutorial/</loc>
+        <loc>http://127.0.0.1:8910/article/evernote-tutorial/</loc>
         <lastmod>2013-05-08T01:54:46Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/disable-mac-osx-lion-resume/</loc>
+        <loc>http://127.0.0.1:8910/article/disable-mac-osx-lion-resume/</loc>
         <lastmod>2014-12-23T08:56:56Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/the-memory-of-tomorrow/</loc>
+        <loc>http://127.0.0.1:8910/article/the-memory-of-tomorrow/</loc>
         <lastmod>2013-05-08T01:57:55Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/something-about-iphone4/</loc>
+        <loc>http://127.0.0.1:8910/article/something-about-iphone4/</loc>
         <lastmod>2013-05-08T01:59:42Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/some-songs-about-past-present-and-future/</loc>
+        <loc>http://127.0.0.1:8910/article/some-songs-about-past-present-and-future/</loc>
         <lastmod>2012-12-28T05:12:00Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/jkit-disable-autosave/</loc>
+        <loc>http://127.0.0.1:8910/article/mac-osx-apps/</loc>
+        <lastmod>2014-12-23T09:03:42Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/article/jkit-disable-autosave/</loc>
         <lastmod>2014-12-23T08:56:18Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/jkit-auto-link-at-reply/</loc>
+        <loc>http://127.0.0.1:8910/article/jkit-auto-link-at-reply/</loc>
         <lastmod>2014-12-23T08:56:05Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/jkit-optimize-database-automatically/</loc>
+        <loc>http://127.0.0.1:8910/article/jkit-optimize-database-automatically/</loc>
         <lastmod>2014-12-23T08:55:47Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/projects/postrank/</loc>
+        <loc>http://127.0.0.1:8910/projects/postrank/</loc>
         <lastmod>2013-05-08T02:10:24Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/article/pj2wp-wxr/</loc>
+        <loc>http://127.0.0.1:8910/article/pj2wp-wxr/</loc>
         <lastmod>2013-05-08T02:33:18Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/projects/fanfouportable/</loc>
+        <loc>http://127.0.0.1:8910/projects/fanfouportable/</loc>
         <lastmod>2013-05-08T03:03:38Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/projects/index.html</loc>
+        <loc>http://127.0.0.1:8910/projects/index.html</loc>
         <lastmod>2013-05-07T13:44:45Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/</loc>
-        <lastmod>2015-04-14T07:00:42Z</lastmod>
+        <loc>http://127.0.0.1:8910/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/page/2/</loc>
-        <lastmod>2015-04-14T07:00:42Z</lastmod>
+        <loc>http://127.0.0.1:8910/page/2/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/page/3/</loc>
-        <lastmod>2015-04-14T07:00:42Z</lastmod>
+        <loc>http://127.0.0.1:8910/page/3/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/page/4/</loc>
-        <lastmod>2015-04-14T07:00:42Z</lastmod>
+        <loc>http://127.0.0.1:8910/page/4/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/page/5/</loc>
-        <lastmod>2015-04-14T07:00:42Z</lastmod>
+        <loc>http://127.0.0.1:8910/page/5/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/page/6/</loc>
-        <lastmod>2015-04-14T07:00:42Z</lastmod>
+        <loc>http://127.0.0.1:8910/page/6/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/page/7/</loc>
-        <lastmod>2015-04-14T07:00:42Z</lastmod>
+        <loc>http://127.0.0.1:8910/page/7/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/archives/</loc>
-        <lastmod>2015-04-14T07:00:42Z</lastmod>
+        <loc>http://127.0.0.1:8910/page/8/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/category/thinking/</loc>
+        <loc>http://127.0.0.1:8910/archives/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/category/thinking/</loc>
         <lastmod>2014-12-23T08:59:58Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/category/misc/</loc>
+        <loc>http://127.0.0.1:8910/category/misc/</loc>
         <lastmod>2014-12-23T08:59:40Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/category/misc/page/2/</loc>
+        <loc>http://127.0.0.1:8910/category/misc/page/2/</loc>
         <lastmod>2014-12-23T08:59:40Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/category/projects/</loc>
+        <loc>http://127.0.0.1:8910/category/projects/</loc>
         <lastmod>2013-05-08T03:03:38Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/category/developer/</loc>
+        <loc>http://127.0.0.1:8910/category/projects/page/2/</loc>
+        <lastmod>2013-05-08T03:03:38Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/category/developer/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/category/developer/page/2/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/category/developer/page/3/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/category/developer/page/4/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/category/developer/page/5/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/python/</loc>
         <lastmod>2015-04-14T07:00:42Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/category/developer/page/2/</loc>
+        <loc>http://127.0.0.1:8910/tag/python/page/2/</loc>
         <lastmod>2015-04-14T07:00:42Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/category/developer/page/3/</loc>
+        <loc>http://127.0.0.1:8910/tag/python/page/3/</loc>
         <lastmod>2015-04-14T07:00:42Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/category/developer/page/4/</loc>
-        <lastmod>2015-04-14T07:00:42Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/python/</loc>
-        <lastmod>2015-04-14T07:00:42Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/python/page/2/</loc>
-        <lastmod>2015-04-14T07:00:42Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/%E4%BB%A3%E7%A0%81/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E4%BB%A3%E7%A0%81/</loc>
         <lastmod>2014-12-23T09:07:58Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/%E4%BB%A3%E7%A0%81/page/2/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E4%BB%A3%E7%A0%81/page/2/</loc>
         <lastmod>2014-12-23T09:07:58Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/how-to/</loc>
+        <loc>http://127.0.0.1:8910/tag/how-to/</loc>
         <lastmod>2014-12-23T09:00:08Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/how-to/page/2/</loc>
+        <loc>http://127.0.0.1:8910/tag/how-to/page/2/</loc>
         <lastmod>2014-12-23T09:00:08Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/wordpress/</loc>
+        <loc>http://127.0.0.1:8910/tag/alfred/</loc>
+        <lastmod>2013-05-08T02:59:33Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/alfred/page/2/</loc>
+        <lastmod>2013-05-08T02:59:33Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/wordpress/</loc>
         <lastmod>2014-12-23T09:07:58Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/wordpress/page/2/</loc>
+        <loc>http://127.0.0.1:8910/tag/wordpress/page/2/</loc>
         <lastmod>2014-12-23T09:07:58Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/alfred/</loc>
+        <loc>http://127.0.0.1:8910/tag/workflow/</loc>
         <lastmod>2013-05-08T01:31:53Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/alfred/page/2/</loc>
+        <loc>http://127.0.0.1:8910/tag/workflow/page/2/</loc>
         <lastmod>2013-05-08T01:31:53Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/workflow/</loc>
-        <lastmod>2013-05-08T01:31:53Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/workflow/page/2/</loc>
-        <lastmod>2013-05-08T01:31:53Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/nas/</loc>
-        <lastmod>2014-12-23T09:07:51Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/mac/</loc>
+        <loc>http://127.0.0.1:8910/tag/mac/</loc>
         <lastmod>2014-12-23T09:00:08Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/os-x/</loc>
+        <loc>http://127.0.0.1:8910/tag/mac/page/2/</loc>
         <lastmod>2014-12-23T09:00:08Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/php/</loc>
+        <loc>http://127.0.0.1:8910/tag/nas/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/os-x/</loc>
+        <lastmod>2014-12-23T09:00:08Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/php/</loc>
         <lastmod>2014-12-23T09:07:58Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/apple/</loc>
+        <loc>http://127.0.0.1:8910/tag/apple/</loc>
         <lastmod>2013-05-08T01:59:42Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/synology/</loc>
+        <loc>http://127.0.0.1:8910/tag/synology/</loc>
         <lastmod>2014-12-23T09:07:51Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/itunes/</loc>
+        <loc>http://127.0.0.1:8910/tag/itunes/</loc>
         <lastmod>2014-12-23T08:58:47Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/jkit/</loc>
+        <loc>http://127.0.0.1:8910/tag/jkit/</loc>
         <lastmod>2014-12-23T08:56:18Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/download-station/</loc>
+        <loc>http://127.0.0.1:8910/tag/download-station/</loc>
         <lastmod>2014-12-23T09:02:26Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/%E7%BE%A4%E6%99%96/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E7%BE%A4%E6%99%96/</loc>
         <lastmod>2014-12-23T09:07:51Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/git/</loc>
+        <loc>http://127.0.0.1:8910/tag/git/</loc>
         <lastmod>2014-12-23T09:00:08Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6/</loc>
         <lastmod>2014-12-23T09:07:58Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/steve-jobs/</loc>
+        <loc>http://127.0.0.1:8910/tag/steve-jobs/</loc>
         <lastmod>2013-05-08T01:49:38Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/busybox/</loc>
+        <loc>http://127.0.0.1:8910/tag/busybox/</loc>
         <lastmod>2014-12-23T09:07:51Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/%E5%9F%9F%E5%90%8D/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E5%9F%9F%E5%90%8D/</loc>
         <lastmod>2013-05-08T01:19:05Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/chinese/</loc>
+        <loc>http://127.0.0.1:8910/tag/chinese/</loc>
         <lastmod>2013-05-08T01:25:08Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/%E6%B7%98%E5%AE%9D/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E6%B7%98%E5%AE%9D/</loc>
         <lastmod>2015-01-06T00:43:33Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/app/</loc>
+        <loc>http://127.0.0.1:8910/tag/app/</loc>
         <lastmod>2013-05-08T01:15:06Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/sql/</loc>
-        <lastmod>2014-12-23T08:55:47Z</lastmod>
+        <loc>http://127.0.0.1:8910/tag/workflows/</loc>
+        <lastmod>2013-05-08T02:59:33Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/markdown/</loc>
+        <loc>http://127.0.0.1:8910/tag/markdown/</loc>
         <lastmod>2013-05-08T02:12:33Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/lion/</loc>
+        <loc>http://127.0.0.1:8910/tag/lion/</loc>
         <lastmod>2014-12-23T08:56:56Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/code/</loc>
+        <loc>http://127.0.0.1:8910/tag/code/</loc>
         <lastmod>2014-12-23T09:02:26Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/lyric/</loc>
+        <loc>http://127.0.0.1:8910/tag/lyric/</loc>
         <lastmod>2013-05-08T01:24:56Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/qq%E6%97%8B%E9%A3%8E/</loc>
+        <loc>http://127.0.0.1:8910/tag/qq%E6%97%8B%E9%A3%8E/</loc>
         <lastmod>2013-05-08T01:24:31Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/pjblog/</loc>
+        <loc>http://127.0.0.1:8910/tag/pjblog/</loc>
         <lastmod>2013-05-08T02:33:18Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/%E4%B9%94%E5%B8%83%E6%96%AF/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E4%B9%94%E5%B8%83%E6%96%AF/</loc>
         <lastmod>2013-05-08T01:49:38Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/evernote/</loc>
+        <loc>http://127.0.0.1:8910/tag/evernote/</loc>
         <lastmod>2013-05-08T01:54:46Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/%E8%8A%82%E7%9B%AE%E8%A1%A8/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E8%8A%82%E7%9B%AE%E8%A1%A8/</loc>
         <lastmod>2013-05-08T01:25:08Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/arduino/</loc>
+        <loc>http://127.0.0.1:8910/tag/arduino/</loc>
         <lastmod>2014-12-23T09:04:17Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/tv/</loc>
+        <loc>http://127.0.0.1:8910/tag/tv/</loc>
         <lastmod>2013-05-08T01:25:08Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/applescript/</loc>
-        <lastmod>2014-12-23T08:58:47Z</lastmod>
+        <loc>http://127.0.0.1:8910/tag/ddns/</loc>
+        <lastmod>2014-12-23T09:07:51Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/%E8%AF%8D%E5%85%B8/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E8%AF%8D%E5%85%B8/</loc>
         <lastmod>2013-05-08T01:24:17Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99/</loc>
         <lastmod>2013-05-08T02:12:33Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/dsm/</loc>
+        <loc>http://127.0.0.1:8910/tag/dsm/</loc>
         <lastmod>2014-12-23T09:02:26Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/startssl/</loc>
+        <loc>http://127.0.0.1:8910/tag/startssl/</loc>
         <lastmod>2013-05-08T01:19:05Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/%E5%BF%AB%E8%BD%A6/</loc>
-        <lastmod>2013-05-08T01:24:31Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/%E6%84%9F%E6%82%9F/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E6%84%9F%E6%82%9F/</loc>
         <lastmod>2012-12-28T05:12:00Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/iphone/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E4%BB%A3%E7%90%86/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/iphone/</loc>
         <lastmod>2013-05-08T01:59:42Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/%E6%95%99%E7%A8%8B/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E6%95%99%E7%A8%8B/</loc>
         <lastmod>2013-05-08T01:54:46Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/shell/</loc>
+        <loc>http://127.0.0.1:8910/tag/shell/</loc>
         <lastmod>2014-12-23T08:59:40Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/music/</loc>
+        <loc>http://127.0.0.1:8910/tag/music/</loc>
         <lastmod>2013-05-08T01:57:55Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/https/</loc>
+        <loc>http://127.0.0.1:8910/tag/https/</loc>
         <lastmod>2013-05-08T01:19:05Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/ios/</loc>
+        <loc>http://127.0.0.1:8910/tag/cctv/</loc>
+        <lastmod>2013-05-08T01:25:08Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/javascript/</loc>
+        <lastmod>2014-12-23T09:05:43Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/ios/</loc>
         <lastmod>2013-05-08T01:15:06Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/javascript/</loc>
-        <lastmod>2014-12-23T09:05:43Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/cctv/</loc>
-        <lastmod>2013-05-08T01:25:08Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/%E8%AF%81%E4%B9%A6/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E8%AF%81%E4%B9%A6/</loc>
         <lastmod>2013-05-08T01:19:05Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/ssl/</loc>
-        <lastmod>2013-05-08T01:19:05Z</lastmod>
+        <loc>http://127.0.0.1:8910/tag/shadowsocks-libev/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/diablo/</loc>
-        <lastmod>2015-04-14T07:00:42Z</lastmod>
+        <loc>http://127.0.0.1:8910/tag/proxy/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/homebrew/</loc>
-        <lastmod>2014-12-23T09:00:08Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/google/</loc>
-        <lastmod>2014-12-23T09:05:43Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/%E9%9F%B3%E4%B9%90/</loc>
-        <lastmod>2012-12-28T05:12:00Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/%E5%BE%AE%E5%8D%9A/</loc>
-        <lastmod>2014-12-23T09:04:17Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/github/</loc>
-        <lastmod>2013-05-08T02:12:33Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/%E8%BF%85%E9%9B%B7/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E5%BF%AB%E8%BD%A6/</loc>
         <lastmod>2013-05-08T01:24:31Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/%E6%96%B0%E6%B5%AA%E5%8D%9A%E5%AE%A2/</loc>
-        <lastmod>2014-12-23T09:07:58Z</lastmod>
+        <loc>http://127.0.0.1:8910/tag/homebrew/</loc>
+        <lastmod>2014-12-23T09:00:08Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/%E5%AD%99%E7%87%95%E5%A7%BF/</loc>
-        <lastmod>2013-05-08T01:57:55Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/%E6%9A%97%E9%BB%91%E7%A0%B4%E5%9D%8F%E7%A5%9E/</loc>
-        <lastmod>2015-04-14T07:00:42Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/%E4%BC%98%E5%8C%96/</loc>
-        <lastmod>2014-12-23T08:55:47Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/chrome/</loc>
+        <loc>http://127.0.0.1:8910/tag/google/</loc>
         <lastmod>2014-12-23T09:05:43Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/asp/</loc>
-        <lastmod>2013-05-08T02:33:18Z</lastmod>
+        <loc>http://127.0.0.1:8910/tag/%E9%9F%B3%E4%B9%90/</loc>
+        <lastmod>2012-12-28T05:12:00Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/epg/</loc>
+        <loc>http://127.0.0.1:8910/tag/%E5%BE%AE%E5%8D%9A/</loc>
+        <lastmod>2014-12-23T09:04:17Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/github/</loc>
+        <lastmod>2013-05-08T02:12:33Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/%E8%BF%85%E9%9B%B7/</loc>
+        <lastmod>2013-05-08T01:24:31Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/ssl/</loc>
+        <lastmod>2013-05-08T01:19:05Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/%E5%AD%99%E7%87%95%E5%A7%BF/</loc>
+        <lastmod>2013-05-08T01:57:55Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/%E6%9A%97%E9%BB%91%E7%A0%B4%E5%9D%8F%E7%A5%9E/</loc>
+        <lastmod>2015-04-14T07:00:42Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/%E6%96%B0%E6%B5%AA%E5%8D%9A%E5%AE%A2/</loc>
+        <lastmod>2014-12-23T09:07:58Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/chrome/</loc>
+        <lastmod>2014-12-23T09:05:43Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/sql/</loc>
+        <lastmod>2014-12-23T08:55:47Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/epg/</loc>
         <lastmod>2013-05-08T01:25:08Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/ddns/</loc>
-        <lastmod>2014-12-23T09:07:51Z</lastmod>
+        <loc>http://127.0.0.1:8910/tag/%E4%BC%98%E5%8C%96/</loc>
+        <lastmod>2014-12-23T08:55:47Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/asp/</loc>
+        <lastmod>2013-05-08T02:33:18Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/shadowsocks/</loc>
+        <lastmod>2016-05-12T09:24:04Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/applescript/</loc>
+        <lastmod>2014-12-23T08:58:47Z</lastmod>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:8910/tag/diablo/</loc>
+        <lastmod>2015-04-14T07:00:42Z</lastmod>
     </url>
 </urlset>

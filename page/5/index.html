@@ -7,10 +7,10 @@
 <head>
     <title>Jeeker</title>
     <meta charset="UTF-8">
-    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
-    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?88452" />
-    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <link rel="apple-touch-icon" href="http://127.0.0.1:8910/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://127.0.0.1:8910/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8910/assets/style.css?53190" />
+    <link rel="alternate" type="application/atom+xml" href="http://127.0.0.1:8910/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
     <!-- <meta name="keywords" content="" /> -->
@@ -22,12 +22,12 @@
     <div id="header">
         <div id="menu">
             <ul>
-                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
-                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
-                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
-                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
-                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
-                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+                <li><a href="http://127.0.0.1:8910/"><span>Home</span></a></li>
+                <li><a href="http://127.0.0.1:8910/projects/"><span>Projects</span></a></li>
+                <li><a href="http://127.0.0.1:8910/tags/"><span>Tags</span></a></li>
+                <li><a href="http://127.0.0.1:8910/archives/"><span>Archives</span></a></li>
+                <li><a href="http://127.0.0.1:8910/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://127.0.0.1:8910/about/"><span>About</span></a></li>
             </ul>
         </div>
     </div><!-- ＃header -->
@@ -38,7 +38,7 @@
             <li id="tool-search">
                 <form action="http://google.com/search" method="get">
                     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-                    <input type="hidden" name="q" value="site:jeeker.net" />
+                    <input type="hidden" name="q" value="site:127.0.0.1:8910" />
                 </form>
             </li>
         </ul>
@@ -48,9 +48,319 @@
     <div id="content" role="main">
 
 
+<div id="post-48411" class="post post-list post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://127.0.0.1:8910/article/how-to-upgrade-git-on-mac-os/" title="HOW TO: 升级Mac OS X上的GIT" rel="bookmark">HOW TO: 升级Mac OS X上的GIT</a></h1>
+        <p class="entry-date" title="2012-06-06 10:06:51">
+            <span class="day">06</span>
+            <span class="month">Jun</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　在MacOSX下使用<a href="http://mxcl.github.com/homebrew/">Homebrew</a>或其它方式安装最新版本的GIT后，往往并不能使用，系统默认调用的依旧还是比较旧的版本，原因是已经通过XCode等方式安装过git，且它们的路径优先级较高。</p>
+
+<p>　　下面假设你已经通过<a href="http://mxcl.github.com/homebrew/">Homebrew</a>的<code>brew install git</code>成功安装了GIT，但系统默认使用的还是旧版本。</p>
+
+<h4 id="1-homebrew">1.  检查系统默认调用的是否是通过Homebrew安装的最新版本</h4>
+
+<p>　　Homebrew安装的GIT会被软链接到<code>/usr/local/bin</code>目录下，所以如果你使用<code>which git</code>看到的结果不是<code>/usr/local/bin/git</code>，那么你就需要通过后面的方法修改以便能够默认使用你所安装版本的GIT。</p>
+
+<h4 id="2">2. 移除系统自带的版本</h4>
+
+<p>　　如果<code>which git</code>返回的结果是<code>/usr/bin/git</code>，说明你可能通过XCode安装了其自带的GIT，其版本一般都比较低，需要移除。</p>
+
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span> /usr/bin
+sudo mkdir backup-git-apple
+sudo mv git* backup-git-apple
+</code></pre></div>
+
+<h4 id="3">3. 移除可能存在的其它版本</h4>
+
+<p>　　如果<code>which git</code>返回的结果是<code>/usr/local/git/bin/git</code>，则表示可能是你曾经使用<a href="http://code.google.com/p/git-osx-installer/">git-osx-installer</a>或其它方式安装过GIT，检查系统环境变量PATH可能还包含形如<code>/usr/local/git/bin</code>的路径。</p>
+
+<div class="codehilite"><pre><span></span><code>sudo rm -rf /usr/local/git
+sudo rm /etc/paths.d/git
+sudo rm /etc/manpaths.d/git
+</code></pre></div>
+
+<p>　　最后，重启终端，再次检查<code>which git</code>及<code>git version</code>。</p>
+
+<p>　　BTW: 2、3的情况可能同时存在。</p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on Jun 06, 2012</li>
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/how-to-upgrade-git-on-mac-os/#comments" title="Comment on HOW TO: 升级Mac OS X上的GIT">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-48411 -->
+<div id="post-46713" class="post post-list post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://127.0.0.1:8910/article/difference-between-hard-link-and-symbolic-soft-link/" title="硬链接和软链接（符号链接）的区别" rel="bookmark">硬链接和软链接（符号链接）的区别</a></h1>
+        <p class="entry-date" title="2012-05-24 16:05:13">
+            <span class="day">24</span>
+            <span class="month">May</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　对*nix系统下硬链接和软链接文件总有些疑问，于是查了些资料，稍微总结了下。</p>
+
+<h4 id="1-nix">1. *nix下的文件和目录</h4>
+
+<p>　　在*nix下目录也是文件的一种，每个文件都有两个部分组成：文件名、数据，它们之间由inode(索引节点)产生关联，文件名只是表象，索引节点指向的部分才是文件的实质内容。</p>
+
+<p>　　如有如下文件</p>
+
+<div class="codehilite"><pre><span></span><code>name     inode
+f1.txt    100
+f2.txt    200
+f3.txt    100
+</code></pre></div>
+
+<p>　　那么f1.txt与f3.txt的文件内容实际上是一样的。</p>
+
+<h4 id="2">2. 硬链接和软链接</h4>
+
+<p>　　软链接即符号链接(symbolic link)，软链接有点像Windows上的快捷方式，它实际上是一个新的文件，与源文件有不同的inode，只是包含了源文件的路径信息。</p>
+
+<p>　　硬链接与源文件有相同的inode，只是文件名不同，但不应该算做是一个新的文件。</p>
+
+<p>　　用下面的命令可以验证：</p>
+
+<div class="codehilite"><pre><span></span><code>JMBP:~ JinnLynn$ touch source-file
+JMBP:~ JinnLynn$ ln source-file hard-link
+JMBP:~ JinnLynn$ ln -s source-file soft-link
+JMBP:~ JinnLynn$ ls -i
+<span class="m">89773125</span> hard-link   <span class="m">89773158</span> soft-link   <span class="m">89773125</span> source-file
+</code></pre></div>
+
+<p>　　可以看到 hard-link与source-file有相同的inode数值89773125。</p>
+
+<h4 id="3">3. 产生链接文件的限制</h4>
+
+<p>　　软链接的源文件可以是任意的目录或文件，基本没有限制，甚至可以是某个不存在的文件或自身。</p>
+
+<p>　　相较而言硬链接对源文件就有较多限制，必须是存在的文件，不能是目录，也不能跨文件系统（原因很好理解，不同的文件系统有可能出现相同的inode，而硬链接是通过inode找到文件内容的）。</p>
+
+<h4 id="4">4. 读写或删除链接文件对源文件的影响</h4>
+
+<p>　　对链接文件操作时都等同于对源文件的操作，但是<em>删除链接文件则不会同时删除源文件</em>。</p>
+
+<h4 id="5">5. 删除源文件对链接文件的影响</h4>
+
+<p>　　删除软链接的源文件后，访问软链接文件将无法获得源文件内容，因为软链接文件其实只是保存了源文件的路径，并没有文件的实质内容。</p>
+
+<p>　　删除硬链接的源文件后，硬链接文件依然可以被访问，内容即删除前的源文件内容，原因在于源文件和硬链接文件指向的相同的inode，只有当所有指向该inode的硬链接文件都删除了，文件内容才真正的被删除。</p>
+
+<h4 id="6">6. 其它</h4>
+
+<p>　　软链接和硬链接基本都不占用硬盘空间（或者说占用很少）。</p>
+
+<p>　　硬链接可以有效的保护文件防止意外被删除。</p>
+
+<p><strong>REF :</strong></p>
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Ln_(Unix)">http://en.wikipedia.org/wiki/Ln_(Unix)</a></li>
+<li><a href="http://blog.csdn.net/carry1314lele/article/details/2649572">http://blog.csdn.net/carry1314lele/article/details/2649572</a></li>
+</ul>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://127.0.0.1:8910/category/thinking/" title="View all posts in Thinking" rel="category tag">Thinking</a>
+</li>
+            <li class="entry-human-time-diff"> on May 24, 2012</li>
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/difference-between-hard-link-and-symbolic-soft-link/#comments" title="Comment on 硬链接和软链接（符号链接）的区别">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-46713 -->
+<div id="post-73514" class="post post-list post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://127.0.0.1:8910/article/shell-script-unique-port/" title="终端脚本统一入口" rel="bookmark">终端脚本统一入口</a></h1>
+        <p class="entry-date" title="2012-05-16 21:05:14">
+            <span class="day">16</span>
+            <span class="month">May</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　相较Windows用户而言，Mac和*nix用户更喜欢用脚本处理一些日常的操作，脚本语言可以是Shell、Python、Ruby、Perl或甚至是Mac上的Applescript，一段时间下来可能累计了不少，但这时又会遇到想进行某项操作时却无法快速获取相应的脚本文件，失去了使用脚本原本该有的便捷与效率。</p>
+
+<p>　　其实我们可以建立一个简单的Shell文件做为这些脚本的入口，只要记住一些简单的命令就可以快速的执行相应的脚本，实现方法如下：</p>
+
+<h4 id="1">1. 建立统一入口脚本</h4>
+
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#检查环境变量</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="nv">$KITS</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    . <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span>/build-env.sh
+<span class="k">fi</span>
+
+<span class="c1">#Applescrit接口文件</span>
+<span class="nv">OSASPORT</span><span class="o">=</span><span class="nv">$KITSSHELL</span>/osasport.applescript
+
+<span class="c1">#使用说明</span>
+<span class="k">function</span> usage<span class="o">()</span> <span class="o">{</span>
+    more <span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITSSHELL</span><span class="si">}</span><span class="s2">/misc/kits-usage.txt&quot;</span>
+<span class="o">}</span>
+
+<span class="k">function</span> sshkey<span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">[</span> -f <span class="nv">$KITSSHELL</span>/private.sh <span class="o">]</span><span class="p">;</span> <span class="k">then</span> 
+        . <span class="nv">$KITSSHELL</span>/private.sh sshkey 
+    <span class="k">else</span>
+        <span class="nb">echo</span> <span class="s1">&#39;kits: sshkey is not a kits command.&#39;</span>
+    <span class="k">fi</span>
+<span class="o">}</span>
+
+<span class="k">case</span> <span class="nv">$1</span> in
+    <span class="s1">&#39;backup&#39;</span> <span class="o">)</span>     <span class="c1">#备份文件到NAS</span>
+        <span class="nv">$KITSSHELL</span>/backup/backup.sh
+        <span class="p">;;</span>
+    <span class="s1">&#39;genpac&#39;</span> <span class="o">)</span>     <span class="c1">#通过GenPAC生成自动代理配置文件</span>
+        <span class="nv">$KITS</span>/GenPAC/genpac.py
+        <span class="p">;;</span>
+    <span class="s1">&#39;mamp&#39;</span> <span class="o">)</span>       <span class="c1">#MAMP管理</span>
+        <span class="nv">$KITSSHELL</span>/mamp.sh <span class="nv">$2</span>
+        <span class="p">;;</span>
+    <span class="s1">&#39;itunes&#39;</span> <span class="o">)</span>     <span class="c1">#部分itunes操作</span>
+        osascript <span class="nv">$OSASPORT</span> itunes <span class="nv">$2</span> <span class="nv">$3</span>
+        <span class="p">;;</span>
+    <span class="s1">&#39;sshkey&#39;</span> <span class="o">)</span>     <span class="c1">#SSH秘钥处理</span>
+        sshkey
+        <span class="p">;;</span>
+    <span class="s1">&#39;usage&#39;</span> <span class="o">)</span>      <span class="c1">#使用说明</span>
+        usage
+        <span class="p">;;</span>
+    <span class="s1">&#39;&#39;</span> <span class="o">)</span>
+        usage
+        <span class="p">;;</span>
+    * <span class="o">)</span>
+        <span class="nb">echo</span> <span class="s2">&quot;kits: &#39;</span><span class="nv">$1</span><span class="s2">&#39; is not a kits command. See &#39;kits usage&#39;.&quot;</span>
+        <span class="p">;;</span>
+<span class="k">esac</span>
+</code></pre></div>
+
+<p>　　将上述内容保存为<code>kits.sh</code>或其它任意名称，需要注意的是上面脚本里的内容是我个人所使用的，只是作为例子，大部分是无法运行的，你需要根据自己的需要修改。</p>
+
+<h4 id="2">2. 添加系统环境变量</h4>
+
+<p>　　上面的脚本虽然已经实现了做为其它脚本入口的功能，但使用时还不够方便，需要将它系统环境变量中，更容易访问，可能有人已经注意到上面代码中出现的<code>build-env.sh</code>文件，它的目的就是建立一些环境变量。</p>
+
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 建立Kits的运行环境</span>
+<span class="c1"># 在~/.bash_profile 添加 source PATH/TO/build-env.sh</span>
+
+<span class="c1"># 注意 这里不能用相对路径</span>
+
+<span class="c1">#Kits所在目录</span>
+<span class="nb">export</span> <span class="nv">KITS</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/Developer/Misc/MacOSX-Kits&quot;</span>
+
+<span class="nb">export</span> <span class="nv">KITSSHELL</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITS</span><span class="si">}</span><span class="s2">/Shell&quot;</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITSSHELL</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1">#建立别名</span>
+<span class="nb">alias</span> <span class="nv">kits</span><span class="o">=</span><span class="s2">&quot;kits.sh&quot;</span>
+</code></pre></div>
+
+<p>　　最后再在<code>~/.bash_profile</code>的末尾添加<code>. /PATH/TO/builde-env.sh</code>（或<code>source /PATH/TO/builde-env.sh</code>）让它在用户登陆终端时被执行。</p>
+
+<p>　　经过这样设置，在任意时候任意目录下只要在终端输入形如<code>kits usage</code>、<code>kit mamp start</code>等命令就可以快速执行相应的脚本了。</p>
+
+<p>　　<strong>BTW</strong>: 我日常使用的部分脚本都陆续放到GitHub上了，有兴趣可以看看。</p>
+
+<p><span class="btn-single btn-center"><a href="https://github.com/JinnLynn/MacOSX-Kits" class="btn btn-large icon-github">MacOSX Kits</a></span></p>
+
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://127.0.0.1:8910/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
+</li>
+            <li class="entry-human-time-diff"> on May 16, 2012</li>
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/shell-script-unique-port/#comments" title="Comment on 终端脚本统一入口">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-73514 -->
+<div id="post-03143" class="post post-list post-page post-publish">
+    <div class="entry-head">
+        <h1><a href="http://127.0.0.1:8910/projects/genpac/" title="GenPAC" rel="bookmark">GenPAC</a></h1>
+        <p class="entry-date" title="2012-05-07 23:05:43">
+            <span class="day">07</span>
+            <span class="month">May</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　由于众所周知的原因，中国大陆地区访问国外资源总会遇到些不便，于是“翻墙”成了有意了解真实世界的内地网民所必须掌握的一项技能，本人也是如此，先前使用<a href="http://code.google.com/p/switchy/">Proxy Switchy!</a>，可惜在Mac OSX Lion后就无法正常使用，其开发者不知为何也停止了更新，此后找到的<a href="http://autoproxy2pac.appspot.com/">AutoProxy2PAC</a> 也有这样那样的问题，最恶心的是居然莫名其妙还使用base64编码，让有“窥探欲”的我实在无法忍受。</p>
+
+<p>　　于是本着自力更生、丰衣足食的精神，就有了这个代理自动配置生成工具 <strong>GenPAC</strong> (PAC Generator)。</p>
+
+<ul>
+<li>基于Python 2.7</li>
+<li>代理规则基于gfwlist</li>
+<li>支持用户自定义规则</li>
+<li>生成时允许配置使用代理，防止获取gfwlist时被墙</li>
+</ul>
+
+<p><span class="btn-single btn-center"><a href="https://github.com/JinnLynn/GenPAC" class="btn btn-large icon-github">Project on GitHub</a></span></p>
+
+<h3 id="usage">USAGE</h3>
+
+<h5>配置</h5>
+
+<p>　　用任意文本编辑工具打开<code>config.txt</code>文件，根据文件内的注释配置相应的变量。</p>
+
+<h5 id="-2">自定义规则</h5>
+
+<p>　　<code>user-rules.txt</code>是用户自定义规则，语法与gfwlist相同，即AdBlock Plus过滤规则，详见文件内说明，或访问<a href="http://adblockplus.org/en/filters">这里</a>。</p>
+
+<h5 id="-3">生成</h5>
+
+<p>　　开发语言为Python，版本要求2.7。</p>
+
+<p>　　Mac OSX已自带Python，在终端执行<code>./genpac.py</code>即可。</p>
+
+<p>　　Windows需要安装Python，在其<a href="http://www.python.org/">官网</a>可以找到安装包（<strong>版本务必选择2.7.*</strong>），安装后在命令行执行<code>python genpac.py</code>即可。</p>
+
+<p>　　*nix与Mac OSX类似。</p>
+
+<h5 id="-4">使用</h5>
+
+<p>　　如何使用自动代理请自行Google，需要说明的是Mac OSX Lion下的Safari由于其沙盒机制的原因无法使用本地PAC文件，需要使用Web Sharing或将PAC文件放在服务器，然后通过http访问。</p>
+
+<p><a href="http://127.0.0.1:8910/projects/genpac/#more-03143" class="more-link">Read more...</a></p>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://127.0.0.1:8910/category/projects/" title="View all posts in Projects" rel="category tag">Projects</a>
+</li>
+            <li class="entry-human-time-diff"> on May 07, 2012</li>
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/projects/genpac/#comments" title="Comment on GenPAC">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-03143 -->
 <div id="post-11545" class="post post-list post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/fetch-lyric-for-itunes/" title="让iTunes的歌曲自动获取歌词" rel="bookmark">让iTunes的歌曲自动获取歌词</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/fetch-lyric-for-itunes/" title="让iTunes的歌曲自动获取歌词" rel="bookmark">让iTunes的歌曲自动获取歌词</a></h1>
         <p class="entry-date" title="2012-05-04 14:05:45">
             <span class="day">04</span>
             <span class="month">May</span>
@@ -62,7 +372,7 @@
 
 <p>　　在<a href="http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/">4321.la</a>看到使用AppleScript自动获取iTunes曲目歌词的脚本，相当不错，自己做了些修改，添加了当歌词已存在时忽略获取，可以通过Growl通知获取的结果等功能。代码如下：</p>
 
-<div class="codehilite"><pre><code><span class="c">-- FetchLyric</span>
+<div class="codehilite"><pre><span></span><code><span class="c">-- FetchLyric</span>
 <span class="c">-- DESCRIPTION: 让iTunes内当前被选中的曲目自动下载并保存歌词，若歌词已存在将被忽略，支持Growl通知</span>
 <span class="c">-- AUTHOR: JinnLynn http:://jeeker.net</span>
 <span class="c">-- LAST UPDATED: 2012-05-04</span>
@@ -159,170 +469,19 @@
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on May 04, 2012</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/fetch-lyric-for-itunes/#comments" title="Comment on 让iTunes的歌曲自动获取歌词">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/fetch-lyric-for-itunes/#comments" title="Comment on 让iTunes的歌曲自动获取歌词">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-11545 -->
-<div id="post-54259" class="post post-list post-post post-publish">
-    <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/activate-new-theme-vellum/" title="启用新主题Vellum" rel="bookmark">启用新主题Vellum</a></h1>
-        <p class="entry-date" title="2012-04-18 21:04:19">
-            <span class="day">18</span>
-            <span class="month">Apr</span>
-        </p>
-    </div><!-- .entry-header -->
-    <div class="entry-content">
-<!-- content start -->
-<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2012-04-18-activate-new-theme-vellum/screenshot.png" alt="Vellum Screenshot small" /></i></p>
-
-<p>　　自博客系统从PJBlog2改为Wordpress起我就一直使用<a href="http://designdisease.com/portfolio/illacrimo-wordpress-theme/">illacrimo</a>这个主题，未曾更换过，期间只是调整了某些内容的显示尺寸，整体结构并未做任何的改变，长时间使用下来也有点审美疲劳了。</p>
-
-<p>　　新主题名为Vellum，意为皮纸，就是希望页面呈现的效果如印制在纸上般易于阅读，在Chrome、Safari、Firefox、Opera、IE9下最终效果均无问题，基本一致，不过个人感觉在Mac下更加美观（<a href="http://jeeker.net/demos/vellum-screenshot/">这里</a>可以看到在Chrome Mac版下的截图），尤其是文字的呈现，这可能跟Mac系统本身的特点有关，在文字渲染上Mac从来就都比Windows更具有美感。</p>
-
-<p>　　IE9以前的版本没有给予过多考虑，没必要为落后买单，但内容的显示应该还是不会有问题的。</p>
-
-<p>　　<strong>NOTE:</strong> 设计中部分参考了<a href="http://reederapp.com/">Reeder</a>的风格，如日志内的链接、图片的显示样式。</p>
-
-<!-- content end -->
-    </div><!-- .entry-content -->
-    <div class="entry-meta">
-        <ul>
-            <li class="entry-author">Posted by JinnLynn</li>
-            <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
-</li>
-            <li class="entry-human-time-diff"> on Apr 18, 2012</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/activate-new-theme-vellum/#comments" title="Comment on 启用新主题Vellum">Comments</a></li> 
-        </ul>
-    </div><!-- .entry-meta -->
-</div><!-- #post-54259 -->
-<div id="post-59821" class="post post-list post-post post-publish">
-    <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/steve-jobs/" title="Steve Jobs (1955 ~ 2011)" rel="bookmark">Steve Jobs (1955 ~ 2011)</a></h1>
-        <p class="entry-date" title="2011-10-06 08:10:21">
-            <span class="day">06</span>
-            <span class="month">Oct</span>
-        </p>
-    </div><!-- .entry-header -->
-    <div class="entry-content">
-<!-- content start -->
-<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2011-10-06-steve-jobs/steve-jobs.jpg" alt="Steve Jobs (1955 - 2011)" /></i></p>
-
-<h2 id="unfortunately-that-day-has-come">「Unfortunately, that day has come.」</h2>
-
-<p>　　[audio src=http://static.afvisual.com/uploads/2011-10-06-steve-jobs/the-crazy-ones.mp3] <br />
-　　<small>The Crazy Ones From Think Different By Steve Jobs</small></p>
-
-<p>　　声音来自Steve Jobs配音的Apple九十年代广告<a href="http://zh.wikipedia.org/wiki/Think_Different">Think Different</a>，因为当心外界将他本人等同为苹果公司，最终公开的<a href="http://jeeker.net/steve-jobs/#think-different-video">广告</a>并未使用这个版本。</p>
-
-<p>　　这段广告词似乎是Jobs的自白，他疯狂、偏执、充满争议，并不完美，但他却一生都在极力追求最完美的用户体验，无论你是否意识到，他影响了世界，改变了我们的生活。</p>
-
-<p>　　伤感于一个天才的逝去，传奇也许不再。</p>
-
-<p><a href="http://jeeker.net/article/steve-jobs/#more-59821" class="more-link">Read more...</a></p>
-<!-- content end -->
-    </div><!-- .entry-content -->
-    <div class="entry-meta">
-        <ul>
-            <li class="entry-author">Posted by JinnLynn</li>
-            <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/thinking/" title="View all posts in Thinking" rel="category tag">Thinking</a>
-</li>
-            <li class="entry-human-time-diff"> on Oct 06, 2011</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/steve-jobs/#comments" title="Comment on Steve Jobs (1955 ~ 2011)">Comments</a></li> 
-        </ul>
-    </div><!-- .entry-meta -->
-</div><!-- #post-59821 -->
-<div id="post-25780" class="post post-list post-post post-publish">
-    <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/evernote-tutorial/" title="Evernote入门教程" rel="bookmark">Evernote入门教程</a></h1>
-        <p class="entry-date" title="2011-09-23 05:09:40">
-            <span class="day">23</span>
-            <span class="month">Sep</span>
-        </p>
-    </div><!-- .entry-header -->
-    <div class="entry-content">
-<!-- content start -->
-<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2011-09-23-evernote-tutorial/banner.jpg" alt="Evernote Logo" /></i></p>
-
-<p>　　这是早前给某同学写的<a href="http://www.evernote.com/">Evernote</a>入门教程，原文已通过Evernote<a href="http://www.evernote.com/shard/s5/sh/9fd641b4-9c4c-485d-afcf-cf03a7e5c503/4fc2e080f70589541ae2dc7fe2d216d6">共享</a>。</p>
-
-<p><a href="http://jeeker.net/article/evernote-tutorial/#more-25780" class="more-link">Read more...</a></p>
-<!-- content end -->
-    </div><!-- .entry-content -->
-    <div class="entry-meta">
-        <ul>
-            <li class="entry-author">Posted by JinnLynn</li>
-            <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
-</li>
-            <li class="entry-human-time-diff"> on Sep 23, 2011</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/evernote-tutorial/#comments" title="Comment on Evernote入门教程">Comments</a></li> 
-        </ul>
-    </div><!-- .entry-meta -->
-</div><!-- #post-25780 -->
-<div id="post-18959" class="post post-list post-post post-publish">
-    <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/disable-mac-osx-lion-resume/" title="禁用Mac OS X Lion的Resume功能" rel="bookmark">禁用Mac OS X Lion的Resume功能</a></h1>
-        <p class="entry-date" title="2011-09-08 02:09:19">
-            <span class="day">08</span>
-            <span class="month">Sep</span>
-        </p>
-    </div><!-- .entry-header -->
-    <div class="entry-content">
-<!-- content start -->
-<p>　　Mac OS X Lion新增加的Resume功能在给使用者带来便利的同时也引发了隐私上的问题，没人希望尴尬的内容因此被呈现在他人眼前，可惜对于Resume，Lion并没有提供比较完善的配置功能，很多时候需要手动进行设置。</p>
-
-<h5 id="1-resume">1. 关闭所有应用的Resume功能</h5>
-
-<p>　　System Preferences - General - Restore windows when quitting and re-opening apps 取消选中该选项。</p>
-
-<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2011-09-08-disable-mac-osx-lion-resume/screenshot.jpg" alt="Resume" /></i></p>
-
-<h5 id="2-resume">2. 临时禁用某个应用的Resume功能</h5>
-
-<p>　　使用快捷键<strong>⌥⌘Q</strong>退出某个应用，下次再次打开时就不会恢复窗口，除非该应用关闭时正在编辑的文件尚未保存。</p>
-
-<p>　　如果某个应用已经被退出，则可以在Finder前往~/Library/Saved Application State/文件夹，找到不想再次打开时恢复窗口的应用目录，如com.apple.Safari.savedState，将其删除即可（注：比较特别的是Preview在这个目录下只是一个链接，需要进入其目录后删除其下的所有文件）。</p>
-
-<h5 id="3-resume">3. 永久关闭特定应用的Resume功能</h5>
-
-<p>　　以Safari为例，打开终端，输入以下命令：</p>
-
-<div class="codehilite"><pre><code>defaults write com.apple.Safari NSQuitAlwaysKeepsWindows -int 0
-</code></pre></div>
-
-<p>　　要开启Resume功能，删除该键值即可：</p>
-
-<div class="codehilite"><pre><code>defaults delete com.apple.Safari NSQuitAlwaysKeepsWindows
-</code></pre></div>
-
-<p>　　也可以使用Pref Setter、PlistEdit Pro等plist工具对应用的配置文件添加或删除NSQuitAlwaysKeepsWindows键值。</p>
-
-<p><strong>BTW:</strong> 不是使用Mac OS X Lion的API而是自己控制窗口恢复的应用使用上述方法无效，如Chrome 15.0.865.0 dev</p>
-
-<!-- content end -->
-    </div><!-- .entry-content -->
-    <div class="entry-meta">
-        <ul>
-            <li class="entry-author">Posted by JinnLynn</li>
-            <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
-</li>
-            <li class="entry-human-time-diff"> on Sep 08, 2011</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/disable-mac-osx-lion-resume/#comments" title="Comment on 禁用Mac OS X Lion的Resume功能">Comments</a></li> 
-        </ul>
-    </div><!-- .entry-meta -->
-</div><!-- #post-18959 -->
 
 
     <div id="pagenavi">
-        <span class="pages">Page 5 of 7</span>
-        <a href="http://jeeker.net/page/6/" class="nav-older">Older</a>
-        <a href="http://jeeker.net/page/4/" class="nav-newer">Newer</a>
+        <span class="pages">Page 5 of 8</span>
+        <a href="http://127.0.0.1:8910/page/6/" class="nav-older">Older</a>
+        <a href="http://127.0.0.1:8910/page/4/" class="nav-newer">Newer</a>
     </div><!-- #pagenavi -->
    
     </div><!-- #content -->
@@ -345,22 +504,14 @@
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?88452"></script>
+<script type="text/javascript" src="http://127.0.0.1:8910/assets/script/action.js?53190"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?88452'></script>
+<script type='text/javascript' src='http://127.0.0.1:8910/assets/script/css3-mediaqueries.js?53190'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
 <script type="text/javascript" src="/assets/additional.js"></script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+<script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();</script>
 
 <!-- google analytics track code -->
 <script type="text/javascript">

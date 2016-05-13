@@ -7,10 +7,10 @@
 <head>
     <title>代码 - Jeeker</title>
     <meta charset="UTF-8">
-    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
-    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?88452" />
-    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <link rel="apple-touch-icon" href="http://127.0.0.1:8910/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://127.0.0.1:8910/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8910/assets/style.css?53190" />
+    <link rel="alternate" type="application/atom+xml" href="http://127.0.0.1:8910/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
     <!-- <meta name="keywords" content="" /> -->
@@ -22,12 +22,12 @@
     <div id="header">
         <div id="menu">
             <ul>
-                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
-                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
-                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
-                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
-                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
-                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+                <li><a href="http://127.0.0.1:8910/"><span>Home</span></a></li>
+                <li><a href="http://127.0.0.1:8910/projects/"><span>Projects</span></a></li>
+                <li><a href="http://127.0.0.1:8910/tags/"><span>Tags</span></a></li>
+                <li><a href="http://127.0.0.1:8910/archives/"><span>Archives</span></a></li>
+                <li><a href="http://127.0.0.1:8910/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://127.0.0.1:8910/about/"><span>About</span></a></li>
             </ul>
         </div>
     </div><!-- ＃header -->
@@ -38,7 +38,7 @@
             <li id="tool-search">
                 <form action="http://google.com/search" method="get">
                     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-                    <input type="hidden" name="q" value="site:jeeker.net" />
+                    <input type="hidden" name="q" value="site:127.0.0.1:8910" />
                 </form>
             </li>
         </ul>
@@ -51,7 +51,7 @@
 
 <div id="post-45453" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/export-wordpress-to-sina-blog/" title="导出Wordpress日志到新浪博客" rel="bookmark">导出Wordpress日志到新浪博客</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/export-wordpress-to-sina-blog/" title="导出Wordpress日志到新浪博客" rel="bookmark">导出Wordpress日志到新浪博客</a></h1>
         <p class="entry-date" title="2013-01-13 10:50:53">
             <span class="day">13</span>
             <span class="month">Jan</span>
@@ -59,11 +59,11 @@
     </div><!-- .entry-header -->
     <div class="entry-content">
 <!-- content start -->
-<p>　　服务器即将到期，不想再续租，<a href="http://jeeker.net/projects/gude/">自己的博客已经转成静态的了</a>，放到<a href="http://pages.github.com/">GitHub Pages</a>上当然是最好的选择， 服务器上另一个<a href="http://wendy.jeeker.net/">朋友的博客</a>打算入住新浪博客， 于是就涉及到怎么迁移数据的问题了， 好在新浪博客还算比较开放，支持<a href="http://xmlrpc.scripting.com/metaWeblogApi.html">MetaWeblog XML-RPC API</a>，写了一段简单的脚本，搬家成功。</p>
+<p>　　服务器即将到期，不想再续租，<a href="http://127.0.0.1:8910/projects/gude/">自己的博客已经转成静态的了</a>，放到<a href="http://pages.github.com/">GitHub Pages</a>上当然是最好的选择， 服务器上另一个<a href="http://wendy.jeeker.net/">朋友的博客</a>打算入住新浪博客， 于是就涉及到怎么迁移数据的问题了， 好在新浪博客还算比较开放，支持<a href="http://xmlrpc.scripting.com/metaWeblogApi.html">MetaWeblog XML-RPC API</a>，写了一段简单的脚本，搬家成功。</p>
 
 <p>　　不过新浪博客的API貌似不支持<code>dateCreated</code>，因此导入后所有日志的发布时间都变成当前时间了，另外脚本也没有对日志分类进行处理，好在日志不多，手动调整也不是那么麻烦。</p>
 
-<div class="codehilite"><pre><code><span class="cp">&lt;?php</span>
+<div class="codehilite"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="sd">/**</span>
 <span class="sd"> * 导出Wordpress日志到新浪博客</span>
 <span class="sd"> * Created by JinnLynn 2013.01.11 http://jeeker.net/</span>
@@ -153,16 +153,16 @@
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Jan 13, 2013</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/export-wordpress-to-sina-blog/#comments" title="Comment on 导出Wordpress日志到新浪博客">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/export-wordpress-to-sina-blog/#comments" title="Comment on 导出Wordpress日志到新浪博客">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-45453 -->
 <div id="post-67562" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/google-search-url-uncover/" title="一个超简单的在Google中直接访问目标网址的脚本" rel="bookmark">一个超简单的在Google中直接访问目标网址的脚本</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/google-search-url-uncover/" title="一个超简单的在Google中直接访问目标网址的脚本" rel="bookmark">一个超简单的在Google中直接访问目标网址的脚本</a></h1>
         <p class="entry-date" title="2012-11-22 14:59:22">
             <span class="day">22</span>
             <span class="month">Nov</span>
@@ -174,7 +174,7 @@
 
 <p>　　下面的这段很简单的代码就是让你避免使用Google跳转，直接访问目标网址。</p>
 
-<div class="codehilite"><pre><code><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<div class="codehilite"><pre><span></span><code><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
     <span class="kd">function</span> <span class="nx">getRealUrl</span><span class="p">(</span><span class="nx">l</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">l</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;/url?&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
@@ -236,7 +236,7 @@
 
 <p>　　未测试过，不过理论上应该可行。在脚本前添加如下内容</p>
 
-<div class="codehilite"><pre><code><span class="c1">// ==UserScript==</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// ==UserScript==</span>
 <span class="c1">// @name           Google URL Uncover</span>
 <span class="c1">// @namespace      http://jeeker.net/article/google-search-url-uncover/</span>
 <span class="c1">// @description    Google 搜索结果链接去除google跳转，直接访问目标网址。</span>
@@ -256,16 +256,16 @@
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Nov 22, 2012</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/google-search-url-uncover/#comments" title="Comment on 一个超简单的在Google中直接访问目标网址的脚本">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/google-search-url-uncover/#comments" title="Comment on 一个超简单的在Google中直接访问目标网址的脚本">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-67562 -->
 <div id="post-73514" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/shell-script-unique-port/" title="终端脚本统一入口" rel="bookmark">终端脚本统一入口</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/shell-script-unique-port/" title="终端脚本统一入口" rel="bookmark">终端脚本统一入口</a></h1>
         <p class="entry-date" title="2012-05-16 21:05:14">
             <span class="day">16</span>
             <span class="month">May</span>
@@ -279,17 +279,17 @@
 
 <h4 id="1">1. 建立统一入口脚本</h4>
 
-<div class="codehilite"><pre><code><span class="c">#!/bin/bash</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
-<span class="c">#检查环境变量</span>
+<span class="c1">#检查环境变量</span>
 <span class="k">if</span> <span class="o">[</span> -z <span class="nv">$KITS</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     . <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span>/build-env.sh
 <span class="k">fi</span>
 
-<span class="c">#Applescrit接口文件</span>
+<span class="c1">#Applescrit接口文件</span>
 <span class="nv">OSASPORT</span><span class="o">=</span><span class="nv">$KITSSHELL</span>/osasport.applescript
 
-<span class="c">#使用说明</span>
+<span class="c1">#使用说明</span>
 <span class="k">function</span> usage<span class="o">()</span> <span class="o">{</span>
     more <span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITSSHELL</span><span class="si">}</span><span class="s2">/misc/kits-usage.txt&quot;</span>
 <span class="o">}</span>
@@ -303,22 +303,22 @@
 <span class="o">}</span>
 
 <span class="k">case</span> <span class="nv">$1</span> in
-    <span class="s1">&#39;backup&#39;</span> <span class="o">)</span>     <span class="c">#备份文件到NAS</span>
+    <span class="s1">&#39;backup&#39;</span> <span class="o">)</span>     <span class="c1">#备份文件到NAS</span>
         <span class="nv">$KITSSHELL</span>/backup/backup.sh
         <span class="p">;;</span>
-    <span class="s1">&#39;genpac&#39;</span> <span class="o">)</span>     <span class="c">#通过GenPAC生成自动代理配置文件</span>
+    <span class="s1">&#39;genpac&#39;</span> <span class="o">)</span>     <span class="c1">#通过GenPAC生成自动代理配置文件</span>
         <span class="nv">$KITS</span>/GenPAC/genpac.py
         <span class="p">;;</span>
-    <span class="s1">&#39;mamp&#39;</span> <span class="o">)</span>       <span class="c">#MAMP管理</span>
+    <span class="s1">&#39;mamp&#39;</span> <span class="o">)</span>       <span class="c1">#MAMP管理</span>
         <span class="nv">$KITSSHELL</span>/mamp.sh <span class="nv">$2</span>
         <span class="p">;;</span>
-    <span class="s1">&#39;itunes&#39;</span> <span class="o">)</span>     <span class="c">#部分itunes操作</span>
+    <span class="s1">&#39;itunes&#39;</span> <span class="o">)</span>     <span class="c1">#部分itunes操作</span>
         osascript <span class="nv">$OSASPORT</span> itunes <span class="nv">$2</span> <span class="nv">$3</span>
         <span class="p">;;</span>
-    <span class="s1">&#39;sshkey&#39;</span> <span class="o">)</span>     <span class="c">#SSH秘钥处理</span>
+    <span class="s1">&#39;sshkey&#39;</span> <span class="o">)</span>     <span class="c1">#SSH秘钥处理</span>
         sshkey
         <span class="p">;;</span>
-    <span class="s1">&#39;usage&#39;</span> <span class="o">)</span>      <span class="c">#使用说明</span>
+    <span class="s1">&#39;usage&#39;</span> <span class="o">)</span>      <span class="c1">#使用说明</span>
         usage
         <span class="p">;;</span>
     <span class="s1">&#39;&#39;</span> <span class="o">)</span>
@@ -336,21 +336,21 @@
 
 <p>　　上面的脚本虽然已经实现了做为其它脚本入口的功能，但使用时还不够方便，需要将它系统环境变量中，更容易访问，可能有人已经注意到上面代码中出现的<code>build-env.sh</code>文件，它的目的就是建立一些环境变量。</p>
 
-<div class="codehilite"><pre><code><span class="c">#!/bin/bash</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
-<span class="c"># 建立Kits的运行环境</span>
-<span class="c"># 在~/.bash_profile 添加 source PATH/TO/build-env.sh</span>
+<span class="c1"># 建立Kits的运行环境</span>
+<span class="c1"># 在~/.bash_profile 添加 source PATH/TO/build-env.sh</span>
 
-<span class="c"># 注意 这里不能用相对路径</span>
+<span class="c1"># 注意 这里不能用相对路径</span>
 
-<span class="c">#Kits所在目录</span>
-<span class="nb">export </span><span class="nv">KITS</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/Developer/Misc/MacOSX-Kits&quot;</span>
+<span class="c1">#Kits所在目录</span>
+<span class="nb">export</span> <span class="nv">KITS</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/Developer/Misc/MacOSX-Kits&quot;</span>
 
-<span class="nb">export </span><span class="nv">KITSSHELL</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITS</span><span class="si">}</span><span class="s2">/Shell&quot;</span>
-<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITSSHELL</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">export</span> <span class="nv">KITSSHELL</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITS</span><span class="si">}</span><span class="s2">/Shell&quot;</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">KITSSHELL</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span><span class="s2">&quot;</span>
 
-<span class="c">#建立别名</span>
-<span class="nb">alias </span><span class="nv">kits</span><span class="o">=</span><span class="s2">&quot;kits.sh&quot;</span>
+<span class="c1">#建立别名</span>
+<span class="nb">alias</span> <span class="nv">kits</span><span class="o">=</span><span class="s2">&quot;kits.sh&quot;</span>
 </code></pre></div>
 
 <p>　　最后再在<code>~/.bash_profile</code>的末尾添加<code>. /PATH/TO/builde-env.sh</code>（或<code>source /PATH/TO/builde-env.sh</code>）让它在用户登陆终端时被执行。</p>
@@ -367,16 +367,16 @@
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
+        <a href="http://127.0.0.1:8910/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
 </li>
             <li class="entry-human-time-diff"> on May 16, 2012</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/shell-script-unique-port/#comments" title="Comment on 终端脚本统一入口">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/shell-script-unique-port/#comments" title="Comment on 终端脚本统一入口">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-73514 -->
 <div id="post-11545" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/fetch-lyric-for-itunes/" title="让iTunes的歌曲自动获取歌词" rel="bookmark">让iTunes的歌曲自动获取歌词</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/fetch-lyric-for-itunes/" title="让iTunes的歌曲自动获取歌词" rel="bookmark">让iTunes的歌曲自动获取歌词</a></h1>
         <p class="entry-date" title="2012-05-04 14:05:45">
             <span class="day">04</span>
             <span class="month">May</span>
@@ -388,7 +388,7 @@
 
 <p>　　在<a href="http://blog.4321.la/articles/2012/01/27/use-applescript-to-set-itunes-lyrics/">4321.la</a>看到使用AppleScript自动获取iTunes曲目歌词的脚本，相当不错，自己做了些修改，添加了当歌词已存在时忽略获取，可以通过Growl通知获取的结果等功能。代码如下：</p>
 
-<div class="codehilite"><pre><code><span class="c">-- FetchLyric</span>
+<div class="codehilite"><pre><span></span><code><span class="c">-- FetchLyric</span>
 <span class="c">-- DESCRIPTION: 让iTunes内当前被选中的曲目自动下载并保存歌词，若歌词已存在将被忽略，支持Growl通知</span>
 <span class="c">-- AUTHOR: JinnLynn http:://jeeker.net</span>
 <span class="c">-- LAST UPDATED: 2012-05-04</span>
@@ -485,16 +485,16 @@
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on May 04, 2012</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/fetch-lyric-for-itunes/#comments" title="Comment on 让iTunes的歌曲自动获取歌词">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/fetch-lyric-for-itunes/#comments" title="Comment on 让iTunes的歌曲自动获取歌词">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-11545 -->
 <div id="post-99803" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/jkit-disable-autosave/" title="JKit: 部分禁用日志编辑自动保存" rel="bookmark">JKit: 部分禁用日志编辑自动保存</a></h1>
+        <h1><a href="http://127.0.0.1:8910/article/jkit-disable-autosave/" title="JKit: 部分禁用日志编辑自动保存" rel="bookmark">JKit: 部分禁用日志编辑自动保存</a></h1>
         <p class="entry-date" title="2009-03-24 21:03:23">
             <span class="day">24</span>
             <span class="month">Mar</span>
@@ -508,17 +508,17 @@
 
 <p>　　下面的代码实现了仅在编辑草稿、发表新日志或页面时启用自动保存，在重新编辑已发表的内容时则不会进行自动保存的操作，避免在数据库中产生无用的数据，方法则是在浏览器提交申请，服务器进行自动保存之前对日志的状态进行判断，如果是草稿或未找到日志ID（即新日志）则进行保存操作，否则直接退出。</p>
 
-<p><a href="http://jeeker.net/article/jkit-disable-autosave/#more-99803" class="more-link">Read more...</a></p>
+<p><a href="http://127.0.0.1:8910/article/jkit-disable-autosave/#more-99803" class="more-link">Read more...</a></p>
 <!-- content end -->
     </div><!-- .entry-content -->
     <div class="entry-meta">
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Mar 24, 2009</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/jkit-disable-autosave/#comments" title="Comment on JKit: 部分禁用日志编辑自动保存">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/jkit-disable-autosave/#comments" title="Comment on JKit: 部分禁用日志编辑自动保存">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-99803 -->
@@ -526,7 +526,7 @@
 
     <div id="pagenavi">
         <span class="pages">Page 1 of 2</span>
-        <a href="http://jeeker.net/tag/%E4%BB%A3%E7%A0%81/page/2/" class="nav-older">Older</a>
+        <a href="http://127.0.0.1:8910/tag/%E4%BB%A3%E7%A0%81/page/2/" class="nav-older">Older</a>
     </div><!-- #pagenavi -->
    
     </div><!-- #content -->
@@ -549,22 +549,14 @@
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?88452"></script>
+<script type="text/javascript" src="http://127.0.0.1:8910/assets/script/action.js?53190"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?88452'></script>
+<script type='text/javascript' src='http://127.0.0.1:8910/assets/script/css3-mediaqueries.js?53190'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
 <script type="text/javascript" src="/assets/additional.js"></script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+<script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();</script>
 
 <!-- google analytics track code -->
 <script type="text/javascript">

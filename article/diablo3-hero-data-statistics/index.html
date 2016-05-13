@@ -7,10 +7,10 @@
 <head>
     <title>Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计 - Jeeker</title>
     <meta charset="UTF-8">
-    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
-    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?88452" />
-    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <link rel="apple-touch-icon" href="http://127.0.0.1:8910/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://127.0.0.1:8910/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8910/assets/style.css?53190" />
+    <link rel="alternate" type="application/atom+xml" href="http://127.0.0.1:8910/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
     <!-- <meta name="keywords" content="" /> -->
@@ -22,12 +22,12 @@
     <div id="header">
         <div id="menu">
             <ul>
-                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
-                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
-                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
-                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
-                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
-                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+                <li><a href="http://127.0.0.1:8910/"><span>Home</span></a></li>
+                <li><a href="http://127.0.0.1:8910/projects/"><span>Projects</span></a></li>
+                <li><a href="http://127.0.0.1:8910/tags/"><span>Tags</span></a></li>
+                <li><a href="http://127.0.0.1:8910/archives/"><span>Archives</span></a></li>
+                <li><a href="http://127.0.0.1:8910/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://127.0.0.1:8910/about/"><span>About</span></a></li>
             </ul>
         </div>
     </div><!-- ＃header -->
@@ -38,7 +38,7 @@
             <li id="tool-search">
                 <form action="http://google.com/search" method="get">
                     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-                    <input type="hidden" name="q" value="site:jeeker.net" />
+                    <input type="hidden" name="q" value="site:127.0.0.1:8910" />
                 </form>
             </li>
         </ul>
@@ -67,7 +67,7 @@
 
 <p>　　题外话，不得不说Python太适合写这类功能相对简单的脚本了，一个字：快。</p>
 
-<div class="codehilite"><pre><code><span class="c"># -*- coding: utf-8 -*-</span>
+<div class="codehilite"><pre><span></span><code><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Diablo3 排名前1000玩家英雄使用技能统计</span>
 
@@ -86,103 +86,103 @@
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
-<span class="n">__version__</span> <span class="o">=</span> <span class="s">&#39;1.0.0&#39;</span>
-<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;JinnLynn &lt;eatfishlin@gmail.com&gt;&#39;</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="s">&#39;The MIT License&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="s">&#39;Copyright 2015 JinnLynn&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;JinnLynn &lt;eatfishlin@gmail.com&gt;&#39;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;The MIT License&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2015 JinnLynn&#39;</span>
 
-<span class="c"># 排名页面</span>
-<span class="n">_rank_page</span> <span class="o">=</span> <span class="s">&#39;http://tw.battle.net/d3/zh/rankings/&#39;</span>
-<span class="c"># api</span>
-<span class="n">_api</span> <span class="o">=</span> <span class="s">&#39;http://tw.battle.net/api/d3/&#39;</span>
-<span class="n">_api_profile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_api</span><span class="p">,</span> <span class="s">&#39;profile&#39;</span><span class="p">)</span>
-<span class="n">_api_data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_api</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">)</span>
+<span class="c1"># 排名页面</span>
+<span class="n">_rank_page</span> <span class="o">=</span> <span class="s1">&#39;http://tw.battle.net/d3/zh/rankings/&#39;</span>
+<span class="c1"># api</span>
+<span class="n">_api</span> <span class="o">=</span> <span class="s1">&#39;http://tw.battle.net/api/d3/&#39;</span>
+<span class="n">_api_profile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_api</span><span class="p">,</span> <span class="s1">&#39;profile&#39;</span><span class="p">)</span>
+<span class="n">_api_data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_api</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
 
 <span class="n">_hero_classes</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">&#39;barbarian&#39;</span><span class="p">:</span> <span class="s">&#39;野蠻人&#39;</span><span class="p">,</span> <span class="s">&#39;crusader&#39;</span><span class="p">:</span> <span class="s">&#39;聖教軍&#39;</span><span class="p">,</span> <span class="s">&#39;demon-hunter&#39;</span><span class="p">:</span> <span class="s">&#39;狩魔獵人&#39;</span><span class="p">,</span>
-    <span class="s">&#39;monk&#39;</span><span class="p">:</span> <span class="s">&#39;武僧&#39;</span><span class="p">,</span> <span class="s">&#39;witch-doctor&#39;</span><span class="p">:</span> <span class="s">&#39;巫醫&#39;</span><span class="p">,</span> <span class="s">&#39;wizard&#39;</span><span class="p">:</span> <span class="s">&#39;秘術師&#39;</span><span class="p">}</span>
+    <span class="s1">&#39;barbarian&#39;</span><span class="p">:</span> <span class="s1">&#39;野蠻人&#39;</span><span class="p">,</span> <span class="s1">&#39;crusader&#39;</span><span class="p">:</span> <span class="s1">&#39;聖教軍&#39;</span><span class="p">,</span> <span class="s1">&#39;demon-hunter&#39;</span><span class="p">:</span> <span class="s1">&#39;狩魔獵人&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;monk&#39;</span><span class="p">:</span> <span class="s1">&#39;武僧&#39;</span><span class="p">,</span> <span class="s1">&#39;witch-doctor&#39;</span><span class="p">:</span> <span class="s1">&#39;巫醫&#39;</span><span class="p">,</span> <span class="s1">&#39;wizard&#39;</span><span class="p">:</span> <span class="s1">&#39;秘術師&#39;</span><span class="p">}</span>
 
 <span class="n">_retry</span> <span class="o">=</span> <span class="mi">5</span>
 
-<span class="n">_hero_class</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<span class="n">_hero_class</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 <span class="n">_active_skills</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">_passive_skills</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">_unique_gems</span> <span class="o">=</span> <span class="p">{}</span>
 
 
-<span class="k">def</span> <span class="nf">_clear_output</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r</span><span class="s">{:30}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">))</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r</span><span class="s">{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">_clear_output</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">{:30}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">))</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
 
 
 <span class="k">def</span> <span class="nf">_process</span><span class="p">(</span><span class="n">stated</span><span class="p">,</span> <span class="n">total</span><span class="p">):</span>
-    <span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;英雄数据分析中... {}/{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stated</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;英雄数据分析中... {}/{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stated</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
     <span class="n">_clear_output</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">is_json</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-    <span class="c"># print(&#39;GET: &#39;, url)</span>
+    <span class="c1"># print(&#39;GET: &#39;, url)</span>
     <span class="n">retry</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">if</span> <span class="n">_retry</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">_retry</span>
     <span class="k">while</span> <span class="n">retry</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+            <span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">req</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_json</span> <span class="k">else</span> <span class="n">req</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">e</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">retry</span> <span class="o">-=</span> <span class="mi">1</span>
-            <span class="c"># print(&#39;retry&#39;, retry, e)</span>
-            <span class="c"># raise e</span>
+            <span class="c1"># print(&#39;retry&#39;, retry, e)</span>
+            <span class="c1"># raise e</span>
 
 
 <span class="k">def</span> <span class="nf">_api_url</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">slash</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;slash&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">slash</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;slash&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="nb">unicode</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">url</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="k">if</span> <span class="n">slash</span> <span class="k">else</span> <span class="n">url</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">url</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="k">if</span> <span class="n">slash</span> <span class="k">else</span> <span class="n">url</span>
 
 
 <span class="k">def</span> <span class="nf">get_era</span><span class="p">():</span>
     <span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">_rank_page</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">req</span><span class="o">.</span><span class="n">geturl</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">req</span><span class="o">.</span><span class="n">geturl</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">get_rank_page_url</span><span class="p">(</span><span class="n">era</span><span class="p">):</span>
-    <span class="n">url_part</span> <span class="o">=</span> <span class="s">&#39;rift-&#39;</span>
-    <span class="k">if</span> <span class="n">_hero_class</span> <span class="o">==</span> <span class="s">&#39;demon-hunter&#39;</span><span class="p">:</span>
-        <span class="n">url_part</span> <span class="o">+=</span> <span class="s">&#39;dh&#39;</span>
-    <span class="k">elif</span> <span class="n">_hero_class</span> <span class="o">==</span> <span class="s">&#39;witch-doctor&#39;</span><span class="p">:</span>
-        <span class="n">url_part</span> <span class="o">+=</span> <span class="s">&#39;wd&#39;</span>
+    <span class="n">url_part</span> <span class="o">=</span> <span class="s1">&#39;rift-&#39;</span>
+    <span class="k">if</span> <span class="n">_hero_class</span> <span class="o">==</span> <span class="s1">&#39;demon-hunter&#39;</span><span class="p">:</span>
+        <span class="n">url_part</span> <span class="o">+=</span> <span class="s1">&#39;dh&#39;</span>
+    <span class="k">elif</span> <span class="n">_hero_class</span> <span class="o">==</span> <span class="s1">&#39;witch-doctor&#39;</span><span class="p">:</span>
+        <span class="n">url_part</span> <span class="o">+=</span> <span class="s1">&#39;wd&#39;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">url_part</span> <span class="o">+=</span> <span class="n">_hero_class</span>
-    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_rank_page</span><span class="p">,</span> <span class="s">&#39;era&#39;</span><span class="p">,</span> <span class="n">era</span><span class="p">,</span> <span class="n">url_part</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_rank_page</span><span class="p">,</span> <span class="s1">&#39;era&#39;</span><span class="p">,</span> <span class="n">era</span><span class="p">,</span> <span class="n">url_part</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">fetch_rank_list</span><span class="p">():</span>
     <span class="n">tags</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">_clear_output</span><span class="p">(</span><span class="s">&#39;获取当前游戏纪元...&#39;</span><span class="p">)</span>
+        <span class="n">_clear_output</span><span class="p">(</span><span class="s1">&#39;获取当前游戏纪元...&#39;</span><span class="p">)</span>
         <span class="n">era</span> <span class="o">=</span> <span class="n">get_era</span><span class="p">()</span>
-        <span class="n">_clear_output</span><span class="p">(</span><span class="s">&#39;获取当前排名前1000的玩家...&#39;</span><span class="p">)</span>
+        <span class="n">_clear_output</span><span class="p">(</span><span class="s1">&#39;获取当前排名前1000的玩家...&#39;</span><span class="p">)</span>
         <span class="n">url</span> <span class="o">=</span> <span class="n">get_rank_page_url</span><span class="p">(</span><span class="n">era</span><span class="p">)</span>
         <span class="n">html</span> <span class="o">=</span> <span class="n">_get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">is_json</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-        <span class="c"># re parse</span>
+        <span class="c1"># re parse</span>
         <span class="n">lst</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
-            <span class="s">r&quot;a href=</span><span class="se">\&quot;</span><span class="s">(.*)</span><span class="se">\&quot;</span><span class="s"> title=.*class=</span><span class="se">\&quot;</span><span class="s">icon-profile link-first</span><span class="se">\&quot;</span><span class="s">&gt;&quot;</span><span class="p">,</span>
-            <span class="n">html</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">),</span>
+            <span class="s2">r&quot;a href=</span><span class="se">\&quot;</span><span class="s2">(.*)</span><span class="se">\&quot;</span><span class="s2"> title=.*class=</span><span class="se">\&quot;</span><span class="s2">icon-profile link-first</span><span class="se">\&quot;</span><span class="s2">&gt;&quot;</span><span class="p">,</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">),</span>
             <span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">)</span>
-        <span class="c"># BeautifulSoup parse</span>
-        <span class="c"># import bs4</span>
-        <span class="c"># soup = bs4.BeautifulSoup(html)</span>
-        <span class="c"># lst = soup.select(&#39;#ladders-table tbody tr .battletag a&#39;)[&#39;href&#39;]</span>
+        <span class="c1"># BeautifulSoup parse</span>
+        <span class="c1"># import bs4</span>
+        <span class="c1"># soup = bs4.BeautifulSoup(html)</span>
+        <span class="c1"># lst = soup.select(&#39;#ladders-table tbody tr .battletag a&#39;)[&#39;href&#39;]</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
             <span class="k">except</span><span class="p">:</span>
                 <span class="k">pass</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;fetch rank list fail. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_rank_page</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;fetch rank list fail. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_rank_page</span><span class="p">))</span>
         <span class="k">raise</span> <span class="n">e</span>
     <span class="k">return</span> <span class="n">tags</span>
 
@@ -191,65 +191,65 @@
     <span class="n">url</span> <span class="o">=</span> <span class="n">_api_url</span><span class="p">(</span><span class="n">_api_profile</span><span class="p">,</span> <span class="n">player_tag</span><span class="p">,</span> <span class="n">slash</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">_get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="n">hero_selected</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="k">for</span> <span class="n">hero</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;heroes&#39;</span><span class="p">,</span> <span class="p">[]):</span>
-        <span class="k">if</span> <span class="n">hero</span><span class="p">[</span><span class="s">&#39;class&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_hero_class</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">hero</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;heroes&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">if</span> <span class="n">hero</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_hero_class</span><span class="p">:</span>
             <span class="k">continue</span>
-        <span class="n">last_updated</span> <span class="o">=</span> <span class="n">hero_selected</span><span class="p">[</span><span class="s">&#39;last-updated&#39;</span><span class="p">]</span>
-        <span class="c"># 最近使用的英雄</span>
-        <span class="k">if</span> <span class="n">hero_selected</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">last_updated</span> <span class="o">&lt;</span> <span class="n">hero</span><span class="p">[</span><span class="s">&#39;last-updated&#39;</span><span class="p">]:</span>
+        <span class="n">last_updated</span> <span class="o">=</span> <span class="n">hero_selected</span><span class="p">[</span><span class="s1">&#39;last-updated&#39;</span><span class="p">]</span>
+        <span class="c1"># 最近使用的英雄</span>
+        <span class="k">if</span> <span class="n">hero_selected</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">last_updated</span> <span class="o">&lt;</span> <span class="n">hero</span><span class="p">[</span><span class="s1">&#39;last-updated&#39;</span><span class="p">]:</span>
             <span class="n">hero_selected</span> <span class="o">=</span> <span class="n">hero</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">hero_selected</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;{} hero missing.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player_tag</span><span class="p">))</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="n">_api_url</span><span class="p">(</span><span class="n">_api_profile</span><span class="p">,</span> <span class="n">player_tag</span><span class="p">,</span> <span class="s">&#39;hero&#39;</span><span class="p">,</span> <span class="n">hero_selected</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">])</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;{} hero missing.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player_tag</span><span class="p">))</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">_api_url</span><span class="p">(</span><span class="n">_api_profile</span><span class="p">,</span> <span class="n">player_tag</span><span class="p">,</span> <span class="s1">&#39;hero&#39;</span><span class="p">,</span> <span class="n">hero_selected</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">_get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 
 
-<span class="c"># 主动技能符文</span>
+<span class="c1"># 主动技能符文</span>
 <span class="k">def</span> <span class="nf">stat_active_skill_rune</span><span class="p">(</span><span class="n">skill_slug</span><span class="p">,</span> <span class="n">rune</span><span class="p">):</span>
     <span class="k">global</span> <span class="n">_active_skills</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">rune</span><span class="p">:</span>
         <span class="k">return</span>
-    <span class="n">slug</span> <span class="o">=</span> <span class="n">rune</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;slug&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">slug</span> <span class="ow">in</span> <span class="n">_active_skills</span><span class="p">[</span><span class="n">skill_slug</span><span class="p">][</span><span class="s">&#39;rune&#39;</span><span class="p">]:</span>
-        <span class="n">_active_skills</span><span class="p">[</span><span class="n">skill_slug</span><span class="p">][</span><span class="s">&#39;rune&#39;</span><span class="p">][</span><span class="n">slug</span><span class="p">][</span><span class="s">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">slug</span> <span class="o">=</span> <span class="n">rune</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;slug&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">slug</span> <span class="ow">in</span> <span class="n">_active_skills</span><span class="p">[</span><span class="n">skill_slug</span><span class="p">][</span><span class="s1">&#39;rune&#39;</span><span class="p">]:</span>
+        <span class="n">_active_skills</span><span class="p">[</span><span class="n">skill_slug</span><span class="p">][</span><span class="s1">&#39;rune&#39;</span><span class="p">][</span><span class="n">slug</span><span class="p">][</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">_active_skills</span><span class="p">[</span><span class="n">skill_slug</span><span class="p">][</span><span class="s">&#39;rune&#39;</span><span class="p">][</span><span class="n">slug</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">rune</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
+        <span class="n">_active_skills</span><span class="p">[</span><span class="n">skill_slug</span><span class="p">][</span><span class="s1">&#39;rune&#39;</span><span class="p">][</span><span class="n">slug</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">rune</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
         <span class="p">}</span>
 
 
-<span class="c"># 主动技能</span>
+<span class="c1"># 主动技能</span>
 <span class="k">def</span> <span class="nf">stat_active_skill</span><span class="p">(</span><span class="n">active</span><span class="p">):</span>
     <span class="k">global</span> <span class="n">_active_skills</span>
-    <span class="n">slug</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;skill&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;slug&#39;</span><span class="p">)</span>
-    <span class="c"># d3 API 返回的数据中可能存在空的数据</span>
+    <span class="n">slug</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;skill&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;slug&#39;</span><span class="p">)</span>
+    <span class="c1"># d3 API 返回的数据中可能存在空的数据</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">slug</span><span class="p">:</span>
         <span class="k">return</span>
     <span class="k">if</span> <span class="n">slug</span> <span class="ow">in</span> <span class="n">_active_skills</span><span class="p">:</span>
-        <span class="n">_active_skills</span><span class="p">[</span><span class="n">slug</span><span class="p">][</span><span class="s">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">_active_skills</span><span class="p">[</span><span class="n">slug</span><span class="p">][</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">_active_skills</span><span class="p">[</span><span class="n">slug</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">active</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;skill&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">),</span>
-            <span class="s">&#39;rune&#39;</span><span class="p">:</span> <span class="p">{}</span>
+            <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">active</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;skill&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;rune&#39;</span><span class="p">:</span> <span class="p">{}</span>
         <span class="p">}</span>
-    <span class="n">stat_active_skill_rune</span><span class="p">(</span><span class="n">slug</span><span class="p">,</span> <span class="n">active</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;rune&#39;</span><span class="p">))</span>
+    <span class="n">stat_active_skill_rune</span><span class="p">(</span><span class="n">slug</span><span class="p">,</span> <span class="n">active</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;rune&#39;</span><span class="p">))</span>
 
 
-<span class="c"># 被动技能</span>
+<span class="c1"># 被动技能</span>
 <span class="k">def</span> <span class="nf">stat_passive_skill</span><span class="p">(</span><span class="n">passive</span><span class="p">):</span>
     <span class="k">global</span> <span class="n">_passive_skills</span>
-    <span class="n">slug</span> <span class="o">=</span> <span class="n">passive</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;skill&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;slug&#39;</span><span class="p">)</span>
-    <span class="c"># d3 API 返回的数据中可能存在空的数据</span>
+    <span class="n">slug</span> <span class="o">=</span> <span class="n">passive</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;skill&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;slug&#39;</span><span class="p">)</span>
+    <span class="c1"># d3 API 返回的数据中可能存在空的数据</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">slug</span><span class="p">:</span>
         <span class="k">return</span>
     <span class="k">if</span> <span class="n">slug</span> <span class="ow">in</span> <span class="n">_passive_skills</span><span class="p">:</span>
-        <span class="n">_passive_skills</span><span class="p">[</span><span class="n">slug</span><span class="p">][</span><span class="s">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">_passive_skills</span><span class="p">[</span><span class="n">slug</span><span class="p">][</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">_passive_skills</span><span class="p">[</span><span class="n">slug</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">passive</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;skill&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
+            <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">passive</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;skill&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
         <span class="p">}</span>
 
 
@@ -261,78 +261,78 @@
             <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
         <span class="n">url</span> <span class="o">=</span> <span class="n">_api_url</span><span class="p">(</span><span class="n">_api_data</span><span class="p">,</span> <span class="n">tooltip</span><span class="p">)</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">_get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-        <span class="n">gems</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;gems&#39;</span><span class="p">)</span>
+        <span class="n">gems</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;gems&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">gems</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
-        <span class="n">gem</span> <span class="o">=</span> <span class="n">gems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;item&#39;</span><span class="p">,</span> <span class="p">{})</span>
-        <span class="k">return</span> <span class="n">gem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">),</span> <span class="n">gem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
+        <span class="n">gem</span> <span class="o">=</span> <span class="n">gems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;item&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">return</span> <span class="n">gem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="n">gem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">items</span><span class="p">:</span>
         <span class="k">return</span>
 
-    <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">items</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">{})</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;leftFinger&#39;</span><span class="p">,</span> <span class="s">&#39;rightFinger&#39;</span><span class="p">,</span> <span class="s">&#39;neck&#39;</span><span class="p">]]</span>
-    <span class="k">for</span> <span class="n">tooltip</span> <span class="ow">in</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;tooltipParams&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">]:</span>
+    <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">items</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">{})</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;leftFinger&#39;</span><span class="p">,</span> <span class="s1">&#39;rightFinger&#39;</span><span class="p">,</span> <span class="s1">&#39;neck&#39;</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">tooltip</span> <span class="ow">in</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tooltipParams&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">]:</span>
         <span class="n">id_</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">get_gem</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">id_</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="k">if</span> <span class="n">id_</span> <span class="ow">in</span> <span class="n">_unique_gems</span><span class="p">:</span>
-            <span class="n">_unique_gems</span><span class="p">[</span><span class="n">id_</span><span class="p">][</span><span class="s">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">_unique_gems</span><span class="p">[</span><span class="n">id_</span><span class="p">][</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">_unique_gems</span><span class="p">[</span><span class="n">id_</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-                <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span>
+                <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span>
             <span class="p">}</span>
 
 
 <span class="k">def</span> <span class="nf">stat</span><span class="p">(</span><span class="n">hero</span><span class="p">):</span>
     <span class="k">global</span> <span class="n">_active_skills</span><span class="p">,</span> <span class="n">_passive_skills</span>
 
-    <span class="nb">map</span><span class="p">(</span><span class="n">stat_active_skill</span><span class="p">,</span> <span class="n">hero</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;skills&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;active&#39;</span><span class="p">,</span> <span class="p">[]))</span>
-    <span class="nb">map</span><span class="p">(</span><span class="n">stat_passive_skill</span><span class="p">,</span> <span class="n">hero</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;skills&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;passive&#39;</span><span class="p">,</span> <span class="p">[]))</span>
+    <span class="nb">map</span><span class="p">(</span><span class="n">stat_active_skill</span><span class="p">,</span> <span class="n">hero</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;skills&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="p">[]))</span>
+    <span class="nb">map</span><span class="p">(</span><span class="n">stat_passive_skill</span><span class="p">,</span> <span class="n">hero</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;skills&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;passive&#39;</span><span class="p">,</span> <span class="p">[]))</span>
 
-    <span class="n">items</span> <span class="o">=</span> <span class="n">hero</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;items&#39;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="n">hero</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="p">{})</span>
     <span class="n">stat_unique_gem</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="n">hero_stated</span><span class="p">,</span> <span class="n">hero_stat_failed</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s">&#39;count&#39;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;count&#39;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">d</span> <span class="k">if</span> <span class="n">count</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">count</span><span class="p">]</span>
 
     <span class="n">_clear_output</span><span class="p">()</span>
 
-    <span class="c"># print(&#39;======&#39;)</span>
-    <span class="c"># print(hero_stated, hero_stat_failed)</span>
-    <span class="c"># print(&#39;======&#39;)</span>
-    <span class="c"># pprint(_active_skills)</span>
-    <span class="c"># print(&#39;======&#39;)</span>
-    <span class="c"># pprint(_passive_skills)</span>
-    <span class="c"># print(&#39;======&#39;)</span>
-    <span class="c"># pprint(_unique_gems)</span>
-    <span class="c"># pprint(_active_skills.items())</span>
-    <span class="c"># print(&#39;======&#39;)</span>
+    <span class="c1"># print(&#39;======&#39;)</span>
+    <span class="c1"># print(hero_stated, hero_stat_failed)</span>
+    <span class="c1"># print(&#39;======&#39;)</span>
+    <span class="c1"># pprint(_active_skills)</span>
+    <span class="c1"># print(&#39;======&#39;)</span>
+    <span class="c1"># pprint(_passive_skills)</span>
+    <span class="c1"># print(&#39;======&#39;)</span>
+    <span class="c1"># pprint(_unique_gems)</span>
+    <span class="c1"># pprint(_active_skills.items())</span>
+    <span class="c1"># print(&#39;======&#39;)</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">=== RESULT ===</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;统计英雄数</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;  成功: {} 失败: {}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hero_stated</span><span class="p">,</span> <span class="n">hero_stat_failed</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">=== RESULT ===</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;统计英雄数</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  成功: {} 失败: {}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hero_stated</span><span class="p">,</span> <span class="n">hero_stat_failed</span><span class="p">))</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;主动技能使用排名: &#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;主动技能使用排名: &#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">sort</span><span class="p">(</span><span class="n">_active_skills</span><span class="p">):</span>
         <span class="n">runes</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">sort</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;rune&#39;</span><span class="p">,</span> <span class="p">{})):</span>
-            <span class="n">runes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;{name}[{count}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">r</span><span class="p">))</span>
-        <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;rune_rank&#39;</span><span class="p">:</span> <span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">runes</span><span class="p">)})</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;  {name}[{count}]: {rune_rank}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">sort</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;rune&#39;</span><span class="p">,</span> <span class="p">{})):</span>
+            <span class="n">runes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;{name}[{count}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">r</span><span class="p">))</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;rune_rank&#39;</span><span class="p">:</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">runes</span><span class="p">)})</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  {name}[{count}]: {rune_rank}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">))</span>
     <span class="k">print</span><span class="p">()</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;被动技能使用排名: &#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;被动技能使用排名: &#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">sort</span><span class="p">(</span><span class="n">_passive_skills</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;  {name}[{count}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  {name}[{count}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">))</span>
     <span class="k">print</span><span class="p">()</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;传奇宝石使用排名: &#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;传奇宝石使用排名: &#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">sort</span><span class="p">(</span><span class="n">_unique_gems</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;  {name}[{count}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  {name}[{count}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">))</span>
     <span class="k">print</span><span class="p">()</span>
 
 
@@ -340,19 +340,19 @@
     <span class="k">global</span> <span class="n">_hero_class</span>
 
     <span class="k">def</span> <span class="nf">print_hc</span><span class="p">():</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;仅支持以下英雄类型, 默认 demon-hunter:</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;仅支持以下英雄类型, 默认 demon-hunter:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">_hero_classes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;:&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">_hero_class</span> <span class="o">=</span> <span class="s">&#39;demon-hunter&#39;</span>
+        <span class="n">_hero_class</span> <span class="o">=</span> <span class="s1">&#39;demon-hunter&#39;</span>
     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s">&#39;参数错误&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;参数错误&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">arg</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">arg</span> <span class="o">==</span> <span class="s">&#39;help&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">arg</span> <span class="o">==</span> <span class="s1">&#39;help&#39;</span><span class="p">:</span>
             <span class="n">print_hc</span><span class="p">()</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">Tips: 运行中可随时Ctrl+C终止以获得已统计的数据结果&#39;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Tips: 运行中可随时Ctrl+C终止以获得已统计的数据结果&#39;</span><span class="p">)</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">arg</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_hero_classes</span><span class="p">:</span>
             <span class="n">print_hc</span><span class="p">()</span>
@@ -363,16 +363,16 @@
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">prepare</span><span class="p">()</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;待分析的英雄类型:&#39;</span><span class="p">,</span> <span class="n">_hero_classes</span><span class="p">[</span><span class="n">_hero_class</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;待分析的英雄类型:&#39;</span><span class="p">,</span> <span class="n">_hero_classes</span><span class="p">[</span><span class="n">_hero_class</span><span class="p">])</span>
 
     <span class="n">hero_stated</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">hero_stat_failed</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">tags</span> <span class="o">=</span> <span class="n">fetch_rank_list</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">tags</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;parse battle.net rank page fail.&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;parse battle.net rank page fail.&#39;</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;error,&#39;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;error,&#39;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 
     <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span>
@@ -381,20 +381,20 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">hero</span> <span class="o">=</span> <span class="n">get_hero</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">hero</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;no hero data&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;no hero data&#39;</span><span class="p">)</span>
             <span class="n">stat</span><span class="p">(</span><span class="n">hero</span><span class="p">)</span>
             <span class="n">hero_stated</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">_process</span><span class="p">(</span><span class="n">hero_stated</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
             <span class="k">break</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="c"># print(&#39;Fail: &#39;, tag, e, hero)</span>
+            <span class="c1"># print(&#39;Fail: &#39;, tag, e, hero)</span>
             <span class="n">hero_stat_failed</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="n">output</span><span class="p">(</span><span class="n">hero_stated</span><span class="p">,</span> <span class="n">hero_stat_failed</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </code></pre></div>
 <!-- content end -->
@@ -403,10 +403,10 @@
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Apr 14, 2015</li>
-            <li class="entry-comments">with <a href="http://jeeker.net/article/diablo3-hero-data-statistics/#comments">comments</a></li>
+            <li class="entry-comments">with <a href="http://127.0.0.1:8910/article/diablo3-hero-data-statistics/#comments">comments</a></li>
         </ul>  
     </div><!-- .entry-meta -->
 </div><!-- #post-93497 -->
@@ -446,22 +446,14 @@
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?88452"></script>
+<script type="text/javascript" src="http://127.0.0.1:8910/assets/script/action.js?53190"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?88452'></script>
+<script type='text/javascript' src='http://127.0.0.1:8910/assets/script/css3-mediaqueries.js?53190'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
 <script type="text/javascript" src="/assets/additional.js"></script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+<script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();</script>
 
 <!-- google analytics track code -->
 <script type="text/javascript">
