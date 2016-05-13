@@ -7,10 +7,10 @@
 <head>
     <title>Jeeker</title>
     <meta charset="UTF-8">
-    <link rel="apple-touch-icon" href="http://127.0.0.1:8910/assets/images/apple-touch-icon.png"/>
-    <link rel="shortcut icon" type="image/x-icon" href="http://127.0.0.1:8910/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8910/assets/style.css?53190" />
-    <link rel="alternate" type="application/atom+xml" href="http://127.0.0.1:8910/atom.xml" />
+    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?53190" />
+    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
     <!-- <meta name="keywords" content="" /> -->
@@ -22,12 +22,12 @@
     <div id="header">
         <div id="menu">
             <ul>
-                <li><a href="http://127.0.0.1:8910/"><span>Home</span></a></li>
-                <li><a href="http://127.0.0.1:8910/projects/"><span>Projects</span></a></li>
-                <li><a href="http://127.0.0.1:8910/tags/"><span>Tags</span></a></li>
-                <li><a href="http://127.0.0.1:8910/archives/"><span>Archives</span></a></li>
-                <li><a href="http://127.0.0.1:8910/atom.xml"><span>Feed</span></a></li>
-                <li><a href="http://127.0.0.1:8910/about/"><span>About</span></a></li>
+                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
             </ul>
         </div>
     </div><!-- ＃header -->
@@ -38,7 +38,7 @@
             <li id="tool-search">
                 <form action="http://google.com/search" method="get">
                     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-                    <input type="hidden" name="q" value="site:127.0.0.1:8910" />
+                    <input type="hidden" name="q" value="site:jeeker.net" />
                 </form>
             </li>
         </ul>
@@ -48,186 +48,9 @@
     <div id="content" role="main">
 
 
-<div id="post-64180" class="post post-list post-post post-publish">
-    <div class="entry-head">
-        <h1><a href="http://127.0.0.1:8910/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/" title="第一个Arduino实验: 新浪微博关注好友状态更新数量" rel="bookmark">第一个Arduino实验: 新浪微博关注好友状态更新数量</a></h1>
-        <p class="entry-date" title="2013-03-20 15:23:00">
-            <span class="day">20</span>
-            <span class="month">Mar</span>
-        </p>
-    </div><!-- .entry-header -->
-    <div class="entry-content">
-<!-- content start -->
-<p>　　一直想玩一玩电子设备，一般的单片机需要浪费太多时间在电子基础知识的学习上，不适合我这类人。</p>
-
-<p>　　最后发现了<a href="http://arduino.cc/">Arduino</a>这个开源的硬件平台，社区活跃，对电子相关知识要求已是最低，于是订购了一个Arduino UNO的兼容版，上手挺容易，很快就折腾出了这个简单的小实验，功能是间隔三十秒获取新浪微博上好友状态更新数量并在数码管上显示。</p>
-
-<h4 id="1-arduino">1. Arduino实验板连接</h4>
-
-<p>　　实验板的连接不做详述，参考极客工坊的<a href="http://www.geek-workshop.com/thread-2038-1-1.html">这篇文章</a>，保证数码管引脚<code>E  D  C  DP B  A  F  G</code>分别对应Arduino数字输出2~9即可，Pin13做为电源输出。</p>
-
-<h4 id="2">2. 程序源代码</h4>
-
-<p>　　代码是Python2.7的，因此Arduino需预先写入<a href="http://firmata.org/">StandardFirmata</a>，而Python则需安装<a href="https://github.com/tino/pyFirmata">pyFirmata</a>模块。</p>
-
-<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env python</span>
-<span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="c1">#! 强制默认编码为utf-8</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="nb">reload</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
-
-<span class="kn">import</span> <span class="nn">pyfirmata</span><span class="o">,</span> <span class="nn">urllib</span><span class="o">,</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-
-<span class="c1">#! 微博的API调用需要OAuth2.0登陆授权</span>
-<span class="c1">#! 这里不做授权过程，需使用开发者账号测试 参考：http://t.cn/zYDjFan</span>
-<span class="n">ACCESS_TOKEN</span> <span class="o">=</span> <span class="s1">&#39;YOUR ACCESS TOKEN&#39;</span>
-
-<span class="c1"># Arduino硬件接口</span>
-<span class="n">ARDUINO_PORT</span>        <span class="o">=</span> <span class="s1">&#39;YOUR ARDUINO PORT&#39;</span>
-
-<span class="n">POWER_PIN</span>           <span class="o">=</span> <span class="mi">13</span>
-<span class="n">DOTPOINT_PIN</span>        <span class="o">=</span> <span class="mi">5</span>
-
-<span class="n">NUMBERS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="c1">#E  D  C  DP B  A  F  G   // 数码管</span>
-    <span class="c1">#2  3  4  5  6  7  8  9   // 输出端口</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c1"># 0</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c1"># 1</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># 2 </span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># 3</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># 4</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># 5</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># 6</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c1"># 7</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># 8</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># 9</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c1"># dot point</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># line</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># nothing</span>
-<span class="p">]</span>
-
-<span class="k">class</span> <span class="nc">WBftc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">initArduino</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="p">,</span> <span class="n">pyfirmata</span><span class="o">.</span><span class="n">Arduino</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">14</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="o">.</span><span class="n">digital</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">initArduino</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="p">,</span> <span class="n">pyfirmata</span><span class="o">.</span><span class="n">Arduino</span><span class="p">):</span>
-            <span class="k">return</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span> <span class="o">=</span> <span class="n">pyfirmata</span><span class="o">.</span><span class="n">Arduino</span><span class="p">(</span><span class="n">ARDUINO_PORT</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="o">.</span><span class="n">digital</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;init arduino fail.&#39;</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">outputArduino</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="p">,</span> <span class="n">pyfirmata</span><span class="o">.</span><span class="n">Arduino</span><span class="p">):</span>
-            <span class="k">return</span>
-        <span class="c1"># 输出 0 - 9 的数字</span>
-        <span class="n">show</span> <span class="o">=</span> <span class="n">num</span>
-        <span class="c1"># 小于0 错误</span>
-        <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">show</span> <span class="o">=</span> <span class="mi">12</span>
-        <span class="c1"># 大于 9 超出量程</span>
-        <span class="k">elif</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">9</span><span class="p">:</span>
-            <span class="n">show</span> <span class="o">=</span> <span class="mi">11</span>
-        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="o">.</span><span class="n">digital</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">NUMBERS</span><span class="p">[</span><span class="n">show</span><span class="p">][</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">flashDotPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interval</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
-        <span class="n">show_dot</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="o">.</span><span class="n">digital</span><span class="p">[</span><span class="n">DOTPOINT_PIN</span><span class="p">]</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span> <span class="k">if</span> <span class="n">show_dot</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="n">show_dot</span> <span class="o">=</span> <span class="bp">False</span> <span class="k">if</span> <span class="n">show_dot</span> <span class="k">else</span> <span class="bp">True</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">fetchWeiboStatusCount</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># -1 错误</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.weibo.com/2/statuses/friends_timeline/ids.json&#39;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;access_token&#39;</span>  <span class="p">:</span> <span class="n">ACCESS_TOKEN</span>
-        <span class="p">}</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span><span class="p">:</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;since_id&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span> <span class="p">})</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">requst</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s1">&#39;{}?{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">requst</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;statuses&#39;</span><span class="p">):</span>
-                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
-            <span class="n">statuses</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;statuses&#39;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">statuses</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span> <span class="o">=</span> <span class="n">statuses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">statuses</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;something error.&#39;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
-
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">while</span> <span class="p">(</span><span class="bp">True</span><span class="p">):</span>
-            <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetchWeiboStatusCount</span><span class="p">()</span>
-            <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{}: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">now</span><span class="p">,</span> <span class="n">count</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">outputArduino</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">flashDotPoint</span><span class="p">()</span>
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">WBftc</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">exit.&#39;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">e</span>
-</code></pre></div>
-
-<p><span class="btn-single btn-center"><a href="https://gist.github.com/JinnLynn/5210753" class="btn btn-large icon-github">Source on gist</a></span></p>
-
-<p>　　需配置<code>ACCESS_TOKEN</code>和<code>ARDUINO_PORT</code>。</p>
-
-<p>　　<strong>NOTE</strong>: 访问微博API需要OAuth2.0授权，这里使用了开发者测试账户，详细请参考<a href="http://t.cn/zYDjFan">这篇文章</a>。</p>
-
-<h4 id="3">3. 显示结果</h4>
-
-<p>　　程序每隔30秒获取关注好友更新的微博数量并以以下方式显示：</p>
-
-<ul>
-<li>更新数量在0-9间，数码管正常显示</li>
-<li>更新数量大于9，数码管显示『-』</li>
-<li>出错，数码管不显示任何内容</li>
-<li>小数点闪动</li>
-</ul>
-
-<p>　　同时，电脑终端也会打印相应的更新数量信息，<code>CTRL+C</code>退出程序。</p>
-
-<p><center>
-    <iframe class="user-box" height="445" width="720" src="http://player.youku.com/embed/XNTI5NjQ0NDA4" frameborder="0" allowfullscreen></iframe>
-</center></p>
-
-<p><a href="http://127.0.0.1:8910/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/#more-64180" class="more-link">Read more...</a></p>
-<!-- content end -->
-    </div><!-- .entry-content -->
-    <div class="entry-meta">
-        <ul>
-            <li class="entry-author">Posted by JinnLynn</li>
-            <li class="entry-categories"> in 
-</li>
-            <li class="entry-human-time-diff"> on Mar 20, 2013</li>
-            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/#comments" title="Comment on 第一个Arduino实验: 新浪微博关注好友状态更新数量">Comments</a></li> 
-        </ul>
-    </div><!-- .entry-meta -->
-</div><!-- #post-64180 -->
 <div id="post-81780" class="post post-list post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://127.0.0.1:8910/article/synology-nas-external-ip-change-notify/" title="Synology群晖NAS外部IP更新通知" rel="bookmark">Synology群晖NAS外部IP更新通知</a></h1>
+        <h1><a href="http://jeeker.net/article/synology-nas-external-ip-change-notify/" title="Synology群晖NAS外部IP更新通知" rel="bookmark">Synology群晖NAS外部IP更新通知</a></h1>
         <p class="entry-date" title="2013-03-04 15:23:00">
             <span class="day">04</span>
             <span class="month">Mar</span>
@@ -436,13 +259,13 @@
             <li class="entry-categories"> in 
 </li>
             <li class="entry-human-time-diff"> on Mar 04, 2013</li>
-            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/synology-nas-external-ip-change-notify/#comments" title="Comment on Synology群晖NAS外部IP更新通知">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/synology-nas-external-ip-change-notify/#comments" title="Comment on Synology群晖NAS外部IP更新通知">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-81780 -->
 <div id="post-73846" class="post post-list post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://127.0.0.1:8910/article/apply-ssl-certificat-for-domain-from-startssl/" title="向StartSSL申请个人域名SSL证书" rel="bookmark">向StartSSL申请个人域名SSL证书</a></h1>
+        <h1><a href="http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/" title="向StartSSL申请个人域名SSL证书" rel="bookmark">向StartSSL申请个人域名SSL证书</a></h1>
         <p class="entry-date" title="2013-01-21 21:10:46">
             <span class="day">21</span>
             <span class="month">Jan</span>
@@ -456,23 +279,23 @@
 
 <p>　　解决这个问题的唯一方法当然就是安装一个有效的SSL证书，但向CA机构申请证书一年少者几十多者数千美元，很不划算，好在互联网上总不缺<a href="http://www.sslshopper.com/article-free-ssl-certificates-from-a-free-certificate-authority.html">免费午餐</a>，<a href="https://www.startssl.com/">StartSSL</a>就是很好的选择，下面就以它为例了解下SSL证书的申请和安装过程。</p>
 
-<p><a href="http://127.0.0.1:8910/article/apply-ssl-certificat-for-domain-from-startssl/#more-73846" class="more-link">Read more...</a></p>
+<p><a href="http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/#more-73846" class="more-link">Read more...</a></p>
 <!-- content end -->
     </div><!-- .entry-content -->
     <div class="entry-meta">
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://127.0.0.1:8910/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
+        <a href="http://jeeker.net/category/misc/" title="View all posts in Misc" rel="category tag">Misc</a>
 </li>
             <li class="entry-human-time-diff"> on Jan 21, 2013</li>
-            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/apply-ssl-certificat-for-domain-from-startssl/#comments" title="Comment on 向StartSSL申请个人域名SSL证书">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/#comments" title="Comment on 向StartSSL申请个人域名SSL证书">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-73846 -->
 <div id="post-42971" class="post post-list post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://127.0.0.1:8910/article/remote-control-synology-download-station/" title="命令行远程控制Synology DSM Download Station" rel="bookmark">命令行远程控制Synology DSM Download Station</a></h1>
+        <h1><a href="http://jeeker.net/article/remote-control-synology-download-station/" title="命令行远程控制Synology DSM Download Station" rel="bookmark">命令行远程控制Synology DSM Download Station</a></h1>
         <p class="entry-date" title="2013-01-16 21:29:31">
             <span class="day">16</span>
             <span class="month">Jan</span>
@@ -899,16 +722,16 @@
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Jan 16, 2013</li>
-            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/remote-control-synology-download-station/#comments" title="Comment on 命令行远程控制Synology DSM Download Station">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/remote-control-synology-download-station/#comments" title="Comment on 命令行远程控制Synology DSM Download Station">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-42971 -->
 <div id="post-45453" class="post post-list post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://127.0.0.1:8910/article/export-wordpress-to-sina-blog/" title="导出Wordpress日志到新浪博客" rel="bookmark">导出Wordpress日志到新浪博客</a></h1>
+        <h1><a href="http://jeeker.net/article/export-wordpress-to-sina-blog/" title="导出Wordpress日志到新浪博客" rel="bookmark">导出Wordpress日志到新浪博客</a></h1>
         <p class="entry-date" title="2013-01-13 10:50:53">
             <span class="day">13</span>
             <span class="month">Jan</span>
@@ -916,7 +739,7 @@
     </div><!-- .entry-header -->
     <div class="entry-content">
 <!-- content start -->
-<p>　　服务器即将到期，不想再续租，<a href="http://127.0.0.1:8910/projects/gude/">自己的博客已经转成静态的了</a>，放到<a href="http://pages.github.com/">GitHub Pages</a>上当然是最好的选择， 服务器上另一个<a href="http://wendy.jeeker.net/">朋友的博客</a>打算入住新浪博客， 于是就涉及到怎么迁移数据的问题了， 好在新浪博客还算比较开放，支持<a href="http://xmlrpc.scripting.com/metaWeblogApi.html">MetaWeblog XML-RPC API</a>，写了一段简单的脚本，搬家成功。</p>
+<p>　　服务器即将到期，不想再续租，<a href="http://jeeker.net/projects/gude/">自己的博客已经转成静态的了</a>，放到<a href="http://pages.github.com/">GitHub Pages</a>上当然是最好的选择， 服务器上另一个<a href="http://wendy.jeeker.net/">朋友的博客</a>打算入住新浪博客， 于是就涉及到怎么迁移数据的问题了， 好在新浪博客还算比较开放，支持<a href="http://xmlrpc.scripting.com/metaWeblogApi.html">MetaWeblog XML-RPC API</a>，写了一段简单的脚本，搬家成功。</p>
 
 <p>　　不过新浪博客的API貌似不支持<code>dateCreated</code>，因此导入后所有日志的发布时间都变成当前时间了，另外脚本也没有对日志分类进行处理，好在日志不多，手动调整也不是那么麻烦。</p>
 
@@ -1010,19 +833,71 @@
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://127.0.0.1:8910/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Jan 13, 2013</li>
-            <li class="entry-comments"> with <a href="http://127.0.0.1:8910/article/export-wordpress-to-sina-blog/#comments" title="Comment on 导出Wordpress日志到新浪博客">Comments</a></li> 
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/export-wordpress-to-sina-blog/#comments" title="Comment on 导出Wordpress日志到新浪博客">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-45453 -->
+<div id="post-81391" class="post post-list post-page post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/projects/gude/" title="Gude" rel="bookmark">Gude</a></h1>
+        <p class="entry-date" title="2013-01-10 09:29:51">
+            <span class="day">10</span>
+            <span class="month">Jan</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　厌倦了<a href="http://wordpress.org/">Wordpress</a>越来越庞杂却无用的功能，想让网站回归单纯，<a href="http://octopress.org/">Octopress</a>本是个不错的选择，但在OS X下总有这样那样的问题，自己对Ruby也不了解，于是就在Python下折腾出了这个Gude。</p>
+
+<p>　　如下图，在Gude下网站日常管理的几个简单命令。</p>
+
+<p><i><img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/projects/2013-01-10-gude/workflow.png" alt="Gude" /></i></p>
+
+<ul>
+<li>基于Python2.7</li>
+<li>使用GIT进行管理和发布</li>
+<li>使用Markdown或HTML撰写文章</li>
+<li>支持分类、标签</li>
+<li>支持文章模板、站点皮肤</li>
+<li>评论系统Disgus，统计系统Google Analytucs</li>
+<li>支持发布到Github或任意的FTP服务器<sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup></li>
+<li>简单的插件支持</li>
+</ul>
+
+<p><span class="btn-single btn-center"><a href="https://github.com/JinnLynn/gude" class="btn btn-large icon-github">Project on GitHub</a></span></p>
+
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn-1">
+<p>FTP发布需<a href="https://github.com/resmo/git-ftp">GIT-FTP</a>支持&#160;<a href="#fnref-1" class="footnoteBackLink" title="Jump back to footnote 1 in the text.">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+<p><a href="http://jeeker.net/projects/gude/#more-81391" class="more-link">Read more...</a></p>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/projects/" title="View all posts in Projects" rel="category tag">Projects</a>
+</li>
+            <li class="entry-human-time-diff"> on Jan 10, 2013</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/projects/gude/#comments" title="Comment on Gude">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-81391 -->
 
 
     <div id="pagenavi">
-        <span class="pages">Page 3 of 8</span>
-        <a href="http://127.0.0.1:8910/page/4/" class="nav-older">Older</a>
-        <a href="http://127.0.0.1:8910/page/2/" class="nav-newer">Newer</a>
+        <span class="pages">Page 3 of 7</span>
+        <a href="http://jeeker.net/page/4/" class="nav-older">Older</a>
+        <a href="http://jeeker.net/page/2/" class="nav-newer">Newer</a>
     </div><!-- #pagenavi -->
    
     </div><!-- #content -->
@@ -1045,9 +920,9 @@
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://127.0.0.1:8910/assets/script/action.js?53190"></script>
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?53190"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://127.0.0.1:8910/assets/script/css3-mediaqueries.js?53190'></script>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?53190'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>

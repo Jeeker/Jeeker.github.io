@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Jeeker</title><link href="http://127.0.0.1:8910/" rel="alternate"></link><link href="http://127.0.0.1:8910/atom.xml" rel="self"></link><id>http://127.0.0.1:8910/</id><updated>2016-05-11T05:38:17Z</updated><entry><title>在Synology群晖NAS上使用shadowsocks-libev、polipo</title><link href="http://127.0.0.1:8910/article/compile-shadowsocks-libev-for-synology-nas-dsm/" rel="alternate"></link><published>2016-05-11T05:38:17Z</published><id>tag:127.0.0.1,2016-05-11:/article/compile-shadowsocks-libev-for-synology-nas-dsm//</id><summary type="html">&lt;p&gt;　　翻墙一直主要使用的是SSH动态端口映射，SSH代理数据传输的安全性自然没必要担心，但据说有较明显的流量特征，服务器较易暴露，再加上SSH代理在Windows下使用并不那么友好，因此在自己购买了&lt;a href="https://m.do.co/c/dbb13a862eff"&gt;VPS&lt;/a&gt;后就决定要用&lt;a href="http://shadowsocks.org"&gt;shadowsocks&lt;/a&gt;做代理服务器。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Jeeker</title><link href="http://jeeker.net/" rel="alternate"></link><link href="http://jeeker.net/atom.xml" rel="self"></link><id>http://jeeker.net/</id><updated>2016-05-11T05:38:17Z</updated><entry><title>在Synology群晖NAS上使用shadowsocks-libev、polipo</title><link href="http://jeeker.net/article/compile-shadowsocks-libev-for-synology-nas-dsm/" rel="alternate"></link><published>2016-05-11T05:38:17Z</published><id>tag:jeeker.net,2016-05-11:/article/compile-shadowsocks-libev-for-synology-nas-dsm//</id><summary type="html">&lt;p&gt;　　翻墙一直主要使用的是SSH动态端口映射，SSH代理数据传输的安全性自然没必要担心，但据说有较明显的流量特征，服务器较易暴露，再加上SSH代理在Windows下使用并不那么友好，因此在自己购买了&lt;a href="https://m.do.co/c/dbb13a862eff"&gt;VPS&lt;/a&gt;后就决定要用&lt;a href="http://shadowsocks.org"&gt;shadowsocks&lt;/a&gt;做代理服务器。&lt;/p&gt;
 
 &lt;p&gt;　　Python版的shadowsocks因作者&lt;a href="https://github.com/clowwindy"&gt;clowwindy&lt;/a&gt;&lt;a href="https://zh.wikipedia.org/wiki/Shadowsocks#.E5.81.9C.E6.AD.A2.E7.B6.AD.E8.AD.B7"&gt;被请喝茶早就停止更新&lt;/a&gt;，托开源的福，shadowsock有众多其它语言版本，比如纯C的&lt;a href="https://github.com/shadowsocks/shadowsocks-libev"&gt;shadowsocks-libev&lt;/a&gt;，较低的资源消耗更适合配置一般的VPS和我那内存仅区区&lt;em&gt;128M&lt;/em&gt;的NAS。&lt;/p&gt;
 
@@ -115,7 +115,7 @@ cp polipo.info &lt;span class="nv"&gt;$PREFIX&lt;/span&gt;/info/
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;　　同样的拷贝polipo-1.1.1目录到NAS即可，要注意的一点是运行时可能出现&lt;code&gt;Disabling disk cache: No such file or directory&lt;/code&gt; 或 &lt;code&gt;Disabling local tree: No such file or directory&lt;/code&gt;提示，这是因为编译默认的缓存目录和本地文档目录在NAS上不一定存在，只要运行时给polipo添加&lt;strong&gt;localDocumentRoot&lt;/strong&gt;和&lt;strong&gt;diskCacheRoot&lt;/strong&gt;选项，设置正确的目录就没有问题了。&lt;/p&gt;
-</summary></entry><entry><title>Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计</title><link href="http://127.0.0.1:8910/article/diablo3-hero-data-statistics/" rel="alternate"></link><published>2015-04-14T06:38:17Z</published><id>tag:127.0.0.1,2015-04-14:/article/diablo3-hero-data-statistics//</id><summary type="html">&lt;p&gt;　　说实在的个人对游戏并没有多大的兴趣，但唯独对暴雪的Diablo系列很有感情，去年年初开始玩Diablo3，断断续续，感觉最麻烦的是选择技能，每次版本更新可能都有更优的build，这对于我这样的业余玩家来说可不是件好事，好在宏伟秘境后有了&lt;a href="http://tw.battle.net/d3/zh/rankings/era/3/rift-dh"&gt;天梯&lt;/a&gt;，借鉴排名在前的高级玩家们build总没错，于是花了点时间写了这个脚本。&lt;/p&gt;
+</summary></entry><entry><title>Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计</title><link href="http://jeeker.net/article/diablo3-hero-data-statistics/" rel="alternate"></link><published>2015-04-14T06:38:17Z</published><id>tag:jeeker.net,2015-04-14:/article/diablo3-hero-data-statistics//</id><summary type="html">&lt;p&gt;　　说实在的个人对游戏并没有多大的兴趣，但唯独对暴雪的Diablo系列很有感情，去年年初开始玩Diablo3，断断续续，感觉最麻烦的是选择技能，每次版本更新可能都有更优的build，这对于我这样的业余玩家来说可不是件好事，好在宏伟秘境后有了&lt;a href="http://tw.battle.net/d3/zh/rankings/era/3/rift-dh"&gt;天梯&lt;/a&gt;，借鉴排名在前的高级玩家们build总没错，于是花了点时间写了这个脚本。&lt;/p&gt;
 
 &lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2015-04-14-diablo3-hero-data-statistics/python-diablo3.gif" alt="Diablo3" /&gt;&lt;/i&gt;&lt;/p&gt;
 
@@ -453,7 +453,7 @@ cp polipo.info &lt;span class="nv"&gt;$PREFIX&lt;/span&gt;/info/
 &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</summary></entry><entry><title>Python脚本: 淘宝消费情况统计</title><link href="http://127.0.0.1:8910/article/taobao-orders-statistics/" rel="alternate"></link><published>2014-12-19T07:38:17Z</published><id>tag:127.0.0.1,2014-12-19:/article/taobao-orders-statistics//</id><summary type="html">&lt;p&gt;　　支付宝十年账单上的数字有点吓人，但它统计的项目太多，只是想看看到底单纯在淘宝上支出了多少，于是写了段脚本，统计任意时间段淘宝订单的消费情况，看那结果其实在淘宝上我还是相当节约的说。&lt;/p&gt;
+</summary></entry><entry><title>Python脚本: 淘宝消费情况统计</title><link href="http://jeeker.net/article/taobao-orders-statistics/" rel="alternate"></link><published>2014-12-19T07:38:17Z</published><id>tag:jeeker.net,2014-12-19:/article/taobao-orders-statistics//</id><summary type="html">&lt;p&gt;　　支付宝十年账单上的数字有点吓人，但它统计的项目太多，只是想看看到底单纯在淘宝上支出了多少，于是写了段脚本，统计任意时间段淘宝订单的消费情况，看那结果其实在淘宝上我还是相当节约的说。&lt;/p&gt;
 
 &lt;p&gt;　　脚本的主要工作是模拟了浏览器登录，解析“&lt;strong&gt;已买到的宝贝&lt;/strong&gt;”页面以获得指定的订单及宝贝信息。&lt;/p&gt;
 
@@ -874,7 +874,7 @@ cp polipo.info &lt;span class="nv"&gt;$PREFIX&lt;/span&gt;/info/
 &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</summary></entry><entry><title>Alfred Workflow: 国内电视频道节目表</title><link href="http://127.0.0.1:8910/article/alfred-workflow-chinese-tv-epg/" rel="alternate"></link><published>2013-04-28T03:24:29Z</published><id>tag:127.0.0.1,2013-04-28:/article/alfred-workflow-chinese-tv-epg//</id><summary type="html">&lt;p&gt;　　一个方便查看国内电视频道节目单的Alfred Workflow，数据来自&lt;a href="http://tv.cntv.cn/epg"&gt;CCTV&lt;/a&gt;，包括全部140个频道，支持频道收藏。&lt;/p&gt;
+</summary></entry><entry><title>Alfred Workflow: 国内电视频道节目表</title><link href="http://jeeker.net/article/alfred-workflow-chinese-tv-epg/" rel="alternate"></link><published>2013-04-28T03:24:29Z</published><id>tag:jeeker.net,2013-04-28:/article/alfred-workflow-chinese-tv-epg//</id><summary type="html">&lt;p&gt;　　一个方便查看国内电视频道节目单的Alfred Workflow，数据来自&lt;a href="http://tv.cntv.cn/epg"&gt;CCTV&lt;/a&gt;，包括全部140个频道，支持频道收藏。&lt;/p&gt;
 
 &lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-04-28-alfred-workflow-chinese-tv-epg/screenshot.png" alt="App Dig Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
@@ -885,7 +885,7 @@ cp polipo.info &lt;span class="nv"&gt;$PREFIX&lt;/span&gt;/info/
 &lt;li&gt;包括CCTV EPG上全部140个频道&lt;/li&gt;
 &lt;li&gt;支持频道收藏&lt;/li&gt;
 &lt;/ul&gt;
-</summary></entry><entry><title>Alfred Workflow: App Dig</title><link href="http://127.0.0.1:8910/article/alfred-workflow-app-dig/" rel="alternate"></link><published>2013-04-15T01:24:29Z</published><id>tag:127.0.0.1,2013-04-15:/article/alfred-workflow-app-dig//</id><summary type="html">&lt;p&gt;　　&lt;a href="http://appshopper.com/"&gt;AppShopper&lt;/a&gt;是一个很实用的iOS/Mac App价格信息搜集网站，App Dig基于它，可以很方便的在Alfed里获取如限时免费等App价格变更信息，同时也支持AppShopper的Wish List。&lt;/p&gt;
+</summary></entry><entry><title>Alfred Workflow: App Dig</title><link href="http://jeeker.net/article/alfred-workflow-app-dig/" rel="alternate"></link><published>2013-04-15T01:24:29Z</published><id>tag:jeeker.net,2013-04-15:/article/alfred-workflow-app-dig//</id><summary type="html">&lt;p&gt;　　&lt;a href="http://appshopper.com/"&gt;AppShopper&lt;/a&gt;是一个很实用的iOS/Mac App价格信息搜集网站，App Dig基于它，可以很方便的在Alfed里获取如限时免费等App价格变更信息，同时也支持AppShopper的Wish List。&lt;/p&gt;
 
 &lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-04-15-alfred-workflow-app-dig/screenshot.png" alt="App Dig Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
@@ -908,7 +908,7 @@ cp polipo.info &lt;span class="nv"&gt;$PREFIX&lt;/span&gt;/info/
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-</summary></entry><entry><title>Alfred Workflow: 管理Synology Download Station</title><link href="http://127.0.0.1:8910/article/alfred-workflow-manage-synology-download-station/" rel="alternate"></link><published>2013-04-12T04:24:29Z</published><id>tag:127.0.0.1,2013-04-12:/article/alfred-workflow-manage-synology-download-station//</id><summary type="html">&lt;p&gt;　　&lt;a href="http://www.synology.com/dsm/home_home_applications_download_station.php?lang=chs"&gt;Download Station&lt;/a&gt;是&lt;a href="http://www.synology.com/dsm/index.php?lang=chs"&gt;Synology DSM&lt;/a&gt;里我最喜欢的应用之一，我也曾写过一个&lt;a href="http://jeeker.net/article/remote-control-synology-download-station/"&gt;在终端控制它的脚本&lt;/a&gt;，Alfred的Workflow出现后我想到如果可能或许它是本地管理DS最方便的方式了，于是就有了这个，Download Station下载任务的创建、查看、暂停、恢复、删除等操作自然完全支持，也支持一些基本设置的管理如eMule、计划的启用与禁用等。&lt;/p&gt;
+</summary></entry><entry><title>Alfred Workflow: 管理Synology Download Station</title><link href="http://jeeker.net/article/alfred-workflow-manage-synology-download-station/" rel="alternate"></link><published>2013-04-12T04:24:29Z</published><id>tag:jeeker.net,2013-04-12:/article/alfred-workflow-manage-synology-download-station//</id><summary type="html">&lt;p&gt;　　&lt;a href="http://www.synology.com/dsm/home_home_applications_download_station.php?lang=chs"&gt;Download Station&lt;/a&gt;是&lt;a href="http://www.synology.com/dsm/index.php?lang=chs"&gt;Synology DSM&lt;/a&gt;里我最喜欢的应用之一，我也曾写过一个&lt;a href="http://jeeker.net/article/remote-control-synology-download-station/"&gt;在终端控制它的脚本&lt;/a&gt;，Alfred的Workflow出现后我想到如果可能或许它是本地管理DS最方便的方式了，于是就有了这个，Download Station下载任务的创建、查看、暂停、恢复、删除等操作自然完全支持，也支持一些基本设置的管理如eMule、计划的启用与禁用等。&lt;/p&gt;
 
 &lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-04-12-alfred-workflow-manage-synology-download-station/screenshot-main.png" alt="DS Main" /&gt;&lt;/i&gt;&lt;/p&gt;
 
@@ -919,7 +919,7 @@ cp polipo.info &lt;span class="nv"&gt;$PREFIX&lt;/span&gt;/info/
 &lt;ol&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-</summary></entry><entry><title>Alfred Workflow: 获取迅雷、快车、QQ旋风专用链接的真实地址</title><link href="http://127.0.0.1:8910/article/alfred-workflow-real-download-link/" rel="alternate"></link><published>2013-04-12T03:24:29Z</published><id>tag:127.0.0.1,2013-04-12:/article/alfred-workflow-real-download-link//</id><summary type="html">&lt;p&gt;　　　在国内连下载链接都那么有中国特色，什么迅雷、快车、QQ旋风都有自己专用下载链接，封闭私有不通用，强迫用户使用，让人厌恶，其实它们基本上都只是对真实地址的简单base64编码而已，写了一个&lt;a href="http://www.alfredapp.com/"&gt;Alfred&lt;/a&gt; Workflow解析这些专用链接为真实的地址。&lt;/p&gt;
+</summary></entry><entry><title>Alfred Workflow: 获取迅雷、快车、QQ旋风专用链接的真实地址</title><link href="http://jeeker.net/article/alfred-workflow-real-download-link/" rel="alternate"></link><published>2013-04-12T03:24:29Z</published><id>tag:jeeker.net,2013-04-12:/article/alfred-workflow-real-download-link//</id><summary type="html">&lt;p&gt;　　　在国内连下载链接都那么有中国特色，什么迅雷、快车、QQ旋风都有自己专用下载链接，封闭私有不通用，强迫用户使用，让人厌恶，其实它们基本上都只是对真实地址的简单base64编码而已，写了一个&lt;a href="http://www.alfredapp.com/"&gt;Alfred&lt;/a&gt; Workflow解析这些专用链接为真实的地址。&lt;/p&gt;
 
 &lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-04-12-alfred-workflow-real-download-link/screenshot.png" alt="Real Download Link Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
@@ -931,7 +931,7 @@ cp polipo.info &lt;span class="nv"&gt;$PREFIX&lt;/span&gt;/info/
 &lt;li&gt;支持thunder://, flashget://, qqdl://的解密&lt;/li&gt;
 &lt;li&gt;支持ed2k://, http://, ftp://等文件信息的基本解析&lt;/li&gt;
 &lt;/ul&gt;
-</summary></entry><entry><title>Alfred Workflow: 歌词搜索</title><link href="http://127.0.0.1:8910/article/alfred-workflow-search-lyric/" rel="alternate"></link><published>2013-04-12T01:24:29Z</published><id>tag:127.0.0.1,2013-04-12:/article/alfred-workflow-search-lyric//</id><summary type="html">&lt;p&gt;　　搜索歌词的&lt;a href="http://www.alfredapp.com/"&gt;Alfred&lt;/a&gt; Workflow，支持自动查找iTunes当前播放的歌曲或手动输入歌名查找，可将查到的歌词下载到本地或复制到剪切板或在Large Type显示，或直接保存到iTunes当前播放曲目中。&lt;/p&gt;
+</summary></entry><entry><title>Alfred Workflow: 歌词搜索</title><link href="http://jeeker.net/article/alfred-workflow-search-lyric/" rel="alternate"></link><published>2013-04-12T01:24:29Z</published><id>tag:jeeker.net,2013-04-12:/article/alfred-workflow-search-lyric//</id><summary type="html">&lt;p&gt;　　搜索歌词的&lt;a href="http://www.alfredapp.com/"&gt;Alfred&lt;/a&gt; Workflow，支持自动查找iTunes当前播放的歌曲或手动输入歌名查找，可将查到的歌词下载到本地或复制到剪切板或在Large Type显示，或直接保存到iTunes当前播放曲目中。&lt;/p&gt;
 
 &lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-04-12-alfred-workflow-search-lyric/screenshot.png" alt="Lyric Screenshot" /&gt;&lt;/i&gt;&lt;/p&gt;
 
@@ -945,12 +945,7 @@ cp polipo.info &lt;span class="nv"&gt;$PREFIX&lt;/span&gt;/info/
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;说明：除了下载歌词，其它歌词内容都是去除了时间线信息的&lt;/strong&gt;&lt;/p&gt;
-</summary></entry><entry><title>Alfred Workflows</title><link href="http://127.0.0.1:8910/projects/alfred-workflows/" rel="alternate"></link><published>2013-04-08T02:29:51Z</published><id>tag:127.0.0.1,2013-04-08:/projects/alfred-workflows//</id><summary type="html">&lt;ul&gt;
-&lt;li&gt;&lt;a href="#lyric"&gt;Lyric&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#real-download-link"&gt;Real Download Link&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#chinese-dictionary"&gt;Chinese Dictionary&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</summary></entry><entry><title>Alfred 2 Workflow: 中文词典</title><link href="http://127.0.0.1:8910/article/alfred-2-workflow-chinese-dictionary/" rel="alternate"></link><published>2013-03-29T01:24:29Z</published><id>tag:127.0.0.1,2013-03-29:/article/alfred-2-workflow-chinese-dictionary//</id><summary type="html">&lt;p&gt;　　英文不咋地，还不要脸总爱浏览国外的网站，于是字典成了我最重要的工具之一，OS X的三指查词虽然很方便，可惜系统自带的Dictionary即使装了中文词典用着也总觉得不太爽，什么时态什么复数都直接被忽视，平时还是多用在线词典，有需求就要尝试去实现，研究了下&lt;a href="http://www.alfredapp.com/"&gt;Alfred&lt;/a&gt; V2无比强大的&lt;a href="http://support.alfredapp.com/workflows"&gt;Workflow&lt;/a&gt;，写了这个基于在线词典的中英互查工具。&lt;/p&gt;
+</summary></entry><entry><title>Alfred 2 Workflow: 中文词典</title><link href="http://jeeker.net/article/alfred-2-workflow-chinese-dictionary/" rel="alternate"></link><published>2013-03-29T01:24:29Z</published><id>tag:jeeker.net,2013-03-29:/article/alfred-2-workflow-chinese-dictionary//</id><summary type="html">&lt;p&gt;　　英文不咋地，还不要脸总爱浏览国外的网站，于是字典成了我最重要的工具之一，OS X的三指查词虽然很方便，可惜系统自带的Dictionary即使装了中文词典用着也总觉得不太爽，什么时态什么复数都直接被忽视，平时还是多用在线词典，有需求就要尝试去实现，研究了下&lt;a href="http://www.alfredapp.com/"&gt;Alfred&lt;/a&gt; V2无比强大的&lt;a href="http://support.alfredapp.com/workflows"&gt;Workflow&lt;/a&gt;，写了这个基于在线词典的中英互查工具。&lt;/p&gt;
 
 &lt;p&gt;&lt;i&gt;&lt;img src="http://7fvfpm.com1.z0.glb.clouddn.com/uploads/2013-03-29-alfred-2-workflow-chinese-dictionary/screenshot.png" alt="Alfred 2 Chinese Dictionary" /&gt;&lt;/i&gt;&lt;/p&gt;
 
@@ -965,4 +960,157 @@ cp polipo.info &lt;span class="nv"&gt;$PREFIX&lt;/span&gt;/info/
 &lt;li&gt;CTRL + ENTER 打开&lt;a href="http://iciba.com"&gt;爱词霸&lt;/a&gt;查词结果&lt;/li&gt;
 &lt;li&gt;ALT + ENTER 发音，取决于系统安装的&lt;a href="http://support.apple.com/kb/PH10841?viewlocale=zh_CN"&gt;Text to Speech&lt;/a&gt;，建议使用Siri的Samantha，纯正美音&lt;/li&gt;
 &lt;/ul&gt;
+</summary></entry><entry><title>第一个Arduino实验: 新浪微博关注好友状态更新数量</title><link href="http://jeeker.net/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/" rel="alternate"></link><published>2013-03-20T07:23:00Z</published><id>tag:jeeker.net,2013-03-20:/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status//</id><summary type="html">&lt;p&gt;　　一直想玩一玩电子设备，一般的单片机需要浪费太多时间在电子基础知识的学习上，不适合我这类人。&lt;/p&gt;
+
+&lt;p&gt;　　最后发现了&lt;a href="http://arduino.cc/"&gt;Arduino&lt;/a&gt;这个开源的硬件平台，社区活跃，对电子相关知识要求已是最低，于是订购了一个Arduino UNO的兼容版，上手挺容易，很快就折腾出了这个简单的小实验，功能是间隔三十秒获取新浪微博上好友状态更新数量并在数码管上显示。&lt;/p&gt;
+
+&lt;h4 id="1-arduino"&gt;1. Arduino实验板连接&lt;/h4&gt;
+
+&lt;p&gt;　　实验板的连接不做详述，参考极客工坊的&lt;a href="http://www.geek-workshop.com/thread-2038-1-1.html"&gt;这篇文章&lt;/a&gt;，保证数码管引脚&lt;code&gt;E  D  C  DP B  A  F  G&lt;/code&gt;分别对应Arduino数字输出2~9即可，Pin13做为电源输出。&lt;/p&gt;
+
+&lt;h4 id="2"&gt;2. 程序源代码&lt;/h4&gt;
+
+&lt;p&gt;　　代码是Python2.7的，因此Arduino需预先写入&lt;a href="http://firmata.org/"&gt;StandardFirmata&lt;/a&gt;，而Python则需安装&lt;a href="https://github.com/tino/pyFirmata"&gt;pyFirmata&lt;/a&gt;模块。&lt;/p&gt;
+
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/usr/bin/env python&lt;/span&gt;
+&lt;span class="c1"&gt;# -*- coding: utf-8 -*-&lt;/span&gt;
+&lt;span class="c1"&gt;#! 强制默认编码为utf-8&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
+&lt;span class="nb"&gt;reload&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setdefaultencoding&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;utf8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pyfirmata&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;urllib&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;json&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;datetime&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;datetime&lt;/span&gt;
+
+&lt;span class="c1"&gt;#! 微博的API调用需要OAuth2.0登陆授权&lt;/span&gt;
+&lt;span class="c1"&gt;#! 这里不做授权过程，需使用开发者账号测试 参考：http://t.cn/zYDjFan&lt;/span&gt;
+&lt;span class="n"&gt;ACCESS_TOKEN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;YOUR ACCESS TOKEN&amp;#39;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Arduino硬件接口&lt;/span&gt;
+&lt;span class="n"&gt;ARDUINO_PORT&lt;/span&gt;        &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;YOUR ARDUINO PORT&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;POWER_PIN&lt;/span&gt;           &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;13&lt;/span&gt;
+&lt;span class="n"&gt;DOTPOINT_PIN&lt;/span&gt;        &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;
+
+&lt;span class="n"&gt;NUMBERS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="c1"&gt;#E  D  C  DP B  A  F  G   // 数码管&lt;/span&gt;
+    &lt;span class="c1"&gt;#2  3  4  5  6  7  8  9   // 输出端口&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="c1"&gt;# 0&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="c1"&gt;# 1&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="c1"&gt;# 2 &lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="c1"&gt;# 3&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="c1"&gt;# 4&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="c1"&gt;# 5&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="c1"&gt;# 6&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="c1"&gt;# 7&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="c1"&gt;# 8&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="c1"&gt;# 9&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="c1"&gt;# dot point&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="c1"&gt;# line&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;  &lt;span class="c1"&gt;# nothing&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;WBftc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arduino&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lastStatusID&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;initArduino&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__del__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;isinstance&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arduino&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pyfirmata&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Arduino&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+            &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;xrange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+                &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arduino&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;digital&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;initArduino&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;isinstance&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arduino&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pyfirmata&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Arduino&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt;
+        &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arduino&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pyfirmata&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Arduino&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ARDUINO_PORT&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arduino&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;digital&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;13&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="ne"&gt;Exception&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;init arduino fail.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;outputArduino&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="nb"&gt;isinstance&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arduino&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pyfirmata&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Arduino&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt;
+        &lt;span class="c1"&gt;# 输出 0 - 9 的数字&lt;/span&gt;
+        &lt;span class="n"&gt;show&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt;
+        &lt;span class="c1"&gt;# 小于0 错误&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;show&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;
+        &lt;span class="c1"&gt;# 大于 9 超出量程&lt;/span&gt;
+        &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;show&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;11&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+            &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arduino&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;digital&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NUMBERS&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;show&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;flashDotPoint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;interval&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;show_dot&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+            &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arduino&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;digital&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;DOTPOINT_PIN&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;show_dot&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="n"&gt;show_dot&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;False&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;show_dot&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+            &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;interval&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;fetchWeiboStatusCount&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="c1"&gt;# -1 错误&lt;/span&gt;
+        &lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://api.weibo.com/2/statuses/friends_timeline/ids.json&amp;#39;&lt;/span&gt;
+        &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="s1"&gt;&amp;#39;access_token&amp;#39;&lt;/span&gt;  &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ACCESS_TOKEN&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lastStatusID&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;since_id&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lastStatusID&lt;/span&gt; &lt;span class="p"&gt;})&lt;/span&gt;
+        &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;urllib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urlencode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;requst&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;urllib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urlopen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;{}?{}&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+            &lt;span class="n"&gt;res&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;requst&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;res&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;has_key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;statuses&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+                &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+            &lt;span class="n"&gt;statuses&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;res&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;statuses&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;statuses&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+                &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lastStatusID&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;statuses&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;statuses&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="ne"&gt;Exception&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;something error.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+            &lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fetchWeiboStatusCount&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+            &lt;span class="n"&gt;now&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;now&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;strftime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;%H:%M:%S&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;{}: {}&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;now&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+            &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;outputArduino&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;flashDotPoint&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;WBftc&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="ne"&gt;KeyboardInterrupt&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="se"&gt;\r&lt;/span&gt;&lt;span class="s1"&gt;exit.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="ne"&gt;Exception&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;raise&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;span class="btn-single btn-center"&gt;&lt;a href="https://gist.github.com/JinnLynn/5210753" class="btn btn-large icon-github"&gt;Source on gist&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;　　需配置&lt;code&gt;ACCESS_TOKEN&lt;/code&gt;和&lt;code&gt;ARDUINO_PORT&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;　　&lt;strong&gt;NOTE&lt;/strong&gt;: 访问微博API需要OAuth2.0授权，这里使用了开发者测试账户，详细请参考&lt;a href="http://t.cn/zYDjFan"&gt;这篇文章&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h4 id="3"&gt;3. 显示结果&lt;/h4&gt;
+
+&lt;p&gt;　　程序每隔30秒获取关注好友更新的微博数量并以以下方式显示：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;更新数量在0-9间，数码管正常显示&lt;/li&gt;
+&lt;li&gt;更新数量大于9，数码管显示『-』&lt;/li&gt;
+&lt;li&gt;出错，数码管不显示任何内容&lt;/li&gt;
+&lt;li&gt;小数点闪动&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;　　同时，电脑终端也会打印相应的更新数量信息，&lt;code&gt;CTRL+C&lt;/code&gt;退出程序。&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;
+    &lt;iframe class="user-box" height="445" width="720" src="http://player.youku.com/embed/XNTI5NjQ0NDA4" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;&lt;/p&gt;
 </summary></entry></feed>

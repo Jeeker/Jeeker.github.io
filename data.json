@@ -1,10 +1,10 @@
 {
-    "url": "http://127.0.0.1:8910/", 
+    "url": "http://jeeker.net/", 
     "tagline": "Seeking more!", 
     "articles": [
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/compile-shadowsocks-libev-for-synology-nas-dsm/", 
+            "permalink": "http://jeeker.net/article/compile-shadowsocks-libev-for-synology-nas-dsm/", 
             "create_date": "2016-05-11 13:38:17", 
             "author": "JinnLynn", 
             "title": "\u5728Synology\u7fa4\u6656NAS\u4e0a\u4f7f\u7528shadowsocks-libev\u3001polipo", 
@@ -12,7 +12,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/diablo3-hero-data-statistics/", 
+            "permalink": "http://jeeker.net/article/diablo3-hero-data-statistics/", 
             "create_date": "2015-04-14 14:38:17", 
             "author": "JinnLynn", 
             "title": "Python\u811a\u672c: Diablo3\u6392\u540d\u524d1000\u4f4d\u73a9\u5bb6\u82f1\u96c4\u4f7f\u7528\u7684\u6280\u80fd\u7edf\u8ba1", 
@@ -20,7 +20,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/taobao-orders-statistics/", 
+            "permalink": "http://jeeker.net/article/taobao-orders-statistics/", 
             "create_date": "2014-12-19 15:38:17", 
             "author": "JinnLynn", 
             "title": "Python\u811a\u672c: \u6dd8\u5b9d\u6d88\u8d39\u60c5\u51b5\u7edf\u8ba1", 
@@ -28,7 +28,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/alfred-workflow-chinese-tv-epg/", 
+            "permalink": "http://jeeker.net/article/alfred-workflow-chinese-tv-epg/", 
             "create_date": "2013-04-28 11:24:29", 
             "author": "JinnLynn", 
             "title": "Alfred Workflow: \u56fd\u5185\u7535\u89c6\u9891\u9053\u8282\u76ee\u8868", 
@@ -36,7 +36,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/alfred-workflow-app-dig/", 
+            "permalink": "http://jeeker.net/article/alfred-workflow-app-dig/", 
             "create_date": "2013-04-15 09:24:29", 
             "author": "JinnLynn", 
             "title": "Alfred Workflow: App Dig", 
@@ -44,7 +44,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/alfred-workflow-manage-synology-download-station/", 
+            "permalink": "http://jeeker.net/article/alfred-workflow-manage-synology-download-station/", 
             "create_date": "2013-04-12 12:24:29", 
             "author": "JinnLynn", 
             "title": "Alfred Workflow: \u7ba1\u7406Synology Download Station", 
@@ -52,7 +52,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/alfred-workflow-real-download-link/", 
+            "permalink": "http://jeeker.net/article/alfred-workflow-real-download-link/", 
             "create_date": "2013-04-12 11:24:29", 
             "author": "JinnLynn", 
             "title": "Alfred Workflow: \u83b7\u53d6\u8fc5\u96f7\u3001\u5feb\u8f66\u3001QQ\u65cb\u98ce\u4e13\u7528\u94fe\u63a5\u7684\u771f\u5b9e\u5730\u5740", 
@@ -60,23 +60,15 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/alfred-workflow-search-lyric/", 
+            "permalink": "http://jeeker.net/article/alfred-workflow-search-lyric/", 
             "create_date": "2013-04-12 09:24:29", 
             "author": "JinnLynn", 
             "title": "Alfred Workflow: \u6b4c\u8bcd\u641c\u7d22", 
             "modify_date": "2013-05-08 09:24:56"
         }, 
         {
-            "status": "draft", 
-            "permalink": "http://127.0.0.1:8910/projects/alfred-workflows/", 
-            "create_date": "2013-04-08 10:29:51", 
-            "author": "JinnLynn", 
-            "title": "Alfred Workflows", 
-            "modify_date": "2013-05-08 10:59:33"
-        }, 
-        {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/alfred-2-workflow-chinese-dictionary/", 
+            "permalink": "http://jeeker.net/article/alfred-2-workflow-chinese-dictionary/", 
             "create_date": "2013-03-29 09:24:29", 
             "author": "JinnLynn", 
             "title": "Alfred 2 Workflow: \u4e2d\u6587\u8bcd\u5178", 
@@ -84,7 +76,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/", 
+            "permalink": "http://jeeker.net/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/", 
             "create_date": "2013-03-20 15:23:00", 
             "author": "JinnLynn", 
             "title": "\u7b2c\u4e00\u4e2aArduino\u5b9e\u9a8c: \u65b0\u6d6a\u5fae\u535a\u5173\u6ce8\u597d\u53cb\u72b6\u6001\u66f4\u65b0\u6570\u91cf", 
@@ -92,7 +84,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/synology-nas-external-ip-change-notify/", 
+            "permalink": "http://jeeker.net/article/synology-nas-external-ip-change-notify/", 
             "create_date": "2013-03-04 15:23:00", 
             "author": "JinnLynn", 
             "title": "Synology\u7fa4\u6656NAS\u5916\u90e8IP\u66f4\u65b0\u901a\u77e5", 
@@ -100,7 +92,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/apply-ssl-certificat-for-domain-from-startssl/", 
+            "permalink": "http://jeeker.net/article/apply-ssl-certificat-for-domain-from-startssl/", 
             "create_date": "2013-01-21 21:10:46", 
             "author": "JinnLynn", 
             "title": "\u5411StartSSL\u7533\u8bf7\u4e2a\u4eba\u57df\u540dSSL\u8bc1\u4e66", 
@@ -108,7 +100,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/remote-control-synology-download-station/", 
+            "permalink": "http://jeeker.net/article/remote-control-synology-download-station/", 
             "create_date": "2013-01-16 21:29:31", 
             "author": "JinnLynn", 
             "title": "\u547d\u4ee4\u884c\u8fdc\u7a0b\u63a7\u5236Synology DSM Download Station", 
@@ -116,7 +108,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/export-wordpress-to-sina-blog/", 
+            "permalink": "http://jeeker.net/article/export-wordpress-to-sina-blog/", 
             "create_date": "2013-01-13 10:50:53", 
             "author": "JinnLynn", 
             "title": "\u5bfc\u51faWordpress\u65e5\u5fd7\u5230\u65b0\u6d6a\u535a\u5ba2", 
@@ -124,23 +116,15 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/projects/gude/", 
+            "permalink": "http://jeeker.net/projects/gude/", 
             "create_date": "2013-01-10 09:29:51", 
             "author": "JinnLynn", 
             "title": "Gude", 
             "modify_date": "2013-05-08 10:12:33"
         }, 
         {
-            "status": "draft", 
-            "permalink": "http://127.0.0.1:8910/article/style-test/", 
-            "create_date": "2012-12-20 10:04:14", 
-            "author": "JinnLynn", 
-            "title": "Style TEST", 
-            "modify_date": "2014-12-23 16:55:03"
-        }, 
-        {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/about/index.html", 
+            "permalink": "http://jeeker.net/about/index.html", 
             "create_date": "2012-12-10 00:00:00", 
             "author": "JinnLynn", 
             "title": "About Me", 
@@ -148,23 +132,15 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/pac/index.html", 
+            "permalink": "http://jeeker.net/pac/index.html", 
             "create_date": "2012-12-10 00:00:00", 
             "author": "JinnLynn", 
             "title": "PAC Test", 
             "modify_date": "2013-03-04 16:22:22"
         }, 
         {
-            "status": "draft", 
-            "permalink": "http://127.0.0.1:8910/article/alfred/", 
-            "create_date": "2012-12-03 17:22:33", 
-            "author": "JinnLynn", 
-            "title": "Alfred", 
-            "modify_date": "2013-05-08 10:29:14"
-        }, 
-        {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/google-search-url-uncover/", 
+            "permalink": "http://jeeker.net/article/google-search-url-uncover/", 
             "create_date": "2012-11-22 14:59:22", 
             "author": "JinnLynn", 
             "title": "\u4e00\u4e2a\u8d85\u7b80\u5355\u7684\u5728Google\u4e2d\u76f4\u63a5\u8bbf\u95ee\u76ee\u6807\u7f51\u5740\u7684\u811a\u672c", 
@@ -172,7 +148,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/projects/miniature/", 
+            "permalink": "http://jeeker.net/projects/miniature/", 
             "create_date": "2012-11-15 12:49:37", 
             "author": "JinnLynn", 
             "title": "Miniature", 
@@ -180,7 +156,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/how-to-upgrade-git-on-mac-os/", 
+            "permalink": "http://jeeker.net/article/how-to-upgrade-git-on-mac-os/", 
             "create_date": "2012-06-06 10:06:51", 
             "author": "JinnLynn", 
             "title": "HOW TO: \u5347\u7ea7Mac OS X\u4e0a\u7684GIT", 
@@ -188,7 +164,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/difference-between-hard-link-and-symbolic-soft-link/", 
+            "permalink": "http://jeeker.net/article/difference-between-hard-link-and-symbolic-soft-link/", 
             "create_date": "2012-05-24 16:05:13", 
             "author": "JinnLynn", 
             "title": "\u786c\u94fe\u63a5\u548c\u8f6f\u94fe\u63a5\uff08\u7b26\u53f7\u94fe\u63a5\uff09\u7684\u533a\u522b", 
@@ -196,7 +172,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/shell-script-unique-port/", 
+            "permalink": "http://jeeker.net/article/shell-script-unique-port/", 
             "create_date": "2012-05-16 21:05:14", 
             "author": "JinnLynn", 
             "title": "\u7ec8\u7aef\u811a\u672c\u7edf\u4e00\u5165\u53e3", 
@@ -204,7 +180,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/projects/genpac/", 
+            "permalink": "http://jeeker.net/projects/genpac/", 
             "create_date": "2012-05-07 23:05:43", 
             "author": "JinnLynn", 
             "title": "GenPAC", 
@@ -212,7 +188,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/fetch-lyric-for-itunes/", 
+            "permalink": "http://jeeker.net/article/fetch-lyric-for-itunes/", 
             "create_date": "2012-05-04 14:05:45", 
             "author": "JinnLynn", 
             "title": "\u8ba9iTunes\u7684\u6b4c\u66f2\u81ea\u52a8\u83b7\u53d6\u6b4c\u8bcd", 
@@ -220,7 +196,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/activate-new-theme-vellum/", 
+            "permalink": "http://jeeker.net/article/activate-new-theme-vellum/", 
             "create_date": "2012-04-18 21:04:19", 
             "author": "JinnLynn", 
             "title": "\u542f\u7528\u65b0\u4e3b\u9898Vellum", 
@@ -228,7 +204,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/steve-jobs/", 
+            "permalink": "http://jeeker.net/article/steve-jobs/", 
             "create_date": "2011-10-06 08:10:21", 
             "author": "JinnLynn", 
             "title": "Steve Jobs (1955 ~ 2011)", 
@@ -236,7 +212,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/evernote-tutorial/", 
+            "permalink": "http://jeeker.net/article/evernote-tutorial/", 
             "create_date": "2011-09-23 05:09:40", 
             "author": "JinnLynn", 
             "title": "Evernote\u5165\u95e8\u6559\u7a0b", 
@@ -244,7 +220,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/disable-mac-osx-lion-resume/", 
+            "permalink": "http://jeeker.net/article/disable-mac-osx-lion-resume/", 
             "create_date": "2011-09-08 02:09:19", 
             "author": "JinnLynn", 
             "title": "\u7981\u7528Mac OS X Lion\u7684Resume\u529f\u80fd", 
@@ -252,7 +228,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/the-memory-of-tomorrow/", 
+            "permalink": "http://jeeker.net/article/the-memory-of-tomorrow/", 
             "create_date": "2011-03-25 20:03:30", 
             "author": "JinnLynn", 
             "title": "\u660e\u5929\u7684\u8bb0\u5fc6", 
@@ -260,7 +236,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/something-about-iphone4/", 
+            "permalink": "http://jeeker.net/article/something-about-iphone4/", 
             "create_date": "2010-12-08 20:12:54", 
             "author": "JinnLynn", 
             "title": "\u5173\u4e8eiPhone4\u7684\u90a3\u4e9b\u4e8b", 
@@ -268,23 +244,15 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/some-songs-about-past-present-and-future/", 
+            "permalink": "http://jeeker.net/article/some-songs-about-past-present-and-future/", 
             "create_date": "2010-10-17 15:10:21", 
             "author": "JinnLynn", 
             "title": "\u8046\u542c, \u6c89\u9ed8", 
             "modify_date": "2012-12-28 13:12:00"
         }, 
         {
-            "status": "draft", 
-            "permalink": "http://127.0.0.1:8910/article/mac-osx-apps/", 
-            "create_date": "2010-05-31 09:24:29", 
-            "author": "JinnLynn", 
-            "title": "My Favorite OS X Apps", 
-            "modify_date": "2014-12-23 17:03:42"
-        }, 
-        {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/jkit-disable-autosave/", 
+            "permalink": "http://jeeker.net/article/jkit-disable-autosave/", 
             "create_date": "2009-03-24 21:03:23", 
             "author": "JinnLynn", 
             "title": "JKit: \u90e8\u5206\u7981\u7528\u65e5\u5fd7\u7f16\u8f91\u81ea\u52a8\u4fdd\u5b58", 
@@ -292,7 +260,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/jkit-auto-link-at-reply/", 
+            "permalink": "http://jeeker.net/article/jkit-auto-link-at-reply/", 
             "create_date": "2009-03-13 21:03:18", 
             "author": "JinnLynn", 
             "title": "JKit: \u81ea\u52a8\u5728\u8bc4\u8bba@\u7528\u6237\u540d\u4e2d\u6dfb\u52a0\u9875\u9762\u8df3\u8f6c\u94fe\u63a5", 
@@ -300,7 +268,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/jkit-optimize-database-automatically/", 
+            "permalink": "http://jeeker.net/article/jkit-optimize-database-automatically/", 
             "create_date": "2008-12-25 22:12:47", 
             "author": "JinnLynn", 
             "title": "JKit: \u5b9a\u671f\u81ea\u52a8\u4f18\u5316\u6570\u636e\u5e93", 
@@ -308,7 +276,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/projects/postrank/", 
+            "permalink": "http://jeeker.net/projects/postrank/", 
             "create_date": "2008-12-19 20:12:45", 
             "author": "JinnLynn", 
             "title": "PostRank", 
@@ -316,7 +284,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/article/pj2wp-wxr/", 
+            "permalink": "http://jeeker.net/article/pj2wp-wxr/", 
             "create_date": "2008-08-04 21:08:30", 
             "author": "JinnLynn", 
             "title": "PJ2WP WXR", 
@@ -324,7 +292,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/projects/fanfouportable/", 
+            "permalink": "http://jeeker.net/projects/fanfouportable/", 
             "create_date": "2008-08-03 20:08:38", 
             "author": "JinnLynn", 
             "title": "FanfouPortable", 
@@ -332,7 +300,7 @@
         }, 
         {
             "status": "publish", 
-            "permalink": "http://127.0.0.1:8910/projects/index.html", 
+            "permalink": "http://jeeker.net/projects/index.html", 
             "create_date": "2000-01-01 00:00:00", 
             "author": "JinnLynn", 
             "title": "Projects", 
