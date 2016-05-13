@@ -49,6 +49,147 @@
 
 
 
+<div id="post-31497" class="post-list post post-post post-publish">
+    <div class="entry-head">
+        <h1><a href="http://jeeker.net/article/compile-shadowsocks-libev-for-synology-nas-dsm/" title="在Synology群晖NAS上使用shadowsocks-libev、polipo" rel="bookmark">在Synology群晖NAS上使用shadowsocks-libev、polipo</a></h1>
+        <p class="entry-date" title="2016-05-12 13:38:17">
+            <span class="day">12</span>
+            <span class="month">May</span>
+        </p>
+    </div><!-- .entry-header -->
+    <div class="entry-content">
+<!-- content start -->
+<p>　　翻墙一直主要使用的是SSH动态端口映射，SSH代理数据传输的安全性自然没必要担心，但据说有较明显的流量特征，服务器较易暴露，再加上SSH代理在Windows下使用并不那么友好，因此在自己购买了<a href="https://m.do.co/c/dbb13a862eff">VPS</a>后就决定要用<a href="http://shadowsocks.org">shadowsocks</a>做代理服务器。</p>
+
+<p>　　Python版的shadowsocks因作者<a href="https://github.com/clowwindy">clowwindy</a><a href="https://zh.wikipedia.org/wiki/Shadowsocks#.E5.81.9C.E6.AD.A2.E7.B6.AD.E8.AD.B7">被请喝茶早就停止更新</a>，托开源的福，shadowsock有众多其它语言版本，比如纯C的<a href="https://github.com/shadowsocks/shadowsocks-libev">shadowsocks-libev</a>，较低的资源消耗更适合配置一般的VPS和我那内存仅区区<em>128M</em>的NAS。</p>
+
+<p>　　<a href="https://m.do.co/c/dbb13a862eff">VPS</a>操作系统是Ubuntu，不论是自己编译还是从软件源安装都很简单，但群晖NAS上就比较麻烦了。NAS配置低的惨不忍睹，而且缺少编译环境，只能在其他Linux服务器上进行交叉编译。关于交叉编译，Synology提供了详尽的<a href="https://global.download.synology.com/download/Document/DeveloperGuide/DSM_Developer_Guide.pdf">开发指南</a>可供参考。</p>
+
+<h5>一、环境准备</h5>
+
+<p>　　1. 准备编译服务器，一般常见的Linux发行版都没有问题，但需要注意的是必须是32位的，我是在Paralels Desktop虚拟机里安装的Ubuntu 16.04 i386。</p>
+
+<p>　　2. 确定NAS的<a href="http://domoticx.com/synology-nas-cpu-lijst/">CPU类型</a>、DSM版本，下载对应的<a href="https://sourceforge.net/projects/dsgpl/files/">Tool Chains</a>，如我的老爷机DS211j，<strong>CPU: Marvell mv6282 DSM: 6.0</strong>，需要下载的就是<a href="https://sourceforge.net/projects/dsgpl/files/DSM%206.0%20Tool%20Chains/Marvell%2088F628x%20Linux%202.6.32/">6281-gcc464_glibc215_88f6281-GPL.txz</a>。</p>
+
+<p>　　3. 上传Tool Chains到编译服务器。</p>
+
+<p>　　<strong>注意：下文脚本假定工作目录为<code>/home/jinnlynn/nas</code>，Tool Chains也被上传到该目录下</strong></p>
+
+<h5 id="-2">二、编译</h5>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># 工作目录，前文下载的6281-gcc464_glibc215_88f6281-GPL.txz在该目录下</span>
+<span class="nv">WDIR</span><span class="o">=</span>/home/jinnlynn/nas
+<span class="c1"># 目标目录，编译好的文件将会保存在这</span>
+<span class="nv">DIST</span><span class="o">=</span><span class="nv">$WDIR</span>/dist
+
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+
+<span class="c1"># 安装工具</span>
+sudo apt-get -y install make binutils
+
+<span class="c1"># 解压Tool Chains，将生成arm-marvell-linux-gnueabi文件夹</span>
+tar xvf 6281-gcc464_glibc215_88f6281-GPL.txz
+
+<span class="c1"># 编译环境变量，不同的CPU环境可能不同，详见Synology开发指南的Compile Open Source Projects章节</span>
+<span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-gcc
+<span class="nb">export</span> <span class="nv">LD</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-ld
+<span class="nb">export</span> <span class="nv">RANLIB</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-ranlib
+<span class="nb">export</span> <span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-I</span><span class="nv">$WDIR</span><span class="s2">/arm-marvell-linux-gnueabi/arm-marvell-linux-gnueabi/libc/include&quot;</span>
+<span class="nb">export</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&quot;-L</span><span class="nv">$WDIR</span><span class="s2">/arm-marvell-linux-gnueabi/arm-marvell-linux-gnueabi/libc/lib&quot;</span>
+
+<span class="c1"># 依赖zlib，下载编译</span>
+curl -O http://zlib.net/zlib-1.2.8.tar.gz
+tar xvf zlib-1.2.8.tar.gz
+<span class="nb">cd</span> zlib-1.2.8/
+./configure --prefix<span class="o">=</span><span class="nv">$DIST</span>/zlib-1.2.8
+make install
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+
+<span class="c1"># 依赖openssl，下载编译</span>
+curl -O https://www.openssl.org/source/openssl-1.0.2h.tar.gz
+tar xvf openssl-1.0.2h.tar.gz
+<span class="nb">cd</span> openssl-1.0.2h
+./Configure dist --prefix<span class="o">=</span><span class="nv">$DIST</span>/openssl-1.0.2h
+make
+make install
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+
+<span class="c1"># 编译shadowsocks-libev</span>
+curl -OL https://github.com/shadowsocks/shadowsocks-libev/archive/v2.4.6.tar.gz
+tar xvf v2.4.6.tar.gz
+<span class="nb">cd</span> shadowsocks-libev-2.4.6
+<span class="c1"># 配置 需要注意的是--host选项，目标NAS不同值可能也会不同</span>
+<span class="c1"># 详见Synology开发指南的Compile Open Source Projects章节</span>
+./configure <span class="se">\</span>
+    --with-zlib<span class="o">=</span><span class="nv">$DIST</span>/zlib-1.2.8 <span class="se">\</span>
+    --with-openssl<span class="o">=</span><span class="nv">$DIST</span>/openssl-1.0.2h <span class="se">\</span>
+    --prefix<span class="o">=</span><span class="nv">$DIST</span>/shadowsocks-libev-2.4.6 <span class="se">\</span>
+    --host<span class="o">=</span>armle-unknown-linux
+make
+make install
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+</code></pre></div>
+
+<p>　　将生成的shadowsocks-libev-2.4.6目录拷贝到NAS即可正常使用了。</p>
+
+<h5 id="polipo">三、编译polipo</h5>
+
+<p>　　shadowsocks-libev是socks5代理，但某些应用可能只能使用HTTP代理，因此需要转换，软件个人推荐<a href="https://www.irif.univ-paris-diderot.fr/~jch/software/polipo/">polipo</a>，轻量高效，ipkg软件源上也有但版本较低，最好也自己编译。</p>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># 工作目录</span>
+<span class="nv">WDIR</span><span class="o">=</span>/home/jinnlynn/nas
+<span class="c1"># 目标目录，编译好的文件将会保存在这</span>
+<span class="nv">DIST</span><span class="o">=</span><span class="nv">$WDIR</span>/dist/
+
+<span class="nb">cd</span> <span class="nv">$WDIR</span>
+
+<span class="c1"># 安装工具</span>
+sudo apt-get -y install texinfo
+
+<span class="c1"># 编译环境变量，不同的CPU环境可能不同，详见Synology开发指南的Compile Open Source Projects章节</span>
+<span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-gcc
+<span class="nb">export</span> <span class="nv">LD</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-ld
+<span class="nb">export</span> <span class="nv">RANLIB</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-ranlib
+<span class="nb">export</span> <span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-I</span><span class="nv">$WDIR</span><span class="s2">/arm-marvell-linux-gnueabi/arm-marvell-linux-gnueabi/libc/include&quot;</span>
+<span class="nb">export</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&quot;-L</span><span class="nv">$WDIR</span><span class="s2">/arm-marvell-linux-gnueabi/arm-marvell-linux-gnueabi/libc/lib&quot;</span>
+
+curl -OL https://github.com/jech/polipo/archive/polipo-1.1.1.tar.gz
+tar xvf polipo-1.1.1.tar.gz
+<span class="nb">cd</span> polipo-polipo-1.1.1/
+
+make all
+
+<span class="c1"># polipo的make install默认将安装到当前系统目录</span>
+<span class="c1"># 这里自己拷贝出所需文件</span>
+<span class="nv">PREFIX</span><span class="o">=</span><span class="nv">$DIST</span>/polipo-1.1.1
+mkdir -p <span class="nv">$PREFIX</span>/bin
+mkdir -p <span class="nv">$PREFIX</span>/share/www/doc
+rm -f <span class="nv">$PREFIX</span>/bin/polipo
+cp -f polipo <span class="nv">$PREFIX</span>/bin/
+cp -f html/* <span class="nv">$PREFIX</span>/share/www/doc
+cp -f localindex.html <span class="nv">$PREFIX</span>/share/www/index.html
+mkdir -p <span class="nv">$PREFIX</span>/man/man1
+mkdir -p <span class="nv">$PREFIX</span>/info
+cp -f polipo.man <span class="nv">$PREFIX</span>/man/man1/polipo.1
+cp polipo.info <span class="nv">$PREFIX</span>/info/
+</code></pre></div>
+
+<p>　　同样的拷贝polipo-1.1.1目录到NAS即可，要注意的一点是运行时可能出现<code>Disabling disk cache: No such file or directory</code> 或 <code>Disabling local tree: No such file or directory</code>提示，这是因为编译默认的缓存目录和本地文档目录在NAS上不一定存在，只要运行时给polipo添加<strong>localDocumentRoot</strong>和<strong>diskCacheRoot</strong>选项，设置正确的目录就没有问题了。</p>
+
+<p><a href="http://jeeker.net/article/compile-shadowsocks-libev-for-synology-nas-dsm/#more-31497" class="more-link">Read more...</a></p>
+<!-- content end -->
+    </div><!-- .entry-content -->
+    <div class="entry-meta">
+        <ul>
+            <li class="entry-author">Posted by JinnLynn</li>
+            <li class="entry-categories"> in 
+        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+</li>
+            <li class="entry-human-time-diff"> on May 12, 2016</li>
+            <li class="entry-comments"> with <a href="http://jeeker.net/article/compile-shadowsocks-libev-for-synology-nas-dsm/#comments" title="Comment on 在Synology群晖NAS上使用shadowsocks-libev、polipo">Comments</a></li> 
+        </ul>
+    </div><!-- .entry-meta -->
+</div><!-- #post-31497 -->
 <div id="post-81780" class="post-list post post-post post-publish">
     <div class="entry-head">
         <h1><a href="http://jeeker.net/article/synology-nas-external-ip-change-notify/" title="Synology群晖NAS外部IP更新通知" rel="bookmark">Synology群晖NAS外部IP更新通知</a></h1>

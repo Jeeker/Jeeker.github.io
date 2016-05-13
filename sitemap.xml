@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <url>
         <loc>http://jeeker.net/article/compile-shadowsocks-libev-for-synology-nas-dsm/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/article/diablo3-hero-data-statistics/</loc>
@@ -154,35 +154,35 @@
     </url>
     <url>
         <loc>http://jeeker.net/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/page/2/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/page/3/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/page/4/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/page/5/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/page/6/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/page/7/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/archives/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/category/thinking/</loc>
@@ -202,19 +202,19 @@
     </url>
     <url>
         <loc>http://jeeker.net/category/developer/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/category/developer/page/2/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/category/developer/page/3/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/category/developer/page/4/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/tag/python/</loc>
@@ -266,7 +266,11 @@
     </url>
     <url>
         <loc>http://jeeker.net/tag/nas/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
+    </url>
+    <url>
+        <loc>http://jeeker.net/tag/synology/</loc>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/tag/os-x/</loc>
@@ -285,8 +289,8 @@
         <lastmod>2013-05-08T01:59:42Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/synology/</loc>
-        <lastmod>2014-12-23T09:07:51Z</lastmod>
+        <loc>http://jeeker.net/tag/%E7%BE%A4%E6%99%96/</loc>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/tag/itunes/</loc>
@@ -299,10 +303,6 @@
     <url>
         <loc>http://jeeker.net/tag/download-station/</loc>
         <lastmod>2014-12-23T09:02:26Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/%E7%BE%A4%E6%99%96/</loc>
-        <lastmod>2014-12-23T09:07:51Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/tag/git/</loc>
@@ -327,10 +327,6 @@
     <url>
         <loc>http://jeeker.net/tag/chinese/</loc>
         <lastmod>2013-05-08T01:25:08Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/%E6%B7%98%E5%AE%9D/</loc>
-        <lastmod>2015-01-06T00:43:33Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/tag/app/</loc>
@@ -363,6 +359,10 @@
     <url>
         <loc>http://jeeker.net/tag/pjblog/</loc>
         <lastmod>2013-05-08T02:33:18Z</lastmod>
+    </url>
+    <url>
+        <loc>http://jeeker.net/tag/startssl/</loc>
+        <lastmod>2013-05-08T01:19:05Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/tag/%E4%B9%94%E5%B8%83%E6%96%AF/</loc>
@@ -401,20 +401,16 @@
         <lastmod>2014-12-23T09:02:26Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/startssl/</loc>
-        <lastmod>2013-05-08T01:19:05Z</lastmod>
+        <loc>http://jeeker.net/tag/iphone/</loc>
+        <lastmod>2013-05-08T01:59:42Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/tag/%E6%84%9F%E6%82%9F/</loc>
         <lastmod>2012-12-28T05:12:00Z</lastmod>
     </url>
     <url>
-        <loc>http://jeeker.net/tag/%E4%BB%A3%E7%90%86/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
-    </url>
-    <url>
-        <loc>http://jeeker.net/tag/iphone/</loc>
-        <lastmod>2013-05-08T01:59:42Z</lastmod>
+        <loc>http://jeeker.net/tag/%E6%B7%98%E5%AE%9D/</loc>
+        <lastmod>2015-01-06T00:43:33Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/tag/%E6%95%99%E7%A8%8B/</loc>
@@ -438,7 +434,7 @@
     </url>
     <url>
         <loc>http://jeeker.net/tag/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/tag/javascript/</loc>
@@ -454,11 +450,15 @@
     </url>
     <url>
         <loc>http://jeeker.net/tag/shadowsocks-libev/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
+    </url>
+    <url>
+        <loc>http://jeeker.net/tag/polipo/</loc>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/tag/proxy/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/tag/%E5%BF%AB%E8%BD%A6/</loc>
@@ -509,6 +509,10 @@
         <lastmod>2014-12-23T09:05:43Z</lastmod>
     </url>
     <url>
+        <loc>http://jeeker.net/tag/%E4%BB%A3%E7%90%86/</loc>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
+    </url>
+    <url>
         <loc>http://jeeker.net/tag/asp/</loc>
         <lastmod>2013-05-08T02:33:18Z</lastmod>
     </url>
@@ -522,7 +526,7 @@
     </url>
     <url>
         <loc>http://jeeker.net/tag/shadowsocks/</loc>
-        <lastmod>2016-05-12T09:24:04Z</lastmod>
+        <lastmod>2016-05-13T01:49:49Z</lastmod>
     </url>
     <url>
         <loc>http://jeeker.net/tag/applescript/</loc>

@@ -49,11 +49,11 @@
 
 
 
-<div id="post-45097" class="post post-single post-post post-publish">
+<div id="post-31497" class="post post-single post-post post-publish">
     <div class="entry-head">
         <h1>在Synology群晖NAS上使用shadowsocks-libev、polipo</h1>
-        <p class="entry-date" title="2016-05-11 13:38:17">
-            <span class="day">11</span>
+        <p class="entry-date" title="2016-05-12 13:38:17">
+            <span class="day">12</span>
             <span class="month">May</span>
         </p>
     </div><!-- .entry-header -->
@@ -175,6 +175,22 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
 </code></pre></div>
 
 <p>　　同样的拷贝polipo-1.1.1目录到NAS即可，要注意的一点是运行时可能出现<code>Disabling disk cache: No such file or directory</code> 或 <code>Disabling local tree: No such file or directory</code>提示，这是因为编译默认的缓存目录和本地文档目录在NAS上不一定存在，只要运行时给polipo添加<strong>localDocumentRoot</strong>和<strong>diskCacheRoot</strong>选项，设置正确的目录就没有问题了。</p>
+
+<p><span id="more-31497"></span></p>
+
+<hr />
+
+<p><strong>REF:</strong></p>
+
+<ul>
+<li><a href="https://m.do.co/c/dbb13a862eff">DigitalOcean: Simple Cloud Computing, Built for Developers.</a></li>
+<li><a href="https://global.download.synology.com/download/Document/DeveloperGuide/DSM_Developer_Guide.pdf">Synology DiskStation Manager 3rd-Party Package Developer Guide</a></li>
+<li><a href="http://shadowsocks.org">shadowsocks</a></li>
+<li><a href="https://github.com/shadowsocks/shadowsocks-libev">shadowsocks-libev</a></li>
+<li><a href="https://www.irif.univ-paris-diderot.fr/~jch/software/polipo/">polipo</a></li>
+<li><a href="https://sourceforge.net/projects/dsgpl/files/">Synology Open Source Project</a></li>
+<li><a href="http://domoticx.com/synology-nas-cpu-lijst/">Synology NAS CPU list</a></li>
+</ul>
 <!-- content end -->
     </div><!-- .entry-content -->
     <div class="entry-meta">
@@ -183,11 +199,11 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
             <li class="entry-categories"> in 
         <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
-            <li class="entry-human-time-diff"> on May 11, 2016</li>
+            <li class="entry-human-time-diff"> on May 12, 2016</li>
             <li class="entry-comments">with <a href="http://jeeker.net/article/compile-shadowsocks-libev-for-synology-nas-dsm/#comments">comments</a></li>
         </ul>  
     </div><!-- .entry-meta -->
-</div><!-- #post-45097 -->
+</div><!-- #post-31497 -->
 <div id="comments">
 <!-- Duoshuo Comment BEGIN -->
     <div class="ds-thread" data-title="在Synology群晖NAS上使用shadowsocks-libev、polipo"></div>
