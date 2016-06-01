@@ -3,7 +3,7 @@
 
 &lt;p&gt;　　Python版的shadowsocks因作者&lt;a href="https://github.com/clowwindy"&gt;clowwindy&lt;/a&gt;&lt;a href="https://zh.wikipedia.org/wiki/Shadowsocks#.E5.81.9C.E6.AD.A2.E7.B6.AD.E8.AD.B7"&gt;被请喝茶早就停止更新&lt;/a&gt;，托开源的福，shadowsock有众多其它语言版本，比如纯C的&lt;a href="https://github.com/shadowsocks/shadowsocks-libev"&gt;shadowsocks-libev&lt;/a&gt;，较低的资源消耗更适合配置一般的VPS和我那内存仅区区&lt;em&gt;128M&lt;/em&gt;的NAS。&lt;/p&gt;
 
-&lt;p&gt;　　&lt;a href="https://m.do.co/c/dbb13a862eff"&gt;VPS&lt;/a&gt;操作系统是Ubuntu，不论是自己编译还是从软件源安装都很简单，但群晖NAS上就比较麻烦了。NAS配置低的惨不忍睹，而且缺少编译环境，只能在其他Linux服务器上进行交叉编译。关于交叉编译，Synology提供了详尽的&lt;a href="https://global.download.synology.com/download/Document/DeveloperGuide/DSM_Developer_Guide.pdf"&gt;开发指南&lt;/a&gt;可供参考。&lt;/p&gt;
+&lt;p&gt;　　&lt;a href="https://m.do.co/c/dbb13a862eff"&gt;VPS&lt;/a&gt;操作系统是Ubuntu，因此服务端不论是自己编译还是从软件源安装都很简单，Windows和Mac OS X上也有客户端可以直接使用，唯一有点麻烦的就是在群晖NAS上。NAS配置低的惨不忍睹，而且缺少编译环境，只能在其他Linux服务器上进行交叉编译。关于交叉编译，Synology提供了详尽的&lt;a href="https://global.download.synology.com/download/Document/DeveloperGuide/DSM_Developer_Guide.pdf"&gt;开发指南&lt;/a&gt;可供参考。&lt;/p&gt;
 
 &lt;h5&gt;一、环境准备&lt;/h5&gt;
 
