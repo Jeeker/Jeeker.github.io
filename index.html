@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?53190" />
+    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?48187" />
     <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
@@ -66,7 +66,7 @@
 
 <h5>一、环境准备</h5>
 
-<p>　　1. 准备编译服务器，一般常见的Linux发行版都没有问题，但需要注意的是必须是32位的，我是在Paralels Desktop虚拟机里安装的Ubuntu 16.04 i386。</p>
+<p>　　1. 准备编译服务器，一般常见的Linux发行版都没有问题，但需要注意的是如果是32位的系统需要安装<strong>libc6-i386</strong>，我是在Paralels Desktop虚拟机里安装的Ubuntu 16.04 amd64。</p>
 
 <p>　　2. 确定NAS的<a href="http://domoticx.com/synology-nas-cpu-lijst/">CPU类型</a>、DSM版本，下载对应的<a href="https://sourceforge.net/projects/dsgpl/files/">Tool Chains</a>，如我的老爷机DS211j，<strong>CPU: Marvell mv6282 DSM: 6.0</strong>，需要下载的就是<a href="https://sourceforge.net/projects/dsgpl/files/DSM%206.0%20Tool%20Chains/Marvell%2088F628x%20Linux%202.6.32/">6281-gcc464_glibc215_88f6281-GPL.txz</a>。</p>
 
@@ -85,6 +85,8 @@
 
 <span class="c1"># 安装工具</span>
 sudo apt-get -y install make binutils
+<span class="c1"># 64位系统上需安装32位libc</span>
+uname -p <span class="p">|</span> grep -q <span class="m">64</span> <span class="o">&amp;&amp;</span> sudo apt -y install libc6-i386
 
 <span class="c1"># 解压Tool Chains，将生成arm-marvell-linux-gnueabi文件夹</span>
 tar xvf 6281-gcc464_glibc215_88f6281-GPL.txz
@@ -1106,9 +1108,9 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?53190"></script>
+<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?48187"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?53190'></script>
+<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?48187'></script>
 <![endif]-->
 
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>

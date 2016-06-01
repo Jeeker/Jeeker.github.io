@@ -7,7 +7,7 @@
 
 &lt;h5&gt;一、环境准备&lt;/h5&gt;
 
-&lt;p&gt;　　1. 准备编译服务器，一般常见的Linux发行版都没有问题，但需要注意的是必须是32位的，我是在Paralels Desktop虚拟机里安装的Ubuntu 16.04 i386。&lt;/p&gt;
+&lt;p&gt;　　1. 准备编译服务器，一般常见的Linux发行版都没有问题，但需要注意的是如果是32位的系统需要安装&lt;strong&gt;libc6-i386&lt;/strong&gt;，我是在Paralels Desktop虚拟机里安装的Ubuntu 16.04 amd64。&lt;/p&gt;
 
 &lt;p&gt;　　2. 确定NAS的&lt;a href="http://domoticx.com/synology-nas-cpu-lijst/"&gt;CPU类型&lt;/a&gt;、DSM版本，下载对应的&lt;a href="https://sourceforge.net/projects/dsgpl/files/"&gt;Tool Chains&lt;/a&gt;，如我的老爷机DS211j，&lt;strong&gt;CPU: Marvell mv6282 DSM: 6.0&lt;/strong&gt;，需要下载的就是&lt;a href="https://sourceforge.net/projects/dsgpl/files/DSM%206.0%20Tool%20Chains/Marvell%2088F628x%20Linux%202.6.32/"&gt;6281-gcc464_glibc215_88f6281-GPL.txz&lt;/a&gt;。&lt;/p&gt;
 
@@ -26,6 +26,8 @@
 
 &lt;span class="c1"&gt;# 安装工具&lt;/span&gt;
 sudo apt-get -y install make binutils
+&lt;span class="c1"&gt;# 64位系统上需安装32位libc&lt;/span&gt;
+uname -p &lt;span class="p"&gt;|&lt;/span&gt; grep -q &lt;span class="m"&gt;64&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo apt -y install libc6-i386
 
 &lt;span class="c1"&gt;# 解压Tool Chains，将生成arm-marvell-linux-gnueabi文件夹&lt;/span&gt;
 tar xvf 6281-gcc464_glibc215_88f6281-GPL.txz
