@@ -7,10 +7,10 @@
 <head>
     <title>第一个Arduino实验: 新浪微博关注好友状态更新数量 - Jeeker</title>
     <meta charset="UTF-8">
-    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
-    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?48187" />
-    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <link rel="apple-touch-icon" href="https://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="https://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://jeeker.net/assets/style.css?29349" />
+    <link rel="alternate" type="application/atom+xml" href="https://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
     <!-- <meta name="keywords" content="" /> -->
@@ -22,12 +22,12 @@
     <div id="header">
         <div id="menu">
             <ul>
-                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
-                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
-                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
-                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
-                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
-                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+                <li><a href="https://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="https://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="https://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="https://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="https://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="https://jeeker.net/about/"><span>About</span></a></li>
             </ul>
         </div>
     </div><!-- ＃header -->
@@ -110,12 +110,12 @@
 <span class="p">]</span>
 
 <span class="k">class</span> <span class="nc">WBftc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lastStatusID</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">initArduino</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="p">,</span> <span class="n">pyfirmata</span><span class="o">.</span><span class="n">Arduino</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">14</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">arduino</span><span class="o">.</span><span class="n">digital</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -181,7 +181,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">outputArduino</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">flashDotPoint</span><span class="p">()</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">WBftc</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
     <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
@@ -270,7 +270,7 @@
             <li class="entry-categories"> in 
 </li>
             <li class="entry-human-time-diff"> on Mar 20, 2013</li>
-            <li class="entry-comments">with <a href="http://jeeker.net/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/#comments">comments</a></li>
+            <li class="entry-comments">with <a href="https://jeeker.net/article/first-arduino-experiment-show-amount-of-weibo-friend-new-status/#comments">comments</a></li>
         </ul>  
     </div><!-- .entry-meta -->
 </div><!-- #post-64180 -->
@@ -310,12 +310,12 @@
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?48187"></script>
+<script type="text/javascript" src="https://jeeker.net/assets/script/action.js?29349"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?48187'></script>
+<script type='text/javascript' src='https://jeeker.net/assets/script/css3-mediaqueries.js?29349'></script>
 <![endif]-->
 
-<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="https://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
 <script type="text/javascript" src="/assets/additional.js"></script>
 <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();</script>
 

@@ -7,10 +7,10 @@
 <head>
     <title>Developer - Jeeker</title>
     <meta charset="UTF-8">
-    <link rel="apple-touch-icon" href="http://jeeker.net/assets/images/apple-touch-icon.png"/>
-    <link rel="shortcut icon" type="image/x-icon" href="http://jeeker.net/assets/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://jeeker.net/assets/style.css?48187" />
-    <link rel="alternate" type="application/atom+xml" href="http://jeeker.net/atom.xml" />
+    <link rel="apple-touch-icon" href="https://jeeker.net/assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="https://jeeker.net/assets/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://jeeker.net/assets/style.css?29349" />
+    <link rel="alternate" type="application/atom+xml" href="https://jeeker.net/atom.xml" />
     <!-- <link rel='canonical' href="" /> -->
     <meta name="robots" content="index,follow" />
     <!-- <meta name="keywords" content="" /> -->
@@ -22,12 +22,12 @@
     <div id="header">
         <div id="menu">
             <ul>
-                <li><a href="http://jeeker.net/"><span>Home</span></a></li>
-                <li><a href="http://jeeker.net/projects/"><span>Projects</span></a></li>
-                <li><a href="http://jeeker.net/tags/"><span>Tags</span></a></li>
-                <li><a href="http://jeeker.net/archives/"><span>Archives</span></a></li>
-                <li><a href="http://jeeker.net/atom.xml"><span>Feed</span></a></li>
-                <li><a href="http://jeeker.net/about/"><span>About</span></a></li>
+                <li><a href="https://jeeker.net/"><span>Home</span></a></li>
+                <li><a href="https://jeeker.net/projects/"><span>Projects</span></a></li>
+                <li><a href="https://jeeker.net/tags/"><span>Tags</span></a></li>
+                <li><a href="https://jeeker.net/archives/"><span>Archives</span></a></li>
+                <li><a href="https://jeeker.net/atom.xml"><span>Feed</span></a></li>
+                <li><a href="https://jeeker.net/about/"><span>About</span></a></li>
             </ul>
         </div>
     </div><!-- ＃header -->
@@ -51,7 +51,7 @@
 
 <div id="post-31497" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/compile-shadowsocks-libev-for-synology-nas-dsm/" title="在Synology群晖NAS上使用shadowsocks-libev、polipo" rel="bookmark">在Synology群晖NAS上使用shadowsocks-libev、polipo</a></h1>
+        <h1><a href="https://jeeker.net/article/compile-shadowsocks-libev-for-synology-nas-dsm/" title="在Synology群晖NAS上使用shadowsocks-libev、polipo" rel="bookmark">在Synology群晖NAS上使用shadowsocks-libev、polipo</a></h1>
         <p class="entry-date" title="2016-05-12 13:38:17">
             <span class="day">12</span>
             <span class="month">May</span>
@@ -65,7 +65,7 @@
 
 <p>　　<a href="https://m.do.co/c/dbb13a862eff">VPS</a>操作系统是Ubuntu，因此服务端不论是自己编译还是从软件源安装都很简单，Windows和Mac OS X上也有客户端可以直接使用，唯一有点麻烦的就是群晖NAS。NAS配置低的惨不忍睹，而且缺少编译环境，只能在其他Linux服务器上进行交叉编译。关于交叉编译，Synology提供了详尽的<a href="https://global.download.synology.com/download/Document/DeveloperGuide/DSM_Developer_Guide.pdf">开发指南</a>可供参考。</p>
 
-<h5>一、环境准备</h5>
+<h5 id="-1">一、环境准备</h5>
 
 <p>　　1. 准备编译服务器，一般常见的Linux发行版都没有问题，但需要注意的是如果是32位的系统需要额外安装<strong>libc6-i386</strong>，我是在Paralels Desktop虚拟机里安装的Ubuntu 16.04 amd64。</p>
 
@@ -90,7 +90,7 @@ sudo apt-get -y install make binutils
 uname -p <span class="p">|</span> grep -q <span class="m">64</span> <span class="o">&amp;&amp;</span> sudo apt -y install libc6-i386
 
 <span class="c1"># 解压Tool Chains，将生成arm-marvell-linux-gnueabi文件夹</span>
-tar xvf 6281-gcc464_glibc215_88f6281-GPL.txz
+tar xvf <span class="m">6281</span>-gcc464_glibc215_88f6281-GPL.txz
 
 <span class="c1"># 编译环境变量，不同的CPU环境可能不同，详见Synology开发指南的Compile Open Source Projects章节</span>
 <span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span><span class="nv">$WDIR</span>/arm-marvell-linux-gnueabi/bin/arm-marvell-linux-gnueabi-gcc
@@ -178,23 +178,23 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
 
 <p>　　同样的拷贝polipo-1.1.1目录到NAS即可，要注意的一点是运行时可能出现<code>Disabling disk cache: No such file or directory</code> 或 <code>Disabling local tree: No such file or directory</code>提示，这是因为编译默认的缓存目录和本地文档目录在NAS上不一定存在，只要运行时给polipo添加<strong>localDocumentRoot</strong>和<strong>diskCacheRoot</strong>选项，设置正确的目录就没有问题了。</p>
 
-<p><a href="http://jeeker.net/article/compile-shadowsocks-libev-for-synology-nas-dsm/#more-31497" class="more-link">Read more...</a></p>
+<p><a href="https://jeeker.net/article/compile-shadowsocks-libev-for-synology-nas-dsm/#more-31497" class="more-link">Read more...</a></p>
 <!-- content end -->
     </div><!-- .entry-content -->
     <div class="entry-meta">
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="https://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on May 12, 2016</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/compile-shadowsocks-libev-for-synology-nas-dsm/#comments" title="Comment on 在Synology群晖NAS上使用shadowsocks-libev、polipo">Comments</a></li> 
+            <li class="entry-comments"> with <a href="https://jeeker.net/article/compile-shadowsocks-libev-for-synology-nas-dsm/#comments" title="Comment on 在Synology群晖NAS上使用shadowsocks-libev、polipo">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-31497 -->
 <div id="post-93497" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/diablo3-hero-data-statistics/" title="Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计" rel="bookmark">Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计</a></h1>
+        <h1><a href="https://jeeker.net/article/diablo3-hero-data-statistics/" title="Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计" rel="bookmark">Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计</a></h1>
         <p class="entry-date" title="2015-04-14 14:38:17">
             <span class="day">14</span>
             <span class="month">Apr</span>
@@ -312,7 +312,7 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
         <span class="n">html</span> <span class="o">=</span> <span class="n">_get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">is_json</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
         <span class="c1"># re parse</span>
         <span class="n">lst</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
-            <span class="s2">r&quot;a href=</span><span class="se">\&quot;</span><span class="s2">(.*)</span><span class="se">\&quot;</span><span class="s2"> title=.*class=</span><span class="se">\&quot;</span><span class="s2">icon-profile link-first</span><span class="se">\&quot;</span><span class="s2">&gt;&quot;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s2">&quot;a href=</span><span class="se">\&quot;</span><span class="s2">(.*)</span><span class="se">\&quot;</span><span class="s2"> title=.*class=</span><span class="se">\&quot;</span><span class="s2">icon-profile link-first</span><span class="se">\&quot;</span><span class="s2">&gt;&quot;</span><span class="p">,</span>
             <span class="n">html</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">),</span>
             <span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">)</span>
         <span class="c1"># BeautifulSoup parse</span>
@@ -537,7 +537,7 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
     <span class="n">output</span><span class="p">(</span><span class="n">hero_stated</span><span class="p">,</span> <span class="n">hero_stat_failed</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </code></pre></div>
 
@@ -547,16 +547,16 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="https://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Apr 14, 2015</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/diablo3-hero-data-statistics/#comments" title="Comment on Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计">Comments</a></li> 
+            <li class="entry-comments"> with <a href="https://jeeker.net/article/diablo3-hero-data-statistics/#comments" title="Comment on Python脚本: Diablo3排名前1000位玩家英雄使用的技能统计">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-93497 -->
 <div id="post-74697" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/taobao-orders-statistics/" title="Python脚本: 淘宝消费情况统计" rel="bookmark">Python脚本: 淘宝消费情况统计</a></h1>
+        <h1><a href="https://jeeker.net/article/taobao-orders-statistics/" title="Python脚本: 淘宝消费情况统计" rel="bookmark">Python脚本: 淘宝消费情况统计</a></h1>
         <p class="entry-date" title="2014-12-19 15:38:17">
             <span class="day">19</span>
             <span class="month">Dec</span>
@@ -705,7 +705,7 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
         <span class="s1">&#39;token&#39;</span> <span class="p">:</span> <span class="n">token</span><span class="p">,</span>
         <span class="s1">&#39;callback&#39;</span> <span class="p">:</span> <span class="s1">&#39;stCallback4&#39;</span><span class="p">})</span>
     <span class="n">content</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="n">st</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;&quot;st&quot;:&quot;(\S*)&quot;( |})&#39;</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&quot;st&quot;:&quot;(\S*)&quot;( |})&#39;</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="c1"># 2.1 重定向</span>
     <span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://login.taobao.com/member/vst.htm&#39;</span><span class="p">,</span>
         <span class="p">{</span><span class="s1">&#39;st&#39;</span> <span class="p">:</span> <span class="n">st</span><span class="p">,</span> <span class="s1">&#39;TPL_uesrname&#39;</span> <span class="p">:</span> <span class="n">usr</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;GB18030&#39;</span><span class="p">)})</span>
@@ -915,7 +915,7 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
-        <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;python {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
+        <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;python {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
     <span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-u&#39;</span><span class="p">,</span> <span class="s1">&#39;--username&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;淘宝用户名&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;--password&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;淘宝密码&#39;</span><span class="p">)</span>
@@ -982,7 +982,7 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
         <span class="n">ouput_orders</span><span class="p">(</span><span class="n">orders</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </code></pre></div>
 
@@ -992,16 +992,16 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="https://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Dec 19, 2014</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/taobao-orders-statistics/#comments" title="Comment on Python脚本: 淘宝消费情况统计">Comments</a></li> 
+            <li class="entry-comments"> with <a href="https://jeeker.net/article/taobao-orders-statistics/#comments" title="Comment on Python脚本: 淘宝消费情况统计">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-74697 -->
 <div id="post-19469" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/alfred-workflow-chinese-tv-epg/" title="Alfred Workflow: 国内电视频道节目表" rel="bookmark">Alfred Workflow: 国内电视频道节目表</a></h1>
+        <h1><a href="https://jeeker.net/article/alfred-workflow-chinese-tv-epg/" title="Alfred Workflow: 国内电视频道节目表" rel="bookmark">Alfred Workflow: 国内电视频道节目表</a></h1>
         <p class="entry-date" title="2013-04-28 11:24:29">
             <span class="day">28</span>
             <span class="month">Apr</span>
@@ -1027,16 +1027,16 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="https://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Apr 28, 2013</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/alfred-workflow-chinese-tv-epg/#comments" title="Comment on Alfred Workflow: 国内电视频道节目表">Comments</a></li> 
+            <li class="entry-comments"> with <a href="https://jeeker.net/article/alfred-workflow-chinese-tv-epg/#comments" title="Comment on Alfred Workflow: 国内电视频道节目表">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-19469 -->
 <div id="post-89069" class="post-list post post-post post-publish">
     <div class="entry-head">
-        <h1><a href="http://jeeker.net/article/alfred-workflow-app-dig/" title="Alfred Workflow: App Dig" rel="bookmark">Alfred Workflow: App Dig</a></h1>
+        <h1><a href="https://jeeker.net/article/alfred-workflow-app-dig/" title="Alfred Workflow: App Dig" rel="bookmark">Alfred Workflow: App Dig</a></h1>
         <p class="entry-date" title="2013-04-15 09:24:29">
             <span class="day">15</span>
             <span class="month">Apr</span>
@@ -1068,17 +1068,17 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
 </ol>
 </div>
 
-<p><a href="http://jeeker.net/article/alfred-workflow-app-dig/#more-89069" class="more-link">Read more...</a></p>
+<p><a href="https://jeeker.net/article/alfred-workflow-app-dig/#more-89069" class="more-link">Read more...</a></p>
 <!-- content end -->
     </div><!-- .entry-content -->
     <div class="entry-meta">
         <ul>
             <li class="entry-author">Posted by JinnLynn</li>
             <li class="entry-categories"> in 
-        <a href="http://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
+        <a href="https://jeeker.net/category/developer/" title="View all posts in Developer" rel="category tag">Developer</a>
 </li>
             <li class="entry-human-time-diff"> on Apr 15, 2013</li>
-            <li class="entry-comments"> with <a href="http://jeeker.net/article/alfred-workflow-app-dig/#comments" title="Comment on Alfred Workflow: App Dig">Comments</a></li> 
+            <li class="entry-comments"> with <a href="https://jeeker.net/article/alfred-workflow-app-dig/#comments" title="Comment on Alfred Workflow: App Dig">Comments</a></li> 
         </ul>
     </div><!-- .entry-meta -->
 </div><!-- #post-89069 -->
@@ -1086,7 +1086,7 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
 
     <div id="pagenavi">
         <span class="pages">Page 1 of 4</span>
-        <a href="http://jeeker.net/category/developer/page/2/" class="nav-older">Older</a>
+        <a href="https://jeeker.net/category/developer/page/2/" class="nav-older">Older</a>
     </div><!-- #pagenavi -->
    
     </div><!-- #content -->
@@ -1109,12 +1109,12 @@ cp polipo.info <span class="nv">$PREFIX</span>/info/
 </div><!-- #wrapper -->
 
 <!-- print javascript -->
-<script type="text/javascript" src="http://jeeker.net/assets/script/action.js?48187"></script>
+<script type="text/javascript" src="https://jeeker.net/assets/script/action.js?29349"></script>
 <!--[if lt IE 9]>
-<script type='text/javascript' src='http://jeeker.net/assets/script/css3-mediaqueries.js?48187'></script>
+<script type='text/javascript' src='https://jeeker.net/assets/script/css3-mediaqueries.js?29349'></script>
 <![endif]-->
 
-<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
+<script type="text/javascript" src="https://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1635756822" charset="utf-8"></script>
 <script type="text/javascript" src="/assets/additional.js"></script>
 <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?11f04d253f26f8e70f1701a6920da168";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();</script>
 
